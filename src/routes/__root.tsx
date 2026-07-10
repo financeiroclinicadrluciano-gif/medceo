@@ -88,10 +88,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
+      { title: "Lovable App" },
+      { property: "og:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "description", content: "Chic Website Design creates and deploys premium, refined websites with fine-tuned adjustments." },
+      { property: "og:description", content: "Chic Website Design creates and deploys premium, refined websites with fine-tuned adjustments." },
+      { name: "twitter:description", content: "Chic Website Design creates and deploys premium, refined websites with fine-tuned adjustments." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/XOeNX6cvz2Y2unUIBU3s4iZz4cH3/social-images/social-1783713256991-ChatGPT-Image-1-de-jun.-de-2026_-16_12_15_(1).webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/XOeNX6cvz2Y2unUIBU3s4iZz4cH3/social-images/social-1783713256991-ChatGPT-Image-1-de-jun.-de-2026_-16_12_15_(1).webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
