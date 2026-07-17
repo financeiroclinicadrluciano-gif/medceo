@@ -54,13 +54,13 @@ Os componentes foram adaptados para produção, em vez de copiar demos inteiros:
 
 - `SplitText`: headline revelada por linhas, sem dependência de medição do DOM.
 - `CanvasText`: uma palavra editorial com canvas 2D, pausado fora da viewport.
-- `ChromaGrid`: cinco pilares do diagnóstico com foco por cursor e fallback estático no mobile.
 - `SpotlightSurface`: luz sutil em cards de filtro, sem WebGL.
 - `TiltSurface`: profundidade limitada no case do Dr. Luiz, desligada em touch/reduced motion.
 - `AnimatedCaseStudy`: padrão de testimonial animado sem inventar depoimento em primeira pessoa.
-- `EditorialCarousel`: princípio do Apple Cards em `scroll-snap`, sem `next/image`.
+- `MethodPillarsMarquee`: seis retratos editoriais em esteira contínua no desktop, com pausa acessível e `scroll-snap` manual em touch/reduced motion.
 - `DottedGlowBackground`: canvas leve no CTA final, pausado fora da viewport.
 - O retrato do hero usa AVIF responsivo com fallback PNG, reduzindo a transferência principal sem perder transparência.
+- Os retratos de Dr. Luciano, Gustavo, Marcos, Alessandra, Michele e Amanda ficam em `src/assets/medceo/method-pillars/`, dimensionados para a área real de uso.
 
 ## Regras de conteúdo e conversão
 

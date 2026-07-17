@@ -7,23 +7,25 @@ import AnimatedContent from "@/components/AnimatedContent";
 import DiagnosticModal from "@/components/DiagnosticModal";
 import AnimatedCaseStudy, { type CaseSlide } from "@/components/landing/AnimatedCaseStudy";
 import CanvasText from "@/components/landing/CanvasText";
-import ChromaGrid, { type ChromaPillar } from "@/components/landing/ChromaGrid";
 import DottedGlowBackground from "@/components/landing/DottedGlowBackground";
-import EditorialCarousel, { type EditorialSlide } from "@/components/landing/EditorialCarousel";
 import { SpotlightSurface, TiltSurface } from "@/components/landing/InteractiveSurfaces";
+import MethodPillarsMarquee, { type MethodPillar } from "@/components/landing/MethodPillarsMarquee";
 import SplitText from "@/components/landing/SplitText";
 
-import drLucianoPortrait from "@/assets/dr-luciano.jpg";
 import drLucianoCutoutAvif from "@/assets/medceo/dr-luciano-cutout.avif";
 import drLucianoCutoutMobileAvif from "@/assets/medceo/dr-luciano-cutout-mobile.avif";
 import drLucianoCutout from "@/assets/medceo/dr-luciano-cutout.png";
 import drLucianoCutoutMobile from "@/assets/medceo/dr-luciano-cutout-mobile.png";
-import drEditorial from "@/assets/medceo/dr-luciano-editorial.jpg";
 import heroBackground from "@/assets/medceo/medceo-hero-background.jpg";
-import drHero from "@/assets/medceo/dr-luciano-hero.jpg";
 import drLucianoSectionBackground from "@/assets/medceo/dr-luciano-section-background.jpg";
 import drLuizProfile from "@/assets/medceo/dr-luiz-profile-proof.png";
 import drLuizSectionBackground from "@/assets/medceo/dr-luiz-section-background.jpg";
+import alessandraPortrait from "@/assets/medceo/method-pillars/alessandra.jpg";
+import amandaPortrait from "@/assets/medceo/method-pillars/amanda.jpg";
+import drLucianoMethodPortrait from "@/assets/medceo/method-pillars/dr-luciano.jpg";
+import gustavoPortrait from "@/assets/medceo/method-pillars/gustavo.jpg";
+import marcosPortrait from "@/assets/medceo/method-pillars/marcos.jpg";
+import michelePortrait from "@/assets/medceo/method-pillars/michele.jpg";
 
 const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
 const DESCRIPTION =
@@ -89,26 +91,6 @@ const deliverables = [
   },
 ];
 
-const pillars: ChromaPillar[] = [
-  {
-    number: "01",
-    title: "Diagnóstico",
-    description: "Clareza estratégica e dependência real do dono.",
-  },
-  { number: "02", title: "Margem", description: "Lucro, previsibilidade e qualidade financeira." },
-  {
-    number: "03",
-    title: "Comercial",
-    description: "Conversão, cadência e aproveitamento da demanda.",
-  },
-  {
-    number: "04",
-    title: "Operação",
-    description: "Processos, autonomia e consistência da entrega.",
-  },
-  { number: "05", title: "Escala", description: "Estrutura para crescer sem ampliar o caos." },
-];
-
 const caseSlides: CaseSlide[] = [
   {
     label: "Patamar inicial",
@@ -132,24 +114,54 @@ const caseSlides: CaseSlide[] = [
   },
 ];
 
-const editorialSlides: EditorialSlide[] = [
+const methodPillars: MethodPillar[] = [
   {
-    image: drEditorial,
-    alt: "Retrato editorial em preto e branco do Dr. Luciano Alves",
-    eyebrow: "Leitura",
-    title: "Critério antes de iniciativa",
+    number: "01",
+    name: "Dr. Luciano",
+    role: "Direção & Mentalidade",
+    description: "Direção, método e mentalidade CEO.",
+    image: drLucianoMethodPortrait,
+    imagePosition: "center 24%",
   },
   {
-    image: drHero,
-    alt: "Retrato profissional do Dr. Luciano Alves",
-    eyebrow: "Experiência",
-    title: "Operação médica real",
+    number: "02",
+    name: "Gustavo",
+    role: "Marketing",
+    description: "Marketing, posicionamento e demanda.",
+    image: gustavoPortrait,
+    imagePosition: "center 18%",
   },
   {
-    image: drLucianoPortrait,
-    alt: "Dr. Luciano Alves em retrato profissional",
-    eyebrow: "Direção",
-    title: "Gestão traduzida em decisão",
+    number: "03",
+    name: "Marcos",
+    role: "Comercial",
+    description: "Comercial, CRM e conversão.",
+    image: marcosPortrait,
+    imagePosition: "center 16%",
+  },
+  {
+    number: "04",
+    name: "Alessandra",
+    role: "Gestão",
+    description: "Gestão, equipe e cultura.",
+    image: alessandraPortrait,
+    imagePosition: "center 16%",
+  },
+  {
+    number: "05",
+    name: "Michele",
+    role: "Projetos",
+    description: "Projetos, integração e execução.",
+    image: michelePortrait,
+    imagePosition: "center 17%",
+  },
+  {
+    number: "06",
+    name: "Amanda",
+    role: "Filmmaker",
+    description: "Criativos do setor audiovisual.",
+    image: amandaPortrait,
+    imagePosition: "center 14%",
   },
 ];
 
@@ -362,18 +374,6 @@ function Index() {
                 </AnimatedContent>
               ))}
             </div>
-
-            <AnimatedContent className="mc-pillars-heading" distance={20}>
-              <div>
-                <p className="mc-eyebrow mc-eyebrow-dark">Cinco pilares avaliados</p>
-                <h2>O foco aparece quando a operação inteira entra em perspectiva.</h2>
-              </div>
-              <p>Passe o cursor para revelar o eixo de atenção. No celular, a leitura é direta.</p>
-            </AnimatedContent>
-
-            <AnimatedContent distance={18}>
-              <ChromaGrid items={pillars} />
-            </AnimatedContent>
           </div>
         </section>
 
@@ -470,12 +470,33 @@ function Index() {
               </div>
             </div>
           </div>
+        </section>
 
-          <div className="mc-container mc-authority-gallery">
-            <AnimatedContent distance={22}>
-              <EditorialCarousel slides={editorialSlides} />
+        <section
+          id="pilares-metodo"
+          className="mc-method-pillars-section"
+          aria-labelledby="method-pillars-title"
+        >
+          <div className="mc-container mc-method-pillars-heading">
+            <AnimatedContent distance={24}>
+              <p className="mc-eyebrow">Pilares do Método</p>
+              <h2 id="method-pillars-title">
+                A clínica cresce quando cada pilar trabalha na mesma direção.
+              </h2>
+            </AnimatedContent>
+
+            <AnimatedContent className="mc-method-pillars-intro" distance={18} delay={0.05}>
+              <span>Seis frentes. Uma execução integrada.</span>
+              <p>
+                Estratégia, demanda, vendas, gestão, projetos e comunicação conectados para tirar o
+                plano do papel e sustentar o próximo nível da operação.
+              </p>
             </AnimatedContent>
           </div>
+
+          <AnimatedContent distance={18} delay={0.08}>
+            <MethodPillarsMarquee items={methodPillars} />
+          </AnimatedContent>
         </section>
 
         <section id="diagnostico" className="mc-final-section">
