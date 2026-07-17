@@ -21,7 +21,9 @@ import drLucianoCutoutMobile from "@/assets/medceo/dr-luciano-cutout-mobile.png"
 import drEditorial from "@/assets/medceo/dr-luciano-editorial.jpg";
 import heroBackground from "@/assets/medceo/medceo-hero-background.jpg";
 import drHero from "@/assets/medceo/dr-luciano-hero.jpg";
+import drLucianoSectionBackground from "@/assets/medceo/dr-luciano-section-background.jpg";
 import drLuizProfile from "@/assets/medceo/dr-luiz-profile-proof.png";
+import drLuizSectionBackground from "@/assets/medceo/dr-luiz-section-background.jpg";
 
 const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
 const DESCRIPTION =
@@ -367,6 +369,13 @@ function Index() {
           className="mc-proof-section mc-section"
           aria-labelledby="proof-title"
         >
+          <div
+            className="mc-person-fold-background mc-proof-background"
+            style={{ backgroundImage: `url(${drLuizSectionBackground})` }}
+            aria-hidden="true"
+          />
+          <div className="mc-person-fold-wash mc-proof-wash" aria-hidden="true" />
+
           <div className="mc-container">
             <AnimatedContent className="mc-proof-heading" distance={24}>
               <p className="mc-eyebrow">Case MedCEO · Dr. Luiz Henrique</p>
@@ -407,43 +416,42 @@ function Index() {
         </section>
 
         <section id="autoridade" className="mc-authority-section mc-section">
-          <div className="mc-container">
-            <div className="mc-authority-feature">
-              <AnimatedContent className="mc-authority-image" distance={24}>
-                <img
-                  src={drEditorial}
-                  alt="Dr. Luciano Alves"
-                  width={4000}
-                  height={6000}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span>Dr. Luciano Alves · MedCEO</span>
-              </AnimatedContent>
+          <div className="mc-authority-fold">
+            <div
+              className="mc-person-fold-background mc-authority-background"
+              style={{ backgroundImage: `url(${drLucianoSectionBackground})` }}
+              aria-hidden="true"
+            />
+            <div className="mc-person-fold-wash mc-authority-wash" aria-hidden="true" />
 
-              <AnimatedContent className="mc-authority-copy" distance={24} delay={0.05}>
-                <p className="mc-eyebrow mc-eyebrow-dark">Quem interpreta o diagnóstico</p>
-                <h2>Experiência de operação médica traduzida em direção empresarial.</h2>
-                <div>
-                  <p>
-                    Médico e CEO da Natuá, o Dr. Luciano lidera uma operação real, com pacientes,
-                    equipe, comercial, margem e decisões para administrar todos os dias.
-                  </p>
-                  <p>
-                    É essa prática que orienta a leitura do diagnóstico: começar pelas respostas e
-                    pelo gargalo da clínica, não por uma solução pronta.
-                  </p>
-                </div>
-                <div className="mc-authority-principle">
-                  <span>Princípio de leitura</span>
-                  <p>
-                    Antes de crescer mais, o médico precisa saber qual parte da clínica ainda não
-                    sustenta o próximo nível.
-                  </p>
-                </div>
-              </AnimatedContent>
+            <div className="mc-container">
+              <div className="mc-authority-feature">
+                <AnimatedContent className="mc-authority-copy" distance={24} delay={0.05}>
+                  <p className="mc-eyebrow">Quem interpreta o diagnóstico</p>
+                  <h2>Experiência de operação médica traduzida em direção empresarial.</h2>
+                  <div>
+                    <p>
+                      Médico e CEO da Natuá, o Dr. Luciano lidera uma operação real, com pacientes,
+                      equipe, comercial, margem e decisões para administrar todos os dias.
+                    </p>
+                    <p>
+                      É essa prática que orienta a leitura do diagnóstico: começar pelas respostas e
+                      pelo gargalo da clínica, não por uma solução pronta.
+                    </p>
+                  </div>
+                  <div className="mc-authority-principle">
+                    <span>Princípio de leitura</span>
+                    <p>
+                      Antes de crescer mais, o médico precisa saber qual parte da clínica ainda não
+                      sustenta o próximo nível.
+                    </p>
+                  </div>
+                </AnimatedContent>
+              </div>
             </div>
+          </div>
 
+          <div className="mc-container mc-authority-gallery">
             <AnimatedContent distance={22}>
               <EditorialCarousel slides={editorialSlides} />
             </AnimatedContent>
