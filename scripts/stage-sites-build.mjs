@@ -13,11 +13,11 @@ await access(hostingFile);
 
 await rm(distDir, { recursive: true, force: true });
 await mkdir(join(distDir, "server"), { recursive: true });
-await mkdir(join(distDir, "public"), { recursive: true });
+await mkdir(join(distDir, "client"), { recursive: true });
 await mkdir(join(distDir, ".openai"), { recursive: true });
 
 await cp(join(outputDir, "server"), join(distDir, "server"), { recursive: true });
-await cp(join(outputDir, "public"), join(distDir, "public"), { recursive: true });
+await cp(join(outputDir, "public"), join(distDir, "client"), { recursive: true });
 await copyFile(hostingFile, join(distDir, ".openai", "hosting.json"));
 
 await writeFile(
@@ -26,9 +26,18 @@ await writeFile(
   "utf8",
 );
 
+const wranglerFile = join(distDir, "server", "wrangler.json");
+const wrangler = JSON.parse(await readFile(wranglerFile, "utf8"));
+wrangler.main = "index.js";
+wrangler.assets = {
+  ...(wrangler.assets ?? {}),
+  directory: "../client",
+};
+await writeFile(wranglerFile, `${JSON.stringify(wrangler, null, 2)}\n`, "utf8");
+
 const hosting = JSON.parse(await readFile(hostingFile, "utf8"));
 if (!hosting.project_id || typeof hosting.project_id !== "string") {
   throw new Error(".openai/hosting.json precisa conter um project_id válido.");
 }
 
-console.log("Sites staging ready: dist/server, dist/public and hosting metadata validated.");
+console.log("Sites staging ready: dist/server, dist/client and hosting metadata validated.");
