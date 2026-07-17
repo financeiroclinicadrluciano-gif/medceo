@@ -1,0 +1,45 @@
+/* =============================================================
+   MedCEO — Effects tokens: opacity, shadow, motion, z-index
+   Sombras sóbrias em night. Réguas/molduras finas via opacity.
+   prefers-reduced-motion zera durações.
+   ============================================================= */
+:root {
+  /* ---------- PRIMITIVE: opacity ---------- */
+  --medceo-opacity-disabled: 0.4; /* @kind other */
+  --medceo-opacity-muted: 0.6; /* @kind other */
+  --medceo-opacity-subtle: 0.82; /* @kind other */
+  --medceo-opacity-hairline: 0.35; /* @kind other */
+
+  /* ---------- PRIMITIVE: shadow (sóbria, base night) ---------- */
+  --medceo-shadow-sm: 0 1px 2px rgba(7,19,29,0.20);
+  --medceo-shadow-md: 0 8px 24px rgba(7,19,29,0.28);
+  --medceo-shadow-lg: 0 18px 48px rgba(7,19,29,0.36);
+
+  /* ---------- PRIMITIVE: motion ---------- */
+  --medceo-duration-fast: 150ms; /* @kind other */
+  --medceo-duration-base: 240ms; /* @kind other */
+  --medceo-duration-slow: 400ms; /* @kind other */
+  --medceo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --medceo-ease-entrance: cubic-bezier(0, 0, 0.2, 1); /* @kind other */
+  --medceo-ease-exit: cubic-bezier(0.4, 0, 1, 1); /* @kind other */
+
+  /* ---------- PRIMITIVE: z-index ---------- */
+  --medceo-z-base: 0; /* @kind other */
+  --medceo-z-raised: 10; /* @kind other */
+  --medceo-z-sticky: 100; /* @kind other */
+  --medceo-z-overlay: 1000; /* @kind other */
+  --medceo-z-modal: 1100; /* @kind other */
+  --medceo-z-toast: 1200; /* @kind other */
+
+  /* ---------- SEMANTIC: elevation roles ---------- */
+  --medceo-elevation-card: var(--medceo-shadow-md);
+  --medceo-elevation-overlay: var(--medceo-shadow-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --medceo-duration-fast: 0ms; /* @kind other */
+    --medceo-duration-base: 0ms; /* @kind other */
+    --medceo-duration-slow: 0ms; /* @kind other */
+  }
+}

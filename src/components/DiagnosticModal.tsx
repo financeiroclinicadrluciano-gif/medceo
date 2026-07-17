@@ -1,15 +1,30 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import {
-  X, Check, ChevronLeft, Award, Sparkles, TrendingUp, AlertTriangle, ArrowRight, Loader2,
+  Check,
+  ChevronLeft,
+  Award,
+  Sparkles,
+  TrendingUp,
+  AlertTriangle,
+  ArrowRight,
+  Loader2,
 } from "lucide-react";
+
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 interface DiagnosticModalProps {
   isOpen: boolean;
   onClose: () => void;
+  returnFocusRef: RefObject<HTMLElement | null>;
 }
 
 type Option = { text: string; score: 1 | 3 | 5; description: string };
-type Question = { id: number; pillar: PillarKey; question: string; options: [Option, Option, Option] };
+type Question = {
+  id: number;
+  pillar: PillarKey;
+  question: string;
+  options: [Option, Option, Option];
+};
 type PillarKey = "diagnostico" | "margem" | "comercial" | "operacao" | "escala";
 
 const pillarMeta: Record<PillarKey, { label: string; short: string }> = {
@@ -23,191 +38,451 @@ const pillarMeta: Record<PillarKey, { label: string; short: string }> = {
 const questions: Question[] = [
   // Diagnóstico (dependência do dono / clareza)
   {
-    id: 1, pillar: "diagnostico",
+    id: 1,
+    pillar: "diagnostico",
     question: "Qual o nível de dependência que a sua clínica tem de você hoje?",
     options: [
-      { text: "Dependência total", score: 1, description: "Se eu me afasto por uma semana, a clínica para de faturar e operar." },
-      { text: "Dependência parcial", score: 3, description: "Outros profissionais atendem, mas todas as decisões passam por mim." },
-      { text: "Autonomia operacional", score: 5, description: "A operação roda por até 30 dias sem minha presença direta." },
+      {
+        text: "Dependência total",
+        score: 1,
+        description: "Se eu me afasto por uma semana, a clínica para de faturar e operar.",
+      },
+      {
+        text: "Dependência parcial",
+        score: 3,
+        description: "Outros profissionais atendem, mas todas as decisões passam por mim.",
+      },
+      {
+        text: "Autonomia operacional",
+        score: 5,
+        description: "A operação roda por até 30 dias sem minha presença direta.",
+      },
     ],
   },
   {
-    id: 2, pillar: "diagnostico",
+    id: 2,
+    pillar: "diagnostico",
     question: "Você sabe exatamente onde a clínica está travada hoje?",
     options: [
-      { text: "Sinto que trava, mas não sei onde", score: 1, description: "Percebo cansaço e teto de faturamento, sem clareza do gargalo real." },
-      { text: "Suspeito de um ou dois pontos", score: 3, description: "Tenho hipóteses (comercial, equipe, margem), mas nada mensurado." },
-      { text: "Diagnóstico mapeado", score: 5, description: "Sei qual pilar é o gargalo dominante e por que ele trava o próximo nível." },
+      {
+        text: "Sinto que trava, mas não sei onde",
+        score: 1,
+        description: "Percebo cansaço e teto de faturamento, sem clareza do gargalo real.",
+      },
+      {
+        text: "Suspeito de um ou dois pontos",
+        score: 3,
+        description: "Tenho hipóteses (comercial, equipe, margem), mas nada mensurado.",
+      },
+      {
+        text: "Diagnóstico mapeado",
+        score: 5,
+        description: "Sei qual pilar é o gargalo dominante e por que ele trava o próximo nível.",
+      },
     ],
   },
   {
-    id: 3, pillar: "diagnostico",
+    id: 3,
+    pillar: "diagnostico",
     question: "Como você toma decisões estratégicas na clínica?",
     options: [
-      { text: "Por instinto e urgência", score: 1, description: "Decido no impulso, pressionado por problemas do dia." },
-      { text: "Com base em conversa e experiência", score: 3, description: "Consulto sócios e equipe, mas sem indicadores consolidados." },
-      { text: "Com base em indicadores", score: 5, description: "Uso métricas de faturamento, margem, conversão e produtividade." },
+      {
+        text: "Por instinto e urgência",
+        score: 1,
+        description: "Decido no impulso, pressionado por problemas do dia.",
+      },
+      {
+        text: "Com base em conversa e experiência",
+        score: 3,
+        description: "Consulto sócios e equipe, mas sem indicadores consolidados.",
+      },
+      {
+        text: "Com base em indicadores",
+        score: 5,
+        description: "Uso métricas de faturamento, margem, conversão e produtividade.",
+      },
     ],
   },
   {
-    id: 4, pillar: "diagnostico",
+    id: 4,
+    pillar: "diagnostico",
     question: "Quanto tempo você dedica hoje à gestão estratégica (não clínica)?",
     options: [
-      { text: "Praticamente nenhum", score: 1, description: "Todo meu tempo é consumido em atendimento e apagar incêndios." },
-      { text: "Algumas horas por semana", score: 3, description: "Consigo pensar em gestão, mas sem rotina fixa nem planejamento." },
-      { text: "Rotina estratégica semanal", score: 5, description: "Tenho agenda protegida para planejamento, análise e liderança." },
+      {
+        text: "Praticamente nenhum",
+        score: 1,
+        description: "Todo meu tempo é consumido em atendimento e apagar incêndios.",
+      },
+      {
+        text: "Algumas horas por semana",
+        score: 3,
+        description: "Consigo pensar em gestão, mas sem rotina fixa nem planejamento.",
+      },
+      {
+        text: "Rotina estratégica semanal",
+        score: 5,
+        description: "Tenho agenda protegida para planejamento, análise e liderança.",
+      },
     ],
   },
 
   // Margem (financeiro / lucratividade)
   {
-    id: 5, pillar: "margem",
+    id: 5,
+    pillar: "margem",
     question: "Como funciona o controle financeiro e de lucratividade?",
     options: [
-      { text: "Foco no faturamento", score: 1, description: "Sei quanto faturamos, mas não conheço a margem real de cada procedimento." },
-      { text: "Acompanhamento mensal", score: 3, description: "Tenho fluxo de caixa e DRE simples, sem uso ativo para decisões." },
-      { text: "Margem por serviço", score: 5, description: "Sei a margem de cada linha, lucro previsível e reinvestimento planejado." },
+      {
+        text: "Foco no faturamento",
+        score: 1,
+        description: "Sei quanto faturamos, mas não conheço a margem real de cada procedimento.",
+      },
+      {
+        text: "Acompanhamento mensal",
+        score: 3,
+        description: "Tenho fluxo de caixa e DRE simples, sem uso ativo para decisões.",
+      },
+      {
+        text: "Margem por serviço",
+        score: 5,
+        description: "Sei a margem de cada linha, lucro previsível e reinvestimento planejado.",
+      },
     ],
   },
   {
-    id: 6, pillar: "margem",
+    id: 6,
+    pillar: "margem",
     question: "Contas pessoais e da clínica estão separadas?",
     options: [
-      { text: "Ainda se misturam", score: 1, description: "Uso conta e cartão da clínica para despesas pessoais com frequência." },
-      { text: "Em transição", score: 3, description: "Estamos separando, mas ainda há vazamentos e retiradas informais." },
-      { text: "Totalmente separadas", score: 5, description: "Pró-labore definido, retiradas previsíveis, patrimônios distintos." },
+      {
+        text: "Ainda se misturam",
+        score: 1,
+        description: "Uso conta e cartão da clínica para despesas pessoais com frequência.",
+      },
+      {
+        text: "Em transição",
+        score: 3,
+        description: "Estamos separando, mas ainda há vazamentos e retiradas informais.",
+      },
+      {
+        text: "Totalmente separadas",
+        score: 5,
+        description: "Pró-labore definido, retiradas previsíveis, patrimônios distintos.",
+      },
     ],
   },
   {
-    id: 7, pillar: "margem",
+    id: 7,
+    pillar: "margem",
     question: "Qual o nível de previsibilidade do seu lucro líquido?",
     options: [
-      { text: "Baixa", score: 1, description: "O lucro varia muito de mês a mês; sobra depende do movimento." },
-      { text: "Média", score: 3, description: "Sei estimar por trimestre, mas não confio em projeção anual." },
-      { text: "Alta", score: 5, description: "Tenho projeção anual confiável baseada em margem e capacidade." },
+      {
+        text: "Baixa",
+        score: 1,
+        description: "O lucro varia muito de mês a mês; sobra depende do movimento.",
+      },
+      {
+        text: "Média",
+        score: 3,
+        description: "Sei estimar por trimestre, mas não confio em projeção anual.",
+      },
+      {
+        text: "Alta",
+        score: 5,
+        description: "Tenho projeção anual confiável baseada em margem e capacidade.",
+      },
     ],
   },
   {
-    id: 8, pillar: "margem",
+    id: 8,
+    pillar: "margem",
     question: "Você conhece o CAC (custo de aquisição de paciente) por canal?",
     options: [
-      { text: "Não meço", score: 1, description: "Investimos em marketing, mas não medimos o retorno por canal." },
-      { text: "Estimo por conversa", score: 3, description: "Tenho ideia geral do retorno, sem dados formais." },
-      { text: "Meço e comparo", score: 5, description: "Sei CAC, LTV e ROI por canal e ajusto investimento com base neles." },
+      {
+        text: "Não meço",
+        score: 1,
+        description: "Investimos em marketing, mas não medimos o retorno por canal.",
+      },
+      {
+        text: "Estimo por conversa",
+        score: 3,
+        description: "Tenho ideia geral do retorno, sem dados formais.",
+      },
+      {
+        text: "Meço e comparo",
+        score: 5,
+        description: "Sei CAC, LTV e ROI por canal e ajusto investimento com base neles.",
+      },
     ],
   },
 
   // Comercial
   {
-    id: 9, pillar: "comercial",
+    id: 9,
+    pillar: "comercial",
     question: "Como é estruturado o processo comercial da recepção à venda?",
     options: [
-      { text: "Secretária apenas atende", score: 1, description: "Não temos vendas ativas, funil de WhatsApp ou metas comerciais." },
-      { text: "Processo reativo", score: 3, description: "Respondemos leads, mas sem métricas nem script claro." },
-      { text: "Comercial com método", score: 5, description: "CRM, script, metas diárias e time treinado em conversão." },
+      {
+        text: "Secretária apenas atende",
+        score: 1,
+        description: "Não temos vendas ativas, funil de WhatsApp ou metas comerciais.",
+      },
+      {
+        text: "Processo reativo",
+        score: 3,
+        description: "Respondemos leads, mas sem métricas nem script claro.",
+      },
+      {
+        text: "Comercial com método",
+        score: 5,
+        description: "CRM, script, metas diárias e time treinado em conversão.",
+      },
     ],
   },
   {
-    id: 10, pillar: "comercial",
+    id: 10,
+    pillar: "comercial",
     question: "O que acontece com os leads que chegam pelo WhatsApp?",
     options: [
-      { text: "Muitos ficam sem resposta", score: 1, description: "Volume alto, resposta lenta e sem follow-up estruturado." },
-      { text: "Respondemos, mas sem qualificar", score: 3, description: "Falamos com todos, mas não temos qualificação nem funil." },
-      { text: "Funil qualificado", score: 5, description: "Todo lead passa por qualificação, agendamento e reengajamento." },
+      {
+        text: "Muitos ficam sem resposta",
+        score: 1,
+        description: "Volume alto, resposta lenta e sem follow-up estruturado.",
+      },
+      {
+        text: "Respondemos, mas sem qualificar",
+        score: 3,
+        description: "Falamos com todos, mas não temos qualificação nem funil.",
+      },
+      {
+        text: "Funil qualificado",
+        score: 5,
+        description: "Todo lead passa por qualificação, agendamento e reengajamento.",
+      },
     ],
   },
   {
-    id: 11, pillar: "comercial",
+    id: 11,
+    pillar: "comercial",
     question: "Qual sua taxa de conversão de consulta para tratamento?",
     options: [
-      { text: "Não medimos", score: 1, description: "Não temos indicador de fechamento por médico ou tratamento." },
-      { text: "Medimos de forma geral", score: 3, description: "Sabemos a média da clínica, sem quebra por médico ou canal." },
-      { text: "Medimos com granularidade", score: 5, description: "Sabemos conversão por médico, procedimento, canal e vendedor." },
+      {
+        text: "Não medimos",
+        score: 1,
+        description: "Não temos indicador de fechamento por médico ou tratamento.",
+      },
+      {
+        text: "Medimos de forma geral",
+        score: 3,
+        description: "Sabemos a média da clínica, sem quebra por médico ou canal.",
+      },
+      {
+        text: "Medimos com granularidade",
+        score: 5,
+        description: "Sabemos conversão por médico, procedimento, canal e vendedor.",
+      },
     ],
   },
   {
-    id: 12, pillar: "comercial",
+    id: 12,
+    pillar: "comercial",
     question: "Como está o follow-up de pacientes que não fecharam?",
     options: [
-      { text: "Praticamente inexistente", score: 1, description: "Se o paciente não fecha na hora, raramente volta a ser contatado." },
-      { text: "Feito às vezes", score: 3, description: "Fazemos quando lembramos, sem cadência definida." },
-      { text: "Cadência estruturada", score: 5, description: "Fluxo de reengajamento por dias/temas com métricas de retorno." },
+      {
+        text: "Praticamente inexistente",
+        score: 1,
+        description: "Se o paciente não fecha na hora, raramente volta a ser contatado.",
+      },
+      {
+        text: "Feito às vezes",
+        score: 3,
+        description: "Fazemos quando lembramos, sem cadência definida.",
+      },
+      {
+        text: "Cadência estruturada",
+        score: 5,
+        description: "Fluxo de reengajamento por dias/temas com métricas de retorno.",
+      },
     ],
   },
 
   // Operação
   {
-    id: 13, pillar: "operacao",
+    id: 13,
+    pillar: "operacao",
     question: "Como é a jornada do paciente e a padronização das entregas?",
     options: [
-      { text: "Informal", score: 1, description: "A jornada depende de quem atende; não há protocolo escrito." },
-      { text: "Protocolos básicos", score: 3, description: "Existem passos descritos, mas a execução varia bastante." },
-      { text: "Jornada sistematizada", score: 5, description: "Cada ponto segue protocolo com auditoria de qualidade." },
+      {
+        text: "Informal",
+        score: 1,
+        description: "A jornada depende de quem atende; não há protocolo escrito.",
+      },
+      {
+        text: "Protocolos básicos",
+        score: 3,
+        description: "Existem passos descritos, mas a execução varia bastante.",
+      },
+      {
+        text: "Jornada sistematizada",
+        score: 5,
+        description: "Cada ponto segue protocolo com auditoria de qualidade.",
+      },
     ],
   },
   {
-    id: 14, pillar: "operacao",
+    id: 14,
+    pillar: "operacao",
     question: "Sua equipe tem autonomia para resolver problemas do dia?",
     options: [
-      { text: "Baixa", score: 1, description: "Tudo passa por mim, mesmo decisões pequenas do operacional." },
-      { text: "Média", score: 3, description: "Resolvem parte, mas têm receio de agir sem confirmação." },
-      { text: "Alta", score: 5, description: "Matriz de autonomia clara, com alçadas e responsabilidades definidas." },
+      {
+        text: "Baixa",
+        score: 1,
+        description: "Tudo passa por mim, mesmo decisões pequenas do operacional.",
+      },
+      {
+        text: "Média",
+        score: 3,
+        description: "Resolvem parte, mas têm receio de agir sem confirmação.",
+      },
+      {
+        text: "Alta",
+        score: 5,
+        description: "Matriz de autonomia clara, com alçadas e responsabilidades definidas.",
+      },
     ],
   },
   {
-    id: 15, pillar: "operacao",
+    id: 15,
+    pillar: "operacao",
     question: "Como funciona a contratação e o treinamento da equipe?",
     options: [
-      { text: "Contrato pela urgência", score: 1, description: "Contrato conhecidos ou indicações, sem processo estruturado." },
-      { text: "Processo básico", score: 3, description: "Uso entrevistas e teste, mas onboarding é feito no dia a dia." },
-      { text: "Processo estruturado", score: 5, description: "Perfil, entrevista, teste, treinamento e trilha de desenvolvimento." },
+      {
+        text: "Contrato pela urgência",
+        score: 1,
+        description: "Contrato conhecidos ou indicações, sem processo estruturado.",
+      },
+      {
+        text: "Processo básico",
+        score: 3,
+        description: "Uso entrevistas e teste, mas onboarding é feito no dia a dia.",
+      },
+      {
+        text: "Processo estruturado",
+        score: 5,
+        description: "Perfil, entrevista, teste, treinamento e trilha de desenvolvimento.",
+      },
     ],
   },
   {
-    id: 16, pillar: "operacao",
+    id: 16,
+    pillar: "operacao",
     question: "Existe um gestor operacional (não médico) na sua clínica?",
     options: [
-      { text: "Não, quem gerencia sou eu", score: 1, description: "Acumulo o papel de médico e gestor operacional." },
-      { text: "Existe, mas de forma parcial", score: 3, description: "Alguém coordena, mas eu ainda decido rotina e conflitos." },
-      { text: "Sim, com autonomia", score: 5, description: "Gestor executivo conduz a operação com autonomia e prestação de contas." },
+      {
+        text: "Não, quem gerencia sou eu",
+        score: 1,
+        description: "Acumulo o papel de médico e gestor operacional.",
+      },
+      {
+        text: "Existe, mas de forma parcial",
+        score: 3,
+        description: "Alguém coordena, mas eu ainda decido rotina e conflitos.",
+      },
+      {
+        text: "Sim, com autonomia",
+        score: 5,
+        description: "Gestor executivo conduz a operação com autonomia e prestação de contas.",
+      },
     ],
   },
 
   // Escala
   {
-    id: 17, pillar: "escala",
+    id: 17,
+    pillar: "escala",
     question: "Qual a prontidão atual da clínica para expansão ou replicação?",
     options: [
-      { text: "Sem condições", score: 1, description: "Gargalos operacionais e falta de processos impedem qualquer expansão." },
-      { text: "Preparação inicial", score: 3, description: "Estamos estruturando processos para receber sócios ou nova unidade." },
-      { text: "Prontidão para escala", score: 5, description: "Estrutura pronta para nova unidade ou expansão de time médico." },
+      {
+        text: "Sem condições",
+        score: 1,
+        description: "Gargalos operacionais e falta de processos impedem qualquer expansão.",
+      },
+      {
+        text: "Preparação inicial",
+        score: 3,
+        description: "Estamos estruturando processos para receber sócios ou nova unidade.",
+      },
+      {
+        text: "Prontidão para escala",
+        score: 5,
+        description: "Estrutura pronta para nova unidade ou expansão de time médico.",
+      },
     ],
   },
   {
-    id: 18, pillar: "escala",
+    id: 18,
+    pillar: "escala",
     question: "Se você ficasse 30 dias fora, o que aconteceria?",
     options: [
-      { text: "A clínica entra em colapso", score: 1, description: "Faturamento cai e decisões param sem minha presença." },
-      { text: "Segue com dificuldades", score: 3, description: "Roda, mas com queda de qualidade, receita e clima interno." },
-      { text: "Segue estável", score: 5, description: "Operação, comercial e financeiro mantêm padrão sem mim." },
+      {
+        text: "A clínica entra em colapso",
+        score: 1,
+        description: "Faturamento cai e decisões param sem minha presença.",
+      },
+      {
+        text: "Segue com dificuldades",
+        score: 3,
+        description: "Roda, mas com queda de qualidade, receita e clima interno.",
+      },
+      {
+        text: "Segue estável",
+        score: 5,
+        description: "Operação, comercial e financeiro mantêm padrão sem mim.",
+      },
     ],
   },
   {
-    id: 19, pillar: "escala",
+    id: 19,
+    pillar: "escala",
     question: "Existe um plano estratégico de 12 meses documentado?",
     options: [
-      { text: "Não", score: 1, description: "Tocamos por metas mensais informais e reação ao mercado." },
-      { text: "Existe em rascunho", score: 3, description: "Tenho ideias e metas anuais, mas sem plano executável." },
-      { text: "Existe e é acompanhado", score: 5, description: "Plano com metas, indicadores e rituais de revisão trimestral." },
+      {
+        text: "Não",
+        score: 1,
+        description: "Tocamos por metas mensais informais e reação ao mercado.",
+      },
+      {
+        text: "Existe em rascunho",
+        score: 3,
+        description: "Tenho ideias e metas anuais, mas sem plano executável.",
+      },
+      {
+        text: "Existe e é acompanhado",
+        score: 5,
+        description: "Plano com metas, indicadores e rituais de revisão trimestral.",
+      },
     ],
   },
   {
-    id: 20, pillar: "escala",
+    id: 20,
+    pillar: "escala",
     question: "O que você quer da clínica nos próximos 12 meses?",
     options: [
-      { text: "Sobreviver com menos desgaste", score: 1, description: "Preciso primeiro estabilizar o que já existe antes de crescer." },
-      { text: "Crescer com estrutura", score: 3, description: "Quero crescer 30–60% com processos e equipe mais autônomos." },
-      { text: "Escalar de forma previsível", score: 5, description: "Quero preparar nova unidade, novos médicos ou sociedade." },
+      {
+        text: "Sobreviver com menos desgaste",
+        score: 1,
+        description: "Preciso primeiro estabilizar o que já existe antes de crescer.",
+      },
+      {
+        text: "Crescer com estrutura",
+        score: 3,
+        description: "Quero crescer 30–60% com processos e equipe mais autônomos.",
+      },
+      {
+        text: "Escalar de forma previsível",
+        score: 5,
+        description: "Quero preparar nova unidade, novos médicos ou sociedade.",
+      },
     ],
   },
 ];
@@ -218,22 +493,36 @@ type Result = {
   subtitle: string;
   description: string;
   actions: string[];
-  bottleneck: { pillar: PillarKey; score: number };
-  badgeClass: string;
+  bottlenecks: { pillar: PillarKey; score: number }[];
 };
 
 function buildResult(answers: Record<number, number>): Result {
-  const total = Object.values(answers).reduce((s, v) => s + v, 0);
+  const validAnswerCount = questions.filter((question) =>
+    [1, 3, 5].includes(answers[question.id]),
+  ).length;
+  if (validAnswerCount !== questions.length) {
+    throw new Error("O resultado só pode ser calculado com as 20 respostas válidas.");
+  }
+
+  const total = questions.reduce((sum, question) => sum + answers[question.id], 0);
 
   // pillar scores
   const pillarScore: Record<PillarKey, number> = {
-    diagnostico: 0, margem: 0, comercial: 0, operacao: 0, escala: 0,
+    diagnostico: 0,
+    margem: 0,
+    comercial: 0,
+    operacao: 0,
+    escala: 0,
   };
   const pillarCount: Record<PillarKey, number> = {
-    diagnostico: 0, margem: 0, comercial: 0, operacao: 0, escala: 0,
+    diagnostico: 0,
+    margem: 0,
+    comercial: 0,
+    operacao: 0,
+    escala: 0,
   };
   for (const q of questions) {
-    const s = answers[q.id] ?? 0;
+    const s = answers[q.id];
     pillarScore[q.pillar] += s;
     pillarCount[q.pillar] += 1;
   }
@@ -242,9 +531,12 @@ function buildResult(answers: Record<number, number>): Result {
     avg: pillarScore[k] / pillarCount[k],
     total: pillarScore[k],
   }));
-  const bottleneckEntry = pillarAvg.reduce((a, b) => (a.avg <= b.avg ? a : b));
+  const lowestAverage = Math.min(...pillarAvg.map((entry) => entry.avg));
+  const bottlenecks = pillarAvg
+    .filter((entry) => entry.avg === lowestAverage)
+    .map((entry) => ({ pillar: entry.pillar, score: entry.total }));
 
-  const levels: Omit<Result, "bottleneck">[] = [
+  const levels: Omit<Result, "bottlenecks">[] = [
     {
       level: 1,
       title: "Nível 1 — Improviso",
@@ -256,7 +548,6 @@ function buildResult(answers: Record<number, number>): Result {
         "Separar de forma definitiva contas pessoais e da clínica.",
         "Mapear onde seu tempo é consumido por burocracia.",
       ],
-      badgeClass: "text-red-400 bg-red-500/10 border-red-500/25",
     },
     {
       level: 2,
@@ -269,7 +560,6 @@ function buildResult(answers: Record<number, number>): Result {
         "Estipular orçamento operacional mensal por área.",
         "Treinar recepção com roteiro de conversão de WhatsApp.",
       ],
-      badgeClass: "text-amber-300 bg-amber-400/10 border-amber-400/25",
     },
     {
       level: 3,
@@ -282,7 +572,6 @@ function buildResult(answers: Record<number, number>): Result {
         "Desenhar o manual de atendimento do paciente ideal.",
         "Analisar CAC e LTV por canal de aquisição.",
       ],
-      badgeClass: "text-sky-300 bg-sky-500/10 border-sky-400/25",
     },
     {
       level: 4,
@@ -295,7 +584,6 @@ function buildResult(answers: Record<number, number>): Result {
         "Padronizar protocolo clínico para médicos parceiros.",
         "Otimizar funil financeiro para retenção de caixa para expansão.",
       ],
-      badgeClass: "text-emerald-300 bg-emerald-500/10 border-emerald-400/25",
     },
     {
       level: 5,
@@ -308,7 +596,6 @@ function buildResult(answers: Record<number, number>): Result {
         "Estabelecer governança corporativa e conselho consultivo.",
         "Desenvolver playbook de replicação ou franquia.",
       ],
-      badgeClass: "text-halo-primary bg-halo-primary/10 border-halo-primary/40",
     },
   ];
 
@@ -320,97 +607,125 @@ function buildResult(answers: Record<number, number>): Result {
   else if (total <= 88) idx = 3;
   else idx = 4;
 
-  return { ...levels[idx], bottleneck: { pillar: bottleneckEntry.pillar, score: bottleneckEntry.total } };
+  return { ...levels[idx], bottlenecks };
 }
 
-export default function DiagnosticModal({ isOpen, onClose }: DiagnosticModalProps) {
+export default function DiagnosticModal({ isOpen, onClose, returnFocusRef }: DiagnosticModalProps) {
   const [step, setStep] = useState<number>(0); // 0 intro, 1..20 questions, 21 loading, 22 result
   const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [lead, setLead] = useState({ name: "", email: "", whatsapp: "", specialty: "" });
-  const [leadSubmitted, setLeadSubmitted] = useState(false);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [isOpen, onClose]);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resultTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stageHeadingRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+      if (resultTimerRef.current) clearTimeout(resultTimerRef.current);
       setStep(0);
       setAnswers({});
-      setLeadSubmitted(false);
+      setIsTransitioning(false);
     }
   }, [isOpen]);
 
-  const result = useMemo(() => (step >= 22 ? buildResult(answers) : null), [step, answers]);
+  useEffect(
+    () => () => {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+      if (resultTimerRef.current) clearTimeout(resultTimerRef.current);
+    },
+    [],
+  );
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (!isOpen || step === 0) return;
+    const frame = requestAnimationFrame(() =>
+      stageHeadingRef.current?.focus({ preventScroll: true }),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [isOpen, step]);
+
+  const result = useMemo(
+    () =>
+      step === 22 && Object.keys(answers).length === questions.length ? buildResult(answers) : null,
+    [step, answers],
+  );
 
   const handleSelect = (qid: number, score: number) => {
-    setAnswers((prev) => ({ ...prev, [qid]: score }));
-    setTimeout(() => {
-      setStep((s) => (s < 20 ? s + 1 : 21));
-      if (step >= 20) {
-        setTimeout(() => setStep(22), 1400);
+    if (isTransitioning || step < 1 || step > questions.length) return;
+
+    const isLastQuestion = step === questions.length;
+    setIsTransitioning(true);
+    setAnswers((previous) => ({ ...previous, [qid]: score }));
+
+    transitionTimerRef.current = setTimeout(() => {
+      if (!isLastQuestion) {
+        setStep(step + 1);
+        setIsTransitioning(false);
+        return;
       }
-    }, 160);
+
+      setStep(21);
+      resultTimerRef.current = setTimeout(() => {
+        setStep(22);
+        setIsTransitioning(false);
+      }, 700);
+    }, 140);
   };
 
   const currentQuestion = step > 0 && step <= 20 ? questions[step - 1] : null;
   const progress = step > 0 && step <= 20 ? (step / 20) * 100 : 0;
+  const bottleneckLabel = result
+    ? result.bottlenecks.map(({ pillar }) => pillarMeta[pillar].label).join(" + ")
+    : "";
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-3 md:p-4">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={onClose} />
-
-      <div className="relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-halo-primary/25 bg-halo-surface text-halo-text shadow-[0_40px_120px_rgba(0,0,0,0.6)]">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/5 px-5 py-4 md:px-6">
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          returnFocusRef.current?.focus();
+        }}
+        className="flex max-h-[calc(100dvh-1rem)] w-[calc(100vw-1rem)] max-w-2xl flex-col gap-0 overflow-hidden rounded-md border-halo-primary/30 bg-halo-surface p-0 text-halo-text shadow-[0_24px_72px_rgba(7,19,29,0.58)] sm:rounded-md"
+      >
+        <div className="flex items-center border-b border-white/10 px-5 py-4 pr-16 md:px-6 md:pr-16">
           <div className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-md bg-halo-primary/10 text-halo-primary">
-              <Award className="h-4 w-4" />
+            <span className="grid h-9 w-9 place-items-center rounded-sm border border-halo-primary/25 bg-halo-primary/8 text-halo-primary">
+              <Award className="h-4 w-4" aria-hidden="true" />
             </span>
             <div>
-              <span className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-primary">
+              <DialogTitle className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-primary">
                 Diagnóstico MedCEO
-              </span>
-              <span className="block text-[11px] text-halo-faint">
+              </DialogTitle>
+              <DialogDescription className="block text-[11px] text-halo-muted">
                 Maturidade empresarial médica · 20 perguntas
-              </span>
+              </DialogDescription>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="rounded-full p-1 text-halo-muted transition-colors hover:bg-white/5 hover:text-halo-text"
-            aria-label="Fechar"
-          >
-            <X className="h-5 w-5" />
-          </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overscroll-contain overflow-y-auto">
           {/* Intro */}
           {step === 0 && (
             <div className="p-7 text-center md:p-9">
-              <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full bg-halo-primary/10 text-halo-primary">
-                <Sparkles className="h-7 w-7" />
+              <div className="mx-auto mb-6 grid h-14 w-14 place-items-center rounded-sm border border-halo-primary/30 bg-halo-primary/8 text-halo-primary">
+                <Sparkles className="h-6 w-6" aria-hidden="true" />
               </div>
               <h3 className="font-serif text-2xl font-semibold md:text-3xl">
                 Descubra a maturidade da sua clínica
               </h3>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-halo-muted">
-                20 perguntas estratégicas em 5 pilares: diagnóstico, margem, comercial, operação e escala. Ao final, você recebe seu nível de maturidade, o gargalo dominante e um plano estratégico de 12 meses.
+                20 perguntas estratégicas em 5 pilares: diagnóstico, margem, comercial, operação e
+                escala. Ao final, você recebe seu nível de maturidade, o gargalo prioritário e três
+                próximos passos coerentes com o resultado.
               </p>
               <button
                 onClick={() => setStep(1)}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-halo-primary px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-[#070807] transition-all hover:bg-halo-primary-hover"
+                className="mt-8 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-halo-primary px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-medceo-default transition-colors hover:bg-halo-primary-hover"
               >
                 Iniciar diagnóstico gratuito
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
-              <p className="mt-4 font-mono text-[10px] uppercase tracking-wider text-halo-faint">
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-wider text-halo-muted">
                 ~5 minutos · resultado imediato · 100% gratuito
               </p>
             </div>
@@ -422,46 +737,65 @@ export default function DiagnosticModal({ isOpen, onClose }: DiagnosticModalProp
               <div className="mb-6">
                 <div className="mb-2 flex items-center justify-between">
                   <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-primary">
-                    Pilar {pillarMeta[currentQuestion.pillar].short} · {pillarMeta[currentQuestion.pillar].label}
+                    Pilar {pillarMeta[currentQuestion.pillar].short} ·{" "}
+                    {pillarMeta[currentQuestion.pillar].label}
                   </span>
                   <span className="font-mono text-[10px] font-semibold text-halo-muted">
                     {step}/20
                   </span>
                 </div>
-                <div className="h-1 w-full overflow-hidden rounded-full bg-white/5">
+                <div
+                  className="h-1 w-full overflow-hidden bg-white/10"
+                  role="progressbar"
+                  aria-label="Progresso do diagnóstico"
+                  aria-valuemin={1}
+                  aria-valuemax={questions.length}
+                  aria-valuenow={step}
+                >
                   <div
-                    className="h-full rounded-full bg-halo-primary transition-all duration-300"
+                    className="h-full bg-halo-primary transition-all duration-300"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
               </div>
 
-              <h4 className="font-serif text-xl font-semibold leading-snug md:text-2xl">
+              <h3
+                id="question-title"
+                ref={stageHeadingRef}
+                tabIndex={-1}
+                className="font-serif text-xl font-semibold leading-snug outline-none md:text-2xl"
+              >
                 {currentQuestion.question}
-              </h4>
+              </h3>
 
-              <div className="mt-6 space-y-3">
+              <div className="mt-6 space-y-3" role="radiogroup" aria-labelledby="question-title">
                 {currentQuestion.options.map((opt, i) => {
                   const isSelected = answers[currentQuestion.id] === opt.score;
                   return (
                     <button
                       key={i}
+                      type="button"
+                      role="radio"
+                      aria-checked={isSelected}
+                      disabled={isTransitioning}
                       onClick={() => handleSelect(currentQuestion.id, opt.score)}
-                      className={`group w-full rounded-xl border p-4 text-left transition-all md:p-5 ${
+                      className={`group min-h-11 w-full rounded-md border p-4 text-left transition-colors disabled:cursor-wait disabled:opacity-70 md:p-5 ${
                         isSelected
                           ? "border-halo-primary bg-halo-primary/5"
-                          : "border-white/8 bg-white/[0.02] hover:border-halo-primary/40 hover:bg-white/[0.04]"
+                          : "border-white/20 bg-white/[0.02] hover:border-halo-primary/50 hover:bg-white/[0.04]"
                       }`}
                     >
                       <div className="flex items-start gap-3">
                         <span
-                          className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border transition-colors ${
+                          className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-sm border transition-colors ${
                             isSelected
-                              ? "border-halo-primary bg-halo-primary text-[#070807]"
-                              : "border-halo-faint/60"
+                              ? "border-halo-primary bg-halo-primary text-medceo-default"
+                              : "border-halo-muted"
                           }`}
                         >
-                          {isSelected && <Check className="h-3 w-3 stroke-[3]" />}
+                          {isSelected && (
+                            <Check className="h-3 w-3 stroke-[3]" aria-hidden="true" />
+                          )}
                         </span>
                         <div>
                           <span className="block text-sm font-semibold text-halo-text">
@@ -477,15 +811,17 @@ export default function DiagnosticModal({ isOpen, onClose }: DiagnosticModalProp
                 })}
               </div>
 
-              <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-5">
+              <div className="mt-6 flex items-center justify-between gap-4 border-t border-white/10 pt-5">
                 <button
+                  type="button"
+                  disabled={isTransitioning}
                   onClick={() => setStep((s) => Math.max(0, s - 1))}
-                  className="flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-muted transition-colors hover:text-halo-text"
+                  className="flex min-h-11 items-center gap-1.5 px-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-muted transition-colors hover:text-halo-text disabled:opacity-50"
                 >
-                  <ChevronLeft className="h-4 w-4" /> Voltar
+                  <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Voltar
                 </button>
-                <span className="text-[11px] italic text-halo-faint">
-                  Suas respostas são confidenciais
+                <span className="max-w-[240px] text-right text-[11px] italic text-halo-muted">
+                  Respostas mantidas apenas nesta sessão
                 </span>
               </div>
             </div>
@@ -493,11 +829,21 @@ export default function DiagnosticModal({ isOpen, onClose }: DiagnosticModalProp
 
           {/* Processing */}
           {step === 21 && (
-            <div className="flex flex-col items-center justify-center p-10 text-center">
-              <Loader2 className="h-8 w-8 animate-spin text-halo-primary" />
-              <p className="mt-4 font-serif text-lg">Analisando as suas respostas…</p>
+            <div
+              className="flex flex-col items-center justify-center p-10 text-center"
+              role="status"
+              aria-live="polite"
+            >
+              <Loader2 className="h-8 w-8 animate-spin text-halo-primary" aria-hidden="true" />
+              <h3
+                ref={stageHeadingRef}
+                tabIndex={-1}
+                className="mt-4 font-serif text-lg outline-none"
+              >
+                Analisando as suas respostas…
+              </h3>
               <p className="mt-1 text-xs text-halo-muted">
-                Calculando maturidade, gargalo dominante e plano de 12 meses.
+                Calculando maturidade, menor pontuação e próximos passos.
               </p>
             </div>
           )}
@@ -506,44 +852,52 @@ export default function DiagnosticModal({ isOpen, onClose }: DiagnosticModalProp
           {step === 22 && result && (
             <div className="p-6 md:p-8">
               <div className="text-center">
-                <span
-                  className={`inline-block rounded-full border px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider ${result.badgeClass}`}
-                >
+                <span className="inline-block rounded-sm border border-halo-primary/40 bg-halo-primary/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-primary">
                   Resultado do diagnóstico
                 </span>
-                <h3 className="mt-3 font-serif text-2xl font-semibold md:text-3xl">
+                <h3
+                  ref={stageHeadingRef}
+                  tabIndex={-1}
+                  className="mt-3 font-serif text-2xl font-semibold outline-none md:text-3xl"
+                >
                   {result.title}
                 </h3>
                 <p className="mt-1 text-sm italic text-halo-primary">"{result.subtitle}"</p>
               </div>
 
-              <div className="mt-6 rounded-2xl border border-white/8 bg-white/[0.02] p-5">
+              <div className="mt-6 rounded-md border border-white/15 bg-white/[0.02] p-5">
                 <h5 className="flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-text">
-                  <TrendingUp className="h-4 w-4 text-halo-primary" /> Análise de maturidade
+                  <TrendingUp className="h-4 w-4 text-halo-primary" aria-hidden="true" /> Análise de
+                  maturidade
                 </h5>
                 <p className="mt-3 text-[13px] leading-relaxed text-halo-muted">
                   {result.description}
                 </p>
 
-                <div className="my-4 h-px bg-white/5" />
+                <div className="my-4 h-px bg-white/10" />
 
                 <h5 className="flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-text">
-                  <AlertTriangle className="h-4 w-4 text-halo-primary" />
-                  Gargalo dominante: {pillarMeta[result.bottleneck.pillar].label}
+                  <AlertTriangle className="h-4 w-4 text-halo-primary" aria-hidden="true" />
+                  {result.bottlenecks.length > 1
+                    ? "Pilares prioritários"
+                    : "Pilar prioritário"}: {bottleneckLabel}
                 </h5>
                 <p className="mt-2 text-[13px] leading-relaxed text-halo-muted">
-                  Este é o pilar com menor pontuação nas suas respostas — é por onde o plano de 12 meses deve começar antes de acelerar os demais.
+                  {result.bottlenecks.length > 1
+                    ? "Esses pilares empataram com a menor pontuação. A decisão correta é validar qual deles gera o maior efeito em cadeia antes de acelerar os demais."
+                    : "Este foi o pilar com menor pontuação nas suas respostas e deve orientar a primeira decisão antes de acelerar os demais."}
                 </p>
 
-                <div className="my-4 h-px bg-white/5" />
+                <div className="my-4 h-px bg-white/10" />
 
                 <h5 className="flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-text">
-                  <Sparkles className="h-4 w-4 text-halo-primary" /> Próximos passos recomendados
+                  <Sparkles className="h-4 w-4 text-halo-primary" aria-hidden="true" /> Próximos
+                  passos recomendados
                 </h5>
                 <ul className="mt-3 space-y-2.5">
                   {result.actions.map((a, i) => (
                     <li key={i} className="flex items-start gap-3 text-[13px] text-halo-text">
-                      <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-halo-primary/12 font-mono text-[10px] font-semibold text-halo-primary">
+                      <span className="grid h-5 w-5 shrink-0 place-items-center rounded-sm bg-halo-primary/12 font-mono text-[10px] font-semibold text-halo-primary">
                         {i + 1}
                       </span>
                       <span>{a}</span>
@@ -552,85 +906,39 @@ export default function DiagnosticModal({ isOpen, onClose }: DiagnosticModalProp
                 </ul>
               </div>
 
-              {/* Lead capture / plan CTA */}
-              <div className="mt-6 rounded-2xl border border-halo-primary/30 bg-gradient-to-br from-halo-elevated to-halo-surface p-5 md:p-6">
-                {leadSubmitted ? (
-                  <div className="text-center">
-                    <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-halo-primary/15 text-halo-primary">
-                      <Check className="h-6 w-6" />
-                    </div>
-                    <h4 className="mt-3 font-serif text-lg font-semibold">Recebemos o seu diagnóstico</h4>
-                    <p className="mt-2 text-[13px] text-halo-muted">
-                      Um mentor MedCEO vai preparar o plano estratégico de 12 meses a partir das suas respostas e entrar em contato pelo WhatsApp em até 24h úteis.
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <h4 className="font-serif text-lg font-semibold md:text-xl">
-                      Receba o plano estratégico completo de 12 meses
-                    </h4>
-                    <p className="mt-1 text-[13px] leading-relaxed text-halo-muted">
-                      Preencha para receber o relatório detalhado e agendar uma reunião personalizada com o time MedCEO — a conversa começa pelas suas respostas, não por discurso pronto.
-                    </p>
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        setLeadSubmitted(true);
-                      }}
-                      className="mt-4 grid gap-3 md:grid-cols-2"
-                    >
-                      <input
-                        required
-                        placeholder="Nome completo"
-                        value={lead.name}
-                        onChange={(e) => setLead({ ...lead, name: e.target.value })}
-                        className="rounded-md border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-halo-text placeholder:text-halo-faint focus:border-halo-primary/60 focus:outline-none"
-                      />
-                      <input
-                        required
-                        type="email"
-                        placeholder="E-mail profissional"
-                        value={lead.email}
-                        onChange={(e) => setLead({ ...lead, email: e.target.value })}
-                        className="rounded-md border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-halo-text placeholder:text-halo-faint focus:border-halo-primary/60 focus:outline-none"
-                      />
-                      <input
-                        required
-                        placeholder="WhatsApp com DDD"
-                        value={lead.whatsapp}
-                        onChange={(e) => setLead({ ...lead, whatsapp: e.target.value })}
-                        className="rounded-md border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-halo-text placeholder:text-halo-faint focus:border-halo-primary/60 focus:outline-none"
-                      />
-                      <input
-                        required
-                        placeholder="Especialidade / cidade"
-                        value={lead.specialty}
-                        onChange={(e) => setLead({ ...lead, specialty: e.target.value })}
-                        className="rounded-md border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-halo-text placeholder:text-halo-faint focus:border-halo-primary/60 focus:outline-none"
-                      />
-                      <button
-                        type="submit"
-                        className="md:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-halo-primary px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#070807] transition-colors hover:bg-halo-primary-hover"
-                      >
-                        Receber plano de 12 meses
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </form>
-                    <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-wider text-halo-faint">
-                      Reunião personalizada · vagas limitadas na agenda do mentor
-                    </p>
-                  </>
-                )}
+              <div className="mt-6 rounded-md border border-halo-primary/30 bg-halo-bg/45 p-5 md:p-6">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-halo-primary">
+                  Leitura inicial concluída
+                </p>
+                <h4 className="mt-2 font-serif text-lg font-semibold md:text-xl">
+                  Seu resultado foi calculado sem coletar dados pessoais.
+                </h4>
+                <p className="mt-2 text-[13px] leading-relaxed text-halo-muted">
+                  Use esta leitura para organizar a próxima conversa de gestão. Uma avaliação
+                  aprofundada exige validar indicadores, contexto e capacidade de execução com o
+                  time MedCEO.
+                </p>
+                <a
+                  href="#maturidade"
+                  onClick={onClose}
+                  className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-halo-primary px-6 py-3 text-xs font-semibold uppercase tracking-wider text-medceo-default transition-colors hover:bg-halo-primary-hover"
+                >
+                  Revisar o mapa de maturidade
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </a>
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-xs text-halo-faint">
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-xs text-halo-muted">
                 <button
+                  type="button"
                   onClick={() => {
+                    if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+                    if (resultTimerRef.current) clearTimeout(resultTimerRef.current);
                     setAnswers({});
                     setStep(0);
-                    setLeadSubmitted(false);
+                    setIsTransitioning(false);
                   }}
-                  className="underline underline-offset-4 hover:text-halo-muted"
+                  className="min-h-11 px-3 underline underline-offset-4 hover:text-halo-text"
                 >
                   Refazer o diagnóstico
                 </button>
@@ -638,7 +946,7 @@ export default function DiagnosticModal({ isOpen, onClose }: DiagnosticModalProp
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

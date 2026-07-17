@@ -1,0 +1,68 @@
+/* =============================================================
+   MedCEO — Spacing, sizing, radius & layout tokens
+   Escala derivada do ritmo dos decks. 88/112 vêm do padding real
+   dos slides (space-9 / space-10). Cantos discretos (raio pequeno).
+   ============================================================= */
+:root {
+  /* ---------- PRIMITIVE: space ---------- */
+  --medceo-space-0: 0px;
+  --medceo-space-1: 4px;
+  --medceo-space-2: 8px;
+  --medceo-space-3: 12px;
+  --medceo-space-4: 16px;
+  --medceo-space-5: 24px;
+  --medceo-space-6: 32px;
+  --medceo-space-7: 48px;
+  --medceo-space-8: 64px;
+  --medceo-space-9: 88px;
+  --medceo-space-10: 112px;
+  --medceo-space-11: 160px;
+
+  /* ---------- PRIMITIVE: radius (cantos discretos) ---------- */
+  --medceo-radius-none: 0px;
+  --medceo-radius-xs: 2px;
+  --medceo-radius-sm: 4px;
+  --medceo-radius-md: 8px;
+  --medceo-radius-lg: 12px;
+  --medceo-radius-pill: 999px;
+
+  /* ---------- PRIMITIVE: border widths (réguas finas) ---------- */
+  --medceo-border-hairline: 0.6px;
+  --medceo-border-thin: 1px;
+  --medceo-border-medium: 1.5px;
+  --medceo-border-thick: 2px;
+
+  /* ---------- PRIMITIVE: sizes ---------- */
+  --medceo-size-icon-sm: 16px;
+  --medceo-size-icon-md: 24px;
+  --medceo-size-icon-lg: 32px;
+  --medceo-size-touch-min: 44px;
+  --medceo-size-container: 1200px;
+  --medceo-size-deck: 1920px;
+
+  /* ---------- PRIMITIVE: breakpoints (mobile-first) ---------- */
+  --medceo-bp-sm: 480px; /* @kind other */
+  --medceo-bp-md: 768px; /* @kind other */
+  --medceo-bp-lg: 1024px; /* @kind other */
+  --medceo-bp-xl: 1440px; /* @kind other */
+
+  /* ---------- SEMANTIC: spacing roles ---------- */
+  --medceo-inline-xs: var(--medceo-space-1);
+  --medceo-inline-sm: var(--medceo-space-2);
+  --medceo-inline-md: var(--medceo-space-3);
+  --medceo-stack-sm: var(--medceo-space-4);
+  --medceo-stack-md: var(--medceo-space-5);
+  --medceo-stack-lg: var(--medceo-space-6);
+  --medceo-section: var(--medceo-space-8);
+  --medceo-page-x: var(--medceo-space-5);
+
+  /* ---------- SEMANTIC: radius roles ---------- */
+  --medceo-radius-control: var(--medceo-radius-sm);
+  --medceo-radius-card: var(--medceo-radius-md);
+  --medceo-radius-frame: var(--medceo-radius-xs);
+
+  /* ---------- COMPONENT: sizing ---------- */
+  --medceo-navbar-height: 72px;
+  --medceo-focus-ring-width: var(--medceo-border-thick);
+  --medceo-focus-ring-offset: var(--medceo-space-1);
+}

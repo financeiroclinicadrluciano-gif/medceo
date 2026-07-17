@@ -1,0 +1,45 @@
+/* =============================================================
+   MedCEO — Typography tokens
+   Playfair Display + Bodoni 72 (serif) = títulos/teses · Montserrat (sans) =
+   corpo · Poppins (sans) = UI · JetBrains Mono = números/scores. Escala
+   12→142. Eyebrows em caixa alta, tracking 0.18em, dourado.
+   ============================================================= */
+:root {
+  /* ---------- PRIMITIVE: families (official brand fonts) ---------- */
+  --medceo-font-serif: "Playfair Display", "Bodoni 72", Georgia, "Times New Roman", serif;
+  --medceo-font-serif-alt: "Bodoni 72", "Playfair Display", Georgia, serif;
+  --medceo-font-sans: "Montserrat", "Poppins", system-ui, Arial, sans-serif;
+  --medceo-font-ui: "Poppins", "Montserrat", system-ui, Arial, sans-serif;
+  --medceo-font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  /* ---------- PRIMITIVE: weight ---------- */
+  --medceo-weight-light: 300;
+  --medceo-weight-regular: 400;
+  --medceo-weight-medium: 500;
+  --medceo-weight-semibold: 600;
+
+  /* ---------- PRIMITIVE: size (modular ~1.25, base 16) ---------- */
+  --medceo-fs-xs: 12px;
+  --medceo-fs-sm: 14px;
+  --medceo-fs-base: 16px;
+  --medceo-fs-md: 18px;
+  --medceo-fs-lg: 22px;
+  --medceo-fs-xl: 28px;
+  --medceo-fs-2xl: 36px;
+  --medceo-fs-3xl: 48px;
+  --medceo-fs-4xl: 64px;
+  --medceo-fs-display: 92px;
+  --medceo-fs-hero: 142px;
+
+  /* ---------- PRIMITIVE: line-height ---------- */
+  --medceo-lh-tight: 0.96; /* @kind other */
+  --medceo-lh-snug: 1.12; /* @kind other */
+  --medceo-lh-normal: 1.34; /* @kind other */
+  --medceo-lh-relaxed: 1.6; /* @kind other */
+
+  /* ---------- PRIMITIVE: letter-spacing ---------- */
+  --medceo-ls-tight: 0em; /* @kind other */
+  --medceo-ls-normal: 0.01em; /* @kind other */
+  --medceo-ls-wide: 0.18em; /* @kind other */
+  --medceo-ls-wider: 0.28em; /* @kind other */
+}

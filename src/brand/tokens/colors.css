@@ -1,0 +1,65 @@
+/* =============================================================
+   MedCEO — Color tokens
+   Modelo de DUAS superfícies canônicas (escura + paper).
+   NÃO é dark mode alternável. Tokens de texto são surface-aware.
+   Dourado é critério, não joia: acento pontual, nunca área dominante,
+   NUNCA em texto pequeno.
+   ============================================================= */
+:root {
+  /* ---------- PRIMITIVE: color ---------- */
+  --medceo-color-night: #07131D;
+  --medceo-color-black: #0A0A0B;
+  --medceo-color-navy: #0D2434;
+  --medceo-color-navy-2: #15354A;
+  --medceo-color-gold: #C8A951;
+  --medceo-color-gold-rgb: 200, 169, 81; /* canais p/ overlays translúcidos via rgba() */
+  --medceo-color-gold-soft: #E7D28C;
+  --medceo-color-paper: #F7F0E4;
+  --medceo-color-paper-2: #E9DCC6;
+  --medceo-color-ink: #12202D;
+  --medceo-color-muted: #65727C;
+  --medceo-color-success: #2E7D5A;
+  --medceo-color-warning: #B8872E;
+  --medceo-color-error: #A85D4A;
+  --medceo-color-info: #2F72A8;
+
+  /* ---------- SEMANTIC: surfaces (surface-aware) ---------- */
+  --medceo-surface-deep: var(--medceo-color-night);
+  --medceo-surface-default: var(--medceo-color-navy);
+  --medceo-surface-elevated: var(--medceo-color-navy-2);
+  --medceo-surface-paper: var(--medceo-color-paper);
+  --medceo-surface-paper-2: var(--medceo-color-paper-2);
+
+  /* ---------- SEMANTIC: text ---------- */
+  --medceo-text-on-dark: var(--medceo-color-paper);
+  --medceo-text-on-dark-secondary: var(--medceo-color-paper-2);
+  --medceo-text-on-light: var(--medceo-color-ink);
+  --medceo-text-on-light-secondary: var(--medceo-color-muted);
+  --medceo-text-accent: var(--medceo-color-gold);
+
+  /* ---------- SEMANTIC: accent + borders ---------- */
+  --medceo-accent: var(--medceo-color-gold);
+  --medceo-accent-soft: var(--medceo-color-gold-soft);
+
+  --medceo-border-subtle: var(--medceo-color-gold);
+  --medceo-border-on-dark: var(--medceo-color-navy-2);
+  --medceo-border-on-light: var(--medceo-color-paper-2);
+  --medceo-border-focus: var(--medceo-color-gold);
+
+  /* ---------- SEMANTIC: feedback (estado, nunca cor de marca) ---------- */
+  --medceo-feedback-success: var(--medceo-color-success);
+  --medceo-feedback-warning: var(--medceo-color-warning);
+  --medceo-feedback-error: var(--medceo-color-error);
+  --medceo-feedback-info: var(--medceo-color-info);
+
+  /* ---------- COMPONENT: color roles ---------- */
+  --medceo-button-primary-bg: var(--medceo-accent);
+  --medceo-button-primary-text: var(--medceo-surface-default);
+  --medceo-button-primary-bg-hover: var(--medceo-accent-soft);
+  --medceo-input-bg: var(--medceo-surface-elevated);
+  --medceo-input-border: var(--medceo-border-on-dark);
+  --medceo-input-border-focus: var(--medceo-border-focus);
+  --medceo-card-bg: var(--medceo-surface-elevated);
+  --medceo-navbar-bg: var(--medceo-surface-deep);
+  --medceo-focus-ring-color: var(--medceo-border-focus);
+}
