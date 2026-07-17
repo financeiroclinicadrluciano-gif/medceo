@@ -7,11 +7,12 @@ import AnimatedContent from "@/components/AnimatedContent";
 import DiagnosticModal from "@/components/DiagnosticModal";
 import drLuizProfile from "@/assets/medceo/dr-luiz-profile-proof.png";
 import drEditorial from "@/assets/medceo/dr-luciano-editorial.jpg";
-import drHero from "@/assets/medceo/dr-luciano-hero.jpg";
 
 const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
 const DESCRIPTION =
   "Descubra o nível de maturidade da sua clínica, o gargalo prioritário da operação e os próximos passos em 20 perguntas.";
+const PANDA_PLAYER_URL =
+  "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=b5568006-5017-48fd-85f4-334a9424dbbd";
 
 // PENDENTE: adicionar o número em formato internacional, somente com dígitos.
 // Exemplo de formato: código do país + DDD + número.
@@ -32,15 +33,50 @@ export const Route = createFileRoute("/")({
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
     ],
+    links: [
+      {
+        rel: "preload",
+        href: "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/css/plyr.css",
+        as: "style",
+      },
+      {
+        rel: "preload",
+        href: "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/css/styles.css",
+        as: "style",
+      },
+      {
+        rel: "preload",
+        href: "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/css/pb.css",
+        as: "style",
+      },
+      {
+        rel: "preload",
+        href: "https://config.tv.pandavideo.com.br/vz-cc72507e-ecc/b5568006-5017-48fd-85f4-334a9424dbbd.json",
+        as: "fetch",
+      },
+      {
+        rel: "preload",
+        href: "https://config.tv.pandavideo.com.br/vz-cc72507e-ecc/config.json",
+        as: "fetch",
+      },
+      {
+        rel: "dns-prefetch",
+        href: "https://b-vz-cc72507e-ecc.tv.pandavideo.com.br",
+      },
+      {
+        rel: "preload",
+        href: "https://b-vz-cc72507e-ecc.tv.pandavideo.com.br/b5568006-5017-48fd-85f4-334a9424dbbd/playlist.m3u8",
+        as: "fetch",
+      },
+      { rel: "prerender", href: PANDA_PLAYER_URL },
+      {
+        rel: "dns-prefetch",
+        href: "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br",
+      },
+    ],
   }),
   component: Index,
 });
-
-const diagnosticSummary = [
-  { value: "20", label: "perguntas estratégicas" },
-  { value: "05", label: "pilares avaliados" },
-  { value: "03", label: "próximos passos" },
-];
 
 const diagnosisFor = [
   "Médicos donos de clínica com pacientes, equipe e faturamento em andamento.",
@@ -206,7 +242,24 @@ function Index() {
                 Descubra o nível de maturidade da sua operação, o gargalo que mais limita o próximo
                 passo e a prioridade que merece atenção agora.
               </p>
+            </AnimatedContent>
 
+            <AnimatedContent className="mc-hero-video" distance={28} direction="horizontal" reverse>
+              <div className="mc-hero-video-frame">
+                <iframe
+                  src={PANDA_PLAYER_URL}
+                  title="Vídeo de apresentação do diagnóstico MedCEO"
+                  width={1284}
+                  height={720}
+                  loading="eager"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </AnimatedContent>
+
+            <AnimatedContent className="mc-hero-cta" distance={18} delay={0.08}>
               <div className="mc-hero-actions">
                 <WhatsAppButton>Falar com o MedCEO</WhatsAppButton>
               </div>
@@ -215,44 +268,6 @@ function Index() {
                 Conversa direta com a equipe · atendimento pelo WhatsApp
               </p>
             </AnimatedContent>
-
-            <AnimatedContent
-              className="mc-hero-visual"
-              distance={28}
-              direction="horizontal"
-              reverse
-            >
-              <div className="mc-photo-frame">
-                <img
-                  src={drHero}
-                  alt="Dr. Luciano Alves em retrato executivo"
-                  width={3718}
-                  height={5577}
-                  fetchPriority="high"
-                />
-                <div className="mc-photo-caption">
-                  <span>Dr. Luciano Alves</span>
-                  <small>Médico, CEO e mentor MedCEO</small>
-                </div>
-              </div>
-
-              <div className="mc-diagnostic-ticket" aria-label="Resumo do diagnóstico">
-                <span className="mc-ticket-kicker">Leitura executiva</span>
-                <strong>Da dependência do dono à escala previsível.</strong>
-                <span className="mc-ticket-line" />
-                <small>Diagnóstico · margem · comercial · operação · escala</small>
-              </div>
-            </AnimatedContent>
-          </div>
-
-          <div className="mc-container mc-hero-ledger" aria-label="Estrutura do diagnóstico">
-            {diagnosticSummary.map((item) => (
-              <div key={item.label}>
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-              </div>
-            ))}
-            <p>Uma direção antes de mais uma iniciativa.</p>
           </div>
         </section>
 
@@ -329,19 +344,14 @@ function Index() {
         >
           <div className="mc-container mc-social-proof-grid">
             <AnimatedContent className="mc-social-proof-copy" distance={24}>
-              <p className="mc-eyebrow">Prova social · autoridade médica</p>
-              <h2 id="social-proof-title">
-                Quando a autoridade cresce, a operação precisa crescer junto.
-              </h2>
+              <p className="mc-eyebrow">Case MedCEO · Dr. Luiz Henrique</p>
+              <h2 id="social-proof-title">De R$ 80 mil para R$ 200 mil em cerca de 3 meses.</h2>
               <p className="mc-social-proof-lead">
-                Dr. Luiz Henrique reúne presença clínica e liderança empresarial à frente do
-                Instituto Revitali. No registro profissional enviado, sua audiência já ultrapassa 62
-                mil pessoas — um sinal de que reputação médica também eleva a exigência sobre
-                gestão, equipe e direção.
+                Ao trabalhar apenas um dos pilares do MedCEO, a clínica avançou R$ 120 mil em
+                faturamento — um crescimento de 150% sobre o patamar inicial.
               </p>
               <p className="mc-social-proof-context">
-                O MedCEO existe para essa etapa: quando excelência clínica e demanda já não bastam e
-                a clínica precisa de estrutura para sustentar o próximo nível.
+                Uma mudança concentrada, antes de aprofundar os outros pilares da operação.
               </p>
             </AnimatedContent>
 
@@ -365,28 +375,37 @@ function Index() {
                 </div>
                 <figcaption>
                   <span>Dr. Luiz Henrique</span>
-                  <small>Médico e CEO do Instituto Revitali</small>
+                  <small>Case MedCEO · resultado em aproximadamente 3 meses</small>
                 </figcaption>
               </figure>
 
-              <dl className="mc-social-proof-facts">
+              <div
+                className="mc-case-shift"
+                aria-label="Faturamento avançou de 80 mil reais para 200 mil reais em aproximadamente 3 meses"
+              >
                 <div>
-                  <dt>62,8 mil</dt>
-                  <dd>seguidores no registro enviado</dd>
+                  <span>Antes</span>
+                  <strong>R$ 80 mil</strong>
+                </div>
+                <div className="mc-case-shift-arrow" aria-hidden="true">
+                  <span>≈ 3 meses</span>
+                  <ArrowRight />
                 </div>
                 <div>
-                  <dt>CEO</dt>
-                  <dd>Instituto Revitali</dd>
+                  <span>Novo patamar</span>
+                  <strong>R$ 200 mil</strong>
                 </div>
-                <div>
-                  <dt>Perfil</dt>
-                  <dd>verificado no Instagram</dd>
-                </div>
-              </dl>
+              </div>
 
-              <p className="mc-social-proof-source">
-                Dados do perfil profissional enviado em 17 de julho de 2026. Métricas de rede social
-                são contextuais e podem mudar.
+              <div className="mc-case-growth">
+                <strong>+150%</strong>
+                <span>de crescimento · 2,5x o patamar anterior</span>
+                <small>01 pilar trabalhado</small>
+              </div>
+
+              <p className="mc-case-disclaimer">
+                Resultado individual informado pelo case. O desempenho varia conforme o estágio da
+                clínica e a execução; não representa garantia de resultados futuros.
               </p>
             </AnimatedContent>
           </div>
