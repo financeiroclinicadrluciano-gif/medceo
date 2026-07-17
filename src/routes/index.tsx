@@ -1,17 +1,25 @@
 import { useEffect, useRef, useState, type MouseEventHandler, type ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
-import { ArrowRight, Check, Compass, X } from "lucide-react";
+import { ArrowRight, Check, X } from "lucide-react";
 
 import AnimatedContent from "@/components/AnimatedContent";
 import DiagnosticModal from "@/components/DiagnosticModal";
-import VideoModal from "@/components/VideoModal";
 import drEditorial from "@/assets/medceo/dr-luciano-editorial.jpg";
 import drHero from "@/assets/medceo/dr-luciano-hero.jpg";
 
 const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
 const DESCRIPTION =
   "Descubra o nível de maturidade da sua clínica, o gargalo prioritário da operação e os próximos passos em 20 perguntas.";
+
+// PENDENTE: adicionar o número em formato internacional, somente com dígitos.
+// Exemplo de formato: código do país + DDD + número.
+const WHATSAPP_PHONE = "";
+const WHATSAPP_MESSAGE =
+  "Olá! Vim pelo site do MedCEO e quero conversar sobre a maturidade da minha clínica.";
+const WHATSAPP_URL = WHATSAPP_PHONE
+  ? `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+  : null;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,27 +41,6 @@ const diagnosticSummary = [
   { value: "03", label: "próximos passos" },
 ];
 
-const operationalSignals = [
-  {
-    label: "O que aparece",
-    title: "A clínica cresce, mas você continua no centro de tudo.",
-    items: [
-      "A equipe consulta você antes de decidir.",
-      "O comercial perde ritmo sem sua cobrança.",
-      "O faturamento aumenta, mas a margem continua nebulosa.",
-    ],
-  },
-  {
-    label: "O que realmente trava",
-    title: "Não é falta de esforço. É crescimento antes da estrutura.",
-    items: [
-      "Papéis, processos e indicadores ainda não sustentam autonomia.",
-      "Marketing amplifica uma operação que ainda depende do dono.",
-      "Sem diagnóstico, cada nova iniciativa disputa atenção e caixa.",
-    ],
-  },
-];
-
 const diagnosisFor = [
   "Médicos donos de clínica com pacientes, equipe e faturamento em andamento.",
   "Operações que já recebem demanda, mas ainda perdem oportunidades no comercial.",
@@ -72,59 +59,22 @@ const deliverables = [
   {
     number: "01",
     title: "Mapa do nível atual",
-    description:
-      "Uma leitura clara de quanto a clínica ainda depende do dono e do improviso para funcionar.",
+    description: "Dependência do dono e maturidade atual da operação.",
   },
   {
     number: "02",
     title: "Gargalo prioritário",
-    description:
-      "O pilar que mais limita o próximo nível: diagnóstico, margem, comercial, operação ou escala.",
+    description: "O pilar que hoje mais limita o próximo nível da clínica.",
   },
   {
     number: "03",
     title: "Prioridade de gestão",
-    description:
-      "A primeira decisão que merece atenção antes de abrir uma nova frente de crescimento.",
+    description: "A decisão que merece atenção antes de uma nova iniciativa.",
   },
   {
     number: "04",
     title: "Três próximos passos",
-    description:
-      "Ações iniciais coerentes com o estágio encontrado para orientar a próxima conversa de gestão.",
-  },
-];
-
-const maturityPillars = [
-  {
-    number: "01",
-    title: "Diagnóstico",
-    question: "Você sabe exatamente onde a clínica está travada?",
-    description: "Maturidade, dependência do dono e gargalo prioritário antes de qualquer solução.",
-  },
-  {
-    number: "02",
-    title: "Margem",
-    question: "O faturamento mostra quanto realmente sobra?",
-    description: "Clareza financeira, margem por serviço e decisões sustentadas por indicador.",
-  },
-  {
-    number: "03",
-    title: "Comercial",
-    question: "Sua recepção atende ou conduz uma decisão?",
-    description: "Lead, WhatsApp, qualificação, proposta e follow-up seguindo um método.",
-  },
-  {
-    number: "04",
-    title: "Operação",
-    question: "A equipe resolve ou apenas encaminha tudo para você?",
-    description: "Papéis, processos, rotina e autonomia para reduzir centralização.",
-  },
-  {
-    number: "05",
-    title: "Escala",
-    question: "A estrutura sustenta o próximo nível?",
-    description: "Crescimento em ordem, com prioridades e uma sequência executável.",
+    description: "Ações coerentes com o estágio identificado no diagnóstico.",
   },
 ];
 
@@ -153,13 +103,43 @@ function DiagnosticButton({
   );
 }
 
+type WhatsAppButtonProps = {
+  children: ReactNode;
+  className?: string;
+  compact?: boolean;
+};
+
+function WhatsAppButton({ children, className = "", compact = false }: WhatsAppButtonProps) {
+  const buttonClassName = `mc-button mc-button-primary ${compact ? "mc-button-compact" : ""} ${className}`;
+
+  if (!WHATSAPP_URL) {
+    return (
+      <button
+        type="button"
+        className={buttonClassName}
+        disabled
+        aria-label={`${children} — WhatsApp em configuração`}
+        title="O contato do WhatsApp será configurado em breve"
+      >
+        <span>{children}</span>
+        <ArrowRight aria-hidden="true" />
+      </button>
+    );
+  }
+
+  return (
+    <a className={buttonClassName} href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+      <span>{children}</span>
+      <ArrowRight aria-hidden="true" />
+    </a>
+  );
+}
+
 function Index() {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
   const [showFloatingCta, setShowFloatingCta] = useState(false);
   const [mounted, setMounted] = useState(false);
   const diagnosticReturnFocusRef = useRef<HTMLElement | null>(null);
-  const methodReturnFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -178,11 +158,11 @@ function Index() {
   useEffect(() => {
     if (typeof document === "undefined") return;
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = isDiagnosticOpen || isVideoOpen ? "hidden" : previousOverflow;
+    document.body.style.overflow = isDiagnosticOpen ? "hidden" : previousOverflow;
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [isDiagnosticOpen, isVideoOpen]);
+  }, [isDiagnosticOpen]);
 
   const openDiagnostic: MouseEventHandler<HTMLButtonElement> = (event) => {
     diagnosticReturnFocusRef.current = event.currentTarget;
@@ -202,15 +182,13 @@ function Index() {
           </a>
 
           <div className="mc-nav-links">
+            <a href="#filtro">Filtro</a>
+            <a href="#entregas">O que você recebe</a>
+            <a href="#autoridade">Dr. Luciano</a>
             <a href="#diagnostico">Diagnóstico</a>
-            <a href="#entregas">Entregas</a>
-            <a href="#maturidade">Maturidade</a>
-            <a href="#autoridade">Autoridade</a>
           </div>
 
-          <DiagnosticButton onClick={openDiagnostic} compact>
-            Iniciar diagnóstico
-          </DiagnosticButton>
+          <WhatsAppButton compact>Falar no WhatsApp</WhatsAppButton>
         </nav>
       </header>
 
@@ -228,23 +206,12 @@ function Index() {
               </p>
 
               <div className="mc-hero-actions">
-                <DiagnosticButton onClick={openDiagnostic}>
-                  Descobrir meu nível de maturidade
-                </DiagnosticButton>
-                <button
-                  type="button"
-                  className="mc-button mc-button-secondary"
-                  onClick={(event) => {
-                    methodReturnFocusRef.current = event.currentTarget;
-                    setIsVideoOpen(true);
-                  }}
-                >
-                  <Compass aria-hidden="true" />
-                  <span>Entender o diagnóstico</span>
-                </button>
+                <WhatsAppButton>Falar com o MedCEO</WhatsAppButton>
               </div>
 
-              <p className="mc-hero-note">Gratuito · leva poucos minutos · resultado imediato</p>
+              <p className="mc-hero-note">
+                Conversa direta com a equipe · atendimento pelo WhatsApp
+              </p>
             </AnimatedContent>
 
             <AnimatedContent
@@ -287,46 +254,7 @@ function Index() {
           </div>
         </section>
 
-        <section id="diagnostico" className="mc-paper-section mc-section">
-          <div className="mc-container">
-            <AnimatedContent className="mc-paper-heading" distance={24}>
-              <p className="mc-eyebrow mc-eyebrow-dark">O custo invisível</p>
-              <h2>
-                Sua clínica pode faturar bem — <em>e ainda depender demais de você.</em>
-              </h2>
-            </AnimatedContent>
-
-            <div className="mc-signal-grid">
-              {operationalSignals.map((signal, index) => (
-                <AnimatedContent
-                  key={signal.label}
-                  className="mc-signal-column"
-                  distance={22}
-                  delay={index * 0.06}
-                >
-                  <span className="mc-index">0{index + 1}</span>
-                  <p className="mc-signal-label">{signal.label}</p>
-                  <h3>{signal.title}</h3>
-                  <ul>
-                    {signal.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </AnimatedContent>
-              ))}
-            </div>
-
-            <AnimatedContent className="mc-control-question" distance={18}>
-              <span>PERGUNTA DE CONTROLE</span>
-              <p>
-                Se toda decisão ainda volta para você, o crescimento da clínica está financiando uma
-                empresa — ou apenas uma rotina maior?
-              </p>
-            </AnimatedContent>
-          </div>
-        </section>
-
-        <section className="mc-fit-section mc-section">
+        <section id="filtro" className="mc-fit-section mc-section">
           <div className="mc-container mc-fit-grid">
             <AnimatedContent className="mc-section-intro" distance={24}>
               <p className="mc-eyebrow">Filtro do diagnóstico</p>
@@ -372,10 +300,7 @@ function Index() {
                 <p className="mc-eyebrow mc-eyebrow-dark">O que você recebe</p>
                 <h2>Um diagnóstico que organiza a próxima decisão.</h2>
               </div>
-              <p>
-                Cada resposta precisa mudar a leitura da clínica e a ordem das próximas decisões. Se
-                não muda a ação, é apenas informação.
-              </p>
+              <p>Quatro respostas objetivas para transformar percepção em prioridade de gestão.</p>
             </AnimatedContent>
 
             <div className="mc-deliverables-list">
@@ -389,38 +314,6 @@ function Index() {
                   <span>{item.number}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
-                </AnimatedContent>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="maturidade" className="mc-maturity-section mc-section">
-          <div className="mc-container mc-maturity-grid">
-            <AnimatedContent className="mc-maturity-intro" distance={24}>
-              <p className="mc-eyebrow">Mapa de maturidade</p>
-              <h2>Cinco leituras. Uma ordem para crescer.</h2>
-              <p>
-                O próximo nível não começa por mais tráfego, mais equipe ou mais uma unidade. Ele
-                começa pelo pilar que ainda não sustenta o que você quer construir.
-              </p>
-              <DiagnosticButton onClick={openDiagnostic}>Mapear minha clínica</DiagnosticButton>
-            </AnimatedContent>
-
-            <div className="mc-maturity-map">
-              {maturityPillars.map((pillar, index) => (
-                <AnimatedContent
-                  key={pillar.number}
-                  className="mc-maturity-row"
-                  distance={20}
-                  delay={index * 0.05}
-                >
-                  <span className="mc-maturity-number">{pillar.number}</span>
-                  <div>
-                    <p>{pillar.title}</p>
-                    <h3>{pillar.question}</h3>
-                  </div>
-                  <small>{pillar.description}</small>
                 </AnimatedContent>
               ))}
             </div>
@@ -444,15 +337,15 @@ function Index() {
 
             <AnimatedContent className="mc-authority-copy" distance={24} delay={0.06}>
               <p className="mc-eyebrow mc-eyebrow-dark">Quem interpreta o diagnóstico</p>
-              <h2>Dr. Luciano Alves e mentores MedCEO.</h2>
+              <h2>Dr. Luciano Alves.</h2>
               <div className="mc-authority-body">
                 <p>
                   Médico e CEO da Natuá, o Dr. Luciano lidera uma operação real, com pacientes,
                   equipe, comercial, margem e decisões para administrar todos os dias.
                 </p>
                 <p>
-                  O MedCEO conecta essa vivência ao olhar de mentores em gestão, margem, comercial,
-                  operação e escala. A conversa começa pelas suas respostas, não por uma solução
+                  É essa experiência prática que orienta a leitura do seu diagnóstico. A conversa
+                  começa pelas suas respostas e pelo gargalo real da clínica, não por uma solução
                   pronta.
                 </p>
               </div>
@@ -464,11 +357,11 @@ function Index() {
           </div>
         </section>
 
-        <section className="mc-final-section">
+        <section id="diagnostico" className="mc-final-section">
           <div className="mc-container mc-final-grid">
             <div>
-              <p className="mc-eyebrow">Seu próximo passo</p>
-              <h2>Estrutura antes da escala.</h2>
+              <p className="mc-eyebrow">Diagnóstico disponível</p>
+              <h2>Agora, descubra onde sua clínica está.</h2>
             </div>
             <div className="mc-final-action">
               <p>
@@ -476,7 +369,7 @@ function Index() {
                 próximo nível e qual decisão merece prioridade agora.
               </p>
               <DiagnosticButton onClick={openDiagnostic}>
-                Iniciar diagnóstico gratuito
+                Fazer o diagnóstico agora
               </DiagnosticButton>
             </div>
           </div>
@@ -492,7 +385,7 @@ function Index() {
       </footer>
 
       <AnimatePresence>
-        {showFloatingCta && !isDiagnosticOpen && !isVideoOpen && (
+        {WHATSAPP_URL && showFloatingCta && !isDiagnosticOpen && (
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -500,23 +393,11 @@ function Index() {
             transition={{ duration: 0.2 }}
             className="mc-floating-cta"
           >
-            <DiagnosticButton onClick={openDiagnostic} compact>
-              Descobrir meu nível
-            </DiagnosticButton>
+            <WhatsAppButton compact>Falar no WhatsApp</WhatsAppButton>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <VideoModal
-        isOpen={isVideoOpen}
-        onClose={() => setIsVideoOpen(false)}
-        returnFocusRef={methodReturnFocusRef}
-        onStartDiagnostic={() => {
-          diagnosticReturnFocusRef.current = methodReturnFocusRef.current;
-          setIsVideoOpen(false);
-          setIsDiagnosticOpen(true);
-        }}
-      />
       <DiagnosticModal
         isOpen={isDiagnosticOpen}
         onClose={() => setIsDiagnosticOpen(false)}
