@@ -1,0 +1,58 @@
+/* =============================================================
+   MedCEO — Webfonts (self-hosted, official brand files)
+     Playfair Display → títulos / teses (serif display)
+     Bodoni 72        → serif editorial alternativo (capas, números grandes)
+     Montserrat       → corpo / UI / labels
+     Poppins          → UI alternativa (botões, chips, navegação)
+     JetBrains Mono   → números / scores (substituição — ver readme ICONOGRAPHY)
+   Variable fonts servem todo o range de peso usado pela escala.
+   ============================================================= */
+
+/* O kit ainda não fornece uma família mono. Indicadores usam a pilha
+   monoespaçada do sistema definida em typography.css, sem dependência remota. */
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../assets/fonts/PlayfairDisplay-Variable.ttf") format("truetype-variations");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bodoni 72";
+  src: url("../assets/fonts/Bodoni72-Book.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Variable.ttf") format("truetype-variations");
+  font-weight: 300 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

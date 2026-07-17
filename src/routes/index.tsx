@@ -1,16 +1,34 @@
-import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
-import { ArrowRight, Check, Play, X } from "lucide-react";
+import { motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
+import { ArrowDownRight, ArrowRight, Check, X } from "lucide-react";
+import { useEffect, useRef, useState, type MouseEventHandler, type ReactNode } from "react";
 
 import AnimatedContent from "@/components/AnimatedContent";
-import VideoModal from "@/components/VideoModal";
 import DiagnosticModal from "@/components/DiagnosticModal";
-import drSeated from "@/assets/dr-luciano.jpg";
+import AnimatedCaseStudy, { type CaseSlide } from "@/components/landing/AnimatedCaseStudy";
+import CanvasText from "@/components/landing/CanvasText";
+import ChromaGrid, { type ChromaPillar } from "@/components/landing/ChromaGrid";
+import DottedGlowBackground from "@/components/landing/DottedGlowBackground";
+import EditorialCarousel, { type EditorialSlide } from "@/components/landing/EditorialCarousel";
+import { SpotlightSurface, TiltSurface } from "@/components/landing/InteractiveSurfaces";
+import SplitText from "@/components/landing/SplitText";
 
-const TITLE = "MedCEO · Diagnóstico de Maturidade Empresarial Médica";
+import drLucianoPortrait from "@/assets/dr-luciano.jpg";
+import drLucianoCutoutAvif from "@/assets/medceo/dr-luciano-cutout.avif";
+import drLucianoCutoutMobileAvif from "@/assets/medceo/dr-luciano-cutout-mobile.avif";
+import drLucianoCutout from "@/assets/medceo/dr-luciano-cutout.png";
+import drLucianoCutoutMobile from "@/assets/medceo/dr-luciano-cutout-mobile.png";
+import drEditorial from "@/assets/medceo/dr-luciano-editorial.jpg";
+import heroBackground from "@/assets/medceo/medceo-hero-background.jpg";
+import drHero from "@/assets/medceo/dr-luciano-hero.jpg";
+import drLuizProfile from "@/assets/medceo/dr-luiz-profile-proof.png";
+
+const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
 const DESCRIPTION =
-  "Diagnóstico gratuito para médicos donos de clínica. Descubra o nível de maturidade da sua operação e receba um plano estratégico de 12 meses.";
+  "Descubra o nível de maturidade da sua clínica, o gargalo prioritário da operação e os próximos passos em 20 perguntas.";
+
+// PENDENTE: quando o número internacional for definido, os CTAs comerciais
+// podem apontar para WhatsApp. O único CTA que abre o diagnóstico fica no final.
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,457 +40,445 @@ export const Route = createFileRoute("/")({
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
     ],
+    links: [{ rel: "preload", href: heroBackground, as: "image" }],
   }),
   component: Index,
 });
 
-const authorityMarkers = [
-  { label: "Formato", value: "20 perguntas estratégicas" },
-  { label: "Entrega", value: "Relatório + plano de 12 meses" },
-  { label: "Leitura", value: "Nível de maturidade da clínica" },
-  { label: "Próximo passo", value: "Reunião personalizada" },
-];
-
 const diagnosisFor = [
   "Médicos donos de clínica com pacientes, equipe e faturamento em andamento.",
-  "Clínicas que já recebem leads, mas perdem oportunidades no WhatsApp, no preço ou no follow-up.",
-  "Operações em que o dono ainda decide demais: agenda, comercial, contratação, margem e entrega.",
-  "Médicos que querem saber qual estrutura precisa vir antes de crescer mais.",
+  "Operações que recebem demanda, mas perdem oportunidades no comercial.",
+  "Clínicas em que agenda, margem, equipe e decisões ainda voltam para o dono.",
+  "Médicos que querem estrutura antes de investir em uma nova frente de crescimento.",
 ];
 
 const diagnosisNotFor = [
-  "Quem ainda não tem clínica em operação ou agenda minimamente ativa.",
+  "Quem ainda não tem uma clínica minimamente ativa para diagnosticar.",
   "Quem procura promessa de faturamento rápido ou fórmula pronta de marketing.",
-  "Quem quer apenas mais pacientes, sem olhar gestão, margem, equipe e comercial.",
-  "Quem não está disposto a responder com clareza sobre faturamento e gargalos.",
+  "Quem quer apenas mais pacientes sem olhar margem, equipe e operação.",
+  "Quem não está disposto a responder com clareza sobre gargalos reais.",
 ];
 
-const diagnosticDeliverables = [
+const deliverables = [
   {
+    number: "01",
     title: "Mapa do nível atual",
-    desc: "Mostra se a clínica ainda depende da agenda do médico, da improvisação da equipe ou se já tem base para avançar.",
+    description:
+      "Uma leitura clara da dependência do dono e da maturidade empresarial da operação.",
+    accent: "Onde sua clínica realmente está.",
   },
   {
-    title: "Leitura dos gargalos",
-    desc: "Aponta onde a operação perde maturidade: gestão, margem, comercial, equipe, entrega ou escala.",
+    number: "02",
+    title: "Gargalo prioritário",
+    description: "O pilar que mais limita o próximo nível — antes de uma nova iniciativa.",
+    accent: "O problema certo para resolver primeiro.",
   },
   {
-    title: "Plano estratégico de 12 meses",
-    desc: "Organiza prioridades para corrigir primeiro, estruturar depois e evitar acelerar o que ainda não sustenta crescimento.",
+    number: "03",
+    title: "Prioridade de gestão",
+    description: "A decisão que merece atenção agora, traduzida em uma direção objetiva.",
+    accent: "Menos dispersão. Mais critério.",
   },
   {
-    title: "Reunião personalizada",
-    desc: "O time conversa a partir das suas respostas, com contexto real da clínica, e não com um discurso pronto.",
+    number: "04",
+    title: "Três próximos passos",
+    description: "Ações coerentes com o estágio identificado, sem fórmula genérica.",
+    accent: "Uma sequência possível de executar.",
   },
 ];
 
-const methodPillars = [
+const pillars: ChromaPillar[] = [
   {
-    level: "01",
+    number: "01",
     title: "Diagnóstico",
-    desc: "Mapear maturidade, faturamento, dependência do dono e gargalo dominante antes de qualquer solução.",
+    description: "Clareza estratégica e dependência real do dono.",
   },
+  { number: "02", title: "Margem", description: "Lucro, previsibilidade e qualidade financeira." },
   {
-    level: "02",
-    title: "Margem",
-    desc: "Entender se a clínica fatura com clareza ou se a receita esconde desperdício, desconto e decisão sem indicador.",
-  },
-  {
-    level: "03",
+    number: "03",
     title: "Comercial",
-    desc: "Avaliar se lead, WhatsApp, qualificação, proposta e follow-up seguem método ou dependem do improviso.",
+    description: "Conversão, cadência e aproveitamento da demanda.",
   },
   {
-    level: "04",
+    number: "04",
     title: "Operação",
-    desc: "Verificar equipe, entrega, rotina, processos e autonomia para reduzir a centralização no médico dono.",
+    description: "Processos, autonomia e consistência da entrega.",
+  },
+  { number: "05", title: "Escala", description: "Estrutura para crescer sem ampliar o caos." },
+];
+
+const caseSlides: CaseSlide[] = [
+  {
+    label: "Patamar inicial",
+    metric: "R$ 80 mil",
+    title: "O faturamento antes da intervenção.",
+    description:
+      "O case começou com uma clínica em operação e um gargalo específico a ser trabalhado.",
   },
   {
-    level: "05",
-    title: "Escala",
-    desc: "Transformar o diagnóstico em plano de crescimento para 12 meses, com prioridades e ordem de execução.",
+    label: "Foco aplicado",
+    metric: "01 pilar",
+    title: "Uma mudança concentrada, não uma coleção de iniciativas.",
+    description:
+      "O trabalho foi direcionado a um único pilar do MedCEO antes de avançar sobre as outras frentes.",
+  },
+  {
+    label: "Novo patamar",
+    metric: "R$ 200 mil",
+    title: "Em aproximadamente três meses.",
+    description: "Um avanço de R$ 120 mil: crescimento de 150% e 2,5 vezes o patamar anterior.",
   },
 ];
+
+const editorialSlides: EditorialSlide[] = [
+  {
+    image: drEditorial,
+    alt: "Retrato editorial em preto e branco do Dr. Luciano Alves",
+    eyebrow: "Leitura",
+    title: "Critério antes de iniciativa",
+  },
+  {
+    image: drHero,
+    alt: "Retrato profissional do Dr. Luciano Alves",
+    eyebrow: "Experiência",
+    title: "Operação médica real",
+  },
+  {
+    image: drLucianoPortrait,
+    alt: "Dr. Luciano Alves em retrato profissional",
+    eyebrow: "Direção",
+    title: "Gestão traduzida em decisão",
+  },
+];
+
+type DiagnosticButtonProps = {
+  children: ReactNode;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+};
+
+function DiagnosticButton({ children, onClick }: DiagnosticButtonProps) {
+  return (
+    <button type="button" onClick={onClick} className="mc-button mc-button-primary mc-final-button">
+      <span>{children}</span>
+      <ArrowRight aria-hidden="true" />
+    </button>
+  );
+}
 
 function Index() {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
-  const [showFloatingCta, setShowFloatingCta] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
+  const [headerCondensed, setHeaderCondensed] = useState(false);
+  const diagnosticReturnFocusRef = useRef<HTMLElement | null>(null);
   const { scrollY, scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 120,
+    damping: 32,
     restDelta: 0.001,
   });
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (typeof window === "undefined") return;
-    setShowFloatingCta(latest > window.innerHeight * 0.72);
-  });
+  useMotionValueEvent(scrollY, "change", (latest) => setHeaderCondensed(latest > 48));
 
-  // Body scroll lock while modal open
   useEffect(() => {
     if (typeof document === "undefined") return;
-    document.body.style.overflow = isDiagnosticOpen || isVideoOpen ? "hidden" : "";
-  }, [isDiagnosticOpen, isVideoOpen]);
+    const previousOverflow = document.body.style.overflow;
+    if (isDiagnosticOpen) document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isDiagnosticOpen]);
 
-  const openDiagnostic = () => setIsDiagnosticOpen(true);
-
-  const DiagnosticButton = ({
-    children,
-    className = "",
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => (
-    <button
-      onClick={openDiagnostic}
-      className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-halo-primary px-6 py-3 font-sans text-[11px] font-semibold uppercase tracking-wider text-[#070807] transition-all duration-300 hover:-translate-y-0.5 hover:bg-halo-primary-hover hover:shadow-[0_18px_40px_rgba(211,183,91,0.28)] focus:outline-none focus:ring-2 focus:ring-halo-primary focus:ring-offset-2 focus:ring-offset-halo-bg ${className}`}
-    >
-      {children}
-      <ArrowRight className="h-4 w-4" />
-    </button>
-  );
+  const openDiagnostic: MouseEventHandler<HTMLButtonElement> = (event) => {
+    diagnosticReturnFocusRef.current = event.currentTarget;
+    setIsDiagnosticOpen(true);
+  };
 
   return (
-    <div className="site-grain min-h-screen overflow-x-hidden bg-halo-bg font-sans text-halo-text selection:bg-halo-primary/25 selection:text-halo-primary">
-      {mounted && (
-        <motion.div
-          className="fixed left-0 right-0 top-0 z-50 h-[2px] origin-left bg-halo-primary"
-          style={{ scaleX }}
-        />
-      )}
+    <div className="medceo-page">
+      <motion.div className="mc-scroll-progress" style={{ scaleX }} aria-hidden="true" />
 
-      <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/5 bg-halo-bg/74 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-10">
-          <a href="#top" className="flex items-center gap-3">
-            <img
-              src="/logo.png"
-              alt="MedCEO"
-              className="h-8 max-w-[150px] object-contain md:h-9 md:max-w-[168px]"
-            />
+      <header className={`mc-header ${headerCondensed ? "is-condensed" : ""}`}>
+        <nav className="mc-nav" aria-label="Navegação principal">
+          <a href="#top" className="mc-brand" aria-label="MedCEO — voltar ao início">
+            <img src="/logo.png" alt="MedCEO" />
           </a>
 
-          <div className="hidden items-center gap-8 font-mono text-[10px] font-medium uppercase tracking-wider text-halo-muted md:flex">
-            <a href="#fit" className="nav-link">Para quem</a>
-            <a href="#deliverables" className="nav-link">Entregas</a>
-            <a href="#method" className="nav-link">Método</a>
-            <a href="#authority" className="nav-link">Autoridade</a>
+          <div className="mc-nav-links">
+            <a href="#filtro">Filtro</a>
+            <a href="#entregas">Diagnóstico</a>
+            <a href="#prova-social">Case</a>
+            <a href="#autoridade">Dr. Luciano</a>
           </div>
 
-          <DiagnosticButton className="px-4 md:px-5">
-            <span className="hidden sm:inline">Iniciar diagnóstico</span>
-            <span className="sm:hidden">Diagnóstico</span>
-          </DiagnosticButton>
+          <a className="mc-nav-action" href="#diagnostico">
+            Ver próximo passo
+            <ArrowDownRight aria-hidden="true" />
+          </a>
         </nav>
       </header>
 
       <main id="top">
-        {/* HERO */}
-        <section
-          id="hero"
-          className="relative overflow-hidden border-b border-white/5 px-5 pb-14 pt-28 md:px-10 md:pt-32 lg:flex lg:min-h-screen lg:items-center lg:pt-20"
-        >
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_28%_18%,rgba(211,183,91,0.18),transparent_36%),linear-gradient(180deg,rgba(7,8,7,0.94),#070807_64%)]" />
+        <section className="mc-hero" aria-labelledby="hero-title">
+          <div
+            className="mc-hero-background"
+            style={{ backgroundImage: `url(${heroBackground})` }}
+            aria-hidden="true"
+          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet={`${drLucianoCutoutMobileAvif} 800w, ${drLucianoCutoutAvif} 1200w`}
+              sizes="(max-width: 720px) 72vw, 48vw"
+            />
+            <img
+              className="mc-hero-person"
+              src={drLucianoCutout}
+              srcSet={`${drLucianoCutoutMobile} 800w, ${drLucianoCutout} 1200w`}
+              sizes="(max-width: 720px) 72vw, 48vw"
+              alt=""
+              width={1200}
+              height={1800}
+              fetchPriority="high"
+              aria-hidden="true"
+            />
+          </picture>
+          <div className="mc-hero-wash" aria-hidden="true" />
 
-          <div className="mx-auto w-full max-w-7xl">
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
-              <AnimatedContent distance={36} className="max-w-2xl">
-                <span className="eyebrow-line mb-6">
-                  Diagnóstico gratuito para médicos donos de clínica
-                </span>
+          <div className="mc-container mc-hero-layout">
+            <div className="mc-hero-copy">
+              <p className="mc-eyebrow">Diagnóstico de maturidade empresarial médica</p>
+              <SplitText
+                as="h1"
+                text={"Se você saísse 30 dias,\nsua clínica continuaria\ncrescendo?"}
+                className="mc-hero-title"
+                threshold={0.01}
+              />
+              <p className="mc-hero-lead">
+                Descubra o gargalo que mais limita sua operação e qual decisão merece prioridade
+                antes do próximo investimento.
+              </p>
+              <div className="mc-hero-actions">
+                <a className="mc-button mc-button-primary" href="#filtro">
+                  <span>Entender como funciona</span>
+                  <ArrowDownRight aria-hidden="true" />
+                </a>
+                <p>Leitura empresarial para clínicas que já estão em movimento.</p>
+              </div>
+            </div>
+          </div>
 
-                <h1 className="max-w-3xl font-serif text-[38px] font-semibold leading-[1.02] tracking-tight text-halo-text md:text-[54px] lg:text-[60px] xl:text-[66px]">
-                  Receba um plano estratégico de 12 meses para evoluir sua clínica.
-                </h1>
+          <div className="mc-hero-signature" aria-hidden="true">
+            <span>MedCEO</span>
+            <span>Diagnóstico · direção · execução</span>
+          </div>
+        </section>
 
-                <p className="mt-6 max-w-xl text-base leading-relaxed text-halo-muted md:text-[17px]">
-                  Responda 20 perguntas sobre faturamento, equipe, comercial, margem e dependência do dono. O MedCEO identifica o nível de maturidade da sua clínica e gera uma direção personalizada para os próximos 12 meses.
-                </p>
+        <section id="filtro" className="mc-filter-section mc-section">
+          <div className="mc-container mc-filter-layout">
+            <AnimatedContent className="mc-filter-intro" distance={24}>
+              <p className="mc-eyebrow">Filtro do diagnóstico</p>
+              <h2>Não é para toda clínica. É para quem já tem uma operação real.</h2>
+              <p>
+                O diagnóstico precisa de matéria-prima: pacientes, equipe, faturamento, decisões e
+                gargalos que já podem ser observados.
+              </p>
+              <span className="mc-section-index">01 / FILTRO</span>
+            </AnimatedContent>
 
-                <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <DiagnosticButton className="w-full sm:w-auto">
-                    Iniciar diagnóstico gratuito
-                  </DiagnosticButton>
-                  <button
-                    onClick={() => setIsVideoOpen(true)}
-                    className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-6 py-3 font-sans text-[11px] font-semibold uppercase tracking-wider text-halo-text transition-colors duration-300 hover:border-halo-primary/60 hover:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-halo-primary focus:ring-offset-2 focus:ring-offset-halo-bg sm:w-auto"
-                  >
-                    <Play className="h-4 w-4 fill-current" />
-                    Assistir explicação
-                  </button>
-                </div>
-
-                <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[10px] uppercase tracking-wider text-halo-faint">
-                  <span>20 perguntas</span>
-                  <span className="h-1 w-1 rounded-full bg-halo-primary/70" />
-                  <span>relatório estratégico</span>
-                  <span className="h-1 w-1 rounded-full bg-halo-primary/70" />
-                  <span>plano de 12 meses</span>
-                </div>
+            <div className="mc-filter-cards">
+              <AnimatedContent distance={22} delay={0.04}>
+                <SpotlightSurface className="mc-filter-card mc-filter-card-positive">
+                  <div className="mc-filter-card-title">
+                    <Check aria-hidden="true" />
+                    <h3>Faz sentido para você se...</h3>
+                  </div>
+                  <ul>
+                    {diagnosisFor.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </SpotlightSurface>
               </AnimatedContent>
 
-              <div className="hidden min-h-[420px] lg:block" aria-hidden="true" />
-            </div>
-
-            <div className="mt-12 grid grid-cols-1 border-y border-white/8 md:grid-cols-4">
-              {authorityMarkers.map((item) => (
-                <div
-                  key={item.label}
-                  className="border-b border-white/8 px-5 py-4 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
-                >
-                  <span className="block font-mono text-[9px] uppercase tracking-wider text-halo-faint">
-                    {item.label}
-                  </span>
-                  <span className="mt-2 block font-serif text-lg font-semibold text-halo-text">
-                    {item.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FIT */}
-        <section
-          id="fit"
-          className="border-b border-white/5 px-5 py-16 md:px-10 lg:flex lg:min-h-screen lg:items-center lg:py-16"
-        >
-          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-            <AnimatedContent distance={36}>
-              <span className="eyebrow-line mb-6">Filtro do diagnóstico</span>
-              <h2 className="max-w-xl font-serif text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-[50px]">
-                Não é para toda clínica. É para quem já tem operação real.
-              </h2>
-              <p className="mt-6 max-w-lg text-base leading-relaxed text-halo-muted">
-                O diagnóstico foi criado para médicos que já têm algo para diagnosticar: pacientes, equipe, faturamento, gargalos e decisões que afetam os próximos 12 meses.
-              </p>
-            </AnimatedContent>
-
-            <AnimatedContent
-              distance={44}
-              delay={0.05}
-              className="grid grid-cols-1 gap-4 md:grid-cols-2"
-            >
-              <div className="comparison-panel comparison-panel-featured">
-                <div className="mb-7 flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-halo-primary" />
-                  <h3 className="font-mono text-[10px] uppercase tracking-wider text-halo-primary">
-                    Para quem é
-                  </h3>
-                </div>
-                <ul className="space-y-5">
-                  {diagnosisFor.map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-halo-primary/18 text-halo-primary">
-                        <Check className="h-3 w-3 stroke-[2.5]" />
-                      </span>
-                      <span className="text-[15px] leading-relaxed text-halo-text">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="comparison-panel">
-                <div className="mb-7 flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-halo-error" />
-                  <h3 className="font-mono text-[10px] uppercase tracking-wider text-halo-muted">
-                    Para quem não é
-                  </h3>
-                </div>
-                <ul className="space-y-5">
-                  {diagnosisNotFor.map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-halo-error/12 text-halo-error">
-                        <X className="h-3 w-3 stroke-[2.5]" />
-                      </span>
-                      <span className="text-[15px] leading-relaxed text-halo-muted">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </AnimatedContent>
-          </div>
-        </section>
-
-        {/* DELIVERABLES */}
-        <section
-          id="deliverables"
-          className="border-b border-white/5 px-5 py-16 md:px-10 lg:flex lg:min-h-screen lg:items-center lg:py-16"
-        >
-          <div className="mx-auto w-full max-w-7xl">
-            <AnimatedContent
-              distance={36}
-              className="grid grid-cols-1 gap-7 md:grid-cols-[0.76fr_1.24fr] md:items-end"
-            >
-              <div>
-                <span className="eyebrow-line mb-6">O que você recebe</span>
-                <h2 className="max-w-2xl font-serif text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-[50px]">
-                  Um diagnóstico que vira plano, não só uma pontuação.
-                </h2>
-              </div>
-              <p className="max-w-lg text-[15px] leading-relaxed text-halo-muted md:ml-auto">
-                As respostas não servem apenas para classificar sua clínica. Elas orientam o relatório, o plano estratégico e a reunião que o time MedCEO fará depois.
-              </p>
-            </AnimatedContent>
-
-            <AnimatedContent
-              distance={44}
-              delay={0.05}
-              className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
-            >
-              {diagnosticDeliverables.map((item, idx) => (
-                <article
-                  key={item.title}
-                  className={`comparison-panel compact-panel ${idx === 2 ? "comparison-panel-featured" : ""}`}
-                >
-                  <span className="mb-7 block font-mono text-[10px] font-semibold text-halo-primary">
-                    0{idx + 1}
-                  </span>
-                  <h3 className="font-serif text-[23px] font-semibold leading-tight text-halo-text">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 text-[14px] leading-relaxed text-halo-muted">{item.desc}</p>
-                </article>
-              ))}
-            </AnimatedContent>
-          </div>
-        </section>
-
-        {/* METHOD */}
-        <section
-          id="method"
-          className="relative overflow-hidden border-b border-white/5 bg-halo-surface px-5 py-16 md:px-10 lg:flex lg:min-h-screen lg:items-center lg:py-16"
-        >
-          <div className="absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(247,240,228,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(247,240,228,0.08)_1px,transparent_1px)] [background-size:64px_64px]" />
-          <div className="relative mx-auto w-full max-w-7xl">
-            <AnimatedContent
-              distance={36}
-              className="grid grid-cols-1 gap-8 md:grid-cols-[0.88fr_1.12fr] md:items-end"
-            >
-              <div>
-                <span className="eyebrow-line mb-6">Método MedCEO</span>
-                <h2 className="max-w-2xl font-serif text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-[50px]">
-                  Cinco pilares em uma trilha de maturidade.
-                </h2>
-              </div>
-              <p className="max-w-lg text-[15px] leading-relaxed text-halo-muted md:ml-auto">
-                O relatório organiza suas respostas em uma sequência lógica. Primeiro entendemos onde você está; depois, qual pilar precisa ser estruturado para sustentar os próximos 12 meses.
-              </p>
-            </AnimatedContent>
-
-            <AnimatedContent distance={48} delay={0.08} className="maturity-stair mt-12">
-              {methodPillars.map((lvl) => (
-                <article key={lvl.level} className="maturity-step">
-                  <span className="maturity-number">{lvl.level}</span>
-                  <div>
-                    <h3>{lvl.title}</h3>
-                    <p>{lvl.desc}</p>
+              <AnimatedContent distance={22} delay={0.09}>
+                <SpotlightSurface className="mc-filter-card mc-filter-card-negative">
+                  <div className="mc-filter-card-title">
+                    <X aria-hidden="true" />
+                    <h3>Ainda não é o momento se...</h3>
                   </div>
-                </article>
-              ))}
-            </AnimatedContent>
-
-            <div className="mt-9 flex flex-col gap-5 border-t border-white/8 pt-7 md:flex-row md:items-center md:justify-between">
-              <p className="max-w-2xl text-[15px] leading-relaxed text-halo-muted">
-                A trilha evita uma decisão comum: tentar escalar tráfego, equipe ou faturamento antes de saber qual pilar ainda está imaturo.
-              </p>
-              <DiagnosticButton className="w-full md:w-auto">
-                Fazer diagnóstico agora
-              </DiagnosticButton>
+                  <ul>
+                    {diagnosisNotFor.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </SpotlightSurface>
+              </AnimatedContent>
             </div>
           </div>
         </section>
 
-        {/* AUTHORITY */}
-        <section
-          id="authority"
-          className="border-b border-white/5 px-5 py-16 md:px-10 lg:flex lg:min-h-screen lg:items-center lg:py-16"
-        >
-          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
-            <AnimatedContent distance={44} className="authority-portrait">
-              <figure>
-                <img src={drSeated} alt="Dr. Luciano Alves em retrato profissional" />
-              </figure>
+        <section id="entregas" className="mc-deliverables-section mc-section">
+          <div className="mc-container">
+            <AnimatedContent className="mc-deliverables-heading" distance={24}>
+              <div>
+                <p className="mc-eyebrow mc-eyebrow-dark">O que você recebe</p>
+                <h2>Um diagnóstico que organiza a próxima</h2>
+                <CanvasText text="decisão." />
+              </div>
+              <p>
+                A resposta não é mais uma lista de coisas para fazer. É uma ordem de prioridade
+                construída a partir do estágio da sua clínica.
+              </p>
             </AnimatedContent>
 
-            <AnimatedContent distance={36} delay={0.08}>
-              <span className="eyebrow-line mb-6">Quem interpreta o diagnóstico</span>
-              <h2 className="max-w-3xl font-serif text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-[52px]">
-                Dr. Luciano Alves e mentores MedCEO.
-              </h2>
-              <div className="mt-6 space-y-4 text-base leading-relaxed text-halo-muted">
-                <p>
-                  Médico e CEO da Natuá, o Dr. Luciano lidera uma operação real, com pacientes, equipe, comercial, margem e rotina para administrar todos os dias.
-                </p>
-                <p>
-                  O diagnóstico conecta essa vivência prática ao olhar dos mentores MedCEO em gestão, margem, comercial, operação e escala. A reunião personalizada começa pelas suas respostas, não por um discurso pronto.
-                </p>
-              </div>
-
-              <blockquote className="mt-8 border-l border-halo-primary pl-6 font-serif text-2xl leading-snug text-halo-text md:text-[30px]">
-                “Antes de crescer mais, o médico precisa saber qual parte da clínica ainda não sustenta o próximo nível.”
-              </blockquote>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <DiagnosticButton className="w-full sm:w-auto">
-                  Começar meu diagnóstico
-                </DiagnosticButton>
-                <button
-                  onClick={() => setIsVideoOpen(true)}
-                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-white/12 px-6 py-3 font-sans text-[11px] font-semibold uppercase tracking-wider text-halo-text transition-colors duration-300 hover:border-halo-primary/60 hover:bg-white/[0.05] sm:w-auto"
+            <div className="mc-feature-bento">
+              {deliverables.map((item, index) => (
+                <AnimatedContent
+                  className={`mc-feature-card mc-feature-card-${index + 1}`}
+                  distance={18}
+                  delay={index * 0.04}
+                  key={item.number}
                 >
-                  <Play className="h-4 w-4 fill-current" />
-                  Ver explicação
-                </button>
+                  <span className="mc-feature-number">{item.number}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <strong>{item.accent}</strong>
+                </AnimatedContent>
+              ))}
+            </div>
+
+            <AnimatedContent className="mc-pillars-heading" distance={20}>
+              <div>
+                <p className="mc-eyebrow mc-eyebrow-dark">Cinco pilares avaliados</p>
+                <h2>O foco aparece quando a operação inteira entra em perspectiva.</h2>
               </div>
+              <p>Passe o cursor para revelar o eixo de atenção. No celular, a leitura é direta.</p>
             </AnimatedContent>
+
+            <AnimatedContent distance={18}>
+              <ChromaGrid items={pillars} />
+            </AnimatedContent>
+          </div>
+        </section>
+
+        <section
+          id="prova-social"
+          className="mc-proof-section mc-section"
+          aria-labelledby="proof-title"
+        >
+          <div className="mc-container">
+            <AnimatedContent className="mc-proof-heading" distance={24}>
+              <p className="mc-eyebrow">Case MedCEO · Dr. Luiz Henrique</p>
+              <h2 id="proof-title">Uma decisão concentrada mudou o patamar da operação.</h2>
+            </AnimatedContent>
+
+            <div className="mc-proof-layout">
+              <AnimatedContent distance={22}>
+                <TiltSurface className="mc-proof-document">
+                  <div className="mc-proof-image-frame">
+                    <img
+                      src={drLuizProfile}
+                      alt="Perfil oficial do Dr. Luiz Henrique, @drluizhenriquedasilva"
+                      width={1522}
+                      height={636}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div className="mc-proof-caption">
+                    <span>Case documentado</span>
+                    <strong>Dr. Luiz Henrique</strong>
+                    <small>Resultado individual informado pelo case.</small>
+                  </div>
+                </TiltSurface>
+              </AnimatedContent>
+
+              <AnimatedContent distance={22} delay={0.06}>
+                <AnimatedCaseStudy slides={caseSlides} />
+              </AnimatedContent>
+            </div>
+
+            <p className="mc-proof-disclaimer">
+              O desempenho varia conforme estágio, contexto e execução. O case não representa
+              garantia de resultados futuros.
+            </p>
+          </div>
+        </section>
+
+        <section id="autoridade" className="mc-authority-section mc-section">
+          <div className="mc-container">
+            <div className="mc-authority-feature">
+              <AnimatedContent className="mc-authority-image" distance={24}>
+                <img
+                  src={drEditorial}
+                  alt="Dr. Luciano Alves"
+                  width={4000}
+                  height={6000}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span>Dr. Luciano Alves · MedCEO</span>
+              </AnimatedContent>
+
+              <AnimatedContent className="mc-authority-copy" distance={24} delay={0.05}>
+                <p className="mc-eyebrow mc-eyebrow-dark">Quem interpreta o diagnóstico</p>
+                <h2>Experiência de operação médica traduzida em direção empresarial.</h2>
+                <div>
+                  <p>
+                    Médico e CEO da Natuá, o Dr. Luciano lidera uma operação real, com pacientes,
+                    equipe, comercial, margem e decisões para administrar todos os dias.
+                  </p>
+                  <p>
+                    É essa prática que orienta a leitura do diagnóstico: começar pelas respostas e
+                    pelo gargalo da clínica, não por uma solução pronta.
+                  </p>
+                </div>
+                <div className="mc-authority-principle">
+                  <span>Princípio de leitura</span>
+                  <p>
+                    Antes de crescer mais, o médico precisa saber qual parte da clínica ainda não
+                    sustenta o próximo nível.
+                  </p>
+                </div>
+              </AnimatedContent>
+            </div>
+
+            <AnimatedContent distance={22}>
+              <EditorialCarousel slides={editorialSlides} />
+            </AnimatedContent>
+          </div>
+        </section>
+
+        <section id="diagnostico" className="mc-final-section">
+          <DottedGlowBackground />
+          <div className="mc-final-wash" aria-hidden="true" />
+          <div className="mc-container mc-final-content">
+            <p className="mc-eyebrow">Diagnóstico disponível</p>
+            <h2>Agora, descubra onde sua clínica está.</h2>
+            <p>
+              Responda às 20 perguntas e receba seu nível de maturidade, o gargalo prioritário e os
+              três próximos passos coerentes com a operação.
+            </p>
+            <DiagnosticButton onClick={openDiagnostic}>Fazer o diagnóstico agora</DiagnosticButton>
+            <small>Gratuito · resultado imediato · cerca de 5 minutos</small>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/5 px-5 py-10 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 text-[12px] text-halo-faint md:flex-row md:items-center">
-          <div className="flex items-center gap-3">
-            <img
-              src="/logo.png"
-              alt="MedCEO"
-              className="h-8 max-w-[150px] object-contain opacity-85"
-            />
-            <span className="font-mono uppercase tracking-wider">
-              Diagnóstico · Maturidade · Plano
-            </span>
-          </div>
+      <footer className="mc-footer">
+        <div className="mc-container mc-footer-grid">
+          <img src="/logo.png" alt="MedCEO" />
+          <p>Diagnóstico · maturidade · direção</p>
           <span>© 2026 MedCEO. Todos os direitos reservados.</span>
         </div>
       </footer>
 
-      <AnimatePresence>
-        {showFloatingCta && (
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 22 }}
-            transition={{ duration: 0.25 }}
-            className="fixed bottom-5 right-5 z-40 hidden md:block"
-          >
-            <button
-              onClick={openDiagnostic}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-halo-primary px-6 py-3 font-sans text-[11px] font-semibold uppercase tracking-wider text-[#070807] shadow-[0_18px_46px_rgba(0,0,0,0.4)] transition-all hover:-translate-y-0.5 hover:bg-halo-primary-hover"
-            >
-              Diagnóstico gratuito
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <VideoModal isOpen={isVideoOpen} onClose={() => setIsVideoOpen(false)} />
-      <DiagnosticModal isOpen={isDiagnosticOpen} onClose={() => setIsDiagnosticOpen(false)} />
+      <DiagnosticModal
+        isOpen={isDiagnosticOpen}
+        onClose={() => setIsDiagnosticOpen(false)}
+        returnFocusRef={diagnosticReturnFocusRef}
+      />
     </div>
   );
 }

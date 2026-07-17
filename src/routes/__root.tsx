@@ -7,6 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { getRequestUrl } from "@tanstack/react-start/server";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -24,7 +26,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-full bg-halo-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#070807] transition-colors hover:bg-halo-primary-hover"
+            className="inline-flex min-h-11 items-center justify-center rounded bg-halo-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-medceo-default transition-colors hover:bg-halo-primary-hover"
           >
             Voltar ao início
           </Link>
@@ -54,13 +56,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-full bg-halo-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#070807] hover:bg-halo-primary-hover"
+            className="inline-flex min-h-11 items-center justify-center rounded bg-halo-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-medceo-default hover:bg-halo-primary-hover"
           >
             Tentar novamente
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-halo-text hover:bg-white/5"
+            className="inline-flex min-h-11 items-center justify-center rounded border border-white/20 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-halo-text hover:bg-white/5"
           >
             Ir para o início
           </a>
@@ -70,43 +72,54 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-const TITLE = "MedCEO · Diagnóstico de Maturidade Empresarial Médica";
+const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
 const DESCRIPTION =
-  "Diagnóstico gratuito para médicos donos de clínica. Descubra o nível de maturidade da sua operação e receba um plano estratégico de 12 meses.";
+  "Diagnóstico gratuito em 20 perguntas para médicos donos de clínica. Descubra o nível de maturidade da operação, o gargalo prioritário e os próximos passos.";
+
+const getSiteOrigin = createServerFn({ method: "GET" }).handler(
+  () => getRequestUrl({ xForwardedHost: true }).origin,
+);
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { name: "author", content: "MedCEO" },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
-      { title: "Lovable App" },
-      { property: "og:title", content: "Lovable App" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "description", content: "Chic Website Design creates and deploys premium, refined websites with fine-tuned adjustments." },
-      { property: "og:description", content: "Chic Website Design creates and deploys premium, refined websites with fine-tuned adjustments." },
-      { name: "twitter:description", content: "Chic Website Design creates and deploys premium, refined websites with fine-tuned adjustments." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/XOeNX6cvz2Y2unUIBU3s4iZz4cH3/social-images/social-1783713256991-ChatGPT-Image-1-de-jun.-de-2026_-16_12_15_(1).webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/XOeNX6cvz2Y2unUIBU3s4iZz4cH3/social-images/social-1783713256991-ChatGPT-Image-1-de-jun.-de-2026_-16_12_15_(1).webp" },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap",
-      },
-    ],
-  }),
+  loader: () => getSiteOrigin(),
+  head: ({ loaderData }) => {
+    const origin = loaderData ?? "";
+    const ogImage = origin ? new URL("/og.png", origin).toString() : "/og.png";
+
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { title: TITLE },
+        { name: "description", content: DESCRIPTION },
+        { name: "author", content: "MedCEO" },
+        { name: "theme-color", content: "#07131D" },
+        { name: "robots", content: "index, follow" },
+        { property: "og:title", content: TITLE },
+        { property: "og:description", content: DESCRIPTION },
+        { property: "og:type", content: "website" },
+        { property: "og:locale", content: "pt_BR" },
+        { property: "og:site_name", content: "MedCEO" },
+        ...(origin ? [{ property: "og:url", content: new URL("/", origin).toString() }] : []),
+        { property: "og:image", content: ogImage },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        {
+          property: "og:image:alt",
+          content: "Diagnóstico MedCEO — a clínica continuaria crescendo sem o dono por 30 dias?",
+        },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: TITLE },
+        { name: "twitter:description", content: DESCRIPTION },
+        { name: "twitter:image", content: ogImage },
+      ],
+      links: [
+        { rel: "stylesheet", href: appCss },
+        { rel: "icon", href: "/logo.png" },
+        ...(origin ? [{ rel: "canonical", href: new URL("/", origin).toString() }] : []),
+      ],
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
