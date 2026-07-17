@@ -1,6 +1,4 @@
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState } from "react";
 
 export type CaseSlide = {
   label: string;
@@ -11,57 +9,65 @@ export type CaseSlide = {
 
 type AnimatedCaseStudyProps = {
   slides: CaseSlide[];
+  activeIndex: number;
 };
 
-/** Animated Testimonials pattern adapted to a documented case without invented quotes. */
-export default function AnimatedCaseStudy({ slides }: AnimatedCaseStudyProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const active = slides[activeIndex];
-
-  const changeSlide = (direction: number) => {
-    setActiveIndex((current) => (current + direction + slides.length) % slides.length);
-  };
+/** Scroll-driven case narrative with a static fallback for mobile and reduced motion. */
+export default function AnimatedCaseStudy({ slides, activeIndex }: AnimatedCaseStudyProps) {
+  const safeIndex = Math.min(Math.max(activeIndex, 0), Math.max(slides.length - 1, 0));
+  const active = slides[safeIndex];
 
   if (!active) return null;
 
   return (
-    <div className="mc-case-story" aria-live="polite">
-      <div className="mc-case-story-topline">
-        <span>{active.label}</span>
-        <span>
-          {String(activeIndex + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-        </span>
-      </div>
-
-      <div className="mc-case-story-stage">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={active.label}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-          >
-            <strong>{active.metric}</strong>
-            <h3>{active.title}</h3>
-            <p>{active.description}</p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      <div className="mc-case-story-controls">
-        <button type="button" onClick={() => changeSlide(-1)} aria-label="Etapa anterior do case">
-          <ArrowLeft aria-hidden="true" />
-        </button>
-        <div className="mc-case-story-dots" aria-hidden="true">
-          {slides.map((slide, index) => (
-            <span className={index === activeIndex ? "is-active" : ""} key={slide.label} />
-          ))}
+    <>
+      <div className="mc-case-story">
+        <div className="mc-case-story-topline">
+          <span>{active.label}</span>
+          <span>
+            {String(safeIndex + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+          </span>
         </div>
-        <button type="button" onClick={() => changeSlide(1)} aria-label="Próxima etapa do case">
-          <ArrowRight aria-hidden="true" />
-        </button>
+
+        <div className="mc-case-story-stage">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={active.label}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <strong>{active.metric}</strong>
+              <h3>{active.title}</h3>
+              <p>{active.description}</p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="mc-case-story-progress" aria-hidden="true">
+          <span>Role para acompanhar o case</span>
+          <div className="mc-case-story-dots">
+            {slides.map((slide, index) => (
+              <span className={index === safeIndex ? "is-active" : ""} key={slide.label} />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div className="mc-case-story-static" aria-label="Evolução do case do Dr. Luiz Henrique">
+        {slides.map((slide, index) => (
+          <article key={slide.label}>
+            <div className="mc-case-story-topline">
+              <span>{slide.label}</span>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+            </div>
+            <strong>{slide.metric}</strong>
+            <h3>{slide.title}</h3>
+            <p>{slide.description}</p>
+          </article>
+        ))}
+      </div>
+    </>
   );
 }
