@@ -541,6 +541,7 @@ img {
 
 .mc-section-intro h2,
 .mc-deliverables-heading h2,
+.mc-social-proof-copy h2,
 .mc-authority-copy h2,
 .mc-final-section h2 {
   margin: 0;
@@ -714,6 +715,167 @@ img {
   color: var(--medceo-text-on-light-secondary);
   font-size: var(--medceo-fs-sm);
   line-height: var(--medceo-lh-relaxed);
+}
+
+.mc-social-proof-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-top: var(--medceo-border-hairline) solid
+    color-mix(in srgb, var(--medceo-accent) 28%, transparent);
+  border-bottom: var(--medceo-border-hairline) solid
+    color-mix(in srgb, var(--medceo-accent) 22%, transparent);
+  padding-block: clamp(var(--medceo-space-9), 8vw, var(--medceo-space-10));
+  background: var(--medceo-surface-deep);
+}
+
+.mc-social-proof-section::before {
+  position: absolute;
+  inset: -30% -18% auto 44%;
+  z-index: -1;
+  width: 68vw;
+  height: 68vw;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--medceo-accent) 8%, transparent) 0,
+    transparent 67%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.mc-social-proof-grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.92fr) minmax(480px, 1.08fr);
+  align-items: center;
+  gap: clamp(var(--medceo-space-8), 7vw, var(--medceo-space-10));
+}
+
+.mc-social-proof-copy h2 {
+  max-width: 13.5ch;
+  font-size: clamp(3.25rem, 4.3vw, 4.8rem);
+}
+
+.mc-social-proof-lead {
+  max-width: 54ch;
+  margin: var(--medceo-space-6) 0 0;
+  color: var(--medceo-text-on-dark);
+  font-size: var(--medceo-fs-base);
+  line-height: var(--medceo-lh-relaxed);
+}
+
+.mc-social-proof-context {
+  max-width: 52ch;
+  margin: var(--medceo-space-5) 0 0;
+  border-left: var(--medceo-border-thick) solid var(--medceo-accent);
+  padding-left: var(--medceo-space-5);
+  color: var(--medceo-text-on-dark-secondary);
+  font-family: var(--medceo-font-serif);
+  font-size: var(--medceo-fs-lg);
+  line-height: var(--medceo-lh-normal);
+}
+
+.mc-social-proof-facts {
+  margin: var(--medceo-space-6) 0 0;
+  padding: 0;
+  border-top: var(--medceo-border-hairline) solid
+    color-mix(in srgb, var(--medceo-text-on-dark) 15%, transparent);
+}
+
+.mc-social-proof-facts > div {
+  display: grid;
+  grid-template-columns: minmax(112px, 0.36fr) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--medceo-space-5);
+  border-bottom: var(--medceo-border-hairline) solid
+    color-mix(in srgb, var(--medceo-text-on-dark) 12%, transparent);
+  padding-block: var(--medceo-space-3);
+}
+
+.mc-social-proof-facts dt {
+  color: var(--medceo-accent-soft);
+  font-family: var(--medceo-font-serif);
+  font-size: clamp(var(--medceo-fs-xl), 2.6vw, var(--medceo-fs-2xl));
+  line-height: 1;
+}
+
+.mc-social-proof-facts dd {
+  margin: 0;
+  color: var(--medceo-text-on-dark-secondary);
+  font-family: var(--medceo-font-ui);
+  font-size: var(--medceo-fs-xs);
+  font-weight: var(--medceo-weight-medium);
+  letter-spacing: var(--medceo-ls-wide);
+  line-height: var(--medceo-lh-normal);
+  text-transform: uppercase;
+}
+
+.mc-social-proof-source {
+  max-width: 62ch;
+  margin: var(--medceo-space-4) 0 0;
+  color: color-mix(in srgb, var(--medceo-text-on-dark-secondary) 74%, transparent);
+  font-family: var(--medceo-font-mono);
+  font-size: var(--medceo-fs-xs);
+  line-height: var(--medceo-lh-relaxed);
+}
+
+.mc-social-proof-visual figure {
+  margin: 0;
+}
+
+.mc-social-proof-frame {
+  position: relative;
+  aspect-ratio: 1522 / 636;
+  border: var(--medceo-border-hairline) solid
+    color-mix(in srgb, var(--medceo-accent) 48%, transparent);
+  padding: var(--medceo-space-2);
+  background: var(--medceo-surface-default);
+  box-shadow: var(--medceo-shadow-lg);
+}
+
+.mc-social-proof-frame::after {
+  position: absolute;
+  inset: var(--medceo-space-4) calc(var(--medceo-space-4) * -1) calc(var(--medceo-space-4) * -1)
+    var(--medceo-space-4);
+  z-index: -1;
+  border: var(--medceo-border-hairline) solid
+    color-mix(in srgb, var(--medceo-accent) 32%, transparent);
+  content: "";
+}
+
+.mc-social-proof-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mc-social-proof-visual figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--medceo-space-5);
+  margin-top: var(--medceo-space-5);
+  border-top: var(--medceo-border-hairline) solid
+    color-mix(in srgb, var(--medceo-text-on-dark) 12%, transparent);
+  padding-top: var(--medceo-space-4);
+}
+
+.mc-social-proof-visual figcaption span {
+  color: var(--medceo-text-on-dark);
+  font-family: var(--medceo-font-serif);
+  font-size: var(--medceo-fs-lg);
+}
+
+.mc-social-proof-visual figcaption small {
+  color: var(--medceo-text-on-dark-secondary);
+  font-family: var(--medceo-font-mono);
+  font-size: var(--medceo-fs-xs);
+  letter-spacing: var(--medceo-ls-normal);
+  line-height: var(--medceo-lh-normal);
+  text-align: right;
+  text-transform: uppercase;
 }
 
 .mc-authority-section {
@@ -976,6 +1138,15 @@ img {
     gap: var(--medceo-space-6);
   }
 
+  .mc-social-proof-grid {
+    grid-template-columns: 1fr;
+    gap: var(--medceo-space-8);
+  }
+
+  .mc-social-proof-copy h2 {
+    max-width: 13ch;
+  }
+
   .mc-fit-comparison,
   .mc-authority-body {
     grid-template-columns: 1fr;
@@ -1101,6 +1272,7 @@ img {
 
   .mc-section-intro h2,
   .mc-deliverables-heading h2,
+  .mc-social-proof-copy h2,
   .mc-authority-copy h2,
   .mc-final-section h2 {
     font-size: clamp(2.5rem, 12vw, 3.7rem);
@@ -1143,6 +1315,33 @@ img {
   .mc-deliverable-row:nth-child(3) {
     border-top: var(--medceo-border-thin) solid var(--medceo-border-on-light);
     border-left: 0;
+  }
+
+  .mc-social-proof-context {
+    font-size: var(--medceo-fs-base);
+  }
+
+  .mc-social-proof-facts > div {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--medceo-space-4);
+  }
+
+  .mc-social-proof-frame {
+    aspect-ratio: 4 / 5;
+  }
+
+  .mc-social-proof-frame img {
+    object-position: left center;
+  }
+
+  .mc-social-proof-visual figcaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--medceo-space-2);
+  }
+
+  .mc-social-proof-visual figcaption small {
+    text-align: left;
   }
 
   .mc-authority-grid {

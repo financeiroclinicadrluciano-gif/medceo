@@ -5,6 +5,7 @@ import { ArrowRight, Check, X } from "lucide-react";
 
 import AnimatedContent from "@/components/AnimatedContent";
 import DiagnosticModal from "@/components/DiagnosticModal";
+import drLuizProfile from "@/assets/medceo/dr-luiz-profile-proof.png";
 import drEditorial from "@/assets/medceo/dr-luciano-editorial.jpg";
 import drHero from "@/assets/medceo/dr-luciano-hero.jpg";
 
@@ -184,6 +185,7 @@ function Index() {
           <div className="mc-nav-links">
             <a href="#filtro">Filtro</a>
             <a href="#entregas">O que você recebe</a>
+            <a href="#prova-social">Prova social</a>
             <a href="#autoridade">Dr. Luciano</a>
             <a href="#diagnostico">Diagnóstico</a>
           </div>
@@ -317,6 +319,76 @@ function Index() {
                 </AnimatedContent>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section
+          id="prova-social"
+          className="mc-social-proof-section mc-section"
+          aria-labelledby="social-proof-title"
+        >
+          <div className="mc-container mc-social-proof-grid">
+            <AnimatedContent className="mc-social-proof-copy" distance={24}>
+              <p className="mc-eyebrow">Prova social · autoridade médica</p>
+              <h2 id="social-proof-title">
+                Quando a autoridade cresce, a operação precisa crescer junto.
+              </h2>
+              <p className="mc-social-proof-lead">
+                Dr. Luiz Henrique reúne presença clínica e liderança empresarial à frente do
+                Instituto Revitali. No registro profissional enviado, sua audiência já ultrapassa 62
+                mil pessoas — um sinal de que reputação médica também eleva a exigência sobre
+                gestão, equipe e direção.
+              </p>
+              <p className="mc-social-proof-context">
+                O MedCEO existe para essa etapa: quando excelência clínica e demanda já não bastam e
+                a clínica precisa de estrutura para sustentar o próximo nível.
+              </p>
+            </AnimatedContent>
+
+            <AnimatedContent
+              className="mc-social-proof-visual"
+              distance={28}
+              direction="horizontal"
+              reverse
+              delay={0.06}
+            >
+              <figure>
+                <div className="mc-social-proof-frame">
+                  <img
+                    src={drLuizProfile}
+                    alt="Dr. Luiz Henrique no perfil oficial @drluizhenriquedasilva"
+                    width={1522}
+                    height={636}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <figcaption>
+                  <span>Dr. Luiz Henrique</span>
+                  <small>Médico e CEO do Instituto Revitali</small>
+                </figcaption>
+              </figure>
+
+              <dl className="mc-social-proof-facts">
+                <div>
+                  <dt>62,8 mil</dt>
+                  <dd>seguidores no registro enviado</dd>
+                </div>
+                <div>
+                  <dt>CEO</dt>
+                  <dd>Instituto Revitali</dd>
+                </div>
+                <div>
+                  <dt>Perfil</dt>
+                  <dd>verificado no Instagram</dd>
+                </div>
+              </dl>
+
+              <p className="mc-social-proof-source">
+                Dados do perfil profissional enviado em 17 de julho de 2026. Métricas de rede social
+                são contextuais e podem mudar.
+              </p>
+            </AnimatedContent>
           </div>
         </section>
 
