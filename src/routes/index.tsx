@@ -170,8 +170,14 @@ function DiagnosticButton({ children, onClick }: DiagnosticButtonProps) {
 function Index() {
   const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
   const [headerCondensed, setHeaderCondensed] = useState(false);
+  const [caseActiveIndex, setCaseActiveIndex] = useState(0);
   const diagnosticReturnFocusRef = useRef<HTMLElement | null>(null);
+  const proofScrollRef = useRef<HTMLElement | null>(null);
   const { scrollY, scrollYProgress } = useScroll();
+  const { scrollYProgress: caseScrollProgress } = useScroll({
+    target: proofScrollRef,
+    offset: ["start start", "end end"],
+  });
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 32,
@@ -179,6 +185,13 @@ function Index() {
   });
 
   useMotionValueEvent(scrollY, "change", (latest) => setHeaderCondensed(latest > 48));
+  useMotionValueEvent(caseScrollProgress, "change", (latest) => {
+    const nextIndex = Math.max(
+      0,
+      Math.min(caseSlides.length - 1, Math.floor(latest * caseSlides.length)),
+    );
+    setCaseActiveIndex((current) => (current === nextIndex ? current : nextIndex));
+  });
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -366,52 +379,59 @@ function Index() {
 
         <section
           id="prova-social"
-          className="mc-proof-section mc-section"
+          ref={proofScrollRef}
+          className="mc-proof-scroll-track"
           aria-labelledby="proof-title"
         >
-          <div
-            className="mc-person-fold-background mc-proof-background"
-            style={{ backgroundImage: `url(${drLuizSectionBackground})` }}
-            aria-hidden="true"
-          />
-          <div className="mc-person-fold-wash mc-proof-wash" aria-hidden="true" />
+          <div className="mc-proof-section mc-section">
+            <div
+              className="mc-person-fold-background mc-proof-background"
+              style={{ backgroundImage: `url(${drLuizSectionBackground})` }}
+              aria-hidden="true"
+            />
+            <div className="mc-person-fold-wash mc-proof-wash" aria-hidden="true" />
 
-          <div className="mc-container">
-            <AnimatedContent className="mc-proof-heading" distance={24}>
-              <p className="mc-eyebrow">Case MedCEO · Dr. Luiz Henrique</p>
-              <h2 id="proof-title">Uma decisão concentrada mudou o patamar da operação.</h2>
-            </AnimatedContent>
-
-            <div className="mc-proof-layout">
-              <AnimatedContent distance={22}>
-                <TiltSurface className="mc-proof-document">
-                  <div className="mc-proof-image-frame">
-                    <img
-                      src={drLuizProfile}
-                      alt="Perfil oficial do Dr. Luiz Henrique, @drluizhenriquedasilva"
-                      width={1522}
-                      height={636}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="mc-proof-caption">
-                    <span>Case documentado</span>
-                    <strong>Dr. Luiz Henrique</strong>
-                    <small>Resultado individual informado pelo case.</small>
-                  </div>
-                </TiltSurface>
+            <div className="mc-container">
+              <AnimatedContent className="mc-proof-heading" distance={24}>
+                <p className="mc-eyebrow">Case MedCEO · Dr. Luiz Henrique</p>
+                <h2 id="proof-title">Uma decisão concentrada mudou o patamar da operação.</h2>
               </AnimatedContent>
 
-              <AnimatedContent distance={22} delay={0.06}>
-                <AnimatedCaseStudy slides={caseSlides} />
-              </AnimatedContent>
+              <div className="mc-proof-layout">
+                <AnimatedContent distance={22}>
+                  <TiltSurface className="mc-proof-document">
+                    <div className="mc-proof-image-frame">
+                      <img
+                        src={drLuizProfile}
+                        alt="Perfil oficial do Dr. Luiz Henrique, @drluizhenriquedasilva"
+                        width={1522}
+                        height={636}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div className="mc-proof-caption">
+                      <span>Case documentado</span>
+                      <strong>Dr. Luiz Henrique</strong>
+                      <small>Resultado individual informado pelo case.</small>
+                    </div>
+                  </TiltSurface>
+                </AnimatedContent>
+
+                <AnimatedContent distance={22} delay={0.06}>
+                  <AnimatedCaseStudy slides={caseSlides} activeIndex={caseActiveIndex} />
+                </AnimatedContent>
+              </div>
+
+              <p className="mc-proof-disclaimer">
+                O desempenho varia conforme estágio, contexto e execução. O case não representa
+                garantia de resultados futuros.
+              </p>
+              <p className="mc-proof-scroll-cue" aria-hidden="true">
+                Continue rolando
+                <span />
+              </p>
             </div>
-
-            <p className="mc-proof-disclaimer">
-              O desempenho varia conforme estágio, contexto e execução. O case não representa
-              garantia de resultados futuros.
-            </p>
           </div>
         </section>
 
