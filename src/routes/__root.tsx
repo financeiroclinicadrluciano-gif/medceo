@@ -12,6 +12,7 @@ import { getRequestUrl } from "@tanstack/react-start/server";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import nocturneCss from "../nocturne.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -93,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { title: TITLE },
         { name: "description", content: DESCRIPTION },
         { name: "author", content: "MedCEO" },
-        { name: "theme-color", content: "#07131D" },
+        { name: "theme-color", content: "#041019" },
         { name: "robots", content: "index, follow" },
         { property: "og:title", content: TITLE },
         { property: "og:description", content: DESCRIPTION },
@@ -115,6 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       ],
       links: [
         { rel: "stylesheet", href: appCss },
+        { rel: "stylesheet", href: nocturneCss },
         { rel: "icon", href: "/logo.png" },
         ...(origin ? [{ rel: "canonical", href: new URL("/", origin).toString() }] : []),
       ],

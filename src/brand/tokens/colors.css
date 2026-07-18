@@ -1,23 +1,27 @@
 /* =============================================================
-   MedCEO — Color tokens
-   Modelo de DUAS superfícies canônicas (escura + paper).
-   NÃO é dark mode alternável. Tokens de texto são surface-aware.
-   Dourado é critério, não joia: acento pontual, nunca área dominante,
-   NUNCA em texto pequeno.
+   MedCEO Nocturne — color tokens
+   Um sistema de duas superfícies: darkroom executivo + papel editorial.
+   O dourado funciona como linha de decisão e material metálico; nunca como
+   preenchimento dominante. Todos os aliases antigos foram preservados para
+   manter a landing e os componentes Lovable retrocompatíveis.
    ============================================================= */
 :root {
   /* ---------- PRIMITIVE: color ---------- */
-  --medceo-color-night: #07131D;
-  --medceo-color-black: #0A0A0B;
-  --medceo-color-navy: #0D2434;
-  --medceo-color-navy-2: #15354A;
-  --medceo-color-gold: #C8A951;
-  --medceo-color-gold-rgb: 200, 169, 81; /* canais p/ overlays translúcidos via rgba() */
-  --medceo-color-gold-soft: #E7D28C;
-  --medceo-color-paper: #F7F0E4;
-  --medceo-color-paper-2: #E9DCC6;
-  --medceo-color-ink: #12202D;
-  --medceo-color-muted: #65727C;
+  --medceo-color-obsidian: #02070B;
+  --medceo-color-night: #041019;
+  --medceo-color-black: var(--medceo-color-obsidian);
+  --medceo-color-navy: #092536;
+  --medceo-color-navy-2: #12384C;
+  --medceo-color-navy-3: #1B4A61;
+  --medceo-color-gold: #CDAE58;
+  --medceo-color-gold-rgb: 205, 174, 88; /* canais p/ overlays translúcidos via rgba() */
+  --medceo-color-gold-soft: #F0D98A;
+  --medceo-color-bronze: #7E6228;
+  --medceo-color-paper: #F4EBDD;
+  --medceo-color-paper-2: #D8CBB5;
+  --medceo-color-frost: #D9E2E5;
+  --medceo-color-ink: #101D27;
+  --medceo-color-muted: #63727C;
   --medceo-color-success: #2E7D5A;
   --medceo-color-warning: #B8872E;
   --medceo-color-error: #A85D4A;
@@ -27,12 +31,16 @@
   --medceo-surface-deep: var(--medceo-color-night);
   --medceo-surface-default: var(--medceo-color-navy);
   --medceo-surface-elevated: var(--medceo-color-navy-2);
+  --medceo-surface-highlight: var(--medceo-color-navy-3);
+  --medceo-surface-overlay: rgba(2, 7, 11, 0.78);
+  --medceo-surface-glass: rgba(9, 37, 54, 0.72);
   --medceo-surface-paper: var(--medceo-color-paper);
   --medceo-surface-paper-2: var(--medceo-color-paper-2);
 
   /* ---------- SEMANTIC: text ---------- */
   --medceo-text-on-dark: var(--medceo-color-paper);
   --medceo-text-on-dark-secondary: var(--medceo-color-paper-2);
+  --medceo-text-on-dark-muted: rgba(244, 235, 221, 0.62);
   --medceo-text-on-light: var(--medceo-color-ink);
   --medceo-text-on-light-secondary: var(--medceo-color-muted);
   --medceo-text-accent: var(--medceo-color-gold);
@@ -40,9 +48,11 @@
   /* ---------- SEMANTIC: accent + borders ---------- */
   --medceo-accent: var(--medceo-color-gold);
   --medceo-accent-soft: var(--medceo-color-gold-soft);
+  --medceo-accent-deep: var(--medceo-color-bronze);
 
   --medceo-border-subtle: var(--medceo-color-gold);
-  --medceo-border-on-dark: var(--medceo-color-navy-2);
+  --medceo-border-on-dark: rgba(240, 217, 138, 0.17);
+  --medceo-border-on-dark-strong: rgba(240, 217, 138, 0.38);
   --medceo-border-on-light: var(--medceo-color-paper-2);
   --medceo-border-focus: var(--medceo-color-gold);
 

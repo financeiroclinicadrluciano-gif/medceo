@@ -1,7 +1,7 @@
 /* =============================================================
-   MedCEO — Effects tokens: opacity, shadow, motion, z-index
-   Sombras sóbrias em night. Réguas/molduras finas via opacity.
-   prefers-reduced-motion zera durações.
+   MedCEO Nocturne — materials, elevation and motion
+   As camadas abaixo simulam composição editorial/Photoshop com CSS leve:
+   metal escovado, vidro fumê, papel técnico, luz recortada e vinheta.
    ============================================================= */
 :root {
   /* ---------- PRIMITIVE: opacity ---------- */
@@ -10,18 +10,36 @@
   --medceo-opacity-subtle: 0.82; /* @kind other */
   --medceo-opacity-hairline: 0.35; /* @kind other */
 
-  /* ---------- PRIMITIVE: shadow (sóbria, base night) ---------- */
-  --medceo-shadow-sm: 0 1px 2px rgba(7,19,29,0.20);
-  --medceo-shadow-md: 0 8px 24px rgba(7,19,29,0.28);
-  --medceo-shadow-lg: 0 18px 48px rgba(7,19,29,0.36);
+  /* ---------- PRIMITIVE: shadow ---------- */
+  --medceo-shadow-sm: 0 1px 2px rgba(2, 7, 11, 0.28);
+  --medceo-shadow-md: 0 14px 34px rgba(2, 7, 11, 0.34);
+  --medceo-shadow-lg: 0 34px 90px rgba(2, 7, 11, 0.52);
+  --medceo-shadow-cinematic: 0 46px 120px rgba(0, 0, 0, 0.58);
+  --medceo-shadow-gold: 0 18px 52px rgba(var(--medceo-color-gold-rgb), 0.14);
+  --medceo-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.28);
+
+  /* ---------- PRIMITIVE: materials ---------- */
+  --medceo-material-metal: linear-gradient(110deg, #72571F 0%, #D3B55F 26%, #F2DF9D 46%, #A98331 70%, #E8CF7B 100%);
+  --medceo-material-metal-soft: linear-gradient(110deg, rgba(126, 98, 40, 0.86), rgba(240, 217, 138, 0.98) 46%, rgba(126, 98, 40, 0.84));
+  --medceo-material-night: radial-gradient(circle at 78% 4%, rgba(27, 74, 97, 0.36), transparent 38%), linear-gradient(145deg, #061720 0%, #02070B 74%);
+  --medceo-material-paper: linear-gradient(145deg, rgba(255, 255, 255, 0.46), transparent 28%), linear-gradient(180deg, #F4EBDD 0%, #E9DECD 100%);
+  --medceo-material-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015) 44%, rgba(205, 174, 88, 0.045));
+  --medceo-grid-technical: linear-gradient(rgba(240, 217, 138, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(240, 217, 138, 0.045) 1px, transparent 1px);
+  --medceo-scanlines: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px);
+  --medceo-vignette: radial-gradient(circle at 50% 42%, transparent 36%, rgba(2, 7, 11, 0.58) 100%);
+  --medceo-glow-decision: radial-gradient(circle, rgba(var(--medceo-color-gold-rgb), 0.2) 0%, transparent 68%);
+  --medceo-blur-glass: 18px;
 
   /* ---------- PRIMITIVE: motion ---------- */
   --medceo-duration-fast: 150ms; /* @kind other */
   --medceo-duration-base: 240ms; /* @kind other */
   --medceo-duration-slow: 400ms; /* @kind other */
+  --medceo-duration-editorial: 820ms; /* @kind other */
   --medceo-ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
   --medceo-ease-entrance: cubic-bezier(0, 0, 0.2, 1); /* @kind other */
   --medceo-ease-exit: cubic-bezier(0.4, 0, 1, 1); /* @kind other */
+  --medceo-ease-premium: cubic-bezier(0.23, 1, 0.32, 1); /* @kind other */
+  --medceo-ease-weighted: cubic-bezier(0.65, 0.01, 0.05, 0.99); /* @kind other */
 
   /* ---------- PRIMITIVE: z-index ---------- */
   --medceo-z-base: 0; /* @kind other */
@@ -34,6 +52,7 @@
   /* ---------- SEMANTIC: elevation roles ---------- */
   --medceo-elevation-card: var(--medceo-shadow-md);
   --medceo-elevation-overlay: var(--medceo-shadow-lg);
+  --medceo-elevation-artwork: var(--medceo-shadow-cinematic);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -41,5 +60,6 @@
     --medceo-duration-fast: 0ms; /* @kind other */
     --medceo-duration-base: 0ms; /* @kind other */
     --medceo-duration-slow: 0ms; /* @kind other */
+    --medceo-duration-editorial: 0ms; /* @kind other */
   }
 }

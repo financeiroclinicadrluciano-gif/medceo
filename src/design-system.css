@@ -1,0 +1,1587 @@
+/* ============================================================================
+   MedCEO Nocturne — living design system
+   Página de documentação isolada pelo namespace .medceo-ds.
+   Assinatura: Corte de Direção / 8°.
+   ============================================================================ */
+
+.medceo-ds {
+  --ds-rule: rgba(240, 217, 138, 0.18);
+  --ds-rule-strong: rgba(240, 217, 138, 0.42);
+  --ds-ink-muted: rgba(244, 235, 221, 0.64);
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  overflow: clip;
+  color: var(--medceo-text-on-dark);
+  background:
+    var(--medceo-scanlines),
+    radial-gradient(circle at 74% 9%, rgba(27, 74, 97, 0.3), transparent 28rem),
+    linear-gradient(180deg, var(--medceo-color-night) 0%, var(--medceo-color-obsidian) 100%);
+  font-family: var(--medceo-font-sans);
+  font-size: var(--medceo-fs-base);
+  line-height: var(--medceo-lh-normal);
+}
+
+.medceo-ds,
+.medceo-ds * {
+  box-sizing: border-box;
+}
+
+.medceo-ds img {
+  display: block;
+  max-width: 100%;
+}
+
+.medceo-ds a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.medceo-ds :where(a, input, select):focus-visible {
+  outline: 2px solid var(--medceo-color-gold-soft);
+  outline-offset: 4px;
+}
+
+.ds-skip {
+  position: fixed;
+  z-index: calc(var(--medceo-z-toast) + 1);
+  top: 12px;
+  left: 12px;
+  min-height: 44px;
+  padding: 12px 18px;
+  color: var(--medceo-color-ink) !important;
+  background: var(--medceo-color-paper);
+  font: 600 0.75rem/1 var(--medceo-font-ui);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: translateY(-180%);
+  transition: transform var(--medceo-duration-fast) var(--medceo-ease-standard);
+}
+
+.ds-skip:focus {
+  transform: translateY(0);
+}
+
+.ds-topbar {
+  position: sticky;
+  z-index: var(--medceo-z-sticky);
+  top: 0;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) auto minmax(150px, 1fr);
+  align-items: center;
+  min-height: 76px;
+  padding: 12px var(--medceo-page-x);
+  border-bottom: 1px solid var(--ds-rule);
+  background: rgba(2, 7, 11, 0.82);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(18px) saturate(115%);
+}
+
+.ds-brand {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 44px;
+}
+
+.ds-brand img {
+  width: clamp(128px, 12vw, 168px);
+  height: auto;
+}
+
+.ds-topbar nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 46px);
+}
+
+.ds-topbar nav a,
+.ds-back {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--ds-ink-muted);
+  font: 500 var(--medceo-fs-xs)/1 var(--medceo-font-ui);
+  letter-spacing: var(--medceo-ls-wide);
+  text-transform: uppercase;
+  transition:
+    color var(--medceo-duration-fast) var(--medceo-ease-standard),
+    transform var(--medceo-duration-fast) var(--medceo-ease-standard);
+}
+
+.ds-back {
+  justify-self: end;
+  gap: 10px;
+  color: var(--medceo-color-gold-soft);
+}
+
+.ds-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.72fr);
+  align-items: end;
+  min-height: min(860px, calc(100svh - 76px));
+  padding: clamp(96px, 12vw, 176px) var(--medceo-page-x) clamp(70px, 8vw, 112px);
+  border-bottom: 1px solid var(--ds-rule);
+  background:
+    linear-gradient(90deg, rgba(2, 7, 11, 0.04), rgba(2, 7, 11, 0.58)), var(--medceo-grid-technical);
+  background-size:
+    auto,
+    76px 76px;
+}
+
+.ds-hero::before {
+  position: absolute;
+  z-index: -1;
+  top: 8%;
+  right: -18%;
+  width: 72%;
+  height: 56%;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(205, 174, 88, 0.08) 48%,
+    transparent 70%
+  );
+  content: "";
+  filter: blur(1px);
+  transform: rotate(-8deg);
+}
+
+.ds-hero::after {
+  position: absolute;
+  z-index: 0;
+  right: -8%;
+  bottom: 20%;
+  width: 52%;
+  height: 1px;
+  background: var(--medceo-material-metal);
+  box-shadow: var(--medceo-shadow-gold);
+  content: "";
+  opacity: 0.75;
+  transform: rotate(-8deg);
+  transform-origin: right center;
+}
+
+.ds-hero__ghost {
+  position: absolute;
+  z-index: -1;
+  top: 5%;
+  left: -0.06em;
+  color: transparent;
+  font: 400 clamp(8rem, 24vw, 27rem)/0.8 var(--medceo-font-serif-alt);
+  letter-spacing: -0.08em;
+  -webkit-text-stroke: 1px rgba(240, 217, 138, 0.065);
+  user-select: none;
+}
+
+.ds-hero__content,
+.ds-hero__manifesto,
+.ds-hero__coordinates {
+  position: relative;
+  z-index: 1;
+}
+
+.ds-eyebrow {
+  margin: 0;
+  color: var(--medceo-color-gold);
+  font: 600 var(--medceo-fs-xs)/1.2 var(--medceo-font-ui);
+  letter-spacing: var(--medceo-ls-wider);
+  text-transform: uppercase;
+}
+
+.ds-hero h1 {
+  max-width: 8ch;
+  margin: 28px 0 30px;
+  color: var(--medceo-color-paper);
+  font: 400 clamp(5rem, 11vw, 10.8rem)/0.75 var(--medceo-font-serif-alt);
+  letter-spacing: -0.072em;
+}
+
+.ds-hero h1 span {
+  display: block;
+  margin-left: clamp(18px, 8vw, 140px);
+  color: var(--medceo-color-gold-soft);
+  font-family: var(--medceo-font-serif);
+  font-size: 0.68em;
+  font-style: italic;
+  letter-spacing: -0.055em;
+}
+
+.ds-hero__lede {
+  max-width: 650px;
+  margin: 0;
+  color: var(--medceo-text-on-dark-secondary);
+  font: 400 clamp(1.05rem, 1.5vw, 1.35rem)/1.58 var(--medceo-font-sans);
+}
+
+.ds-hero__manifesto {
+  align-self: center;
+  max-width: 480px;
+  margin: 96px 0 0 auto;
+  padding: clamp(28px, 3.5vw, 52px);
+  border: 1px solid var(--ds-rule-strong);
+  background: var(--medceo-material-glass), rgba(4, 16, 25, 0.7);
+  box-shadow: var(--medceo-shadow-cinematic), var(--medceo-shadow-inset);
+  clip-path: polygon(0 0, 92% 0, 100% 14%, 100% 100%, 0 100%);
+  backdrop-filter: blur(var(--medceo-blur-glass));
+}
+
+.ds-hero__manifesto-label {
+  margin: 0 0 26px;
+  color: var(--medceo-color-gold);
+  font: 600 0.68rem/1 var(--medceo-font-ui);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.ds-angle-mark {
+  position: relative;
+  width: 100%;
+  height: 44px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ds-rule);
+}
+
+.ds-angle-mark::before {
+  position: absolute;
+  top: 50%;
+  left: -5%;
+  width: 96%;
+  height: 2px;
+  background: var(--medceo-material-metal);
+  content: "";
+  transform: rotate(-8deg);
+}
+
+.ds-angle-mark span {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  color: var(--medceo-color-gold-soft);
+  font: 500 0.72rem/1 var(--medceo-font-mono);
+}
+
+.ds-hero__manifesto h2 {
+  margin: 26px 0 14px;
+  font: 400 var(--medceo-fs-xl)/1 var(--medceo-font-serif);
+  letter-spacing: -0.035em;
+}
+
+.ds-hero__manifesto > p:last-child {
+  margin: 0;
+  color: var(--ds-ink-muted);
+  font-size: var(--medceo-fs-sm);
+  line-height: 1.65;
+}
+
+.ds-hero__coordinates {
+  position: absolute;
+  bottom: 24px;
+  left: var(--medceo-page-x);
+  display: flex;
+  gap: 22px;
+  color: rgba(244, 235, 221, 0.34);
+  font: 500 0.62rem/1 var(--medceo-font-mono);
+  letter-spacing: 0.12em;
+}
+
+.ds-section {
+  position: relative;
+  padding: var(--medceo-section) var(--medceo-page-x);
+  border-bottom: 1px solid var(--ds-rule);
+}
+
+.ds-section-head {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.26fr) minmax(0, 0.74fr);
+  align-items: start;
+  max-width: var(--medceo-size-container);
+  margin: 0 auto clamp(54px, 7vw, 100px);
+}
+
+.ds-section-head__index {
+  color: rgba(240, 217, 138, 0.16);
+  font: 400 clamp(4rem, 9vw, 8.5rem)/0.75 var(--medceo-font-serif-alt);
+}
+
+.ds-section-head__content {
+  max-width: 840px;
+}
+
+.ds-section-head h2,
+.ds-principles__intro h2 {
+  margin: 20px 0 24px;
+  color: var(--medceo-color-paper);
+  font: 400 var(--medceo-fs-3xl)/0.98 var(--medceo-font-serif);
+  letter-spacing: var(--medceo-ls-display);
+  text-wrap: balance;
+}
+
+.ds-section-head__content > p:last-child {
+  max-width: 690px;
+  margin: 0;
+  color: var(--ds-ink-muted);
+  line-height: 1.68;
+}
+
+.ds-principles {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(56px, 8vw, 140px);
+  align-items: start;
+  background: var(--medceo-material-paper);
+  color: var(--medceo-color-ink);
+}
+
+.ds-principles::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(16, 29, 39, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 29, 39, 0.045) 1px, transparent 1px);
+  background-size: 42px 42px;
+  content: "";
+  pointer-events: none;
+}
+
+.ds-principles__intro,
+.ds-principles__grid {
+  position: relative;
+  z-index: 1;
+}
+
+.ds-principles__intro .ds-eyebrow {
+  color: var(--medceo-color-bronze);
+}
+
+.ds-principles__intro h2 {
+  color: var(--medceo-color-ink);
+  font-size: var(--medceo-fs-2xl);
+}
+
+.ds-principles__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgba(16, 29, 39, 0.22);
+}
+
+.ds-principle {
+  min-height: 250px;
+  padding: 30px clamp(20px, 3vw, 40px) 34px 0;
+  border-bottom: 1px solid rgba(16, 29, 39, 0.22);
+}
+
+.ds-principle:nth-child(odd) {
+  border-right: 1px solid rgba(16, 29, 39, 0.22);
+}
+
+.ds-principle:nth-child(even) {
+  padding-left: clamp(20px, 3vw, 40px);
+}
+
+.ds-principle > span {
+  color: var(--medceo-color-bronze);
+  font: 600 0.7rem/1 var(--medceo-font-mono);
+  letter-spacing: 0.18em;
+}
+
+.ds-principle h3 {
+  margin: 58px 0 12px;
+  font: 400 var(--medceo-fs-lg)/1.08 var(--medceo-font-serif);
+}
+
+.ds-principle p {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--medceo-color-muted);
+  font-size: var(--medceo-fs-sm);
+  line-height: 1.62;
+}
+
+.ds-foundation {
+  background:
+    radial-gradient(circle at 8% 32%, rgba(27, 74, 97, 0.26), transparent 26rem),
+    var(--medceo-color-obsidian);
+}
+
+.ds-colors {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  max-width: var(--medceo-size-container);
+  margin: 0 auto;
+  border: 1px solid var(--ds-rule);
+}
+
+.ds-color {
+  display: flex;
+  min-width: 0;
+  min-height: clamp(190px, 20vw, 280px);
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(18px, 2.5vw, 30px);
+  border-right: 1px solid rgba(240, 217, 138, 0.15);
+}
+
+.ds-color:last-child {
+  border-right: 0;
+}
+
+.ds-color--light {
+  color: var(--medceo-color-ink);
+}
+
+.ds-color--dark {
+  color: var(--medceo-color-paper);
+}
+
+.ds-color span {
+  margin-bottom: 6px;
+  font: 500 var(--medceo-fs-sm)/1.2 var(--medceo-font-ui);
+}
+
+.ds-color code {
+  opacity: 0.68;
+  font: 500 0.7rem/1.3 var(--medceo-font-mono);
+}
+
+.ds-color small {
+  margin-top: 24px;
+  overflow: hidden;
+  opacity: 0.4;
+  font: 500 0.58rem/1.4 var(--medceo-font-mono);
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ds-type-specimen {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.28fr) minmax(0, 0.72fr);
+  gap: clamp(48px, 8vw, 132px);
+  max-width: var(--medceo-size-container);
+  margin: clamp(80px, 10vw, 154px) auto 0;
+  padding-top: clamp(36px, 5vw, 70px);
+  border-top: 1px solid var(--ds-rule-strong);
+}
+
+.ds-type-specimen__meta > p:last-child {
+  margin: 24px 0 0;
+  color: var(--ds-ink-muted);
+  font-size: var(--medceo-fs-sm);
+  line-height: 1.62;
+}
+
+.ds-type-list {
+  border-top: 1px solid var(--ds-rule);
+}
+
+.ds-type-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 22px;
+  align-items: baseline;
+  padding: clamp(24px, 3vw, 38px) 0;
+  border-bottom: 1px solid var(--ds-rule);
+}
+
+.ds-type-row > span {
+  color: var(--medceo-color-gold);
+  font: 500 0.62rem/1.45 var(--medceo-font-ui);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.ds-type-row p {
+  margin: 0;
+}
+
+.ds-type-display {
+  font: 400 var(--medceo-fs-3xl)/0.98 var(--medceo-font-serif);
+  letter-spacing: var(--medceo-ls-display);
+}
+
+.ds-type-heading {
+  font: 400 var(--medceo-fs-2xl)/1.04 var(--medceo-font-serif-alt);
+  letter-spacing: -0.035em;
+}
+
+.ds-type-body {
+  max-width: 680px;
+  color: var(--medceo-text-on-dark-secondary);
+  font: 400 var(--medceo-fs-base)/1.62 var(--medceo-font-sans);
+}
+
+.ds-type-data {
+  color: var(--medceo-color-gold-soft);
+  font: 400 var(--medceo-fs-3xl)/1 var(--medceo-font-serif-alt);
+  letter-spacing: -0.045em;
+}
+
+.ds-type-label {
+  font: 600 var(--medceo-fs-xs)/1.2 var(--medceo-font-mono);
+  letter-spacing: var(--medceo-ls-wide);
+}
+
+.ds-materials {
+  background: var(--medceo-grid-technical), linear-gradient(155deg, #061720, #02070b 72%);
+  background-size:
+    74px 74px,
+    auto;
+}
+
+.ds-material-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(180px, auto);
+  max-width: var(--medceo-size-container);
+  margin: 0 auto;
+  border: 1px solid var(--ds-rule);
+  box-shadow: var(--medceo-shadow-cinematic);
+}
+
+.ds-material {
+  position: relative;
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(26px, 4vw, 52px);
+  overflow: hidden;
+}
+
+.ds-material > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ds-material > span {
+  color: var(--medceo-color-gold);
+  font: 600 0.66rem/1 var(--medceo-font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ds-material h3 {
+  margin: 24px 0 10px;
+  font: 400 var(--medceo-fs-xl)/1 var(--medceo-font-serif);
+  letter-spacing: -0.035em;
+}
+
+.ds-material p {
+  max-width: 36ch;
+  margin: 0;
+  color: var(--ds-ink-muted);
+  font-size: var(--medceo-fs-sm);
+  line-height: 1.54;
+}
+
+.ds-material--night {
+  grid-column: span 7;
+  background: var(--medceo-material-night);
+}
+
+.ds-material--night::before {
+  position: absolute;
+  top: 18%;
+  right: -12%;
+  width: 78%;
+  height: 2px;
+  background: var(--medceo-material-metal-soft);
+  box-shadow: var(--medceo-shadow-gold);
+  content: "";
+  transform: rotate(-8deg);
+}
+
+.ds-material--metal {
+  grid-column: span 5;
+  color: var(--medceo-color-ink);
+  background: var(--medceo-material-metal);
+}
+
+.ds-material--metal::after {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 3px,
+    rgba(255, 255, 255, 0.08) 3px 4px
+  );
+  content: "";
+  mix-blend-mode: soft-light;
+}
+
+.ds-material--metal > span,
+.ds-material--metal p {
+  color: rgba(16, 29, 39, 0.72);
+}
+
+.ds-material--paper {
+  grid-column: span 5;
+  color: var(--medceo-color-ink);
+  background: var(--medceo-material-paper);
+}
+
+.ds-material--paper > span {
+  color: var(--medceo-color-bronze);
+}
+
+.ds-material--paper p {
+  color: var(--medceo-color-muted);
+}
+
+.ds-material--glass {
+  grid-column: span 7;
+  border-left: 1px solid var(--ds-rule);
+  background: var(--medceo-material-glass), rgba(9, 37, 54, 0.58);
+  box-shadow: var(--medceo-shadow-inset);
+  backdrop-filter: blur(var(--medceo-blur-glass));
+}
+
+.ds-components {
+  background:
+    radial-gradient(circle at 92% 20%, rgba(205, 174, 88, 0.07), transparent 24rem),
+    var(--medceo-color-night);
+}
+
+.ds-component-stage {
+  display: grid;
+  grid-template-columns: 0.75fr 1.1fr 0.85fr;
+  max-width: var(--medceo-size-container);
+  margin: 0 auto;
+  border-top: 1px solid var(--ds-rule-strong);
+  border-bottom: 1px solid var(--ds-rule-strong);
+}
+
+.ds-component-stage > * {
+  padding: clamp(30px, 4vw, 56px);
+  border-right: 1px solid var(--ds-rule);
+}
+
+.ds-component-stage > *:last-child {
+  border-right: 0;
+}
+
+.ds-spec-label {
+  margin: 0 0 30px;
+  color: var(--medceo-color-gold);
+  font: 600 0.68rem/1 var(--medceo-font-ui);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.ds-component-stage__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ds-button {
+  position: relative;
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 15px 20px;
+  font: 600 0.68rem/1.2 var(--medceo-font-ui);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition:
+    color var(--medceo-duration-base) var(--medceo-ease-premium),
+    background var(--medceo-duration-base) var(--medceo-ease-premium),
+    transform var(--medceo-duration-base) var(--medceo-ease-premium);
+}
+
+.ds-button--primary {
+  color: var(--medceo-color-ink) !important;
+  background: var(--medceo-material-metal);
+  box-shadow: var(--medceo-shadow-gold), var(--medceo-shadow-inset);
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 0 100%);
+}
+
+.ds-button--secondary {
+  margin-top: 12px;
+  border: 1px solid var(--ds-rule-strong);
+  color: var(--medceo-color-paper) !important;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ds-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 38px;
+}
+
+.ds-chip {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  padding: 7px 10px;
+  border: 1px solid var(--ds-rule-strong);
+  color: var(--medceo-color-gold-soft);
+  font: 600 0.58rem/1 var(--medceo-font-ui);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.ds-chip--quiet {
+  border-color: var(--ds-rule);
+  color: var(--ds-ink-muted);
+}
+
+.ds-data-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    var(--medceo-grid-technical),
+    linear-gradient(155deg, rgba(18, 56, 76, 0.58), rgba(2, 7, 11, 0.74));
+  background-size:
+    42px 42px,
+    auto;
+}
+
+.ds-data-card::before {
+  position: absolute;
+  top: 18%;
+  right: -15%;
+  width: 72%;
+  height: 1px;
+  background: var(--medceo-material-metal);
+  content: "";
+  transform: rotate(-8deg);
+}
+
+.ds-data-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--medceo-color-gold);
+  font: 600 0.61rem/1.25 var(--medceo-font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ds-data-card strong {
+  display: block;
+  margin: 78px 0 12px;
+  color: var(--medceo-color-gold-soft);
+  font: 400 clamp(4.2rem, 7vw, 7.6rem)/0.78 var(--medceo-font-serif-alt);
+  letter-spacing: -0.065em;
+}
+
+.ds-data-card h3 {
+  margin: 0;
+  font: 400 var(--medceo-fs-lg)/1.08 var(--medceo-font-serif);
+}
+
+.ds-data-card__rule {
+  position: relative;
+  height: 12px;
+  margin: 34px 0 24px;
+  border-bottom: 1px solid var(--ds-rule);
+}
+
+.ds-data-card__rule i {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 58%;
+  height: 2px;
+  background: var(--medceo-material-metal);
+}
+
+.ds-data-card > p {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--ds-ink-muted);
+  font-size: var(--medceo-fs-sm);
+  line-height: 1.55;
+}
+
+.ds-form {
+  display: flex;
+  flex-direction: column;
+  background: var(--medceo-material-glass);
+}
+
+.ds-form label {
+  margin: 0 0 8px;
+  color: var(--medceo-text-on-dark-secondary);
+  font: 500 0.68rem/1 var(--medceo-font-ui);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ds-form input,
+.ds-form select {
+  width: 100%;
+  min-height: 52px;
+  margin: 0 0 24px;
+  padding: 0 15px;
+  border: 1px solid var(--ds-rule-strong);
+  border-radius: 0;
+  color: var(--medceo-color-paper);
+  background: rgba(2, 7, 11, 0.56);
+  font: 400 0.9rem/1 var(--medceo-font-sans);
+  appearance: auto;
+}
+
+.ds-form input::placeholder {
+  color: rgba(244, 235, 221, 0.36);
+}
+
+.ds-field-note {
+  margin: 4px 0 0;
+  color: var(--ds-ink-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.ds-photography {
+  background: var(--medceo-color-obsidian);
+}
+
+.ds-photo-hero {
+  position: relative;
+  max-width: var(--medceo-size-container);
+  min-height: clamp(500px, 61vw, 780px);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--ds-rule-strong);
+  box-shadow: var(--medceo-shadow-cinematic);
+}
+
+.ds-photo-hero::before,
+.ds-photo-proof::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    var(--medceo-scanlines),
+    linear-gradient(90deg, rgba(2, 7, 11, 0.84) 0%, rgba(2, 7, 11, 0.28) 48%, transparent 72%);
+  content: "";
+  pointer-events: none;
+}
+
+.ds-photo-hero::after {
+  position: absolute;
+  z-index: 2;
+  right: -6%;
+  bottom: 14%;
+  width: 64%;
+  height: 2px;
+  background: var(--medceo-material-metal);
+  box-shadow: var(--medceo-shadow-gold);
+  content: "";
+  transform: rotate(-8deg);
+}
+
+.ds-photo-hero > img,
+.ds-photo-proof > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-photo-hero > img {
+  object-position: center;
+}
+
+.ds-photo-hero figcaption {
+  position: absolute;
+  z-index: 3;
+  bottom: clamp(36px, 6vw, 82px);
+  left: clamp(26px, 6vw, 82px);
+  max-width: 470px;
+}
+
+.ds-photo-hero figcaption > span,
+.ds-photo-proof figcaption > span {
+  color: var(--medceo-color-gold);
+  font: 600 0.66rem/1 var(--medceo-font-ui);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ds-photo-hero figcaption h3 {
+  margin: 24px 0 14px;
+  font: 400 var(--medceo-fs-3xl)/0.96 var(--medceo-font-serif);
+  letter-spacing: var(--medceo-ls-display);
+  text-wrap: balance;
+}
+
+.ds-photo-hero figcaption p {
+  max-width: 43ch;
+  margin: 0;
+  color: var(--medceo-text-on-dark-secondary);
+  font-size: var(--medceo-fs-sm);
+  line-height: 1.55;
+}
+
+.ds-contact-sheet {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  max-width: var(--medceo-size-container);
+  margin: clamp(70px, 9vw, 132px) auto 0;
+  border-top: 1px solid var(--ds-rule-strong);
+  border-bottom: 1px solid var(--ds-rule-strong);
+}
+
+.ds-portrait {
+  margin: 0;
+  padding: 18px;
+  border-right: 1px solid var(--ds-rule);
+}
+
+.ds-portrait:last-child {
+  border-right: 0;
+}
+
+.ds-portrait__image {
+  position: relative;
+  aspect-ratio: 0.72;
+  overflow: hidden;
+  background: var(--medceo-color-navy);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.ds-portrait__image::after {
+  position: absolute;
+  inset: 0;
+  background:
+    var(--medceo-scanlines), linear-gradient(180deg, transparent 58%, rgba(2, 7, 11, 0.5));
+  content: "";
+  pointer-events: none;
+}
+
+.ds-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82) contrast(1.04);
+}
+
+.ds-portrait__image > span {
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  bottom: 10px;
+  color: var(--medceo-color-gold-soft);
+  font: 500 0.65rem/1 var(--medceo-font-mono);
+}
+
+.ds-portrait figcaption {
+  padding: 18px 2px 4px;
+}
+
+.ds-portrait figcaption strong,
+.ds-portrait figcaption span {
+  display: block;
+}
+
+.ds-portrait figcaption strong {
+  font: 400 var(--medceo-fs-base)/1.1 var(--medceo-font-serif);
+}
+
+.ds-portrait figcaption span {
+  margin-top: 7px;
+  color: var(--medceo-color-gold);
+  font: 600 0.56rem/1.2 var(--medceo-font-ui);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ds-photo-proof {
+  position: relative;
+  max-width: 960px;
+  min-height: clamp(360px, 42vw, 560px);
+  margin: clamp(70px, 9vw, 132px) auto 0;
+  overflow: hidden;
+  border: 1px solid var(--ds-rule-strong);
+}
+
+.ds-photo-proof::before {
+  background:
+    var(--medceo-scanlines),
+    linear-gradient(90deg, transparent 28%, rgba(2, 7, 11, 0.22) 52%, rgba(2, 7, 11, 0.86) 100%);
+}
+
+.ds-photo-proof figcaption {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: clamp(28px, 6vw, 76px);
+  width: min(43%, 370px);
+  transform: translateY(-50%);
+}
+
+.ds-photo-proof figcaption strong {
+  display: block;
+  margin-top: 22px;
+  font: 400 var(--medceo-fs-xl)/1.1 var(--medceo-font-serif);
+  letter-spacing: -0.03em;
+}
+
+.ds-motion {
+  background: var(--medceo-grid-technical), linear-gradient(150deg, #061720, #02070b 72%);
+  background-size:
+    64px 64px,
+    auto;
+}
+
+.ds-motion-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: clamp(34px, 6vw, 88px);
+  max-width: var(--medceo-size-container);
+  margin: 0 auto;
+}
+
+.ds-motion-demo {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+  border: 1px solid var(--ds-rule-strong);
+  background:
+    radial-gradient(circle at 76% 26%, rgba(205, 174, 88, 0.09), transparent 16rem),
+    rgba(2, 7, 11, 0.55);
+  box-shadow: var(--medceo-shadow-cinematic);
+}
+
+.ds-motion-demo__grid {
+  position: absolute;
+  inset: 0;
+  background: var(--medceo-grid-technical);
+  background-size: 52px 52px;
+}
+
+.ds-motion-demo__cut {
+  position: absolute;
+  top: 44%;
+  left: -28%;
+  width: 150%;
+  height: 3px;
+  background: var(--medceo-material-metal);
+  box-shadow:
+    0 0 32px rgba(205, 174, 88, 0.28),
+    0 -80px 180px rgba(205, 174, 88, 0.1);
+  transform: rotate(-8deg) translateX(-24%);
+  animation: ds-direction-cut 4.8s var(--medceo-ease-weighted) infinite;
+}
+
+.ds-motion-demo__copy {
+  position: absolute;
+  z-index: 2;
+  right: clamp(24px, 5vw, 68px);
+  bottom: clamp(28px, 5vw, 62px);
+  left: clamp(24px, 5vw, 68px);
+}
+
+.ds-motion-demo__copy span,
+.ds-motion-demo__copy strong {
+  display: block;
+}
+
+.ds-motion-demo__copy span {
+  color: var(--medceo-color-gold);
+  font: 600 0.66rem/1 var(--medceo-font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ds-motion-demo__copy strong {
+  max-width: 12ch;
+  margin-top: 22px;
+  font: 400 var(--medceo-fs-2xl)/1 var(--medceo-font-serif);
+  letter-spacing: var(--medceo-ls-display);
+}
+
+.ds-access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  border-top: 1px solid var(--ds-rule-strong);
+}
+
+.ds-access-grid article {
+  min-height: 220px;
+  padding: 28px 28px 34px 0;
+  border-right: 1px solid var(--ds-rule);
+  border-bottom: 1px solid var(--ds-rule);
+}
+
+.ds-access-grid article:nth-child(even) {
+  padding-left: 28px;
+  border-right: 0;
+}
+
+.ds-access-grid article > span {
+  color: var(--medceo-color-gold);
+  font: 500 0.65rem/1 var(--medceo-font-mono);
+}
+
+.ds-access-grid h3 {
+  margin: 52px 0 10px;
+  font: 400 var(--medceo-fs-md)/1.08 var(--medceo-font-serif);
+}
+
+.ds-access-grid p {
+  margin: 0;
+  color: var(--ds-ink-muted);
+  font-size: var(--medceo-fs-sm);
+  line-height: 1.55;
+}
+
+.ds-footer {
+  display: grid;
+  grid-template-columns: minmax(230px, 1fr) auto minmax(140px, 1fr);
+  gap: 34px;
+  align-items: end;
+  padding: clamp(56px, 8vw, 108px) var(--medceo-page-x);
+  background: var(--medceo-color-obsidian);
+}
+
+.ds-footer > div img {
+  width: 170px;
+}
+
+.ds-footer > div p {
+  margin: 18px 0 0;
+  color: var(--ds-ink-muted);
+  font-size: var(--medceo-fs-sm);
+}
+
+.ds-footer > span {
+  justify-self: end;
+  color: rgba(244, 235, 221, 0.36);
+  font: 500 0.62rem/1 var(--medceo-font-mono);
+  letter-spacing: 0.14em;
+}
+
+@keyframes ds-direction-cut {
+  0%,
+  12% {
+    opacity: 0.34;
+    transform: rotate(-8deg) translateX(-24%);
+  }
+  48%,
+  72% {
+    opacity: 1;
+    transform: rotate(-8deg) translateX(8%);
+  }
+  100% {
+    opacity: 0.34;
+    transform: rotate(-8deg) translateX(36%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ds-topbar nav a:hover,
+  .ds-back:hover {
+    color: var(--medceo-color-gold-soft);
+  }
+
+  .ds-topbar nav a:hover {
+    transform: translateY(-1px);
+  }
+
+  .ds-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .ds-button--secondary:hover {
+    background: rgba(240, 217, 138, 0.07);
+  }
+
+  .ds-portrait img {
+    transition:
+      filter var(--medceo-duration-slow) var(--medceo-ease-premium),
+      transform var(--medceo-duration-editorial) var(--medceo-ease-premium);
+  }
+
+  .ds-portrait:hover img {
+    filter: saturate(1) contrast(1.02);
+    transform: scale(1.025);
+  }
+}
+
+@media (max-width: 1100px) {
+  .ds-topbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ds-topbar nav {
+    display: none;
+  }
+
+  .ds-hero {
+    grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+  }
+
+  .ds-colors {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ds-color:nth-child(3) {
+    border-right: 0;
+  }
+
+  .ds-color:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--ds-rule);
+  }
+
+  .ds-component-stage {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+
+  .ds-component-stage > :nth-child(2) {
+    border-right: 0;
+  }
+
+  .ds-form {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--ds-rule);
+  }
+
+  .ds-contact-sheet {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ds-portrait:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .ds-portrait:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--ds-rule);
+  }
+}
+
+@media (max-width: 820px) {
+  .ds-hero {
+    display: block;
+    min-height: auto;
+    padding-top: 104px;
+  }
+
+  .ds-hero h1 {
+    font-size: clamp(4.8rem, 21vw, 8rem);
+  }
+
+  .ds-hero__manifesto {
+    max-width: 580px;
+    margin: 72px 0 0;
+  }
+
+  .ds-principles,
+  .ds-type-specimen,
+  .ds-motion-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-section-head {
+    grid-template-columns: 90px minmax(0, 1fr);
+  }
+
+  .ds-section-head__index {
+    font-size: 4rem;
+  }
+
+  .ds-material--night,
+  .ds-material--metal,
+  .ds-material--paper,
+  .ds-material--glass {
+    grid-column: span 6;
+  }
+
+  .ds-material--glass {
+    border-left: 0;
+  }
+
+  .ds-photo-hero > img {
+    object-position: 64% center;
+  }
+
+  .ds-photo-hero::before {
+    background:
+      var(--medceo-scanlines),
+      linear-gradient(0deg, rgba(2, 7, 11, 0.88) 0%, rgba(2, 7, 11, 0.18) 72%, transparent);
+  }
+
+  .ds-photo-proof figcaption {
+    right: 26px;
+    width: 46%;
+  }
+
+  .ds-footer {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ds-footer > span {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .ds-topbar {
+    min-height: 66px;
+  }
+
+  .ds-brand img {
+    width: 128px;
+  }
+
+  .ds-back {
+    font-size: 0.58rem;
+    letter-spacing: 0.11em;
+  }
+
+  .ds-hero {
+    min-height: calc(100svh - 66px);
+    padding-bottom: 92px;
+  }
+
+  .ds-hero__content {
+    padding-top: 16px;
+  }
+
+  .ds-hero h1 {
+    margin-top: 30px;
+    font-size: clamp(4rem, 22vw, 6.5rem);
+  }
+
+  .ds-hero h1 span {
+    margin-top: 8px;
+    margin-left: 16px;
+    font-size: 0.66em;
+  }
+
+  .ds-hero__manifesto {
+    margin-top: 58px;
+  }
+
+  .ds-hero__coordinates {
+    gap: 12px;
+  }
+
+  .ds-hero__coordinates span:nth-child(-n + 2) {
+    display: none;
+  }
+
+  .ds-section-head {
+    display: block;
+    margin-bottom: 52px;
+  }
+
+  .ds-section-head__index {
+    margin-bottom: 30px;
+    font-size: 3.8rem;
+  }
+
+  .ds-section-head h2,
+  .ds-principles__intro h2 {
+    font-size: clamp(2.35rem, 12vw, 3.8rem);
+  }
+
+  .ds-principles {
+    gap: 48px;
+  }
+
+  .ds-principles__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-principle,
+  .ds-principle:nth-child(even) {
+    min-height: 220px;
+    padding: 26px 0 30px;
+    border-right: 0;
+  }
+
+  .ds-principle h3 {
+    margin-top: 42px;
+  }
+
+  .ds-colors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ds-color {
+    min-height: 180px;
+  }
+
+  .ds-color:nth-child(odd) {
+    border-right: 1px solid var(--ds-rule);
+  }
+
+  .ds-color:nth-child(even) {
+    border-right: 0;
+  }
+
+  .ds-color:nth-child(-n + 4) {
+    border-bottom: 1px solid var(--ds-rule);
+  }
+
+  .ds-type-row {
+    display: block;
+  }
+
+  .ds-type-row > span {
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .ds-material-grid {
+    display: block;
+  }
+
+  .ds-material {
+    min-height: 290px;
+    border-bottom: 1px solid var(--ds-rule);
+  }
+
+  .ds-material:last-child {
+    border-bottom: 0;
+  }
+
+  .ds-component-stage {
+    display: block;
+  }
+
+  .ds-component-stage > * {
+    border-right: 0;
+    border-bottom: 1px solid var(--ds-rule);
+  }
+
+  .ds-component-stage > *:last-child {
+    border-bottom: 0;
+  }
+
+  .ds-data-card strong {
+    margin-top: 64px;
+  }
+
+  .ds-photo-hero {
+    min-height: 590px;
+  }
+
+  .ds-photo-hero > img {
+    object-position: 68% center;
+  }
+
+  .ds-photo-hero figcaption {
+    right: 24px;
+    bottom: 34px;
+    left: 24px;
+  }
+
+  .ds-photo-hero figcaption h3 {
+    font-size: clamp(2.5rem, 13vw, 4rem);
+  }
+
+  .ds-contact-sheet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ds-portrait,
+  .ds-portrait:nth-child(3n) {
+    border-right: 1px solid var(--ds-rule);
+    border-bottom: 1px solid var(--ds-rule);
+  }
+
+  .ds-portrait:nth-child(even) {
+    border-right: 0;
+  }
+
+  .ds-portrait:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .ds-portrait {
+    padding: 10px;
+  }
+
+  .ds-photo-proof {
+    min-height: 540px;
+  }
+
+  .ds-photo-proof::before {
+    background:
+      var(--medceo-scanlines),
+      linear-gradient(0deg, rgba(2, 7, 11, 0.92) 0%, rgba(2, 7, 11, 0.18) 72%, transparent);
+  }
+
+  .ds-photo-proof > img {
+    object-position: 34% center;
+  }
+
+  .ds-photo-proof figcaption {
+    top: auto;
+    right: 24px;
+    bottom: 30px;
+    left: 24px;
+    width: auto;
+    transform: none;
+  }
+
+  .ds-access-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-access-grid article,
+  .ds-access-grid article:nth-child(even) {
+    min-height: 190px;
+    padding: 26px 0 30px;
+    border-right: 0;
+  }
+
+  .ds-access-grid h3 {
+    margin-top: 36px;
+  }
+
+  .ds-motion-demo {
+    min-height: 410px;
+  }
+
+  .ds-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ds-footer .ds-button {
+    margin-top: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medceo-ds *,
+  .medceo-ds *::before,
+  .medceo-ds *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .ds-motion-demo__cut {
+    opacity: 1;
+    transform: rotate(-8deg) translateX(8%);
+  }
+}
+
+@media (forced-colors: active) {
+  .ds-button,
+  .ds-chip,
+  .ds-material,
+  .ds-component-stage,
+  .ds-photo-hero,
+  .ds-photo-proof,
+  .ds-motion-demo {
+    border: 1px solid CanvasText;
+  }
+}
