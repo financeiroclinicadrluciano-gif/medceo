@@ -6,9 +6,6 @@ import { useEffect, useRef, useState, type MouseEventHandler, type ReactNode } f
 import AnimatedContent from "@/components/AnimatedContent";
 import DiagnosticModal from "@/components/DiagnosticModal";
 import AnimatedCaseStudy, { type CaseSlide } from "@/components/landing/AnimatedCaseStudy";
-import CanvasText from "@/components/landing/CanvasText";
-import DottedGlowBackground from "@/components/landing/DottedGlowBackground";
-import { SpotlightSurface, TiltSurface } from "@/components/landing/InteractiveSurfaces";
 import MethodPillarsMarquee, { type MethodPillar } from "@/components/landing/MethodPillarsMarquee";
 import SplitText from "@/components/landing/SplitText";
 
@@ -313,7 +310,7 @@ function Index() {
 
             <div className="mc-filter-cards">
               <AnimatedContent distance={22} delay={0.04}>
-                <SpotlightSurface className="mc-filter-card mc-filter-card-positive">
+                <div className="mc-filter-card mc-filter-card-positive">
                   <div className="mc-filter-card-title">
                     <Check aria-hidden="true" />
                     <h3>Faz sentido para você se...</h3>
@@ -323,11 +320,11 @@ function Index() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                </SpotlightSurface>
+                </div>
               </AnimatedContent>
 
               <AnimatedContent distance={22} delay={0.09}>
-                <SpotlightSurface className="mc-filter-card mc-filter-card-negative">
+                <div className="mc-filter-card mc-filter-card-negative">
                   <div className="mc-filter-card-title">
                     <X aria-hidden="true" />
                     <h3>Ainda não é o momento se...</h3>
@@ -337,7 +334,7 @@ function Index() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                </SpotlightSurface>
+                </div>
               </AnimatedContent>
             </div>
           </div>
@@ -349,7 +346,7 @@ function Index() {
               <div>
                 <p className="mc-eyebrow mc-eyebrow-dark">O que você recebe</p>
                 <h2>Um diagnóstico que organiza a próxima</h2>
-                <CanvasText text="decisão." />
+                <span className="mc-canvas-word">decisão.</span>
               </div>
               <p>
                 A resposta não é mais uma lista de coisas para fazer. É uma ordem de prioridade
@@ -399,7 +396,7 @@ function Index() {
 
               <div className="mc-proof-layout">
                 <AnimatedContent distance={22}>
-                  <TiltSurface className="mc-proof-document">
+                  <div className="mc-proof-document">
                     <div className="mc-proof-image-frame">
                       <img
                         src={drLuizProfile}
@@ -415,7 +412,7 @@ function Index() {
                       <strong>Dr. Luiz Henrique</strong>
                       <small>Resultado individual informado pelo case.</small>
                     </div>
-                  </TiltSurface>
+                  </div>
                 </AnimatedContent>
 
                 <AnimatedContent distance={22} delay={0.06}>
@@ -500,7 +497,6 @@ function Index() {
         </section>
 
         <section id="diagnostico" className="mc-final-section">
-          <DottedGlowBackground />
           <div className="mc-final-wash" aria-hidden="true" />
           <div className="mc-container mc-final-content">
             <p className="mc-eyebrow">Diagnóstico disponível</p>

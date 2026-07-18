@@ -42,25 +42,40 @@ bun run build
 ## Arquitetura editável
 
 - `src/routes/index.tsx`: conteúdo, ordem das dobras e metadados.
-- `src/styles.css`: layout responsivo e sistema visual da landing.
+- `src/routes/design-system.tsx`: página viva do sistema em `/design-system`.
+- `src/styles.css`: arquitetura, layout responsivo e comportamento da landing.
+- `src/nocturne.css`: direção de arte MedCEO Nocturne aplicada sobre a arquitetura.
+- `src/design-system.css`: apresentação visual isolada do design system.
 - `src/components/landing/`: componentes interativos customizados.
 - `src/components/DiagnosticModal.tsx`: as 20 perguntas e a lógica do resultado.
 - `src/brand/tokens/`: cores, tipografia, espaços, efeitos e fontes oficiais.
 - `src/assets/medceo/`: fotografia, prova social e fundos.
+- `docs/design-system/`: fundamentos, tokens, prompt para Lovable e regras de movimento/acessibilidade.
 
 ## Componentes integrados
 
-Os componentes foram adaptados para produção, em vez de copiar demos inteiros:
+Os componentes foram adaptados para produção, em vez de copiar demos inteiros. A versão Nocturne removeu efeitos decorativos sobrepostos e concentrou a experiência em uma assinatura visual única:
 
 - `SplitText`: headline revelada por linhas, sem dependência de medição do DOM.
-- `CanvasText`: uma palavra editorial com canvas 2D, pausado fora da viewport.
-- `SpotlightSurface`: luz sutil em cards de filtro, sem WebGL.
-- `TiltSurface`: profundidade limitada no case do Dr. Luiz, desligada em touch/reduced motion.
 - `AnimatedCaseStudy`: padrão de testimonial animado sem inventar depoimento em primeira pessoa.
 - `MethodPillarsMarquee`: seis retratos editoriais em esteira contínua no desktop, com pausa acessível e `scroll-snap` manual em touch/reduced motion.
-- `DottedGlowBackground`: canvas leve no CTA final, pausado fora da viewport.
+- `Corte de Direção`: eixo de 8° usado em chanfros, hairlines e transições como assinatura do sistema.
+- Materiais CSS: darkroom, metal dourado escovado, papel técnico e vidro fumê, sem WebGL ou canvas decorativo.
 - O retrato do hero usa AVIF responsivo com fallback PNG, reduzindo a transferência principal sem perder transparência.
 - Os retratos de Dr. Luciano, Gustavo, Marcos, Alessandra, Michele e Amanda ficam em `src/assets/medceo/method-pillars/`, dimensionados para a área real de uso.
+
+## Design system MedCEO Nocturne
+
+A página `/design-system` é o manual visual executável. Ela demonstra:
+
+- conceito e princípios;
+- paleta e tipografia;
+- materiais e superfícies;
+- botões, campos, chips e indicadores;
+- direção fotográfica;
+- movimento, touch e `prefers-reduced-motion`.
+
+Ao pedir alterações no Lovable, use `docs/design-system/LOVABLE-PROMPT.md` como instrução-base e preserve os tokens de `src/brand/tokens/`.
 
 ## Regras de conteúdo e conversão
 

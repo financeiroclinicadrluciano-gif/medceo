@@ -18,18 +18,19 @@
   --medceo-weight-medium: 500;
   --medceo-weight-semibold: 600;
 
-  /* ---------- PRIMITIVE: size (modular ~1.25, base 16) ---------- */
-  --medceo-fs-xs: 12px;
-  --medceo-fs-sm: 14px;
-  --medceo-fs-base: 16px;
-  --medceo-fs-md: 18px;
-  --medceo-fs-lg: 22px;
-  --medceo-fs-xl: 28px;
-  --medceo-fs-2xl: 36px;
-  --medceo-fs-3xl: 48px;
-  --medceo-fs-4xl: 64px;
-  --medceo-fs-display: 92px;
-  --medceo-fs-hero: 142px;
+  /* ---------- PRIMITIVE: fluid type scale ---------- */
+  --medceo-fs-xs: clamp(0.6875rem, 0.66rem + 0.12vw, 0.75rem);
+  --medceo-fs-sm: clamp(0.8125rem, 0.77rem + 0.2vw, 0.9375rem);
+  --medceo-fs-base: clamp(0.9375rem, 0.88rem + 0.28vw, 1.125rem);
+  --medceo-fs-md: clamp(1.0625rem, 0.98rem + 0.42vw, 1.3125rem);
+  --medceo-fs-lg: clamp(1.25rem, 1.12rem + 0.64vw, 1.625rem);
+  --medceo-fs-xl: clamp(1.625rem, 1.4rem + 1.08vw, 2.25rem);
+  --medceo-fs-2xl: clamp(2rem, 1.62rem + 1.9vw, 3.125rem);
+  --medceo-fs-3xl: clamp(2.75rem, 2.08rem + 3.35vw, 4.75rem);
+  --medceo-fs-4xl: clamp(3.75rem, 2.65rem + 5.48vw, 7rem);
+  --medceo-fs-display: clamp(5rem, 3.2rem + 8.8vw, 10.25rem);
+  --medceo-fs-hero: clamp(4rem, 2.2rem + 8vw, 9rem);
+  --medceo-fs-jumbo: clamp(6rem, 2rem + 18vw, 18rem);
 
   /* ---------- PRIMITIVE: line-height ---------- */
   --medceo-lh-tight: 0.96; /* @kind other */
@@ -39,6 +40,7 @@
 
   /* ---------- PRIMITIVE: letter-spacing ---------- */
   --medceo-ls-tight: 0em; /* @kind other */
+  --medceo-ls-display: -0.045em; /* @kind other */
   --medceo-ls-normal: 0.01em; /* @kind other */
   --medceo-ls-wide: 0.18em; /* @kind other */
   --medceo-ls-wider: 0.28em; /* @kind other */

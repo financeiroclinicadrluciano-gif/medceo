@@ -1,0 +1,783 @@
+/* ========================================================================
+   MEDCEO NOCTURNE — ART DIRECTION LAYER
+   Assinatura: "Corte de Direção" — eixo de 8° derivado da seta do monograma.
+   Esta folha fica depois de styles.css para transformar a landing sem acoplar
+   o sistema de marca à estrutura ou às interações da página.
+   ======================================================================== */
+
+.medceo-page {
+  position: relative;
+  isolation: isolate;
+  background: var(--medceo-material-night);
+}
+
+.medceo-page::before {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  pointer-events: none;
+  background:
+    var(--medceo-scanlines),
+    repeating-radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.025) 0 0.55px, transparent 0.8px 4px);
+  content: "";
+  mix-blend-mode: soft-light;
+  opacity: 0.3;
+}
+
+.medceo-page::after {
+  position: fixed;
+  z-index: 79;
+  top: -12vh;
+  right: clamp(24px, 6vw, 108px);
+  width: 1px;
+  height: 124vh;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(var(--medceo-color-gold-rgb), 0.45) 18%, rgba(var(--medceo-color-gold-rgb), 0.11) 72%, transparent);
+  content: "";
+  opacity: 0.58;
+  transform: rotate(8deg);
+  transform-origin: top;
+}
+
+.mc-container {
+  width: min(calc(100% - (var(--medceo-page-x) * 2)), var(--medceo-size-container));
+}
+
+.mc-scroll-progress {
+  height: 3px;
+  background: var(--medceo-material-metal);
+  box-shadow: 0 0 18px rgba(var(--medceo-color-gold-rgb), 0.35);
+}
+
+/* Navigation / chrome --------------------------------------------------- */
+
+.mc-header::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--medceo-material-metal-soft);
+  content: "";
+  opacity: 0.78;
+}
+
+.mc-header.is-condensed {
+  border-color: var(--medceo-border-on-dark);
+  background: rgba(2, 7, 11, 0.82);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(var(--medceo-blur-glass)) saturate(1.2);
+}
+
+.mc-brand img {
+  filter: drop-shadow(0 8px 18px rgba(var(--medceo-color-gold-rgb), 0.13));
+}
+
+.mc-nav-links a,
+.mc-nav-action {
+  font-weight: 500;
+  letter-spacing: 0.18em;
+}
+
+.mc-nav-action {
+  color: var(--medceo-accent-soft);
+}
+
+/* Shared editorial language -------------------------------------------- */
+
+.mc-eyebrow {
+  gap: 14px;
+  color: var(--medceo-accent-soft);
+  font-size: var(--medceo-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+}
+
+.mc-eyebrow::before {
+  width: 38px;
+  height: 2px;
+  background: var(--medceo-material-metal);
+  box-shadow: 0 0 16px rgba(var(--medceo-color-gold-rgb), 0.22);
+}
+
+.mc-section-index {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  border-top: 1px solid var(--medceo-border-on-dark-strong);
+  padding-top: 9px;
+  color: var(--medceo-accent-soft);
+  font-size: 9px;
+  opacity: 0.76;
+}
+
+.mc-button {
+  position: relative;
+  min-height: 54px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  box-shadow: var(--medceo-shadow-inset), 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+.mc-button::before {
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(112deg, transparent 12%, rgba(255, 255, 255, 0.46) 42%, transparent 58%);
+  content: "";
+  opacity: 0;
+  transform: translateX(-72%);
+  transition: opacity 180ms ease, transform 680ms var(--medceo-ease-premium);
+}
+
+.mc-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-button-primary {
+  background: var(--medceo-material-metal);
+  color: var(--medceo-color-obsidian);
+}
+
+.mc-button-primary:hover {
+  background: var(--medceo-material-metal);
+  box-shadow: var(--medceo-shadow-inset), var(--medceo-shadow-gold);
+  transform: translateY(-2px);
+}
+
+.mc-button:hover::before {
+  opacity: 0.8;
+  transform: translateX(72%);
+}
+
+/* Hero ------------------------------------------------------------------ */
+
+.mc-hero {
+  background: var(--medceo-material-night);
+  box-shadow: inset 0 -1px 0 var(--medceo-border-on-dark-strong);
+}
+
+.mc-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--medceo-grid-technical);
+  background-size: clamp(76px, 8vw, 128px) clamp(76px, 8vw, 128px);
+  content: "";
+  mask-image: linear-gradient(90deg, transparent 8%, black 48%, black 92%);
+  opacity: 0.72;
+}
+
+.mc-hero::after {
+  position: absolute;
+  z-index: -1;
+  right: -0.04em;
+  bottom: 0.02em;
+  pointer-events: none;
+  color: transparent;
+  content: "M/CEO";
+  font-family: var(--medceo-font-serif-alt);
+  font-size: clamp(120px, 20vw, 360px);
+  letter-spacing: -0.08em;
+  line-height: 0.75;
+  opacity: 0.11;
+  -webkit-text-stroke: 1px var(--medceo-accent-soft);
+}
+
+.mc-hero-background {
+  background-position: center;
+  filter: saturate(0.72) contrast(1.12) brightness(0.82);
+}
+
+.mc-hero-person {
+  filter:
+    saturate(0.86)
+    contrast(1.07)
+    drop-shadow(24px 18px 50px rgba(0, 0, 0, 0.32));
+}
+
+.mc-hero-wash {
+  background:
+    linear-gradient(98deg, rgba(2, 7, 11, 0.04) 14%, rgba(2, 7, 11, 0.34) 42%, rgba(2, 7, 11, 0.94) 63%, #02070b 91%),
+    radial-gradient(circle at 75% 42%, rgba(27, 74, 97, 0.28), transparent 36%),
+    var(--medceo-vignette);
+}
+
+.mc-hero-copy {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(28px, 3.2vw, 48px) clamp(24px, 3vw, 44px);
+}
+
+.mc-hero-copy::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border: 1px solid transparent;
+  background:
+    var(--medceo-material-glass) padding-box,
+    linear-gradient(125deg, rgba(240, 217, 138, 0.44), rgba(240, 217, 138, 0.05) 46%, rgba(240, 217, 138, 0.22)) border-box;
+  content: "";
+  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  opacity: 0.72;
+  box-shadow: var(--medceo-shadow-lg);
+  backdrop-filter: blur(8px);
+}
+
+.mc-hero-title {
+  color: var(--medceo-text-on-dark);
+  font-family: var(--medceo-font-serif-alt);
+  font-size: clamp(52px, 5.45vw, 86px);
+  letter-spacing: var(--medceo-ls-display);
+  text-shadow: 0 20px 55px rgba(0, 0, 0, 0.28);
+}
+
+.mc-hero-title .rb-split-line:nth-child(2) .rb-split-line-inner {
+  color: var(--medceo-accent-soft);
+}
+
+.mc-hero-lead {
+  color: var(--medceo-text-on-dark-muted);
+}
+
+.mc-hero-signature {
+  border-image: var(--medceo-material-metal-soft) 1;
+  color: rgba(244, 235, 221, 0.52);
+}
+
+/* Diagnostic filter ----------------------------------------------------- */
+
+.mc-filter-section {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 16% 16%, rgba(27, 74, 97, 0.48), transparent 34%),
+    var(--medceo-material-night);
+}
+
+.mc-filter-section::before,
+.mc-method-pillars-section::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--medceo-grid-technical);
+  background-size: 96px 96px;
+  content: "";
+  opacity: 0.52;
+  mask-image: linear-gradient(90deg, black, transparent 78%);
+}
+
+.mc-filter-section::after {
+  position: absolute;
+  top: -12%;
+  right: 10%;
+  width: 1px;
+  height: 128%;
+  background: linear-gradient(transparent, rgba(var(--medceo-color-gold-rgb), 0.48), transparent);
+  content: "";
+  transform: rotate(8deg);
+}
+
+.mc-filter-layout {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-filter-intro h2,
+.mc-proof-heading h2,
+.mc-final-content h2 {
+  font-family: var(--medceo-font-serif-alt);
+  letter-spacing: var(--medceo-ls-display);
+}
+
+.mc-filter-card {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background:
+    var(--medceo-material-glass) padding-box,
+    linear-gradient(125deg, rgba(240, 217, 138, 0.36), rgba(240, 217, 138, 0.04) 48%, rgba(240, 217, 138, 0.22)) border-box;
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  box-shadow: var(--medceo-shadow-lg), var(--medceo-shadow-inset);
+}
+
+.mc-filter-card::after {
+  position: absolute;
+  top: 16px;
+  right: 26px;
+  color: rgba(240, 217, 138, 0.13);
+  content: "01";
+  font-family: var(--medceo-font-serif-alt);
+  font-size: clamp(74px, 8vw, 120px);
+  line-height: 1;
+}
+
+.mc-filter-card-negative::after {
+  content: "02";
+}
+
+.mc-filter-card-positive {
+  background:
+    linear-gradient(145deg, rgba(18, 56, 76, 0.88), rgba(4, 16, 25, 0.9)) padding-box,
+    var(--medceo-material-metal-soft) border-box;
+}
+
+.mc-filter-card-title,
+.mc-filter-card ul {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-filter-card-title {
+  border-bottom: 1px solid var(--medceo-border-on-dark);
+  padding-bottom: 22px;
+}
+
+.mc-filter-card-title h3 {
+  font-family: var(--medceo-font-serif-alt);
+}
+
+.mc-filter-card li {
+  border-color: rgba(244, 235, 221, 0.085);
+  color: var(--medceo-text-on-dark-muted);
+}
+
+.mc-filter-card li::before {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--medceo-accent-soft);
+  border-radius: 0;
+  background: transparent;
+  transform: rotate(45deg);
+}
+
+/* Executive paper / deliverables --------------------------------------- */
+
+.mc-deliverables-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--medceo-material-paper);
+}
+
+.mc-deliverables-section::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 8%, rgba(16, 29, 39, 0.045) 8.08%, transparent 8.16%),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(16, 29, 39, 0.025) 31px 32px);
+  content: "";
+  opacity: 0.86;
+}
+
+.mc-deliverables-section::after {
+  position: absolute;
+  top: -18%;
+  right: 16%;
+  width: 1px;
+  height: 136%;
+  background: linear-gradient(transparent, rgba(126, 98, 40, 0.44), transparent);
+  content: "";
+  transform: rotate(8deg);
+}
+
+.mc-deliverables-section > .mc-container {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-deliverables-heading h2,
+.mc-authority-copy h2 {
+  font-family: var(--medceo-font-serif-alt);
+  letter-spacing: var(--medceo-ls-display);
+}
+
+.mc-feature-card {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background:
+    rgba(244, 235, 221, 0.7) padding-box,
+    linear-gradient(125deg, rgba(16, 29, 39, 0.2), rgba(16, 29, 39, 0.05) 56%, rgba(126, 98, 40, 0.34)) border-box;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  box-shadow: 14px 18px 0 rgba(16, 29, 39, 0.055), 0 30px 80px rgba(16, 29, 39, 0.08);
+}
+
+.mc-feature-card::before {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  border-top: 1px solid rgba(16, 29, 39, 0.26);
+  border-right: 1px solid rgba(16, 29, 39, 0.26);
+  content: "";
+}
+
+.mc-feature-card-1 {
+  background:
+    var(--medceo-material-night) padding-box,
+    var(--medceo-material-metal-soft) border-box;
+  box-shadow: var(--medceo-shadow-cinematic);
+}
+
+.mc-feature-number {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  color: var(--medceo-accent-deep);
+  font-size: 10px;
+  transform: rotate(-8deg);
+}
+
+.mc-feature-card-1 .mc-feature-number {
+  color: var(--medceo-accent-soft);
+}
+
+.mc-feature-card h3 {
+  font-family: var(--medceo-font-serif-alt);
+  letter-spacing: -0.035em;
+}
+
+/* Case dossier ---------------------------------------------------------- */
+
+.mc-proof-section {
+  background: var(--medceo-material-night);
+  box-shadow: inset 0 1px 0 var(--medceo-border-on-dark-strong);
+}
+
+.mc-proof-section::before {
+  position: absolute;
+  z-index: 2;
+  top: 7%;
+  left: -0.04em;
+  pointer-events: none;
+  color: transparent;
+  content: "CASE / 01";
+  font-family: var(--medceo-font-serif-alt);
+  font-size: clamp(86px, 13vw, 210px);
+  letter-spacing: -0.06em;
+  opacity: 0.075;
+  -webkit-text-stroke: 1px var(--medceo-accent-soft);
+}
+
+.mc-proof-wash {
+  background:
+    linear-gradient(90deg, rgba(2, 7, 11, 0.995) 0%, rgba(4, 16, 25, 0.95) 39%, rgba(4, 16, 25, 0.48) 68%, rgba(2, 7, 11, 0.08) 100%),
+    var(--medceo-vignette),
+    var(--medceo-scanlines);
+}
+
+.mc-proof-document,
+.mc-case-story,
+.mc-case-story-static article {
+  border: 1px solid transparent;
+  border-radius: 0;
+  background:
+    var(--medceo-material-glass) padding-box,
+    linear-gradient(125deg, rgba(240, 217, 138, 0.48), rgba(240, 217, 138, 0.06) 52%, rgba(240, 217, 138, 0.26)) border-box;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  box-shadow: var(--medceo-shadow-lg), var(--medceo-shadow-inset);
+  backdrop-filter: blur(10px) saturate(1.08);
+}
+
+.mc-proof-image-frame {
+  background: var(--medceo-color-obsidian);
+}
+
+.mc-case-story-stage strong,
+.mc-case-story-static article > strong {
+  background: var(--medceo-material-metal-soft);
+  background-clip: text;
+  color: transparent;
+  font-family: var(--medceo-font-serif-alt);
+  -webkit-background-clip: text;
+}
+
+.mc-case-story-dots span.is-active {
+  background: var(--medceo-material-metal);
+  box-shadow: 0 0 14px rgba(var(--medceo-color-gold-rgb), 0.28);
+}
+
+/* Authority portrait ---------------------------------------------------- */
+
+.mc-authority-section {
+  background: var(--medceo-color-obsidian);
+}
+
+.mc-authority-fold {
+  width: calc(100% - clamp(14px, 2vw, 32px));
+  margin-inline: auto;
+  border: 1px solid var(--medceo-border-on-dark-strong);
+  background: var(--medceo-material-night);
+  box-shadow: var(--medceo-shadow-cinematic);
+}
+
+.mc-authority-fold::after {
+  position: absolute;
+  z-index: 2;
+  top: -12%;
+  right: 12%;
+  width: 1px;
+  height: 132%;
+  background: linear-gradient(transparent, rgba(var(--medceo-color-gold-rgb), 0.52), transparent);
+  content: "";
+  transform: rotate(8deg);
+}
+
+.mc-authority-wash {
+  background:
+    linear-gradient(270deg, rgba(2, 7, 11, 0.995) 0%, rgba(4, 16, 25, 0.95) 39%, rgba(4, 16, 25, 0.44) 68%, rgba(2, 7, 11, 0.05) 100%),
+    radial-gradient(circle at 78% 42%, rgba(27, 74, 97, 0.2), transparent 32%),
+    var(--medceo-vignette);
+}
+
+.mc-authority-copy {
+  position: relative;
+  z-index: 3;
+}
+
+.mc-authority-principle {
+  position: relative;
+  border-left: 0;
+  padding: 28px 30px 30px 42px;
+  background: var(--medceo-material-glass);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  box-shadow: inset 0 1px 0 rgba(240, 217, 138, 0.22);
+}
+
+.mc-authority-principle::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--medceo-material-metal);
+  content: "";
+}
+
+/* Method contact sheet -------------------------------------------------- */
+
+.mc-method-pillars-section {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(27, 74, 97, 0.35), transparent 32%),
+    var(--medceo-material-night);
+}
+
+.mc-method-pillars-heading,
+.mc-method-pillars-marquee {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-method-pillars-heading h2 {
+  font-family: var(--medceo-font-serif-alt);
+  letter-spacing: var(--medceo-ls-display);
+}
+
+.mc-method-pillars-motion-toggle {
+  border-color: var(--medceo-border-on-dark-strong);
+  border-radius: 0;
+  background: var(--medceo-material-glass);
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+}
+
+.mc-method-pillar-portrait {
+  border: 1px solid transparent;
+  background:
+    var(--medceo-surface-default) padding-box,
+    var(--medceo-material-metal-soft) border-box;
+  box-shadow: var(--medceo-shadow-cinematic), var(--medceo-shadow-inset);
+}
+
+.mc-method-pillar-portrait::before {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background: var(--medceo-scanlines);
+  content: "";
+  mix-blend-mode: soft-light;
+  opacity: 0.48;
+}
+
+.mc-method-pillar-index {
+  border-color: var(--medceo-accent-soft);
+  background: rgba(2, 7, 11, 0.8);
+  box-shadow: 0 0 0 7px rgba(2, 7, 11, 0.48), 0 0 28px rgba(var(--medceo-color-gold-rgb), 0.16);
+}
+
+.mc-method-pillar-copy h3 {
+  font-family: var(--medceo-font-serif-alt);
+  letter-spacing: -0.03em;
+}
+
+/* Final decision -------------------------------------------------------- */
+
+.mc-final-section {
+  border-top: 1px solid var(--medceo-border-on-dark-strong);
+  background: var(--medceo-material-night);
+}
+
+.mc-final-section::before {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: min(78vw, 980px);
+  aspect-ratio: 1;
+  background: var(--medceo-glow-decision);
+  content: "";
+  opacity: 0.66;
+  transform: translate(-50%, -50%);
+}
+
+.mc-final-wash {
+  background:
+    var(--medceo-vignette),
+    linear-gradient(180deg, rgba(2, 7, 11, 0.18), rgba(2, 7, 11, 0.8));
+}
+
+.mc-final-content {
+  position: relative;
+}
+
+.mc-final-content::before {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  width: min(92vw, 760px);
+  height: calc(100% + 72px);
+  border: 1px solid var(--medceo-border-on-dark);
+  background: var(--medceo-material-glass);
+  content: "";
+  clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  opacity: 0.72;
+  transform: translateX(-50%);
+  box-shadow: var(--medceo-shadow-lg);
+}
+
+.mc-final-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-footer {
+  border-top: 1px solid var(--medceo-border-on-dark-strong);
+  background: var(--medceo-color-obsidian);
+}
+
+/* Hover: material depth only where a pointer exists --------------------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .mc-filter-card,
+  .mc-feature-card,
+  .mc-authority-principle {
+    transition:
+      transform var(--medceo-duration-slow) var(--medceo-ease-premium),
+      box-shadow var(--medceo-duration-slow) var(--medceo-ease-premium);
+  }
+
+  .mc-filter-card:hover,
+  .mc-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--medceo-shadow-cinematic), var(--medceo-shadow-inset);
+  }
+}
+
+/* Tablet / mobile ------------------------------------------------------- */
+
+@media (max-width: 1020px) {
+  .medceo-page::after {
+    right: 28px;
+    opacity: 0.3;
+  }
+
+  .mc-hero-copy::before {
+    opacity: 0.58;
+  }
+
+  .mc-authority-fold {
+    width: calc(100% - 12px);
+  }
+}
+
+@media (max-width: 720px) {
+  .medceo-page::before {
+    opacity: 0.2;
+  }
+
+  .medceo-page::after,
+  .mc-filter-section::after,
+  .mc-deliverables-section::after,
+  .mc-authority-fold::after {
+    display: none;
+  }
+
+  .mc-hero::after {
+    right: -0.08em;
+    bottom: 9%;
+    font-size: 34vw;
+  }
+
+  .mc-hero-copy {
+    padding: 24px 20px 26px;
+  }
+
+  .mc-hero-copy::before {
+    backdrop-filter: blur(5px);
+  }
+
+  .mc-hero-title {
+    font-size: clamp(40px, 12.8vw, 58px);
+  }
+
+  .mc-filter-card,
+  .mc-feature-card,
+  .mc-proof-document,
+  .mc-case-story-static article,
+  .mc-authority-principle,
+  .mc-final-content::before {
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .mc-feature-card {
+    box-shadow: 8px 10px 0 rgba(16, 29, 39, 0.05), 0 20px 50px rgba(16, 29, 39, 0.08);
+  }
+
+  .mc-final-content::before {
+    top: -26px;
+    width: calc(100% + 8px);
+    height: calc(100% + 52px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-split-line-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .mc-button::before {
+    display: none;
+  }
+
+  .mc-filter-card,
+  .mc-feature-card,
+  .mc-authority-principle {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media print {
+  .medceo-page::before,
+  .medceo-page::after {
+    display: none;
+  }
+}
