@@ -7,7 +7,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { ArrowDownRight, ArrowRight, Check, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, Check, ExternalLink, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEventHandler, type ReactNode } from "react";
 
 import AnimatedContent from "@/components/AnimatedContent";
@@ -34,6 +34,8 @@ const DESCRIPTION =
   "Descubra o nível de maturidade da sua clínica, o gargalo prioritário da operação e os próximos passos em 20 perguntas.";
 const PANDA_PLAYER_URL =
   "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=85638f9a-6681-4a3d-bdab-83aed5805455";
+const HERO_CTA_DELAY_MS = 5 * 60 * 1000;
+const HERO_SESSION_START_KEY = "medceo:hero-session-start";
 
 // PENDENTE: quando o número internacional for definido, os CTAs comerciais
 // podem apontar para WhatsApp. O único CTA que abre o diagnóstico fica no final.
@@ -180,13 +182,14 @@ function DiagnosticButton({ children, onClick }: DiagnosticButtonProps) {
 function Index() {
   const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
   const [headerCondensed, setHeaderCondensed] = useState(false);
+  const [heroCtaVisible, setHeroCtaVisible] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const diagnosticReturnFocusRef = useRef<HTMLElement | null>(null);
   const filterCardsRef = useRef<HTMLDivElement | null>(null);
   const { scrollY, scrollYProgress } = useScroll();
   const { scrollYProgress: filterScrollProgress } = useScroll({
     target: filterCardsRef,
-    offset: ["start end", "end start"],
+    offset: ["start 92%", "end 8%"],
   });
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -198,6 +201,36 @@ function Index() {
   const heroDecadeY = useTransform(scrollY, [0, 1100], [0, -160]);
 
   useMotionValueEvent(scrollY, "change", (latest) => setHeaderCondensed(latest > 48));
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let timerId: number | undefined;
+
+    try {
+      const storedValue = Number(window.sessionStorage.getItem(HERO_SESSION_START_KEY));
+      const now = Date.now();
+      const startedAt = Number.isFinite(storedValue) && storedValue > 0 ? storedValue : now;
+
+      if (startedAt === now) {
+        window.sessionStorage.setItem(HERO_SESSION_START_KEY, String(startedAt));
+      }
+
+      const remaining = Math.max(HERO_CTA_DELAY_MS - (now - startedAt), 0);
+      if (remaining === 0) {
+        setHeroCtaVisible(true);
+        return;
+      }
+
+      timerId = window.setTimeout(() => setHeroCtaVisible(true), remaining);
+    } catch {
+      timerId = window.setTimeout(() => setHeroCtaVisible(true), HERO_CTA_DELAY_MS);
+    }
+
+    return () => {
+      if (timerId !== undefined) window.clearTimeout(timerId);
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -229,15 +262,24 @@ function Index() {
           <div className="mc-nav-links">
             <a href="#filtro">Filtro</a>
             <a href="#prova-social">Case</a>
-            <a href="#autoridade">Dr. Luciano</a>
             <a href="#pilares-metodo">Pilares</a>
+            <a href="#autoridade">Dr. Luciano</a>
             <a href="#diagnostico">Diagnóstico</a>
           </div>
 
-          <a className="mc-nav-action" href="#diagnostico">
-            Fazer diagnóstico
-            <ArrowDownRight aria-hidden="true" />
-          </a>
+          {heroCtaVisible ? (
+            <motion.a
+              className="mc-nav-action"
+              href="#diagnostico"
+              initial={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              Fazer diagnóstico
+              <ArrowDownRight aria-hidden="true" />
+            </motion.a>
+          ) : (
+            <span className="mc-nav-action-placeholder" aria-hidden="true" />
+          )}
         </nav>
       </header>
 
@@ -318,13 +360,19 @@ function Index() {
               </p>
             </div>
 
-            <div className="mc-hero-actions">
-              <a className="mc-button mc-button-primary" href="#filtro">
-                <span>Identificar meu próximo gargalo</span>
-                <ArrowDownRight aria-hidden="true" />
-              </a>
-              <p>Comece pela decisão que merece prioridade agora.</p>
-            </div>
+            {heroCtaVisible ? (
+              <motion.div
+                className="mc-hero-actions mc-hero-delayed-actions"
+                initial={shouldReduceMotion ? undefined : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <a className="mc-button mc-button-primary" href="#filtro">
+                  <span>Identificar meu próximo gargalo</span>
+                  <ArrowDownRight aria-hidden="true" />
+                </a>
+                <p>Disponível após assistir à apresentação com atenção.</p>
+              </motion.div>
+            ) : null}
           </div>
 
           <div className="mc-hero-signature" aria-hidden="true">
@@ -348,7 +396,7 @@ function Index() {
             <div ref={filterCardsRef} className="mc-filter-cards">
               <motion.div
                 className="mc-filter-scroll-item mc-filter-scroll-item-primary"
-                style={{ y: filterPrimaryY }}
+                style={{ y: shouldReduceMotion ? 0 : filterPrimaryY }}
               >
                 <AnimatedContent distance={22} delay={0.04}>
                   <div className="mc-filter-card mc-filter-card-positive">
@@ -367,7 +415,7 @@ function Index() {
 
               <motion.div
                 className="mc-filter-scroll-item mc-filter-scroll-item-secondary"
-                style={{ y: filterSecondaryY }}
+                style={{ y: shouldReduceMotion ? 0 : filterSecondaryY }}
               >
                 <AnimatedContent distance={22} delay={0.09}>
                   <div className="mc-filter-card mc-filter-card-negative">
@@ -389,6 +437,14 @@ function Index() {
 
         <CaseEvolution backgroundImage={drLuizSectionBackground} />
 
+        <section
+          id="pilares-metodo"
+          className="mc-method-pillars-experience-section"
+          aria-label="Pilares do Método MedCEO"
+        >
+          <MethodPillarsExperience pillars={methodPillars} />
+        </section>
+
         <section id="autoridade" className="mc-authority-section mc-section">
           <div className="mc-authority-fold">
             <div
@@ -402,29 +458,59 @@ function Index() {
               <div className="mc-authority-feature">
                 <AnimatedContent className="mc-authority-copy" distance={24} delay={0.05}>
                   <p className="mc-eyebrow">Quem interpreta o diagnóstico</p>
-                  <h2>Experiência de operação médica traduzida em direção empresarial.</h2>
-                  <div>
+                  <h2>Quem construiu uma operação médica entende o peso de cada decisão.</h2>
+                  <div className="mc-authority-body">
                     <p>
-                      Médico e CEO da Natuá, o Dr. Luciano lidera uma operação real, com pacientes,
-                      equipe, comercial, margem e decisões para administrar todos os dias.
+                      Médico, CEO e fundador da Natuá MedSpa, o Dr. Luciano conduz uma operação real
+                      em Curitiba — com pacientes, equipe, método, comercial e decisões que não
+                      cabem em uma teoria de gestão.
                     </p>
                     <p>
-                      É essa prática que orienta a leitura do diagnóstico: começar pelas respostas e
-                      pelo gargalo da clínica, não por uma solução pronta.
+                      Essa vivência sustenta a leitura do diagnóstico MedCEO: identificar o gargalo
+                      que limita a empresa agora e transformar resposta em prioridade de execução.
                     </p>
                   </div>
+
+                  <dl className="mc-authority-credentials" aria-label="Credenciais publicadas">
+                    <div>
+                      <dt>2.500+</dt>
+                      <dd>pacientes atendidos informados pela Natuá</dd>
+                    </div>
+                    <div>
+                      <dt>15+ anos</dt>
+                      <dd>de experiência em saúde publicada</dd>
+                    </div>
+                    <div>
+                      <dt>CRM/PR 45049</dt>
+                      <dd>médico, CEO e fundador</dd>
+                    </div>
+                    <div>
+                      <dt>DOC365</dt>
+                      <dd>método criado dentro da própria operação</dd>
+                    </div>
+                  </dl>
+
+                  <nav className="mc-authority-links" aria-label="Fontes oficiais do Dr. Luciano">
+                    <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">
+                      Conhecer a Natuá
+                      <ExternalLink aria-hidden="true" />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/dr.lucianoalvesneves/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Ver Instagram oficial
+                      <ExternalLink aria-hidden="true" />
+                    </a>
+                  </nav>
+                  <small className="mc-authority-source">
+                    Dados declarados nos canais oficiais da Natuá e do Dr. Luciano.
+                  </small>
                 </AnimatedContent>
               </div>
             </div>
           </div>
-        </section>
-
-        <section
-          id="pilares-metodo"
-          className="mc-method-pillars-experience-section"
-          aria-label="Pilares do Método MedCEO"
-        >
-          <MethodPillarsExperience pillars={methodPillars} />
         </section>
 
         <section id="diagnostico" className="mc-final-section">

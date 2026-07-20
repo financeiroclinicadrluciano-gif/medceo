@@ -26,6 +26,11 @@
   scroll-margin-top: calc(var(--medceo-navbar-height) + 16px);
 }
 
+.mc-nav-action-placeholder {
+  min-width: 180px;
+  justify-self: end;
+}
+
 .medceo-page .mc-hero-vsl {
   min-height: 100svh;
   min-height: 100dvh;
@@ -264,6 +269,10 @@
   margin: 0;
 }
 
+.medceo-page .mc-hero-vsl .mc-hero-delayed-actions {
+  margin-top: clamp(12px, 2vh, 22px);
+}
+
 .medceo-page .mc-hero-vsl .mc-hero-actions .mc-button {
   flex: 0 1 360px;
   justify-content: space-between;
@@ -286,6 +295,115 @@
   color: rgba(244, 235, 221, 0.72);
 }
 
+/* Authority — verified operation, presented as an editorial ledger. */
+.medceo-page .mc-authority-fold {
+  min-height: clamp(760px, 100svh, 940px);
+}
+
+.medceo-page .mc-authority-copy {
+  width: min(47%, 620px);
+}
+
+.medceo-page .mc-authority-copy h2 {
+  max-width: 12ch;
+  margin-bottom: clamp(22px, 3vh, 30px);
+  font-size: clamp(40px, 3.8vw, 58px);
+}
+
+.mc-authority-body {
+  gap: 12px !important;
+}
+
+.mc-authority-credentials {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: clamp(24px, 3.4vh, 34px) 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(240, 217, 138, 0.3);
+}
+
+.mc-authority-credentials > div {
+  min-width: 0;
+  padding: 15px 14px 15px 0;
+  border-bottom: 1px solid rgba(240, 217, 138, 0.16);
+}
+
+.mc-authority-credentials > div:nth-child(even) {
+  padding-left: 16px;
+  border-left: 1px solid rgba(240, 217, 138, 0.16);
+}
+
+.mc-authority-credentials dt {
+  margin: 0 0 6px;
+  color: var(--medceo-accent-soft);
+  font-family: var(--medceo-font-serif-alt);
+  font-size: clamp(22px, 2.1vw, 31px);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.mc-authority-credentials dd {
+  margin: 0;
+  color: rgba(244, 235, 221, 0.58);
+  font-family: var(--medceo-font-ui);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.mc-authority-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 18px;
+}
+
+.mc-authority-links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  color: var(--medceo-text-on-dark);
+  font-family: var(--medceo-font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-decoration-color: rgba(240, 217, 138, 0.5);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  text-transform: uppercase;
+}
+
+.mc-authority-links a svg {
+  width: 14px;
+  height: 14px;
+  color: var(--medceo-accent-soft);
+  transition: transform 180ms ease;
+}
+
+.mc-authority-links a:focus-visible {
+  outline: 2px solid var(--medceo-focus-ring-color, #cdae58);
+  outline-offset: 4px;
+}
+
+.mc-authority-source {
+  display: block;
+  margin-top: 8px;
+  color: rgba(244, 235, 221, 0.38);
+  font-family: var(--medceo-font-ui);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mc-authority-links a:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
 @media (max-width: 1180px) {
   .medceo-page .mc-hero-vsl .mc-hero-layout {
     grid-template-columns: minmax(0, 0.9fr) minmax(430px, 1.1fr);
@@ -304,6 +422,10 @@
 }
 
 @media (max-width: 900px) {
+  .mc-nav-action-placeholder {
+    min-width: 0;
+  }
+
   .medceo-page .mc-hero-vsl {
     min-height: auto;
   }
@@ -341,6 +463,43 @@
 
   .medceo-page .mc-hero-vsl .mc-hero-actions {
     align-items: center;
+  }
+
+  .medceo-page .mc-authority-copy {
+    width: min(52%, 560px);
+  }
+}
+
+@media (max-width: 720px) {
+  .medceo-page .mc-authority-copy {
+    width: 100%;
+  }
+
+  .medceo-page .mc-authority-copy h2 {
+    max-width: 11ch;
+    font-size: clamp(38px, 11vw, 50px);
+  }
+
+  .mc-authority-credentials {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-authority-credentials > div:nth-child(even) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .mc-authority-credentials > div {
+    display: grid;
+    grid-template-columns: minmax(104px, auto) minmax(0, 1fr);
+    gap: 14px;
+    align-items: baseline;
+    padding-right: 0;
+  }
+
+  .mc-authority-links {
+    display: grid;
+    gap: 0;
   }
 }
 
@@ -414,5 +573,9 @@
 @media (prefers-reduced-motion: reduce) {
   .mc-hero-decade-word {
     transform: none !important;
+  }
+
+  .mc-authority-links a svg {
+    transition: none;
   }
 }

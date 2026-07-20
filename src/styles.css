@@ -608,13 +608,15 @@ p {
   .mc-filter-cards {
     gap: 72px;
   }
+}
 
+@media (prefers-reduced-motion: no-preference) {
   .mc-filter-scroll-item {
     will-change: transform;
   }
 }
 
-@media (max-width: 1020px), (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .mc-filter-scroll-item {
     transform: none !important;
   }

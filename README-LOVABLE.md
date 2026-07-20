@@ -16,7 +16,9 @@ O ZIP e esta pasta servem como backup, handoff e referência para o chat do proj
 ## Arquivos principais
 
 - `src/routes/index.tsx`: conteúdo e estrutura da landing.
-- `src/nocturne.css`: direção de arte aplicada à landing.
+- `src/coffee-v2.css`: direção editorial da primeira dobra e da autoridade.
+- `src/case-evolution.css`: visual de evolução do case Dr. Luiz.
+- `src/pillars-experience.css`: experiência scroll-linked dos seis pilares.
 - `src/routes/design-system.tsx`: página viva do sistema.
 - `src/design-system.css`: estilos da página do sistema.
 - `src/brand/tokens/`: tokens oficiais.
@@ -26,16 +28,16 @@ O ZIP e esta pasta servem como backup, handoff e referência para o chat do proj
 ## Executar
 
 ```bash
-bun install
-bun run dev
+npm install
+npm run dev
 ```
 
 ## Validar
 
 ```bash
-bun x tsc --noEmit
-bun run lint
-bun run build
+npx tsc --noEmit
+npm run lint
+npm run build
 ```
 
 Não invente métricas, cases, credenciais ou número de WhatsApp. Pendências sem fonte devem permanecer marcadas como `PENDENTE`.
