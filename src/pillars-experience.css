@@ -1,0 +1,735 @@
+/* =============================================================
+   MedCEO — Method Pillars Experience
+   Um atlas editorial contínuo: a fotografia conduz, o currículo comprova.
+   ============================================================= */
+
+.mpx-root {
+  --mpx-progress: 0;
+  --mpx-shift: 0px;
+  position: relative;
+  overflow: clip;
+  background: var(--medceo-color-obsidian, #02070b);
+  color: var(--medceo-text-on-dark, #f4ebdd);
+  isolation: isolate;
+}
+
+.mpx-root::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 49.96%,
+      rgba(240, 217, 138, 0.075) 50%,
+      transparent 50.04%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(240, 217, 138, 0.05),
+      transparent 18% 82%,
+      rgba(240, 217, 138, 0.04)
+    );
+  content: "";
+  pointer-events: none;
+}
+
+.mpx-intro {
+  width: min(calc(100% - (var(--medceo-page-x, 40px) * 2)), var(--medceo-size-container, 1280px));
+  margin-inline: auto;
+  padding-block: clamp(88px, 10vw, 152px) clamp(56px, 7vw, 104px);
+}
+
+.mpx-intro-kicker,
+.mpx-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--medceo-space-4, 16px);
+  border-top: 1px solid var(--medceo-border-on-dark-strong, rgba(240, 217, 138, 0.38));
+  padding-top: var(--medceo-space-4, 16px);
+  color: var(--medceo-accent-soft, #f0d98a);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: var(--medceo-fs-xs, 0.75rem);
+  font-weight: var(--medceo-weight-medium, 500);
+  letter-spacing: var(--medceo-ls-wide, 0.18em);
+  text-transform: uppercase;
+}
+
+.mpx-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.45fr);
+  gap: clamp(36px, 7vw, 112px);
+  align-items: end;
+  margin-top: clamp(32px, 5vw, 72px);
+}
+
+.mpx-intro h2 {
+  max-width: 18ch;
+  margin: 0;
+  font-family: var(--medceo-font-sans, system-ui, sans-serif);
+  font-size: clamp(2.7rem, 5.8vw, 6.4rem);
+  font-weight: var(--medceo-weight-medium, 500);
+  letter-spacing: -0.062em;
+  line-height: 0.92;
+}
+
+.mpx-intro h2 em {
+  color: var(--medceo-accent-soft, #f0d98a);
+  font-family: var(--medceo-font-serif, Georgia, serif);
+  font-weight: var(--medceo-weight-regular, 400);
+}
+
+.mpx-intro-copy {
+  border-left: 1px solid var(--medceo-border-on-dark-strong, rgba(240, 217, 138, 0.38));
+  padding-left: clamp(20px, 2.5vw, 34px);
+}
+
+.mpx-intro-copy strong {
+  display: block;
+  margin-bottom: var(--medceo-space-4, 16px);
+  color: var(--medceo-accent-soft, #f0d98a);
+  font-family: var(--medceo-font-serif, Georgia, serif);
+  font-size: var(--medceo-fs-lg, 1.5rem);
+  font-weight: var(--medceo-weight-regular, 400);
+  line-height: var(--medceo-lh-snug, 1.12);
+}
+
+.mpx-intro-copy p {
+  margin: 0;
+  color: var(--medceo-text-on-dark-muted, rgba(244, 235, 221, 0.62));
+  font-size: var(--medceo-fs-sm, 0.9rem);
+  line-height: var(--medceo-lh-relaxed, 1.6);
+}
+
+.mpx-stage {
+  position: relative;
+  min-height: 0;
+}
+
+.mpx-sticky-frame {
+  width: min(calc(100% - (var(--medceo-page-x, 40px) * 2)), var(--medceo-size-container, 1280px));
+  margin-inline: auto;
+  padding-bottom: clamp(72px, 9vw, 128px);
+}
+
+.mpx-status {
+  margin-bottom: var(--medceo-space-5, 24px);
+}
+
+.mpx-status-current {
+  font-family: var(--medceo-font-mono, ui-monospace, monospace);
+  letter-spacing: 0.08em;
+}
+
+.mpx-viewport {
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  scroll-padding-inline: var(--medceo-page-x, 24px);
+  scroll-snap-type: inline mandatory;
+}
+
+.mpx-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.mpx-rail {
+  display: grid;
+  grid-auto-columns: min(86vw, 680px);
+  grid-auto-flow: column;
+  gap: clamp(14px, 3vw, 28px);
+  width: max-content;
+}
+
+.mpx-card {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  grid-template-rows: minmax(390px, 58vh) auto;
+  border: 1px solid var(--medceo-border-on-dark, rgba(240, 217, 138, 0.17));
+  background: var(--medceo-color-night, #041019);
+  color: var(--medceo-text-on-dark, #f4ebdd);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.mpx-card:focus-visible {
+  outline: var(--medceo-focus-ring-width, 2px) solid var(--medceo-focus-ring-color, #cdae58);
+  outline-offset: calc(var(--medceo-focus-ring-offset, 4px) * -1);
+}
+
+.mpx-card.is-foundation {
+  border-color: var(--medceo-accent, #cdae58);
+  background: var(--medceo-material-paper, #f4ebdd);
+  color: var(--medceo-text-on-light, #101d27);
+}
+
+.mpx-portrait {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--medceo-color-navy, #092536);
+}
+
+.mpx-portrait::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 46%, rgba(2, 7, 11, 0.18) 66%, rgba(2, 7, 11, 0.92) 100%),
+    linear-gradient(90deg, rgba(2, 7, 11, 0.18), transparent 32% 74%, rgba(2, 7, 11, 0.12));
+  content: "";
+  pointer-events: none;
+}
+
+.mpx-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) contrast(1.04);
+  transform: scale(1.012);
+}
+
+.mpx-portrait-number {
+  position: absolute;
+  z-index: 2;
+  top: clamp(18px, 2.5vw, 34px);
+  left: clamp(18px, 2.5vw, 34px);
+  color: var(--medceo-accent-soft, #f0d98a);
+  font-family: var(--medceo-font-mono, ui-monospace, monospace);
+  font-size: clamp(2.25rem, 5vw, 5.8rem);
+  letter-spacing: -0.08em;
+  line-height: 1;
+}
+
+.mpx-portrait-owner {
+  position: absolute;
+  z-index: 2;
+  right: clamp(18px, 2.5vw, 34px);
+  bottom: clamp(18px, 2.5vw, 34px);
+  left: clamp(18px, 2.5vw, 34px);
+  color: var(--medceo-color-paper, #f4ebdd);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: var(--medceo-fs-xs, 0.75rem);
+  font-weight: var(--medceo-weight-medium, 500);
+  letter-spacing: var(--medceo-ls-wide, 0.18em);
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.mpx-card-content {
+  display: grid;
+  gap: clamp(24px, 3vw, 42px);
+  align-content: start;
+  padding: clamp(26px, 4.2vw, 56px);
+}
+
+.mpx-card-heading > p,
+.mpx-curriculum > span {
+  margin: 0 0 var(--medceo-space-3, 12px);
+  color: var(--medceo-accent, #cdae58);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: var(--medceo-fs-xs, 0.75rem);
+  font-weight: var(--medceo-weight-semibold, 600);
+  letter-spacing: var(--medceo-ls-wide, 0.18em);
+  text-transform: uppercase;
+}
+
+.mpx-card.is-foundation .mpx-card-heading > p,
+.mpx-card.is-foundation .mpx-curriculum > span {
+  color: var(--medceo-accent-deep, #7e6228);
+}
+
+.mpx-card-heading h3 {
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--medceo-font-sans, system-ui, sans-serif);
+  font-size: clamp(2.5rem, 5.2vw, 5.8rem);
+  font-weight: var(--medceo-weight-medium, 500);
+  letter-spacing: -0.065em;
+  line-height: 0.88;
+}
+
+.mpx-thesis {
+  max-width: 45ch;
+  margin: 0;
+  color: var(--medceo-text-on-dark-secondary, #d8cbb5);
+  font-family: var(--medceo-font-serif, Georgia, serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+  line-height: 1.22;
+}
+
+.mpx-card.is-foundation .mpx-thesis {
+  color: var(--medceo-text-on-light, #101d27);
+}
+
+.mpx-curriculum {
+  border-top: 1px solid currentColor;
+  padding-top: var(--medceo-space-4, 16px);
+}
+
+.mpx-card:not(.is-foundation) .mpx-curriculum {
+  border-color: var(--medceo-border-on-dark, rgba(240, 217, 138, 0.17));
+}
+
+.mpx-curriculum ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mpx-curriculum li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--medceo-space-3, 12px);
+  align-items: baseline;
+  border-bottom: 1px solid currentColor;
+  padding-block: 11px;
+  font-size: clamp(0.82rem, 1vw, 0.98rem);
+  line-height: 1.4;
+}
+
+.mpx-card.is-foundation .mpx-curriculum li {
+  border-color: color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.mpx-card:not(.is-foundation) .mpx-curriculum li {
+  border-color: var(--medceo-border-on-dark, rgba(240, 217, 138, 0.17));
+}
+
+.mpx-curriculum li > span {
+  color: var(--medceo-accent, #cdae58);
+  font-family: var(--medceo-font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.mpx-card.is-foundation .mpx-curriculum li > span {
+  color: var(--medceo-accent-deep, #7e6228);
+}
+
+.mpx-navigation {
+  margin-top: clamp(24px, 3.4vw, 48px);
+}
+
+.mpx-progress {
+  height: 1px;
+  overflow: hidden;
+  background: var(--medceo-border-on-dark, rgba(240, 217, 138, 0.17));
+}
+
+.mpx-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--medceo-accent-soft, #f0d98a);
+  transform: scaleX(var(--mpx-progress));
+  transform-origin: left center;
+}
+
+.mpx-navigation ol {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mpx-navigation button {
+  display: grid;
+  width: 100%;
+  min-height: var(--medceo-size-touch-min, 44px);
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--medceo-space-2, 8px);
+  align-items: start;
+  border: 0;
+  padding: 14px 8px 8px 0;
+  background: transparent;
+  color: var(--medceo-text-on-dark-muted, rgba(244, 235, 221, 0.62));
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.mpx-navigation button > span {
+  color: var(--medceo-accent, #cdae58);
+  font-family: var(--medceo-font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+}
+
+.mpx-navigation button > strong {
+  overflow: hidden;
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: clamp(0.62rem, 0.72vw, 0.72rem);
+  font-weight: var(--medceo-weight-medium, 500);
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.mpx-navigation button[aria-current="step"] {
+  color: var(--medceo-text-on-dark, #f4ebdd);
+}
+
+.mpx-navigation button:focus-visible {
+  outline: var(--medceo-focus-ring-width, 2px) solid var(--medceo-focus-ring-color, #cdae58);
+  outline-offset: var(--medceo-focus-ring-offset, 4px);
+}
+
+.mpx-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.mpx-conclusion {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(calc(100% - (var(--medceo-page-x, 40px) * 2)), var(--medceo-size-container, 1280px));
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: clamp(42px, 7vw, 110px);
+  align-items: end;
+  margin-inline: auto;
+  border-top: 4px solid var(--medceo-accent, #cdae58);
+  padding: clamp(58px, 8vw, 108px) clamp(26px, 5vw, 72px);
+  color: var(--medceo-text-on-light, #101d27);
+  background: var(--medceo-material-paper, #f4ebdd);
+}
+
+.mpx-conclusion-heading > span {
+  display: block;
+  margin-bottom: clamp(26px, 4vw, 48px);
+  color: var(--medceo-accent-deep, #7e6228);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: var(--medceo-fs-xs, 0.75rem);
+  font-weight: 650;
+  letter-spacing: var(--medceo-ls-wide, 0.18em);
+  text-transform: uppercase;
+}
+
+.mpx-conclusion-heading h2 {
+  max-width: 19ch;
+  margin: 0;
+  font-family: var(--medceo-font-sans, system-ui, sans-serif);
+  font-size: clamp(2.45rem, 4.8vw, 5.4rem);
+  font-weight: 520;
+  letter-spacing: -0.06em;
+  line-height: 0.94;
+}
+
+.mpx-system-line {
+  display: grid;
+  border-top: 1px solid rgba(16, 29, 39, 0.28);
+}
+
+.mpx-system-line > span {
+  display: grid;
+  min-height: 48px;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(16, 29, 39, 0.18);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mpx-system-line small {
+  color: var(--medceo-accent-deep, #7e6228);
+  font-family: var(--medceo-font-mono, ui-monospace, monospace);
+  font-size: 0.65rem;
+}
+
+.mpx-system-line i {
+  color: var(--medceo-accent-deep, #7e6228);
+  font-style: normal;
+}
+
+.mpx-system-line strong {
+  display: block;
+  margin-top: 28px;
+  color: var(--medceo-accent-deep, #7e6228);
+  font-family: var(--medceo-font-serif, Georgia, serif);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 400;
+  text-align: right;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mpx-rail {
+    grid-auto-columns: min(76vw, 760px);
+  }
+
+  .mpx-card {
+    grid-template-columns: minmax(290px, 0.82fr) minmax(0, 1.18fr);
+    grid-template-rows: minmax(620px, 72vh);
+  }
+
+  .mpx-navigation button > strong {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mpx-root:not(.is-scroll-enhanced) .mpx-rail {
+    display: grid;
+    width: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mpx-root:not(.is-scroll-enhanced) .mpx-card {
+    min-height: 760px;
+    grid-template-rows: 390px auto;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-stage {
+    height: var(--mpx-stage-height);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-sticky-frame {
+    position: sticky;
+    top: var(--medceo-navbar-height, 72px);
+    display: grid;
+    width: 100%;
+    height: calc(100svh - var(--medceo-navbar-height, 72px));
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    align-content: center;
+    padding: clamp(20px, 3vh, 34px) var(--medceo-page-x, 40px) clamp(18px, 2.6vh, 30px);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-status,
+  .mpx-root.is-scroll-enhanced .mpx-navigation {
+    width: min(100%, var(--medceo-size-container, 1280px));
+    margin-inline: auto;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-status {
+    margin-bottom: clamp(14px, 2vh, 24px);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-viewport {
+    overflow: hidden;
+    scroll-snap-type: none;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-rail {
+    display: flex;
+    gap: clamp(18px, 2.4vw, 38px);
+    width: max-content;
+    will-change: transform;
+    transform: translate3d(var(--mpx-shift), 0, 0);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-card {
+    width: min(78vw, 1060px);
+    height: min(68vh, 650px);
+    min-height: 540px;
+    flex: 0 0 auto;
+    grid-template-columns: minmax(340px, 0.9fr) minmax(400px, 1.1fr);
+    grid-template-rows: 1fr;
+    opacity: 0.55;
+    transform: scale(0.965);
+    transform-origin: center center;
+    transition:
+      opacity var(--medceo-duration-slow, 400ms) var(--medceo-ease-premium, ease-out),
+      transform var(--medceo-duration-slow, 400ms) var(--medceo-ease-premium, ease-out);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-card.is-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-card-heading h3 {
+    font-size: clamp(3.7rem, 5.4vw, 6.2rem);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-card-content {
+    align-content: center;
+    padding: clamp(34px, 4.2vw, 62px);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-curriculum ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(18px, 2vw, 30px);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-portrait-number {
+    font-size: clamp(4rem, 6vw, 7.2rem);
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 800px) {
+  .mpx-root.is-scroll-enhanced .mpx-sticky-frame {
+    padding-block: 12px;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-status {
+    margin-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-card {
+    height: min(62vh, 540px);
+    min-height: 470px;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-card-content {
+    gap: 18px;
+    padding: 26px 32px;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-card-heading h3 {
+    font-size: clamp(3rem, 4.5vw, 4.8rem);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-thesis {
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-curriculum {
+    padding-top: 10px;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-curriculum li {
+    padding-block: 7px;
+    font-size: 0.75rem;
+  }
+
+  .mpx-root.is-scroll-enhanced .mpx-navigation {
+    margin-top: 14px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mpx-navigation button {
+    transition: color var(--medceo-duration-fast, 150ms) var(--medceo-ease-standard, ease);
+  }
+
+  .mpx-navigation button:hover {
+    color: var(--medceo-text-on-dark, #f4ebdd);
+  }
+}
+
+@media (max-width: 767px) {
+  .mpx-intro {
+    width: 100%;
+    padding: 80px 20px 54px;
+  }
+
+  .mpx-intro-kicker {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mpx-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 34px;
+  }
+
+  .mpx-intro h2 {
+    font-size: clamp(2.5rem, 12.8vw, 4rem);
+  }
+
+  .mpx-intro-copy {
+    padding-left: 20px;
+  }
+
+  .mpx-sticky-frame {
+    width: 100%;
+    padding-bottom: 80px;
+  }
+
+  .mpx-status,
+  .mpx-navigation {
+    margin-inline: 20px;
+  }
+
+  .mpx-status {
+    margin-bottom: 18px;
+  }
+
+  .mpx-viewport {
+    padding-inline: 20px;
+    scroll-padding-inline: 20px;
+  }
+
+  .mpx-rail {
+    grid-auto-columns: min(86vw, 420px);
+  }
+
+  .mpx-card {
+    grid-template-rows: minmax(370px, 55vh) auto;
+  }
+
+  .mpx-card-content {
+    gap: 24px;
+    padding: 26px 22px 30px;
+  }
+
+  .mpx-card-heading h3 {
+    font-size: clamp(2.55rem, 12vw, 4rem);
+  }
+
+  .mpx-thesis {
+    font-size: 1.2rem;
+  }
+
+  .mpx-navigation {
+    margin-top: 24px;
+  }
+
+  .mpx-navigation ol {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .mpx-navigation button {
+    display: flex;
+    justify-content: center;
+    padding-inline: 4px;
+  }
+
+  .mpx-navigation button > strong {
+    display: none;
+  }
+
+  .mpx-conclusion {
+    width: calc(100% - 40px);
+    grid-template-columns: 1fr;
+    gap: 44px;
+    padding: 48px 24px;
+  }
+
+  .mpx-conclusion-heading h2 {
+    font-size: clamp(2.35rem, 11vw, 3.6rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mpx-progress span,
+  .mpx-navigation button,
+  .mpx-card {
+    transition: none;
+  }
+
+  .mpx-viewport {
+    scroll-behavior: auto;
+  }
+
+  .mpx-root:not(.is-scroll-enhanced) .mpx-card {
+    opacity: 1;
+    transform: none;
+  }
+}

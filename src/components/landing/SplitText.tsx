@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ElementType } from "react";
 
 type SplitTextProps = {
+  id?: string;
   text: string;
   as?: ElementType;
   className?: string;
@@ -16,6 +17,7 @@ type SplitTextProps = {
  * becomes fully static when reduced motion is requested.
  */
 export default function SplitText({
+  id,
   text,
   as: Tag = "p",
   className = "",
@@ -53,6 +55,7 @@ export default function SplitText({
 
   return (
     <Tag
+      id={id}
       ref={rootRef}
       className={`rb-split-text ${isVisible ? "is-visible" : ""} ${className}`}
       aria-label={text.replaceAll("\n", " ")}
