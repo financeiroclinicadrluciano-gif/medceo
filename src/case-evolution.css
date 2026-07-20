@@ -36,7 +36,7 @@
   width: min(100%, 1440px);
   min-height: inherit;
   margin-inline: auto;
-  padding-block: clamp(5.25rem, 8vh, 7rem);
+  padding-block: clamp(4.2rem, 6.5vh, 5.4rem);
   padding-inline: clamp(1.25rem, 5vw, 5rem) 43%;
 }
 
@@ -118,7 +118,7 @@
   max-width: 12ch;
   margin: 0;
   font-family: var(--medceo-font-sans, sans-serif);
-  font-size: clamp(3.15rem, 5.7vw, 6.25rem);
+  font-size: clamp(3.15rem, 5.45vw, 6rem);
   font-weight: 400;
   line-height: 0.88;
   letter-spacing: -0.07em;
@@ -135,20 +135,25 @@
   font-weight: 600;
 }
 
-.mc-case-evolution-heading > p:last-child {
+.mc-case-evolution-story {
   max-width: 56ch;
-  margin: 1.15rem 0 0;
+  margin: 0.95rem 0 0;
   color: var(--medceo-text-on-dark-secondary, #d8cbb5);
   font-family: var(--medceo-font-sans, sans-serif);
-  font-size: clamp(0.93rem, 1.2vw, 1.08rem);
-  line-height: 1.55;
+  font-size: clamp(0.88rem, 1.08vw, 1rem);
+  line-height: 1.5;
+}
+
+.mc-case-evolution-story strong {
+  color: var(--medceo-accent-soft, #f0d98a);
+  font-weight: 600;
 }
 
 .mc-case-evolution-scale {
   display: grid;
   gap: 0.58rem;
   max-width: 690px;
-  margin-top: clamp(1.5rem, 3vh, 2.25rem);
+  margin-top: clamp(1.15rem, 2.4vh, 1.7rem);
 }
 
 .mc-case-evolution-row {
@@ -241,7 +246,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: 690px;
-  margin: clamp(1.35rem, 2.8vh, 2rem) 0 0;
+  margin: clamp(1rem, 2.2vh, 1.45rem) 0 0;
   padding: 0;
   border-block: 1px solid var(--medceo-border-on-dark, rgba(240, 217, 138, 0.17));
 }
@@ -270,9 +275,38 @@
   letter-spacing: -0.04em;
 }
 
+.mc-case-evolution-horizon {
+  display: grid;
+  max-width: 690px;
+  grid-template-columns: minmax(128px, 0.34fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--medceo-border-on-dark, rgba(240, 217, 138, 0.17));
+}
+
+.mc-case-evolution-horizon > span {
+  color: var(--medceo-accent, #cdae58);
+  font-family: var(--medceo-font-ui, sans-serif);
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mc-case-evolution-horizon p {
+  max-width: 54ch;
+  margin: 0;
+  color: var(--medceo-text-on-dark-secondary, #d8cbb5);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
 .mc-case-evolution-disclaimer {
   max-width: 74ch;
-  margin: 0.85rem 0 0;
+  margin: 0.55rem 0 0;
   color: var(--medceo-text-on-dark-muted, rgba(244, 235, 221, 0.62));
   font-family: var(--medceo-font-ui, sans-serif);
   font-size: 0.69rem;
@@ -330,7 +364,8 @@
   }
 
   .mc-case-evolution-scale,
-  .mc-case-evolution-metrics {
+  .mc-case-evolution-metrics,
+  .mc-case-evolution-horizon {
     max-width: none;
   }
 }
@@ -372,6 +407,11 @@
 
   .mc-case-evolution-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .mc-case-evolution-horizon {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
   }
 
   .mc-case-evolution-metrics > div {

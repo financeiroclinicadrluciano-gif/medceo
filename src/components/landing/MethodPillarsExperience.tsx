@@ -26,9 +26,9 @@ const clamp = (value: number, minimum: number, maximum: number) =>
 /**
  * A single editorial atlas for the six MedCEO disciplines.
  *
- * Desktop progressively enhances into one sticky, scroll-linked rail. Touch,
- * reduced-motion and no-JavaScript contexts retain every pillar as readable
- * content instead of depending on animation to reveal information.
+ * Desktop progressively enhances into one sticky, scroll-linked rail. Mobile
+ * uses the same vertical-scroll idea card by card. Reduced-motion and
+ * no-JavaScript contexts retain every pillar as readable static content.
  */
 export default function MethodPillarsExperience({ pillars }: MethodPillarsExperienceProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -58,25 +58,90 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
     const rail = railRef.current;
 
     if (!root || !stage || !viewport || !rail || pillars.length === 0) return;
+    const cards = cardRefs.current;
 
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let scrollFrame = 0;
     let horizontalFrame = 0;
     let enhanced = false;
+    let mobileEnhanced = false;
 
     const updateScrollExperience = () => {
       scrollFrame = 0;
+      if (mobileEnhanced) {
+        const viewportHeight = Math.max(window.innerHeight, 1);
+        const focusLine = viewportHeight * 0.52;
+        let closestIndex = 0;
+        let closestDistance = Number.POSITIVE_INFINITY;
+
+        cards.forEach((card, index) => {
+          if (!card) return;
+
+          const bounds = card.getBoundingClientRect();
+          const entry = clamp(
+            (viewportHeight - bounds.top) / Math.max(viewportHeight * 0.58, 1),
+            0,
+            1,
+          );
+          const exit = clamp(
+            (viewportHeight * 0.2 - bounds.bottom) / Math.max(viewportHeight * 0.28, 1),
+            0,
+            1,
+          );
+          const rise = 56 * (1 - entry) - 18 * exit;
+          const scale = 0.982 + entry * 0.018 - exit * 0.012;
+          const opacity = 0.58 + entry * 0.42 - exit * 0.18;
+          const distance = Math.abs(bounds.top + bounds.height * 0.42 - focusLine);
+
+          card.style.setProperty("--mpx-card-rise", `${rise.toFixed(2)}px`);
+          card.style.setProperty("--mpx-card-scale", scale.toFixed(4));
+          card.style.setProperty("--mpx-card-opacity", opacity.toFixed(4));
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        root.style.setProperty(
+          "--mpx-progress",
+          `${(closestIndex + 1) / Math.max(pillars.length, 1)}`,
+        );
+        setActivePillar(closestIndex);
+        return;
+      }
+
       if (!enhanced) return;
 
       const stageTop = stage.getBoundingClientRect().top + window.scrollY;
       const scrollRange = Math.max(stage.offsetHeight - window.innerHeight, 1);
       const progress = clamp((window.scrollY - stageTop) / scrollRange, 0, 1);
       const maximumShift = Math.max(rail.scrollWidth - viewport.clientWidth, 0);
+      const pillarProgress = progress * Math.max(pillars.length - 1, 0);
 
       root.style.setProperty("--mpx-shift", `${(-maximumShift * progress).toFixed(2)}px`);
       root.style.setProperty("--mpx-progress", progress.toFixed(4));
-      setActivePillar(Math.round(progress * Math.max(pillars.length - 1, 0)));
+
+      // Motion intent: each intelligence climbs into decision focus as the rail advances.
+      cards.forEach((card, index) => {
+        if (!card) return;
+
+        const distanceFromFocus = index - pillarProgress;
+        const enteringDistance = clamp(distanceFromFocus, 0, 1);
+        const exitingDistance = clamp(-distanceFromFocus, 0, 1);
+        const proximity = clamp(1 - Math.abs(distanceFromFocus), 0, 1);
+        const rise = enteringDistance * 84 - exitingDistance * 24;
+        const scale = 0.965 + proximity * 0.035;
+        const opacity = 0.55 + proximity * 0.45;
+
+        card.style.setProperty("--mpx-card-rise", `${rise.toFixed(2)}px`);
+        card.style.setProperty("--mpx-card-scale", scale.toFixed(4));
+        card.style.setProperty("--mpx-card-opacity", opacity.toFixed(4));
+      });
+
+      setActivePillar(Math.round(pillarProgress));
     };
 
     const requestScrollUpdate = () => {
@@ -86,13 +151,13 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
 
     const updateHorizontalSelection = () => {
       horizontalFrame = 0;
-      if (enhanced) return;
+      if (enhanced || mobileEnhanced) return;
 
       const viewportCenter = viewport.getBoundingClientRect().left + viewport.clientWidth / 2;
       let closestIndex = 0;
       let closestDistance = Number.POSITIVE_INFINITY;
 
-      cardRefs.current.forEach((card, index) => {
+      cards.forEach((card, index) => {
         if (!card) return;
         const cardBounds = card.getBoundingClientRect();
         const distance = Math.abs(cardBounds.left + cardBounds.width / 2 - viewportCenter);
@@ -117,14 +182,22 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
 
     const configureExperience = () => {
       enhanced = desktopQuery.matches && !reducedMotionQuery.matches && pillars.length > 1;
+      mobileEnhanced = mobileQuery.matches && !reducedMotionQuery.matches && pillars.length > 1;
       root.classList.toggle("is-scroll-enhanced", enhanced);
+      root.classList.toggle("is-mobile-scroll-enhanced", mobileEnhanced);
 
-      if (!enhanced) {
+      if (!enhanced && !mobileEnhanced) {
         root.style.setProperty("--mpx-shift", "0px");
         root.style.setProperty(
           "--mpx-progress",
           `${(activeIndexRef.current + 1) / Math.max(pillars.length, 1)}`,
         );
+        cards.forEach((card) => {
+          if (!card) return;
+          card.style.removeProperty("--mpx-card-rise");
+          card.style.removeProperty("--mpx-card-scale");
+          card.style.removeProperty("--mpx-card-opacity");
+        });
       }
 
       requestScrollUpdate();
@@ -138,6 +211,7 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
     window.addEventListener("scroll", requestScrollUpdate, { passive: true });
     viewport.addEventListener("scroll", requestHorizontalUpdate, { passive: true });
     desktopQuery.addEventListener("change", configureExperience);
+    mobileQuery.addEventListener("change", configureExperience);
     reducedMotionQuery.addEventListener("change", configureExperience);
     configureExperience();
 
@@ -147,9 +221,17 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
       window.removeEventListener("scroll", requestScrollUpdate);
       viewport.removeEventListener("scroll", requestHorizontalUpdate);
       desktopQuery.removeEventListener("change", configureExperience);
+      mobileQuery.removeEventListener("change", configureExperience);
       reducedMotionQuery.removeEventListener("change", configureExperience);
       resizeObserver.disconnect();
       root.classList.remove("is-scroll-enhanced");
+      root.classList.remove("is-mobile-scroll-enhanced");
+      cards.forEach((card) => {
+        if (!card) return;
+        card.style.removeProperty("--mpx-card-rise");
+        card.style.removeProperty("--mpx-card-scale");
+        card.style.removeProperty("--mpx-card-opacity");
+      });
     };
   }, [pillars.length, setActivePillar]);
 
@@ -171,6 +253,14 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
       const progress = pillars.length > 1 ? index / (pillars.length - 1) : 0;
 
       window.scrollTo({ top: stageTop + scrollRange * progress, behavior });
+      card.focus({ preventScroll: true });
+      return;
+    }
+
+    if (root.classList.contains("is-mobile-scroll-enhanced")) {
+      const navigationOffset = 138;
+      const cardTop = card.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: Math.max(cardTop - navigationOffset, 0), behavior });
       card.focus({ preventScroll: true });
       return;
     }
@@ -316,27 +406,6 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
           </p>
         </div>
       </div>
-
-      <footer className="mpx-conclusion">
-        <div className="mpx-conclusion-heading">
-          <span>[ 01 base · 05 sistemas de execução ]</span>
-          <h2>
-            Você não precisa melhorar tudo ao mesmo tempo. Precisa descobrir qual pilar deve mudar
-            primeiro.
-          </h2>
-        </div>
-
-        <div className="mpx-system-line" aria-label="Os seis pilares formam uma empresa">
-          {pillars.map((pillar, index) => (
-            <span key={`system-${pillar.number}`}>
-              <small>{pillar.number}</small>
-              {pillar.role}
-              {index < pillars.length - 1 ? <i aria-hidden="true">→</i> : null}
-            </span>
-          ))}
-          <strong>Uma empresa</strong>
-        </div>
-      </footer>
     </div>
   );
 }

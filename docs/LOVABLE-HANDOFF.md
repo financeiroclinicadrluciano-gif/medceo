@@ -27,16 +27,16 @@ Não crie um novo projeto vazio e tente importar este ZIP: esse fluxo não é su
 ## Como executar localmente
 
 ```bash
-bun install
-bun run dev
+npm install
+npm run dev
 ```
 
 Validações antes de publicar:
 
 ```bash
-bun x tsc --noEmit
-bun run lint
-bun run build
+npx tsc --noEmit
+npm run lint
+npm run build
 ```
 
 ## Arquitetura editável
@@ -44,7 +44,9 @@ bun run build
 - `src/routes/index.tsx`: conteúdo, ordem das dobras e metadados.
 - `src/routes/design-system.tsx`: página viva do sistema em `/design-system`.
 - `src/styles.css`: arquitetura, layout responsivo e comportamento da landing.
-- `src/nocturne.css`: direção de arte MedCEO Nocturne aplicada sobre a arquitetura.
+- `src/coffee-v2.css`: direção editorial aplicada à VSL e à dobra de autoridade.
+- `src/case-evolution.css`: comparação visual e storytelling responsável do case Dr. Luiz.
+- `src/pillars-experience.css`: atlas dos seis pilares em scroll-linked desktop e mobile.
 - `src/design-system.css`: apresentação visual isolada do design system.
 - `src/components/landing/`: componentes interativos customizados.
 - `src/components/DiagnosticModal.tsx`: as 20 perguntas e a lógica do resultado.
@@ -57,8 +59,8 @@ bun run build
 Os componentes foram adaptados para produção, em vez de copiar demos inteiros. A versão Nocturne removeu efeitos decorativos sobrepostos e concentrou a experiência em uma assinatura visual única:
 
 - `SplitText`: headline revelada por linhas, sem dependência de medição do DOM.
-- `AnimatedCaseStudy`: padrão de testimonial animado sem inventar depoimento em primeira pessoa.
-- `MethodPillarsMarquee`: seis retratos editoriais em esteira contínua no desktop, com pausa acessível e `scroll-snap` manual em touch/reduced motion.
+- `CaseEvolution`: transformação R$ 80 mil → R$ 200 mil em uma composição única, com contexto, 01/06 pilar e ressalva de resultado individual.
+- `MethodPillarsExperience`: seis retratos editoriais em uma rail sticky no desktop e em uma sequência vertical vinculada ao scroll no mobile.
 - `Corte de Direção`: eixo de 8° usado em chanfros, hairlines e transições como assinatura do sistema.
 - Materiais CSS: darkroom, metal dourado escovado, papel técnico e vidro fumê, sem WebGL ou canvas decorativo.
 - O retrato do hero usa AVIF responsivo com fallback PNG, reduzindo a transferência principal sem perder transparência.
@@ -79,12 +81,33 @@ Ao pedir alterações no Lovable, use `docs/design-system/LOVABLE-PROMPT.md` com
 
 ## Regras de conteúdo e conversão
 
-- Apenas o botão da última dobra abre o diagnóstico.
+- O CTA da primeira dobra e a ação do cabeçalho ficam ocultos nos primeiros cinco minutos da sessão e aparecem depois desse período.
+- O botão da última dobra permanece como acesso direto ao diagnóstico.
 - Os demais CTAs comerciais poderão apontar para WhatsApp quando o número internacional for definido.
 - `PENDENTE`: número do WhatsApp em formato país + DDD + número, somente dígitos.
 - O case Dr. Luiz permanece como informação individual: R$ 80 mil → R$ 200 mil em aproximadamente três meses, trabalhando um pilar.
-- A variação correta é `+150%` e `2,5x` o patamar anterior; não usar `+3x`.
+- A interface comunica o avanço informado de `+R$ 120 mil` e identifica Mentalidade CEO como `01/06`; não transforma o case em causalidade ou garantia.
 - Nenhum resultado é apresentado como garantia.
+
+## Ordem atual da landing
+
+1. VSL e promessa principal;
+2. filtro de adequação;
+3. case Dr. Luiz;
+4. seis pilares do Método MedCEO;
+5. autoridade Dr. Luciano e Natuá;
+6. diagnóstico final.
+
+## Knowledge e skills Lovable
+
+O pacote complementar `Lovable-Quality-System-2026-07-20` contém:
+
+- Workspace Knowledge universal;
+- Project Knowledge específico MedCEO;
+- cinco skills importáveis individualmente por ZIP;
+- instruções e smoke tests.
+
+Essas camadas complementam o repositório. O Project Knowledge MedCEO prevalece quando uma regra específica de marca divergir de um padrão universal.
 
 ## Publicação paralela no OpenAI Sites
 

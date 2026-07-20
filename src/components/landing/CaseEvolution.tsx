@@ -12,18 +12,15 @@ export type CaseEvolutionProps = {
   initialRevenue?: number;
   finalRevenue?: number;
   duration?: string;
+  durationMetric?: string;
   focus?: string;
+  totalPillars?: number;
   imagePosition?: CSSProperties["backgroundPosition"];
   disclaimer?: string;
 };
 
 const numberFormatter = new Intl.NumberFormat("pt-BR", {
   maximumFractionDigits: 0,
-});
-
-const decimalFormatter = new Intl.NumberFormat("pt-BR", {
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
 });
 
 function formatRevenue(value: number) {
@@ -42,9 +39,11 @@ export default function CaseEvolution({
   initialRevenue = 80,
   finalRevenue = 200,
   duration = "aproximadamente 3 meses",
-  focus = "apenas 1 pilar do método",
+  durationMetric = "≈ 3 meses",
+  focus = "Mentalidade CEO",
+  totalPillars = 6,
   imagePosition = "22% center",
-  disclaimer = "Resultado individual informado pelo case. Resultados variam conforme contexto, execução e maturidade da clínica.",
+  disclaimer = "Resultado individual informado pelo case. O registro não isola causalidade nem garante repetição; resultados variam conforme contexto e execução.",
 }: CaseEvolutionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -65,20 +64,18 @@ export default function CaseEvolution({
     const safeInitial = Math.max(initialRevenue, 0);
     const safeFinal = Math.max(finalRevenue, 0);
     const delta = safeFinal - safeInitial;
-    const multiple = safeInitial > 0 ? safeFinal / safeInitial : 0;
-    const growth = safeInitial > 0 ? (delta / safeInitial) * 100 : 0;
     const initialRatio = safeFinal > 0 ? Math.min((safeInitial / safeFinal) * 100, 100) : 0;
 
     return {
       delta,
-      multiple,
-      growth,
       initialRatio,
     };
   }, [finalRevenue, initialRevenue]);
 
   const classes = ["mc-case-evolution", className].filter(Boolean).join(" ");
-  const outcomeDirection = metrics.delta >= 0 ? "crescimento" : "variação";
+  const safeTotalPillars = Math.max(Math.round(totalPillars), 1);
+  const remainingPillars = Math.max(safeTotalPillars - 1, 0);
+  const pillarFraction = `01/${String(safeTotalPillars).padStart(2, "0")}`;
 
   return (
     <section ref={sectionRef} id={id} className={classes} aria-labelledby={`${id}-title`}>
@@ -100,20 +97,21 @@ export default function CaseEvolution({
 
       <div className="mc-case-evolution-inner">
         <header className="mc-case-evolution-heading">
-          <p className="mc-case-evolution-eyebrow">Case documentado · evolução de faturamento</p>
+          <p className="mc-case-evolution-eyebrow">Case individual · Dr. Luiz Henrique</p>
           <h2 id={`${id}-title`}>
             De <span>{formatRevenue(initialRevenue)}</span> para{" "}
             <strong>{formatRevenue(finalRevenue)}</strong>.
           </h2>
-          <p>
-            Uma transformação concentrada em {focus}, construída ao longo de {duration}.
+          <p className="mc-case-evolution-story">
+            Segundo o case informado, esse avanço aconteceu em {duration}. Naquele ciclo, o trabalho
+            esteve concentrado em <strong>{focus}</strong> — a base do método.
           </p>
         </header>
 
         <div
           className="mc-case-evolution-scale"
           role="img"
-          aria-label={`${caseName} evoluiu de ${formatRevenue(initialRevenue)} para ${formatRevenue(finalRevenue)} em ${duration}.`}
+          aria-label={`${caseName} informou evolução de ${formatRevenue(initialRevenue)} para ${formatRevenue(finalRevenue)} em ${duration}, com foco em ${focus}, um dos ${safeTotalPillars} pilares do método.`}
         >
           <div className="mc-case-evolution-row is-initial">
             <div className="mc-case-evolution-row-label">
@@ -130,7 +128,9 @@ export default function CaseEvolution({
               className="mc-case-evolution-transition-line"
               style={{ scaleX: prefersReducedMotion ? 1 : lineProgress }}
             />
-            <span className="mc-case-evolution-focus">01 pilar trabalhado</span>
+            <span className="mc-case-evolution-focus">
+              {focus} · {pillarFraction}
+            </span>
           </div>
 
           <div className="mc-case-evolution-row is-final">
@@ -146,24 +146,30 @@ export default function CaseEvolution({
 
         <dl className="mc-case-evolution-metrics" aria-label="Indicadores da evolução">
           <div>
-            <dt>Avanço de faturamento</dt>
+            <dt>Avanço informado</dt>
             <dd>
               {metrics.delta >= 0 ? "+" : "−"}
               {formatRevenue(Math.abs(metrics.delta))}
             </dd>
           </div>
           <div>
-            <dt>{outcomeDirection}</dt>
-            <dd>
-              {metrics.growth >= 0 ? "+" : "−"}
-              {numberFormatter.format(Math.abs(metrics.growth))}%
-            </dd>
+            <dt>Janela do case</dt>
+            <dd>{durationMetric}</dd>
           </div>
           <div>
-            <dt>Novo patamar</dt>
-            <dd>{decimalFormatter.format(metrics.multiple)}×</dd>
+            <dt>Pilar em foco</dt>
+            <dd>{pillarFraction}</dd>
           </div>
         </dl>
+
+        <div className="mc-case-evolution-horizon">
+          <span>O próximo horizonte</span>
+          <p>
+            Se este foi o patamar informado com apenas a base em foco, imagine a capacidade criada
+            ao integrar os outros {remainingPillars} pilares — cada um conduzido pelo mentor
+            responsável.
+          </p>
+        </div>
 
         <p className="mc-case-evolution-disclaimer">{disclaimer}</p>
       </div>
