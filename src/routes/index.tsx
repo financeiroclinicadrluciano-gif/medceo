@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
+import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 import { ArrowDownRight, ArrowRight, Check, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEventHandler, type ReactNode } from "react";
 
@@ -58,34 +58,6 @@ const diagnosisNotFor = [
   "Quem procura promessa de faturamento rápido ou fórmula pronta de marketing.",
   "Quem quer apenas mais pacientes sem olhar margem, equipe e operação.",
   "Quem não está disposto a responder com clareza sobre gargalos reais.",
-];
-
-const deliverables = [
-  {
-    number: "01",
-    title: "Mapa do nível atual",
-    description:
-      "Uma leitura clara da dependência do dono e da maturidade empresarial da operação.",
-    accent: "Onde sua clínica realmente está.",
-  },
-  {
-    number: "02",
-    title: "Gargalo prioritário",
-    description: "O pilar que mais limita o próximo nível — antes de uma nova iniciativa.",
-    accent: "O problema certo para resolver primeiro.",
-  },
-  {
-    number: "03",
-    title: "Prioridade de gestão",
-    description: "A decisão que merece atenção agora, traduzida em uma direção objetiva.",
-    accent: "Menos dispersão. Mais critério.",
-  },
-  {
-    number: "04",
-    title: "Três próximos passos",
-    description: "Ações coerentes com o estágio identificado, sem fórmula genérica.",
-    accent: "Uma sequência possível de executar.",
-  },
 ];
 
 const caseSlides: CaseSlide[] = [
@@ -179,28 +151,22 @@ function DiagnosticButton({ children, onClick }: DiagnosticButtonProps) {
 function Index() {
   const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
   const [headerCondensed, setHeaderCondensed] = useState(false);
-  const [caseActiveIndex, setCaseActiveIndex] = useState(0);
   const diagnosticReturnFocusRef = useRef<HTMLElement | null>(null);
-  const proofScrollRef = useRef<HTMLElement | null>(null);
+  const filterCardsRef = useRef<HTMLDivElement | null>(null);
   const { scrollY, scrollYProgress } = useScroll();
-  const { scrollYProgress: caseScrollProgress } = useScroll({
-    target: proofScrollRef,
-    offset: ["start start", "end end"],
+  const { scrollYProgress: filterScrollProgress } = useScroll({
+    target: filterCardsRef,
+    offset: ["start end", "end start"],
   });
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 32,
     restDelta: 0.001,
   });
+  const filterPrimaryY = useTransform(filterScrollProgress, [0, 1], [52, -12]);
+  const filterSecondaryY = useTransform(filterScrollProgress, [0, 1], [84, -24]);
 
   useMotionValueEvent(scrollY, "change", (latest) => setHeaderCondensed(latest > 48));
-  useMotionValueEvent(caseScrollProgress, "change", (latest) => {
-    const nextIndex = Math.max(
-      0,
-      Math.min(caseSlides.length - 1, Math.floor(latest * caseSlides.length)),
-    );
-    setCaseActiveIndex((current) => (current === nextIndex ? current : nextIndex));
-  });
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -228,7 +194,7 @@ function Index() {
 
           <div className="mc-nav-links">
             <a href="#filtro">Filtro</a>
-            <a href="#entregas">Diagnóstico</a>
+            <a href="#diagnostico">Diagnóstico</a>
             <a href="#prova-social">Case</a>
             <a href="#autoridade">Dr. Luciano</a>
           </div>
@@ -308,78 +274,49 @@ function Index() {
               <span className="mc-section-index">01 / FILTRO</span>
             </AnimatedContent>
 
-            <div className="mc-filter-cards">
-              <AnimatedContent distance={22} delay={0.04}>
-                <div className="mc-filter-card mc-filter-card-positive">
-                  <div className="mc-filter-card-title">
-                    <Check aria-hidden="true" />
-                    <h3>Faz sentido para você se...</h3>
+            <div ref={filterCardsRef} className="mc-filter-cards">
+              <motion.div
+                className="mc-filter-scroll-item mc-filter-scroll-item-primary"
+                style={{ y: filterPrimaryY }}
+              >
+                <AnimatedContent distance={22} delay={0.04}>
+                  <div className="mc-filter-card mc-filter-card-positive">
+                    <div className="mc-filter-card-title">
+                      <Check aria-hidden="true" />
+                      <h3>Faz sentido para você se...</h3>
+                    </div>
+                    <ul>
+                      {diagnosisFor.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul>
-                    {diagnosisFor.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </AnimatedContent>
-
-              <AnimatedContent distance={22} delay={0.09}>
-                <div className="mc-filter-card mc-filter-card-negative">
-                  <div className="mc-filter-card-title">
-                    <X aria-hidden="true" />
-                    <h3>Ainda não é o momento se...</h3>
-                  </div>
-                  <ul>
-                    {diagnosisNotFor.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </AnimatedContent>
-            </div>
-          </div>
-        </section>
-
-        <section id="entregas" className="mc-deliverables-section mc-section">
-          <div className="mc-container">
-            <AnimatedContent className="mc-deliverables-heading" distance={24}>
-              <div>
-                <p className="mc-eyebrow mc-eyebrow-dark">O que você recebe</p>
-                <h2>Um diagnóstico que organiza a próxima</h2>
-                <span className="mc-canvas-word">decisão.</span>
-              </div>
-              <p>
-                A resposta não é mais uma lista de coisas para fazer. É uma ordem de prioridade
-                construída a partir do estágio da sua clínica.
-              </p>
-            </AnimatedContent>
-
-            <div className="mc-feature-bento">
-              {deliverables.map((item, index) => (
-                <AnimatedContent
-                  className={`mc-feature-card mc-feature-card-${index + 1}`}
-                  distance={18}
-                  delay={index * 0.04}
-                  key={item.number}
-                >
-                  <span className="mc-feature-number">{item.number}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                  <strong>{item.accent}</strong>
                 </AnimatedContent>
-              ))}
+              </motion.div>
+
+              <motion.div
+                className="mc-filter-scroll-item mc-filter-scroll-item-secondary"
+                style={{ y: filterSecondaryY }}
+              >
+                <AnimatedContent distance={22} delay={0.09}>
+                  <div className="mc-filter-card mc-filter-card-negative">
+                    <div className="mc-filter-card-title">
+                      <X aria-hidden="true" />
+                      <h3>Ainda não é o momento se...</h3>
+                    </div>
+                    <ul>
+                      {diagnosisNotFor.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </AnimatedContent>
+              </motion.div>
             </div>
           </div>
         </section>
 
-        <section
-          id="prova-social"
-          ref={proofScrollRef}
-          className="mc-proof-scroll-track"
-          aria-labelledby="proof-title"
-        >
+        <section id="prova-social" className="mc-proof-scroll-track" aria-labelledby="proof-title">
           <div className="mc-proof-section mc-section">
             <div
               className="mc-person-fold-background mc-proof-background"
@@ -416,17 +353,13 @@ function Index() {
                 </AnimatedContent>
 
                 <AnimatedContent distance={22} delay={0.06}>
-                  <AnimatedCaseStudy slides={caseSlides} activeIndex={caseActiveIndex} />
+                  <AnimatedCaseStudy slides={caseSlides} />
                 </AnimatedContent>
               </div>
 
               <p className="mc-proof-disclaimer">
                 O desempenho varia conforme estágio, contexto e execução. O case não representa
                 garantia de resultados futuros.
-              </p>
-              <p className="mc-proof-scroll-cue" aria-hidden="true">
-                Continue rolando
-                <span />
               </p>
             </div>
           </div>
@@ -454,13 +387,6 @@ function Index() {
                     <p>
                       É essa prática que orienta a leitura do diagnóstico: começar pelas respostas e
                       pelo gargalo da clínica, não por uma solução pronta.
-                    </p>
-                  </div>
-                  <div className="mc-authority-principle">
-                    <span>Princípio de leitura</span>
-                    <p>
-                      Antes de crescer mais, o médico precisa saber qual parte da clínica ainda não
-                      sustenta o próximo nível.
                     </p>
                   </div>
                 </AnimatedContent>
