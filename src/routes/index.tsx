@@ -33,7 +33,7 @@ import alessandraPortrait from "@/assets/medceo/method-pillars/alessandra.jpg";
 import amandaPortrait from "@/assets/medceo/method-pillars/amanda.jpg";
 import drLucianoMethodPortrait from "@/assets/medceo/method-pillars/dr-luciano.jpg";
 import gustavoPortrait from "@/assets/medceo/method-pillars/gustavo.jpg";
-import marcosPortrait from "@/assets/medceo/method-pillars/marcos.jpg";
+import comercialPortrait from "@/assets/medceo/method-pillars/alessandra-luciano.jpg";
 import michelePortrait from "@/assets/medceo/method-pillars/michele.jpg";
 import "@/coffee-v2.css";
 
@@ -129,8 +129,8 @@ const methodPillars: MethodPillarExperienceItem[] = [
       "Análise de dados e indicadores",
       "Técnicas de venda",
     ],
-    image: marcosPortrait,
-    imagePosition: "center 16%",
+    image: comercialPortrait,
+    imagePosition: "center 22%",
   },
   {
     number: "04",
