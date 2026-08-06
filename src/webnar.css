@@ -66,8 +66,9 @@
 
 .wb-hero-inner {
   display: grid;
-  gap: clamp(22px, 3vw, 34px);
-  max-width: min(38rem, 42%);
+  align-content: center;
+  gap: clamp(14px, 2.1vh, 26px);
+  max-width: min(40rem, 46%);
 }
 
 .wb-eyebrow {
