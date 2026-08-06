@@ -437,3 +437,23 @@
     will-change: auto;
   }
 }
+
+/* Assinatura de 8° na saída da dobra do case — nunca sobre rosto ou número. */
+.mc-case-evolution::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 3;
+  height: clamp(52px, 6.5vw, 104px);
+  background: linear-gradient(180deg, rgba(4, 16, 25, 0) 0%, #050505 64%);
+  clip-path: polygon(0 44%, 100% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.mc-case-evolution-row-label strong,
+.mc-case-evolution-metrics dd,
+.mc-case-evolution-heading h2 {
+  font-variant-numeric: tabular-nums;
+}

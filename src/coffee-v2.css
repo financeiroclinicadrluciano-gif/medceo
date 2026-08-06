@@ -632,3 +632,93 @@
     transition: none;
   }
 }
+
+/* ---------------------------------------------------------------
+   Sequência aprovada: case → Dr. Luciano → pilares → CTA final
+   --------------------------------------------------------------- */
+
+.mc-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Credenciais como ledger sobre vidro fumê — não quatro caixinhas soltas. */
+.medceo-page .mc-authority-credentials {
+  position: relative;
+  border: 1px solid rgba(240, 217, 138, 0.2);
+  border-top-color: rgba(240, 217, 138, 0.34);
+  background: rgba(6, 10, 14, 0.46);
+  -webkit-backdrop-filter: blur(16px) saturate(0.92);
+  backdrop-filter: blur(16px) saturate(0.92);
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.44),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.medceo-page .mc-authority-credentials > div {
+  padding: 16px 18px;
+}
+
+.medceo-page .mc-authority-credentials > div:nth-child(even) {
+  padding-left: 18px;
+}
+
+.medceo-page .mc-authority-credentials > div:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.medceo-page .mc-authority-credentials dt {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Assinatura: corte de 8° na saída da dobra do Dr. Luciano. */
+.medceo-page .mc-authority-section {
+  position: relative;
+}
+
+.medceo-page .mc-authority-section::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 3;
+  height: clamp(56px, 7vw, 112px);
+  background: linear-gradient(180deg, rgba(4, 16, 25, 0) 0%, #050505 66%);
+  clip-path: polygon(0 0, 100% 40%, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+/* CTA final: o mesmo corte fecha a narrativa, sem cruzar o texto. */
+.medceo-page .mc-final-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.medceo-page .mc-final-section::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: clamp(52px, 6vw, 96px);
+  background: linear-gradient(180deg, #050505 34%, rgba(5, 5, 5, 0) 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 58%, 0 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .medceo-page .mc-authority-credentials > div,
+  .medceo-page .mc-authority-credentials > div:nth-child(even) {
+    padding: 14px 14px;
+  }
+}
