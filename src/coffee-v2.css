@@ -1073,3 +1073,28 @@
     max-width: none;
   }
 }
+
+/* Hero v3 — correções de encaixe */
+.medceo-page .mc-hero.mc-hero-elite,
+.medceo-page .mc-hero.mc-hero-elite::before {
+  background-image: none;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-layout > * {
+  min-width: 0;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-title {
+  max-width: 17ch;
+  font-size: clamp(2.3rem, 1.4rem + 2.1vw, 3.4rem);
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+}
