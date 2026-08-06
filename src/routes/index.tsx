@@ -586,7 +586,7 @@ function Index() {
           <MarqueeCta words={["Diagnóstico", "Direção", "Execução", "Margem", "Escala"]} />
         </section>
 
-        <section id="faq" className="mc-section mc-v3-page">
+        <section id="faq" className="mc-section">
           <div className="mc-container">
             <AnimatedContent distance={22}>
               <p className="mc-eyebrow">Perguntas frequentes</p>
