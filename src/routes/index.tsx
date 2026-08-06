@@ -384,10 +384,12 @@ function Index() {
                 initial={shouldReduceMotion ? undefined : { opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                <button type="button" onClick={openDiagnostic} className="mc-button mc-button-primary">
-                  <span>Identificar meu próximo gargalo</span>
-                  <ArrowDownRight aria-hidden="true" />
-                </button>
+                <Magnetic>
+                  <button type="button" onClick={openDiagnostic} className="mc-button mc-button-primary">
+                    <span>Identificar meu próximo gargalo</span>
+                    <ArrowDownRight aria-hidden="true" />
+                  </button>
+                </Magnetic>
                 <p>Disponível após assistir à apresentação com atenção.</p>
               </motion.div>
             ) : null}
