@@ -722,3 +722,25 @@
     padding: 14px 14px;
   }
 }
+
+/* ---------- integração com o MedCEO Kit ---------- */
+.mc-hero-kit-layer,
+.mc-final-kit-layer {
+  z-index: 1;
+}
+
+.mc-hero-kit-layer {
+  opacity: 0.85;
+}
+
+.mc-how-section .mc-how-kit {
+  margin-top: 36px;
+}
+
+.mc-marquee-section {
+  padding: clamp(48px, 7vw, 96px) 0;
+  border-top: 1px solid rgba(240, 217, 138, 0.14);
+  border-bottom: 1px solid rgba(240, 217, 138, 0.14);
+  background: rgba(2, 7, 11, 0.6);
+  overflow: hidden;
+}
