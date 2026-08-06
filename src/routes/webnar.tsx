@@ -6,6 +6,8 @@ import { MotionBlurText, NoiseOverlay, TextEffect, TextShimmer } from "@/compone
 import webnarHeroBackground from "@/assets/medceo/webnar-hero-background.jpg";
 import "@/webnar.css";
 
+const logoUrl = "/logo.png";
+
 const TITLE = "Aulas semanais MedCEO — grupo de médicos donos de clínica";
 const DESCRIPTION =
   "Toda semana uma aula ao vivo sobre pacientes qualificados, margem e previsibilidade de faturamento. Entre no grupo do WhatsApp e receba presentes e oportunidades.";
