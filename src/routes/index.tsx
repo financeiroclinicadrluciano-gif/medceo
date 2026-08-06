@@ -579,8 +579,13 @@ function Index() {
           </div>
         </section>
 
+        <section className="mc-marquee-section" aria-hidden="true">
+          <MarqueeCta words={["Diagnóstico", "Direção", "Execução", "Margem", "Escala"]} />
+        </section>
+
         <section id="diagnostico" className="mc-final-section">
           <div className="mc-final-wash" aria-hidden="true" />
+          <SpotlightMaskedGrid className="mc-final-kit-layer" />
           <div className="mc-container mc-final-content">
             <p className="mc-eyebrow">Diagnóstico disponível</p>
             <h2>Agora, descubra onde sua clínica está.</h2>
@@ -588,7 +593,9 @@ function Index() {
               Responda às 20 perguntas e receba seu nível de maturidade, o gargalo prioritário e os
               três próximos passos coerentes com a operação.
             </p>
-            <DiagnosticButton onClick={openDiagnostic}>Fazer o diagnóstico agora</DiagnosticButton>
+            <Magnetic>
+              <DiagnosticButton onClick={openDiagnostic}>Fazer o diagnóstico agora</DiagnosticButton>
+            </Magnetic>
             <small>Gratuito · resultado imediato · cerca de 5 minutos</small>
           </div>
         </section>
