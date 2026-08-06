@@ -1098,3 +1098,15 @@
 .medceo-page .mc-hero.mc-hero-elite .mc-hero-layout {
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
 }
+
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule,
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule * {
+  color: var(--mc-elite-gold);
+  -webkit-text-fill-color: currentColor;
+}
+
+.medceo-page .mc-hero.mc-hero-elite > .mc-hero-cut,
+.medceo-page .mc-hero.mc-hero-elite > .mc-diagonal,
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-kit-layer {
+  display: none;
+}
