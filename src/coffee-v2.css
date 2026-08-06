@@ -235,11 +235,31 @@
 .mc-hero-video {
   grid-area: video;
   position: relative;
+  z-index: 1;
   align-self: center;
-  border: 1px solid rgba(240, 217, 138, 0.3);
-  background: rgba(2, 7, 11, 0.82);
-  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.44);
+  border: 1px solid rgba(240, 217, 138, 0.22);
+  background: rgba(6, 8, 10, 0.52);
+  -webkit-backdrop-filter: blur(18px) saturate(0.9);
+  backdrop-filter: blur(18px) saturate(0.9);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+
+/* luz dourada recortada atrás do vidro fumê */
+.mc-hero-video::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -14%;
+  right: -12%;
+  width: 46%;
+  height: 46%;
+  background: radial-gradient(circle, rgba(211, 183, 91, 0.24), transparent 68%);
+  filter: blur(38px);
+  pointer-events: none;
+}
+
 
 .mc-hero-video::before {
   position: absolute;
