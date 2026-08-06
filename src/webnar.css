@@ -95,9 +95,9 @@
   max-width: 100%;
   margin: 0;
   font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
-  font-size: clamp(2.2rem, 1.6rem + 2.9vw, 3.9rem);
+  font-size: min(clamp(2rem, 1.5rem + 2.4vw, 3.3rem), 6.4vh);
   font-weight: 400;
-  line-height: 1.02;
+  line-height: 1.04;
   letter-spacing: -0.035em;
   text-wrap: balance;
 }
@@ -109,9 +109,9 @@
 
 .wb-hook {
   margin: 0;
-  max-width: 34rem;
-  font-size: clamp(1rem, 0.94rem + 0.34vw, 1.2rem);
-  line-height: 1.55;
+  max-width: 32rem;
+  font-size: min(clamp(0.95rem, 0.9rem + 0.3vw, 1.12rem), 2.3vh);
+  line-height: 1.5;
   color: var(--wb-ink);
 }
 
@@ -122,18 +122,18 @@
 
 .wb-gifts {
   display: grid;
-  gap: 10px;
+  gap: clamp(6px, 1vh, 12px);
   margin: 0;
   padding: 0;
   list-style: none;
-  max-width: 34rem;
+  max-width: 32rem;
 }
 
 .wb-gifts li {
   position: relative;
-  padding-left: 24px;
-  font-size: clamp(0.875rem, 0.84rem + 0.2vw, 0.98rem);
-  line-height: 1.5;
+  padding-left: 22px;
+  font-size: min(clamp(0.84rem, 0.8rem + 0.2vw, 0.95rem), 2.05vh);
+  line-height: 1.45;
   color: var(--wb-ink-muted);
 }
 
