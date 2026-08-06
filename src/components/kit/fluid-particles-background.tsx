@@ -79,15 +79,44 @@ export default function FluidParticlesBackground({
       frame = requestAnimationFrame(tick);
     };
 
+    // Só desenha quando o canvas está visível na viewport e a aba está ativa.
+    let running = false;
+    let onScreen = false;
+
+    const start = () => {
+      if (running || !onScreen || document.hidden) return;
+      running = true;
+      frame = requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(frame);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        onScreen = Boolean(entry?.isIntersecting);
+        if (onScreen) start();
+        else stop();
+      },
+      { threshold: 0 },
+    );
+
+    const onVisibility = () => (document.hidden ? stop() : start());
+
     resize();
+    observer.observe(canvas);
     window.addEventListener("resize", resize);
-    window.addEventListener("pointermove", onPointer);
-    frame = requestAnimationFrame(tick);
+    window.addEventListener("pointermove", onPointer, { passive: true });
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
-      cancelAnimationFrame(frame);
+      stop();
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointer);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [color, count, reduce]);
 
