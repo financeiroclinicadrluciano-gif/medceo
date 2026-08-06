@@ -18,6 +18,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as KitRouteImport } from './routes/kit'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DesignSystemRouteImport } from './routes/design-system'
+import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -68,6 +69,11 @@ const DesignSystemRoute = DesignSystemRouteImport.update({
   path: '/design-system',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -94,6 +100,7 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
   '/design-system': typeof DesignSystemRoute
   '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
   '/design-system': typeof DesignSystemRoute
   '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
@@ -125,6 +133,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
   '/design-system': typeof DesignSystemRoute
   '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contato'
     | '/design-system'
     | '/faq'
     | '/kit'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/contato'
     | '/design-system'
     | '/faq'
     | '/kit'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/contato'
     | '/design-system'
     | '/faq'
     | '/kit'
@@ -188,6 +200,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContatoRoute: typeof ContatoRoute
   DesignSystemRoute: typeof DesignSystemRoute
   FaqRoute: typeof FaqRoute
   KitRoute: typeof KitRoute
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesignSystemRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -300,6 +320,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContatoRoute: ContatoRoute,
   DesignSystemRoute: DesignSystemRoute,
   FaqRoute: FaqRoute,
   KitRoute: KitRoute,
