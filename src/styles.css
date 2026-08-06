@@ -3,6 +3,7 @@
 @import "./brand/tokens/typography.css";
 @import "./brand/tokens/spacing.css";
 @import "./brand/tokens/effects.css";
+@import "./kit.css";
 @import "tailwindcss";
 @import "tw-animate-css";
 
