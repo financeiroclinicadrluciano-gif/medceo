@@ -1114,3 +1114,10 @@
 .medceo-page .mc-hero.mc-hero-elite::before {
   content: none;
 }
+
+.medceo-page .mc-hero.mc-hero-elite::after,
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-wash,
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-background {
+  content: none;
+  display: none;
+}
