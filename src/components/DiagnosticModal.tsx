@@ -337,11 +337,12 @@ export default function DiagnosticModal({ isOpen, onClose, returnFocusRef }: Dia
                   time MedCEO.
                 </p>
                 <a
-                  href="#maturidade"
-                  onClick={onClose}
+                  href="https://wa.me/554184875688?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20mentoria%21"
+                  target="_blank"
+                  rel="noreferrer"
                   className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-halo-primary px-6 py-3 text-xs font-semibold uppercase tracking-wider text-medceo-default transition-colors hover:bg-halo-primary-hover"
                 >
-                  Revisar o mapa de maturidade
+                  Falar com o time MedCEO
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </div>

@@ -268,15 +268,16 @@ function Index() {
           </div>
 
           {heroCtaVisible ? (
-            <motion.a
+            <motion.button
+              type="button"
+              onClick={openDiagnostic}
               className="mc-nav-action"
-              href="#diagnostico"
               initial={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
             >
               Fazer diagnóstico
               <ArrowDownRight aria-hidden="true" />
-            </motion.a>
+            </motion.button>
           ) : (
             <span className="mc-nav-action-placeholder" aria-hidden="true" />
           )}
@@ -366,10 +367,10 @@ function Index() {
                 initial={shouldReduceMotion ? undefined : { opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                <a className="mc-button mc-button-primary" href="#filtro">
+                <button type="button" onClick={openDiagnostic} className="mc-button mc-button-primary">
                   <span>Identificar meu próximo gargalo</span>
                   <ArrowDownRight aria-hidden="true" />
-                </a>
+                </button>
                 <p>Disponível após assistir à apresentação com atenção.</p>
               </motion.div>
             ) : null}
