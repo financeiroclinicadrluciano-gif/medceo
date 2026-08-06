@@ -18,6 +18,17 @@ import MethodPillarsExperience, {
 } from "@/components/landing/MethodPillarsExperience";
 import CountUp from "@/components/landing/CountUp";
 import SplitText from "@/components/landing/SplitText";
+import {
+  BeamsBackground,
+  HowItWorks,
+  Magnetic,
+  MarqueeCta,
+  NoiseOverlay,
+  PointerHighlight,
+  ShineBorder,
+  SpotlightMaskedGrid,
+  TextShimmer,
+} from "@/components/kit";
 
 import heroBackground from "@/assets/medceo/medceo-hero-background.jpg";
 import drLucianoSectionBackground from "@/assets/medceo/dr-luciano-section-background.jpg";
