@@ -102,15 +102,20 @@ function Webnar() {
 
       <section className="wb-class">
         <div className="wb-container wb-class-inner">
-          <p className="wb-limited">Por tempo limitado</p>
+          <p className="wb-limited">Aula introdutória · acesso liberado</p>
           <h2>
-            Aula da mentoria grátis: <em>como atrair pacientes qualificados</em> e ter
-            previsibilidade de faturamento
+            Bem-vindo ao MedCEO: <em>o método que transforma o médico</em> em dono de
+            uma clínica lucrativa
           </h2>
+          <p className="wb-class-sub">
+            Nesta aula introdutória você entende a lógica por trás da metodologia MedCEO —
+            diagnóstico, margem, comercial, operação e escala — e enxerga onde a sua clínica
+            está perdendo dinheiro hoje.
+          </p>
           <div className="wb-player">
             <iframe
               src={CLASS_VIDEO_URL}
-              title="Aula da mentoria MedCEO"
+              title="Aula introdutória MedCEO — a metodologia"
               allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
               allowFullScreen
               loading="lazy"
