@@ -268,15 +268,16 @@ function Index() {
           </div>
 
           {heroCtaVisible ? (
-            <motion.a
+            <motion.button
+              type="button"
+              onClick={openDiagnostic}
               className="mc-nav-action"
-              href="#diagnostico"
               initial={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
             >
               Fazer diagnóstico
               <ArrowDownRight aria-hidden="true" />
-            </motion.a>
+            </motion.button>
           ) : (
             <span className="mc-nav-action-placeholder" aria-hidden="true" />
           )}
