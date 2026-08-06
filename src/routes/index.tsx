@@ -29,9 +29,9 @@ import marcosPortrait from "@/assets/medceo/method-pillars/marcos.jpg";
 import michelePortrait from "@/assets/medceo/method-pillars/michele.jpg";
 import "@/coffee-v2.css";
 
-const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
+const TITLE = "MedCEO — Diagnóstico de Gestão para Clínicas Médicas";
 const DESCRIPTION =
-  "Descubra o nível de maturidade da sua clínica, o gargalo prioritário da operação e os próximos passos em 20 perguntas.";
+  "Diagnóstico gratuito em 20 perguntas para médicos donos de clínica: veja o nível de maturidade da operação, o gargalo principal e os próximos passos.";
 const PANDA_PLAYER_URL =
   "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=85638f9a-6681-4a3d-bdab-83aed5805455";
 const HERO_CTA_DELAY_MS = 5 * 60 * 1000;
