@@ -17,6 +17,9 @@ import MethodPillarsExperience, {
   type MethodPillarExperienceItem,
 } from "@/components/landing/MethodPillarsExperience";
 import CountUp from "@/components/landing/CountUp";
+import FaqAccordion from "@/components/site/FaqAccordion";
+import JourneyTimeline from "@/components/site/JourneyTimeline";
+import { benefits, faqItems, journeySteps } from "@/lib/site-content";
 import {
   HowItWorks,
   Magnetic,
@@ -36,6 +39,7 @@ import gustavoPortrait from "@/assets/medceo/method-pillars/gustavo.jpg";
 import comercialPortrait from "@/assets/medceo/method-pillars/alessandra-luciano.jpg";
 import michelePortrait from "@/assets/medceo/method-pillars/michele.jpg";
 import "@/coffee-v2.css";
+import "@/site-v3.css";
 
 const TITLE = "MedCEO — Diagnóstico de Gestão para Clínicas Médicas";
 const DESCRIPTION =
@@ -266,11 +270,12 @@ function Index() {
           </a>
 
           <div className="mc-nav-links">
-            <a href="#filtro">Filtro</a>
-            <a href="#prova-social">Case</a>
-            <a href="#pilares-metodo">Pilares</a>
-            <a href="#autoridade">Dr. Luciano</a>
-            <a href="#diagnostico">Diagnóstico</a>
+            <a href="/metodo">Método</a>
+            <a href="/mentoria">Mentoria</a>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="/sobre">Sobre</a>
+            <a href="#faq">FAQ</a>
+            <a href="/contato">Contato</a>
           </div>
 
           {heroCtaVisible ? (
@@ -476,6 +481,17 @@ function Index() {
                 },
               ]}
             />
+
+            <JourneyTimeline steps={journeySteps} />
+
+            <div className="mc-v3-grid">
+              {benefits.map((benefit) => (
+                <article key={benefit.title} className="mc-v3-card">
+                  <h3>{benefit.title}</h3>
+                  <p>{benefit.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -568,6 +584,16 @@ function Index() {
 
         <section className="mc-marquee-section" aria-hidden="true">
           <MarqueeCta words={["Diagnóstico", "Direção", "Execução", "Margem", "Escala"]} />
+        </section>
+
+        <section id="faq" className="mc-section">
+          <div className="mc-container">
+            <AnimatedContent distance={22}>
+              <p className="mc-eyebrow">Perguntas frequentes</p>
+              <h2>As objeções que aparecem antes de qualquer decisão.</h2>
+            </AnimatedContent>
+            <FaqAccordion items={faqItems} />
+          </div>
         </section>
 
         <section id="diagnostico" className="mc-final-section">

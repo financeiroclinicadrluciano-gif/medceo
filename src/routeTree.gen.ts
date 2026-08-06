@@ -10,10 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WebnarRouteImport } from './routes/webnar'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as MetodoRouteImport } from './routes/metodo'
+import { Route as MentoriaRouteImport } from './routes/mentoria'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as KitRouteImport } from './routes/kit'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DesignSystemRouteImport } from './routes/design-system'
+import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -24,9 +29,24 @@ const WebnarRoute = WebnarRouteImport.update({
   path: '/webnar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetodoRoute = MetodoRouteImport.update({
+  id: '/metodo',
+  path: '/metodo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentoriaRoute = MentoriaRouteImport.update({
+  id: '/mentoria',
+  path: '/mentoria',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -39,9 +59,19 @@ const KitRoute = KitRouteImport.update({
   path: '/kit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DesignSystemRoute = DesignSystemRouteImport.update({
   id: '/design-system',
   path: '/design-system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -70,10 +100,15 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
   '/design-system': typeof DesignSystemRoute
+  '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/mentoria': typeof MentoriaRoute
+  '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -81,10 +116,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
   '/design-system': typeof DesignSystemRoute
+  '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/mentoria': typeof MentoriaRoute
+  '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -93,10 +133,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
   '/design-system': typeof DesignSystemRoute
+  '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/mentoria': typeof MentoriaRoute
+  '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -106,10 +151,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/contato'
     | '/design-system'
+    | '/faq'
     | '/kit'
     | '/mcp'
+    | '/mentoria'
+    | '/metodo'
     | '/sitemap.xml'
+    | '/sobre'
     | '/webnar'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -117,10 +167,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/contato'
     | '/design-system'
+    | '/faq'
     | '/kit'
     | '/mcp'
+    | '/mentoria'
+    | '/metodo'
     | '/sitemap.xml'
+    | '/sobre'
     | '/webnar'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -128,10 +183,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/contato'
     | '/design-system'
+    | '/faq'
     | '/kit'
     | '/mcp'
+    | '/mentoria'
+    | '/metodo'
     | '/sitemap.xml'
+    | '/sobre'
     | '/webnar'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -140,10 +200,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContatoRoute: typeof ContatoRoute
   DesignSystemRoute: typeof DesignSystemRoute
+  FaqRoute: typeof FaqRoute
   KitRoute: typeof KitRoute
   McpRoute: typeof McpRoute
+  MentoriaRoute: typeof MentoriaRoute
+  MetodoRoute: typeof MetodoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreRoute: typeof SobreRoute
   WebnarRoute: typeof WebnarRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -159,11 +224,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebnarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metodo': {
+      id: '/metodo'
+      path: '/metodo'
+      fullPath: '/metodo'
+      preLoaderRoute: typeof MetodoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentoria': {
+      id: '/mentoria'
+      path: '/mentoria'
+      fullPath: '/mentoria'
+      preLoaderRoute: typeof MentoriaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -180,11 +266,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/design-system': {
       id: '/design-system'
       path: '/design-system'
       fullPath: '/design-system'
       preLoaderRoute: typeof DesignSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -220,10 +320,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContatoRoute: ContatoRoute,
   DesignSystemRoute: DesignSystemRoute,
+  FaqRoute: FaqRoute,
   KitRoute: KitRoute,
   McpRoute: McpRoute,
+  MentoriaRoute: MentoriaRoute,
+  MetodoRoute: MetodoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreRoute: SobreRoute,
   WebnarRoute: WebnarRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:

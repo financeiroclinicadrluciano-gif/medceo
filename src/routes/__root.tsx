@@ -14,6 +14,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import nocturneCss from "../nocturne.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import BackgroundSwitcher from "../components/site/BackgroundSwitcher";
 
 function NotFoundComponent() {
   return (
@@ -148,6 +149,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <BackgroundSwitcher />
     </QueryClientProvider>
   );
 }
