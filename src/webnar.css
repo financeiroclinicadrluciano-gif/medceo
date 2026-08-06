@@ -68,7 +68,10 @@
   display: grid;
   align-content: center;
   gap: clamp(14px, 2.1vh, 26px);
-  max-width: min(40rem, 46%);
+  width: min(40rem, 46vw);
+  max-width: none;
+  margin-left: clamp(20px, 5vw, 64px);
+  margin-right: auto;
 }
 
 .wb-hero-logo {
@@ -311,7 +314,8 @@
   }
 
   .wb-hero-inner {
-    max-width: none;
+    width: min(100% - 2 * clamp(20px, 5vw, 64px), 40rem);
+    margin-inline: auto;
   }
 
   .wb-hero-media::after {
