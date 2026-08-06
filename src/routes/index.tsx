@@ -340,7 +340,10 @@ function Index() {
               aria-label="Apresentação em vídeo do MedCEO"
             >
               <div className="mc-hero-video-header" aria-hidden="true">
-                <span>Apresentação MedCEO</span>
+                <span className="mc-hero-video-live">
+                  <i />
+                  Apresentação MedCEO
+                </span>
                 <span>20 minutos · uma decisão</span>
               </div>
               <div className="mc-hero-video-frame">
@@ -356,9 +359,16 @@ function Index() {
                   allowFullScreen
                 />
               </div>
-              <p className="mc-hero-urgency">
-                Assista com cuidado. Esta apresentação sai do ar em breve.
-              </p>
+              <div className="mc-hero-video-meta">
+                <p className="mc-hero-urgency">
+                  Conteúdo restrito a médicos proprietários. Sai do ar em breve.
+                </p>
+                <span className="mc-hero-video-duration" aria-hidden="true">
+                  <small>Duração</small>
+                  20 min
+                </span>
+              </div>
+
             </div>
 
             {heroCtaVisible ? (
