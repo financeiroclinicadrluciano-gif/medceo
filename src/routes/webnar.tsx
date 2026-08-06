@@ -69,19 +69,19 @@ function Webnar() {
 
           <MotionBlurText
             as="h1"
-            text="A sala onde médicos param de trabalhar mais e passam a faturar melhor."
+            text="Aulas semanais gratuitas que transformam você em um Médico CEO"
           />
 
           <TextEffect as="p" per="line" preset="slide" className="wb-hook">
             {
-              "Você não precisa de mais um curso. Precisa entrar no lugar onde a decisão certa da semana é dita em voz alta."
+              "Aprenda com quem vive o mercado da saúde todos os dias e descubra como faturar mais, com previsibilidade e ter mais tempo de qualidade."
             }
           </TextEffect>
 
           <ul className="wb-gifts">
             {gifts.map((gift) => (
               <li key={gift.strong}>
-                <strong>{gift.strong}</strong> — {gift.text}
+                <strong>{gift.strong}</strong>
               </li>
             ))}
           </ul>
