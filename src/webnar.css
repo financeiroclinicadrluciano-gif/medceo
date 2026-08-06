@@ -126,10 +126,10 @@
 }
 
 .wb-hook {
-  margin: 0;
+  margin: clamp(6px, 1.4vh, 16px) 0 0;
   max-width: 32rem;
   font-size: min(clamp(0.95rem, 0.9rem + 0.3vw, 1.12rem), 2.3vh);
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--wb-ink);
 }
 
@@ -140,8 +140,8 @@
 
 .wb-gifts {
   display: grid;
-  gap: clamp(6px, 1vh, 12px);
-  margin: 0;
+  gap: clamp(8px, 1.2vh, 14px);
+  margin: clamp(6px, 1.4vh, 16px) 0 0;
   padding: 0;
   list-style: none;
   max-width: 32rem;
