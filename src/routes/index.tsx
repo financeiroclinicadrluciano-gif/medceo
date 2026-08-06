@@ -304,6 +304,9 @@ function Index() {
             aria-hidden="true"
           />
           <div className="mc-hero-wash" aria-hidden="true" />
+          <BeamsBackground className="mc-hero-kit-layer" />
+          <SpotlightMaskedGrid className="mc-hero-kit-layer" />
+          <NoiseOverlay className="mc-hero-kit-layer" />
           <motion.span
             className="mc-hero-decade-word"
             style={{ y: shouldReduceMotion ? 0 : heroDecadeY }}
@@ -315,7 +318,9 @@ function Index() {
           <div className="mc-container mc-hero-layout">
             <div className="mc-hero-copy">
               <p className="mc-eyebrow">
-                [ Para médicos que querem construir uma empresa, não apenas uma agenda cheia ]
+                <TextShimmer shine="rgba(240,217,138,0.95)">
+                  [ Para médicos que querem construir uma empresa, não apenas uma agenda cheia ]
+                </TextShimmer>
               </p>
               <SplitText
                 id="hero-title"
