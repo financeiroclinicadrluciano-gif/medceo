@@ -1,5 +1,4 @@
-/* MedCEO — camada v3: páginas internas, timeline, FAQ e variações de fundo.
-   Duas direções de fundo: [data-mc-bg="elite"] (padrão) e [data-mc-bg="clean"]. */
+/* MedCEO — camada v3: páginas internas, timeline e FAQ. */
 
 :root {
   --mc-v3-gold: #cdae58;
@@ -10,102 +9,19 @@
   --mc-v3-surface: rgba(255, 255, 255, 0.028);
 }
 
-/* ---------- Variação de fundo ---------- */
+/* ---------- Fundo padrão (Elite) ---------- */
 
-html[data-mc-bg="elite"] body,
-html:not([data-mc-bg]) body {
+html body {
   background-color: #050505;
 }
 
-html[data-mc-bg="elite"] .mc-v3-page {
+html .mc-v3-page {
   background:
     radial-gradient(1100px 620px at 12% -10%, rgba(205, 174, 88, 0.14), transparent 62%),
     radial-gradient(900px 560px at 92% 8%, rgba(205, 174, 88, 0.08), transparent 60%),
     linear-gradient(rgba(240, 217, 138, 0.022) 1px, transparent 1px),
     linear-gradient(90deg, rgba(240, 217, 138, 0.022) 1px, transparent 1px), #050505;
   background-size: auto, auto, 88px 88px, 88px 88px, auto;
-}
-
-html[data-mc-bg="clean"] body {
-  background-color: #0b0b0c;
-}
-
-html[data-mc-bg="clean"] .mc-v3-page {
-  background: linear-gradient(180deg, #101011 0%, #0b0b0c 42%, #08080a 100%);
-}
-
-/* A variação clean também simplifica os fundos da home existente */
-html[data-mc-bg="clean"] .medceo-page .mc-hero-vsl,
-html[data-mc-bg="clean"] .medceo-page .mc-final-section {
-  background: linear-gradient(180deg, #101011 0%, #0b0b0c 100%);
-}
-
-html[data-mc-bg="clean"] .mc-hero-ambient,
-html[data-mc-bg="clean"] .mc-final-wash,
-html[data-mc-bg="clean"] .mc-final-kit-layer {
-  opacity: 0.28;
-}
-
-html[data-mc-bg="clean"] .mc-v3-card,
-html[data-mc-bg="clean"] .mc-journey-item,
-html[data-mc-bg="clean"] .mc-faq-item {
-  background: rgba(255, 255, 255, 0.035);
-  border-color: rgba(255, 255, 255, 0.09);
-}
-
-/* ---------- Alternador ---------- */
-
-.mc-bg-switcher {
-  position: fixed;
-  z-index: 900;
-  bottom: 18px;
-  left: 18px;
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-  padding: 6px 8px;
-  border: 1px solid var(--mc-v3-line);
-  border-radius: 999px;
-  background: rgba(8, 8, 9, 0.82);
-  backdrop-filter: blur(10px);
-  font-family: var(--medceo-font-ui, system-ui, sans-serif);
-}
-
-.mc-bg-switcher-label {
-  padding-left: 6px;
-  color: var(--mc-v3-muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.mc-bg-switcher button {
-  min-height: 30px;
-  padding: 0 12px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--mc-v3-muted);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition:
-    color 180ms ease,
-    background 180ms ease,
-    border-color 180ms ease;
-}
-
-.mc-bg-switcher button:hover {
-  color: var(--mc-v3-ink);
-}
-
-.mc-bg-switcher button.is-active {
-  border-color: var(--mc-v3-line);
-  background: rgba(205, 174, 88, 0.14);
-  color: var(--mc-v3-gold-soft);
 }
 
 /* ---------- Layout base ---------- */
@@ -620,11 +536,6 @@ html[data-mc-bg="clean"] .mc-faq-item {
     grid-template-columns: 1fr;
     gap: 14px;
   }
-
-  .mc-bg-switcher {
-    bottom: 12px;
-    left: 12px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -657,13 +568,9 @@ html[data-mc-bg="clean"] .mc-faq-item {
   color: var(--mc-v3-gold);
 }
 
-/* Linha-assinatura diagonal: discreta no Elite, ausente no Clean */
+/* Linha-assinatura diagonal discreta. */
 .mc-v3-page::after {
   opacity: 0.28;
-}
-
-html[data-mc-bg="clean"] .medceo-page::after {
-  display: none;
 }
 
 #faq > .mc-container > * + * {
