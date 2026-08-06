@@ -297,41 +297,23 @@ function Index() {
       </header>
 
       <main id="conteudo">
-        <section id="top" className="mc-hero mc-hero-vsl" aria-labelledby="hero-title">
-          <div
-            className="mc-hero-background"
-            style={{ backgroundImage: `url(${heroBackground})` }}
-            aria-hidden="true"
-          />
-          <div className="mc-hero-wash" aria-hidden="true" />
-          <BeamsBackground className="mc-hero-kit-layer" />
-          <SpotlightMaskedGrid className="mc-hero-kit-layer" />
-          <NoiseOverlay className="mc-hero-kit-layer" />
-          <motion.span
-            className="mc-hero-decade-word"
-            style={{ y: shouldReduceMotion ? 0 : heroDecadeY }}
-            aria-hidden="true"
-          >
-            10 anos
-          </motion.span>
+        <section id="top" className="mc-hero mc-hero-vsl mc-hero-elite" aria-labelledby="hero-title">
+          <div className="mc-hero-ambient mc-hero-ambient-a" aria-hidden="true" />
+          <div className="mc-hero-ambient mc-hero-ambient-b" aria-hidden="true" />
+          <div className="mc-hero-hairline" aria-hidden="true" />
 
           <div className="mc-container mc-hero-layout">
             <div className="mc-hero-copy">
-              <p className="mc-eyebrow">
-                <TextShimmer shine="rgba(240,217,138,0.95)">
-                  [ Para médicos que querem construir uma empresa, não apenas uma agenda cheia ]
-                </TextShimmer>
+              <p className="mc-eyebrow mc-eyebrow-rule">
+                <TextShimmer shine="rgba(240,217,138,0.95)">Mentoria estratégica para donos de clínica</TextShimmer>
               </p>
-              <SplitText
-                id="hero-title"
-                as="h1"
-                text={"Os próximos 20 minutos\npodem definir os próximos\n10 anos da sua clínica."}
-                className="mc-hero-title"
-                threshold={0.01}
-              />
+              <h1 id="hero-title" className="mc-hero-title">
+                Os próximos <em>20 minutos</em> podem definir os próximos 10 anos da sua clínica.
+              </h1>
               <p className="mc-hero-lead">
-                Assista e identifique o que hoje limita sua liderança, sua receita e a capacidade da
-                clínica crescer sem depender de você.
+                Existe uma distância silenciosa entre ser um médico excelente e ser dono de uma
+                empresa que cresce sem você no centro de tudo. Esta apresentação mostra exatamente
+                onde essa distância está na sua clínica — e o que precisa ser decidido primeiro.
               </p>
               <div className="mc-hero-promise-rail" aria-label="Promessa da apresentação">
                 <span>
@@ -348,6 +330,7 @@ function Index() {
                   <strong>01</strong>
                   decisão
                 </span>
+
               </div>
             </div>
 
