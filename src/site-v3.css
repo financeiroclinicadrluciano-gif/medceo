@@ -656,3 +656,12 @@ html[data-mc-bg="clean"] .mc-faq-item {
   margin-top: 3px;
   color: var(--mc-v3-gold);
 }
+
+/* Linha-assinatura diagonal: discreta no Elite, ausente no Clean */
+.mc-v3-page::after {
+  opacity: 0.28;
+}
+
+html[data-mc-bg="clean"] .medceo-page::after {
+  display: none;
+}
