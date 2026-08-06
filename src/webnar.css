@@ -126,7 +126,7 @@
 }
 
 .wb-hook {
-  margin: clamp(6px, 1.4vh, 16px) 0 0;
+  margin: clamp(10px, 2vh, 22px) 0 0;
   max-width: 32rem;
   font-size: min(clamp(0.95rem, 0.9rem + 0.3vw, 1.12rem), 2.3vh);
   line-height: 1.55;
@@ -140,8 +140,8 @@
 
 .wb-gifts {
   display: grid;
-  gap: clamp(8px, 1.2vh, 14px);
-  margin: clamp(6px, 1.4vh, 16px) 0 0;
+  gap: clamp(9px, 1.4vh, 15px);
+  margin: clamp(12px, 2.2vh, 26px) 0 clamp(6px, 1.2vh, 14px);
   padding: 0;
   list-style: none;
   max-width: 32rem;
@@ -176,6 +176,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: clamp(14px, 2vw, 22px);
+  margin-top: clamp(14px, 2.4vh, 28px);
 }
 
 .wb-cta {
@@ -296,7 +297,8 @@
   .wb-hero {
     align-items: flex-end;
     min-height: 100dvh;
-    padding-top: clamp(120px, 26vh, 260px);
+    padding-top: clamp(96px, 20vh, 220px);
+    padding-bottom: clamp(32px, 5vh, 64px);
   }
 
   .wb-hero-media {
@@ -316,6 +318,20 @@
   .wb-hero-inner {
     width: min(100% - 2 * clamp(20px, 5vw, 64px), 40rem);
     margin-inline: auto;
+    gap: clamp(10px, 1.6vh, 18px);
+  }
+
+  .wb-hero-logo {
+    margin-bottom: clamp(8px, 1.4vh, 18px);
+  }
+
+  .wb-hook {
+    margin-top: clamp(8px, 1.6vh, 18px);
+  }
+
+  .wb-gifts {
+    margin: clamp(10px, 1.8vh, 20px) 0 clamp(4px, 0.8vh, 10px);
+    gap: clamp(8px, 1.2vh, 13px);
   }
 
   .wb-hero-media::after {
@@ -325,12 +341,53 @@
   .wb-actions {
     display: grid;
     width: 100%;
+    margin-top: clamp(12px, 2vh, 22px);
   }
 
   .wb-cta {
     width: 100%;
   }
 }
+
+/* Telas mobile baixas: comprime para caber na primeira dobra. */
+@media (max-width: 860px) and (max-height: 720px) {
+  .wb-hero {
+    padding-top: clamp(64px, 12vh, 120px);
+  }
+
+  .wb-hero-logo {
+    width: clamp(84px, 22vw, 110px);
+    margin-bottom: 6px;
+  }
+
+  .wb-hero h1 {
+    font-size: min(1.85rem, 6vh);
+  }
+
+  .wb-hook {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .wb-gifts {
+    margin: 12px 0 0;
+    gap: 8px;
+  }
+
+  .wb-gifts li {
+    font-size: 0.82rem;
+  }
+
+  .wb-actions {
+    margin-top: 14px;
+  }
+
+  .wb-cta {
+    min-height: 50px;
+  }
+}
+
 
 @media (min-width: 861px) and (max-height: 700px) {
   .wb-hero {
