@@ -536,11 +536,6 @@ html .mc-v3-page {
     grid-template-columns: 1fr;
     gap: 14px;
   }
-
-  .mc-bg-switcher {
-    bottom: 12px;
-    left: 12px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -573,13 +568,9 @@ html .mc-v3-page {
   color: var(--mc-v3-gold);
 }
 
-/* Linha-assinatura diagonal: discreta no Elite, ausente no Clean */
+/* Linha-assinatura diagonal discreta. */
 .mc-v3-page::after {
   opacity: 0.28;
-}
-
-html[data-mc-bg="clean"] .medceo-page::after {
-  display: none;
 }
 
 #faq > .mc-container > * + * {
