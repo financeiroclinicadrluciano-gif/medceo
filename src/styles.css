@@ -236,6 +236,10 @@ p {
   justify-self: end;
   gap: 10px;
   color: var(--medceo-accent-soft);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .mc-nav-action svg {
