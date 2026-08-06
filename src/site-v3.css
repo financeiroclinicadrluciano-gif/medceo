@@ -665,3 +665,16 @@ html[data-mc-bg="clean"] .mc-faq-item {
 html[data-mc-bg="clean"] .medceo-page::after {
   display: none;
 }
+
+#faq > .mc-container > * + * {
+  margin-top: 18px;
+}
+
+#faq h2 {
+  max-width: 18ch;
+  color: var(--mc-v3-ink, #f6f2e9);
+  font-size: clamp(30px, 4vw, 46px);
+  font-family: "Playfair Display", serif;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
