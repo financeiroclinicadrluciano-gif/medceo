@@ -103,10 +103,12 @@ function Webnar() {
       <section className="wb-class">
         <div className="wb-container wb-class-inner">
           <p className="wb-limited">Aula introdutória · acesso liberado</p>
-          <h2>
-            Bem-vindo ao MedCEO: <em>o método que transforma o médico</em> em dono de
-            uma clínica lucrativa
-          </h2>
+          <MotionBlurText
+            as="h2"
+            stagger={0.05}
+            text="Bem-vindo ao MedCEO: o método que transforma o médico em dono de uma clínica lucrativa"
+          />
+
           <p className="wb-class-sub">
             Nesta aula introdutória você entende a lógica por trás da metodologia MedCEO —
             diagnóstico, margem, comercial, operação e escala — e enxerga onde a sua clínica
