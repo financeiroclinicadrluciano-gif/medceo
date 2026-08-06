@@ -29,7 +29,7 @@ export const Route = createFileRoute("/webnar")({
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
     ],
-    links: [{ rel: "preload", as: "image", href: webnarHeroBackground, fetchpriority: "high" }],
+    links: [{ rel: "preload", as: "image", href: webnarHeroBackground }],
   }),
   component: Webnar,
 });

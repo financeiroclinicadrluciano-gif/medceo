@@ -327,7 +327,7 @@ function KitCatalog() {
           <TestimonialsSection testimonials={testimonials} />
         </Card>
         <Card title="LogoCloud" wide code={`<LogoCloud logos={logos} caption="…" />`}>
-          <LogoCloud logos={[{ src: "/logo.png", alt: "MedCEO" }, { src: "/logo.png", alt: "MedCEO" }]} caption="Marcas atendidas" />
+          <LogoCloud logos={[{ src: "/logo.png", alt: "MedCEO" }, { src: "/logo.png", alt: "MedCEO Mentoria" }]} caption="Marcas atendidas" />
         </Card>
         <Card title="MarqueeCta" wide note="Decorativo: pausa no hover/foco e vira scroll com motion reduzido." code={`<MarqueeCta words={["Direção", "Margem"]} />`}>
           <MarqueeCta words={["Direção", "Margem", "Previsibilidade"]} />
