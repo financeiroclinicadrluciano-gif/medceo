@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "medceo-lp",
+      "version": "0.1.0",
+      "title": "MedCEO LP"
+    },
+    "tools": [
+      {
+        "name": "get_diagnostic_questions",
+        "title": "Perguntas do diagnóstico MedCEO",
+        "description": "Lista as 20 perguntas do Diagnóstico de Maturidade Empresarial MedCEO, com as três alternativas de cada pergunta e a pontuação (1, 3 ou 5) de cada alternativa. Pode ser filtrado por pilar.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "pillar": {
+              "description": "Filtra as perguntas por pilar: diagnostico, margem, comercial, operacao ou escala.",
+              "type": "string",
+              "enum": [
+                "diagnostico",
+                "margem",
+                "comercial",
+                "operacao",
+                "escala"
+              ]
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "score_diagnostic",
+        "title": "Calcular resultado do diagnóstico",
+        "description": "Calcula o nível de maturidade empresarial (1 a 5) a partir das 20 respostas do diagnóstico MedCEO. Cada resposta deve ser 1, 3 ou 5, conforme a pontuação das alternativas retornadas por get_diagnostic_questions.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "answers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "questionId": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991,
+                    "description": "Id da pergunta (1 a 20)."
+                  },
+                  "score": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991,
+                    "description": "Pontuação da alternativa escolhida: 1, 3 ou 5."
+                  }
+                },
+                "required": [
+                  "questionId",
+                  "score"
+                ]
+              },
+              "description": "As 20 respostas do diagnóstico."
+            }
+          },
+          "required": [
+            "answers"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_method_pillars",
+        "title": "Pilares do Método MedCEO",
+        "description": "Retorna os seis pilares do Método MedCEO (Mentalidade CEO, Marketing, Comercial, Gestão, Projetos e Filmmaker), com o responsável, a tese e os temas de cada pilar.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": null,
+        "outputSchema": null
+      }
+    ]
+  }
+}
