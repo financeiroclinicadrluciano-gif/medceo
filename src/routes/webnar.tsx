@@ -64,6 +64,14 @@ function Webnar() {
         <NoiseOverlay />
 
         <div className="wb-container wb-hero-inner">
+          <img
+            className="wb-hero-logo"
+            src={logoUrl}
+            alt="MedCEO — método de gestão para médicos donos de clínica"
+            width={140}
+            height={60}
+          />
+
           <p className="wb-eyebrow">
             <TextShimmer>Grupo MedCEO · aulas semanais</TextShimmer>
           </p>
