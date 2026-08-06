@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WebnarRouteImport } from './routes/webnar'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as MetodoRouteImport } from './routes/metodo'
+import { Route as MentoriaRouteImport } from './routes/mentoria'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as KitRouteImport } from './routes/kit'
 import { Route as DesignSystemRouteImport } from './routes/design-system'
@@ -33,6 +34,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const MetodoRoute = MetodoRouteImport.update({
   id: '/metodo',
   path: '/metodo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentoriaRoute = MentoriaRouteImport.update({
+  id: '/mentoria',
+  path: '/mentoria',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/design-system': typeof DesignSystemRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/mentoria': typeof MentoriaRoute
   '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/webnar': typeof WebnarRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/design-system': typeof DesignSystemRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/mentoria': typeof MentoriaRoute
   '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/webnar': typeof WebnarRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/design-system': typeof DesignSystemRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/mentoria': typeof MentoriaRoute
   '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/webnar': typeof WebnarRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/design-system'
     | '/kit'
     | '/mcp'
+    | '/mentoria'
     | '/metodo'
     | '/sitemap.xml'
     | '/webnar'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/design-system'
     | '/kit'
     | '/mcp'
+    | '/mentoria'
     | '/metodo'
     | '/sitemap.xml'
     | '/webnar'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/design-system'
     | '/kit'
     | '/mcp'
+    | '/mentoria'
     | '/metodo'
     | '/sitemap.xml'
     | '/webnar'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   DesignSystemRoute: typeof DesignSystemRoute
   KitRoute: typeof KitRoute
   McpRoute: typeof McpRoute
+  MentoriaRoute: typeof MentoriaRoute
   MetodoRoute: typeof MetodoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WebnarRoute: typeof WebnarRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       path: '/metodo'
       fullPath: '/metodo'
       preLoaderRoute: typeof MetodoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentoria': {
+      id: '/mentoria'
+      path: '/mentoria'
+      fullPath: '/mentoria'
+      preLoaderRoute: typeof MentoriaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   DesignSystemRoute: DesignSystemRoute,
   KitRoute: KitRoute,
   McpRoute: McpRoute,
+  MentoriaRoute: MentoriaRoute,
   MetodoRoute: MetodoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   WebnarRoute: WebnarRoute,
