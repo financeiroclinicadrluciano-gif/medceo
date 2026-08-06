@@ -17,20 +17,16 @@ import MethodPillarsExperience, {
   type MethodPillarExperienceItem,
 } from "@/components/landing/MethodPillarsExperience";
 import CountUp from "@/components/landing/CountUp";
-import SplitText from "@/components/landing/SplitText";
 import {
-  BeamsBackground,
   HowItWorks,
   Magnetic,
   MarqueeCta,
-  NoiseOverlay,
   PointerHighlight,
   ShineBorder,
   SpotlightMaskedGrid,
   TextShimmer,
 } from "@/components/kit";
 
-import heroBackground from "@/assets/medceo/medceo-hero-background.jpg";
 import drLucianoSectionBackground from "@/assets/medceo/dr-luciano-section-background.jpg";
 import drLuizSectionBackground from "@/assets/medceo/dr-luiz-section-background.jpg";
 import alessandraPortrait from "@/assets/medceo/method-pillars/alessandra.jpg";
@@ -63,7 +59,6 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: DESCRIPTION },
     ],
     links: [
-      { rel: "preload", href: heroBackground, as: "image" },
       {
         rel: "preconnect",
         href: "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br",
@@ -210,7 +205,6 @@ function Index() {
   });
   const filterPrimaryY = useTransform(filterScrollProgress, [0, 1], [52, -12]);
   const filterSecondaryY = useTransform(filterScrollProgress, [0, 1], [84, -24]);
-  const heroDecadeY = useTransform(scrollY, [0, 1100], [0, -160]);
 
   useMotionValueEvent(scrollY, "change", (latest) => setHeaderCondensed(latest > 48));
 
