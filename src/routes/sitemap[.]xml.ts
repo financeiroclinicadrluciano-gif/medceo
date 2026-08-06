@@ -7,7 +7,15 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries = [{ path: "/", changefreq: "weekly", priority: "1.0" }];
+        const entries = [
+          { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/metodo", changefreq: "monthly", priority: "0.8" },
+          { path: "/mentoria", changefreq: "monthly", priority: "0.8" },
+          { path: "/sobre", changefreq: "monthly", priority: "0.6" },
+          { path: "/faq", changefreq: "monthly", priority: "0.6" },
+          { path: "/contato", changefreq: "monthly", priority: "0.6" },
+          { path: "/webnar", changefreq: "monthly", priority: "0.6" },
+        ];
         const urls = entries.map(
           (e) =>
             `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,

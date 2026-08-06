@@ -633,3 +633,26 @@ html[data-mc-bg="clean"] .mc-faq-item {
     transform: none;
   }
 }
+
+.mc-v3-list {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mc-v3-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--mc-v3-muted);
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+.mc-v3-list li svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--mc-v3-gold);
+}
