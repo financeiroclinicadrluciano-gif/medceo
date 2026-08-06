@@ -844,7 +844,7 @@
    Hero v3 — "Elite cinematográfico"
    Preto absoluto, luz dourada ambiente, sem foto e sem granulado.
    ============================================================ */
-.medceo-page .mc-hero-elite {
+.medceo-page .mc-hero.mc-hero-elite {
   --mc-elite-gold: #cdae58;
   position: relative;
   isolation: isolate;
@@ -852,7 +852,7 @@
   background: #070807;
 }
 
-.medceo-page .mc-hero-elite::after {
+.medceo-page .mc-hero.mc-hero-elite::after {
   display: none;
 }
 
@@ -890,7 +890,7 @@
   pointer-events: none;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-layout {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-layout {
   position: relative;
   z-index: 1;
   grid-template-columns: minmax(0, 1fr) minmax(440px, 0.92fr);
@@ -901,7 +901,7 @@
   gap: clamp(24px, 3vw, 40px) clamp(48px, 5vw, 92px);
 }
 
-.medceo-page .mc-hero-elite .mc-eyebrow-rule {
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -914,7 +914,7 @@
   text-transform: uppercase;
 }
 
-.medceo-page .mc-hero-elite .mc-eyebrow-rule::before {
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule::before {
   flex: 0 0 auto;
   width: 40px;
   height: 1px;
@@ -922,7 +922,7 @@
   content: "";
 }
 
-.medceo-page .mc-hero-elite .mc-hero-title {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-title {
   max-width: 15ch;
   color: #f6f3ec;
   font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
@@ -933,12 +933,12 @@
   text-wrap: balance;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-title em {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-title em {
   color: var(--mc-elite-gold);
   font-style: italic;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-lead {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-lead {
   max-width: 46ch;
   margin-top: clamp(18px, 2.4vh, 28px);
   color: rgba(246, 243, 236, 0.58);
@@ -947,7 +947,7 @@
   line-height: 1.68;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-promise-rail {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-promise-rail {
   max-width: 520px;
   margin-top: clamp(26px, 3.6vh, 40px);
   border-top: 1px solid rgba(255, 255, 255, 0.07);
@@ -955,17 +955,17 @@
   padding: 22px 0;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-promise-rail strong {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-promise-rail strong {
   color: var(--mc-elite-gold);
 }
 
-.medceo-page .mc-hero-elite .mc-hero-actions {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-actions {
   grid-area: actions;
   align-items: center;
   align-self: start;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-video {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video {
   align-self: center;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(12, 13, 12, 0.72);
@@ -975,7 +975,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.medceo-page .mc-hero-elite .mc-hero-video::after {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video::after {
   top: -18%;
   right: -14%;
   width: 52%;
@@ -983,7 +983,7 @@
   background: radial-gradient(circle, rgba(205, 174, 88, 0.28), transparent 70%);
 }
 
-.medceo-page .mc-hero-elite .mc-hero-video-header {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video-header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   min-height: 48px;
   font-size: 9px;
@@ -1023,7 +1023,7 @@
   padding: 14px 16px 16px;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-urgency {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-urgency {
   margin: 0;
   color: rgba(246, 243, 236, 0.42);
   font-family: var(--medceo-font-ui);
@@ -1050,7 +1050,7 @@
   text-transform: uppercase;
 }
 
-.medceo-page .mc-hero-elite .mc-hero-signature {
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-signature {
   opacity: 0.32;
 }
 
@@ -1061,7 +1061,7 @@
 }
 
 @media (max-width: 980px) {
-  .medceo-page .mc-hero-elite .mc-hero-layout {
+  .medceo-page .mc-hero.mc-hero-elite .mc-hero-layout {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "copy"
@@ -1069,7 +1069,7 @@
       "actions";
   }
 
-  .medceo-page .mc-hero-elite .mc-hero-title {
+  .medceo-page .mc-hero.mc-hero-elite .mc-hero-title {
     max-width: none;
   }
 }
