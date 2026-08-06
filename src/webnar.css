@@ -71,6 +71,21 @@
   max-width: min(40rem, 46%);
 }
 
+.wb-hero-logo {
+  display: block;
+  width: clamp(100px, 12vw, 150px);
+  height: auto;
+  margin-bottom: clamp(16px, 2.5vh, 28px);
+  opacity: 0.92;
+  filter: brightness(1.1) contrast(0.95);
+  transition: opacity 300ms ease, filter 300ms ease;
+}
+
+.wb-hero-logo:hover {
+  opacity: 1;
+  filter: brightness(1.2) contrast(1);
+}
+
 .wb-eyebrow {
   display: inline-flex;
   align-items: center;
