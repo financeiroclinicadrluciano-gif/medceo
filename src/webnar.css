@@ -1,0 +1,302 @@
+/* =============================================================
+   MedCEO — /webnar
+   Uma dobra de convite + uma dobra de aula. Nada além disso.
+   Tokens: MedCEO Nocturne (src/brand/tokens) + camada kit.
+   ============================================================= */
+
+.wb-page {
+  --wb-gold: var(--medceo-color-gold, #cdae58);
+  --wb-gold-soft: var(--medceo-color-gold-soft, #f0d98a);
+  --wb-ink: var(--medceo-color-paper, #f4ebdd);
+  --wb-ink-muted: rgba(244, 235, 221, 0.66);
+  --wb-night: #02070b;
+  min-height: 100dvh;
+  background: var(--wb-night);
+  color: var(--wb-ink);
+  font-family: var(--medceo-font-sans, "Montserrat", system-ui, sans-serif);
+  overflow-x: clip;
+}
+
+.wb-container {
+  width: min(100% - 2 * clamp(20px, 5vw, 64px), 1240px);
+  margin-inline: auto;
+}
+
+/* ---------- dobra 1: convite ---------- */
+.wb-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100dvh;
+  padding: clamp(96px, 12vh, 160px) 0 clamp(64px, 9vh, 120px);
+  isolation: isolate;
+}
+
+.wb-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--wb-hero-image);
+  background-size: cover;
+  background-position: 72% center;
+  background-repeat: no-repeat;
+}
+
+/* Vinheta + wash de proteção: o texto vive na área negativa da esquerda. */
+.wb-hero-wash {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(2, 7, 11, 0.97) 0%, rgba(2, 7, 11, 0.9) 34%, rgba(2, 7, 11, 0.36) 62%, rgba(2, 7, 11, 0.62) 100%),
+    linear-gradient(180deg, rgba(2, 7, 11, 0.86) 0%, rgba(2, 7, 11, 0) 26%, rgba(2, 7, 11, 0) 62%, rgba(2, 7, 11, 0.92) 100%),
+    radial-gradient(circle at 50% 42%, transparent 34%, rgba(2, 7, 11, 0.6) 100%);
+}
+
+.wb-hero-inner {
+  display: grid;
+  gap: clamp(22px, 3vw, 34px);
+  max-width: 44rem;
+}
+
+.wb-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: var(--wb-gold);
+  font-size: clamp(0.625rem, 0.58rem + 0.2vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.wb-eyebrow::before {
+  content: "";
+  width: clamp(24px, 4vw, 48px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--wb-gold));
+}
+
+.wb-hero h1 {
+  margin: 0;
+  font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
+  font-size: clamp(2.4rem, 1.7rem + 3.6vw, 4.6rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.wb-hero h1 em {
+  font-style: italic;
+  color: var(--wb-gold-soft);
+}
+
+.wb-hook {
+  margin: 0;
+  max-width: 34rem;
+  font-size: clamp(1rem, 0.94rem + 0.34vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--wb-ink);
+}
+
+.wb-hook strong {
+  color: var(--wb-gold-soft);
+  font-weight: 600;
+}
+
+.wb-gifts {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 34rem;
+}
+
+.wb-gifts li {
+  position: relative;
+  padding-left: 24px;
+  font-size: clamp(0.875rem, 0.84rem + 0.2vw, 0.98rem);
+  line-height: 1.5;
+  color: var(--wb-ink-muted);
+}
+
+.wb-gifts li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--wb-gold);
+  transform: rotate(45deg);
+}
+
+.wb-gifts li strong {
+  color: var(--wb-ink);
+  font-weight: 600;
+}
+
+.wb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.wb-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 clamp(24px, 3vw, 38px);
+  border: 0;
+  border-radius: 4px;
+  background: linear-gradient(110deg, #a98331 0%, var(--wb-gold-soft) 46%, #a98331 100%);
+  color: #071019;
+  font-family: inherit;
+  font-size: clamp(0.875rem, 0.84rem + 0.2vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 18px 52px rgba(205, 174, 88, 0.22);
+  transition:
+    transform var(--medceo-duration-base, 240ms) var(--medceo-ease-premium, cubic-bezier(0.23, 1, 0.32, 1)),
+    box-shadow var(--medceo-duration-base, 240ms) ease;
+}
+
+.wb-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 64px rgba(205, 174, 88, 0.3);
+}
+
+.wb-cta:focus-visible {
+  outline: 2px solid var(--wb-gold-soft);
+  outline-offset: 3px;
+}
+
+.wb-cta-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--wb-ink-muted);
+}
+
+/* Assinatura MedCEO: corte de 8° fechando a dobra. */
+.wb-hero::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: clamp(48px, 6vw, 104px);
+  background: linear-gradient(180deg, rgba(2, 7, 11, 0) 0%, var(--wb-night) 62%);
+  clip-path: polygon(0 0, 100% 40%, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+/* ---------- dobra 2: aula ---------- */
+.wb-class {
+  position: relative;
+  padding: clamp(64px, 9vw, 132px) 0 clamp(72px, 10vw, 148px);
+  background: var(--wb-night);
+  text-align: center;
+}
+
+.wb-class-inner {
+  display: grid;
+  justify-items: center;
+  gap: clamp(20px, 3vw, 30px);
+}
+
+.wb-limited {
+  margin: 0;
+  color: var(--wb-gold);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.wb-class h2 {
+  margin: 0;
+  max-width: 22ch;
+  font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
+  font-size: clamp(1.75rem, 1.28rem + 2.3vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.wb-class h2 em {
+  font-style: italic;
+  color: var(--wb-gold-soft);
+}
+
+.wb-player {
+  position: relative;
+  width: min(100%, 980px);
+  margin-top: clamp(8px, 2vw, 20px);
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(240, 217, 138, 0.22);
+  border-radius: 6px;
+  background: rgba(6, 16, 24, 0.7);
+  box-shadow:
+    0 46px 120px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.wb-player iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 860px) {
+  .wb-hero {
+    align-items: flex-end;
+    min-height: 100dvh;
+    padding-top: clamp(120px, 26vh, 260px);
+  }
+
+  .wb-hero-media {
+    background-position: 68% top;
+  }
+
+  .wb-hero-wash {
+    background:
+      linear-gradient(180deg, rgba(2, 7, 11, 0.72) 0%, rgba(2, 7, 11, 0.42) 24%, rgba(2, 7, 11, 0.92) 58%, var(--wb-night) 100%),
+      radial-gradient(circle at 50% 30%, transparent 30%, rgba(2, 7, 11, 0.62) 100%);
+  }
+
+  .wb-hero-inner {
+    max-width: none;
+  }
+
+  .wb-actions {
+    display: grid;
+    width: 100%;
+  }
+
+  .wb-cta {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-cta {
+    transition: none;
+  }
+
+  .wb-cta:hover {
+    transform: none;
+  }
+}
