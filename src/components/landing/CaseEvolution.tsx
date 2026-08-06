@@ -1,6 +1,8 @@
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { useMemo, useRef, type CSSProperties } from "react";
 
+import CountUp from "@/components/landing/CountUp";
+
 import "@/case-evolution.css";
 
 export type CaseEvolutionProps = {
@@ -26,6 +28,11 @@ const numberFormatter = new Intl.NumberFormat("pt-BR", {
 function formatRevenue(value: number) {
   return `R$ ${numberFormatter.format(value)} mil`;
 }
+
+function RevenueCount({ value }: { value: number }) {
+  return <CountUp value={value} format={(current) => formatRevenue(Math.round(current))} />;
+}
+
 
 /**
  * A single-fold, proportionally accurate view of the Dr. Luiz case.
