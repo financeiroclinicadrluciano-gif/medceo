@@ -744,3 +744,98 @@
   background: rgba(2, 7, 11, 0.6);
   overflow: hidden;
 }
+
+/* ---------------------------------------------------------------
+   Acoplamento das novas dobras do kit (como funciona + marquee)
+   Consistência de ritmo, container e respiro em desktop e mobile.
+   --------------------------------------------------------------- */
+
+.medceo-page .mc-how-section {
+  position: relative;
+  padding-block: clamp(64px, 8vw, 132px);
+  border-top: 1px solid rgba(240, 217, 138, 0.1);
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(27, 74, 97, 0.16), transparent 62%),
+    #050505;
+  overflow: hidden;
+}
+
+.medceo-page .mc-how-section h2 {
+  max-width: 22ch;
+  margin: 10px 0 0;
+}
+
+.medceo-page .mc-how-section .mc-how-kit {
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+/* A grelha do HowItWorks acompanha o container da página. */
+.medceo-page .mc-how-kit .kit-how-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.medceo-page .mc-how-kit .kit-how-step {
+  min-width: 0;
+}
+
+/* Faixa marquee: puramente decorativa, sem criar respiro duplo. */
+.medceo-page .mc-marquee-section {
+  padding-block: clamp(40px, 5.5vw, 84px);
+}
+
+.medceo-page .mc-marquee-section + .mc-final-section {
+  border-top: 0;
+}
+
+.medceo-page .mc-marquee-section .kit-marquee-word {
+  font-size: clamp(1.75rem, 1.1rem + 3vw, 3.75rem);
+}
+
+/* Camadas do kit nunca cobrem conteúdo nem geram scroll lateral. */
+.medceo-page .mc-hero-kit-layer,
+.medceo-page .mc-final-kit-layer {
+  pointer-events: none;
+  contain: strict;
+}
+
+.medceo-page .mc-hero-section,
+.medceo-page .mc-final-section,
+.medceo-page .mc-how-section {
+  overflow-x: clip;
+}
+
+/* Borda animada do card do filtro respeita o raio e o mobile. */
+.medceo-page .mc-filter-card {
+  height: 100%;
+  min-width: 0;
+}
+
+.medceo-page .mc-filter-scroll-item .kit-shine-border {
+  display: block;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .medceo-page .mc-how-section {
+    padding-block: clamp(52px, 12vw, 84px);
+  }
+
+  .medceo-page .mc-how-kit .kit-how-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .medceo-page .mc-marquee-section {
+    padding-block: 36px;
+  }
+
+  .medceo-page .mc-hero-kit-layer {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medceo-page .mc-marquee-section .kit-marquee-track {
+    animation: none !important;
+  }
+}

@@ -884,3 +884,78 @@
     scroll-snap-type: x proximity;
   }
 }
+
+/* =============================================================
+   Performance — custo de fundo, camadas e motion
+   Objetivo: manter Lighthouse alto sem perder a atmosfera.
+   ============================================================= */
+
+/* Feixes: gradiente já difuso em vez de filter: blur em área grande.
+   filter sobre 34vw × 180% obriga o compositor a rasterizar a cada frame. */
+.kit-beam {
+  filter: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(205, 174, 88, 0.02) 18%,
+    rgba(205, 174, 88, 0.09) 50%,
+    rgba(205, 174, 88, 0.02) 82%,
+    transparent 100%
+  );
+  will-change: transform;
+  contain: strict;
+}
+
+/* Camadas decorativas não participam de hit-test nem de layout. */
+.kit-bg-spotlight-grid,
+.kit-bg-radial-dark,
+.kit-bg-beams,
+.kit-bg-noise,
+.kit-bg-paths,
+.kit-bg-canvas {
+  contain: strict;
+  content-visibility: auto;
+}
+
+/* Em telas pequenas, uma camada de luz basta: menos pixels animados. */
+@media (max-width: 760px) {
+  .kit-beam-2,
+  .kit-beam-3 {
+    display: none;
+  }
+
+  .kit-bg-noise {
+    opacity: 0.5;
+  }
+
+  .kit-surface,
+  .kd-card {
+    backdrop-filter: none;
+  }
+}
+
+/* Aparelhos sem GPU folgada / modo de economia de dados. */
+@media (update: slow) {
+  .kit-beam,
+  .kit-bg-canvas {
+    display: none;
+  }
+}
+
+/* Reduced motion: nada de partícula, feixe ou órbita. */
+@media (prefers-reduced-motion: reduce) {
+  .kit-bg-canvas,
+  .kit-bg-paths {
+    display: none;
+  }
+
+  .kit-beam {
+    animation: none !important;
+    transform: rotate(8deg) !important;
+  }
+
+  .kit-orbit-node,
+  .kit-moving-dot::after {
+    animation: none !important;
+  }
+}
