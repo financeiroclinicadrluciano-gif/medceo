@@ -1,6 +1,8 @@
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { useMemo, useRef, type CSSProperties } from "react";
 
+import CountUp from "@/components/landing/CountUp";
+
 import "@/case-evolution.css";
 
 export type CaseEvolutionProps = {
@@ -26,6 +28,11 @@ const numberFormatter = new Intl.NumberFormat("pt-BR", {
 function formatRevenue(value: number) {
   return `R$ ${numberFormatter.format(value)} mil`;
 }
+
+function RevenueCount({ value }: { value: number }) {
+  return <CountUp value={value} format={(current) => formatRevenue(Math.round(current))} />;
+}
+
 
 /**
  * A single-fold, proportionally accurate view of the Dr. Luiz case.
@@ -99,8 +106,15 @@ export default function CaseEvolution({
         <header className="mc-case-evolution-heading">
           <p className="mc-case-evolution-eyebrow">Case individual · Dr. Luiz Henrique</p>
           <h2 id={`${id}-title`}>
-            De <span>{formatRevenue(initialRevenue)}</span> para{" "}
-            <strong>{formatRevenue(finalRevenue)}</strong>.
+            De{" "}
+            <span>
+              <RevenueCount value={initialRevenue} />
+            </span>{" "}
+            para{" "}
+            <strong>
+              <RevenueCount value={finalRevenue} />
+            </strong>
+            .
           </h2>
           <p className="mc-case-evolution-story">
             Segundo o case informado, esse avanço aconteceu em {duration}. Naquele ciclo, o trabalho
@@ -116,7 +130,9 @@ export default function CaseEvolution({
           <div className="mc-case-evolution-row is-initial">
             <div className="mc-case-evolution-row-label">
               <span>Antes</span>
-              <strong>{formatRevenue(initialRevenue)}</strong>
+              <strong>
+                <RevenueCount value={initialRevenue} />
+              </strong>
             </div>
             <div className="mc-case-evolution-bar" aria-hidden="true">
               <span style={{ width: `${metrics.initialRatio}%` }} />
@@ -136,7 +152,9 @@ export default function CaseEvolution({
           <div className="mc-case-evolution-row is-final">
             <div className="mc-case-evolution-row-label">
               <span>Depois</span>
-              <strong>{formatRevenue(finalRevenue)}</strong>
+              <strong>
+                <RevenueCount value={finalRevenue} />
+              </strong>
             </div>
             <div className="mc-case-evolution-bar" aria-hidden="true">
               <span />
@@ -149,7 +167,7 @@ export default function CaseEvolution({
             <dt>Avanço informado</dt>
             <dd>
               {metrics.delta >= 0 ? "+" : "−"}
-              {formatRevenue(Math.abs(metrics.delta))}
+              <RevenueCount value={Math.abs(metrics.delta)} />
             </dd>
           </div>
           <div>
