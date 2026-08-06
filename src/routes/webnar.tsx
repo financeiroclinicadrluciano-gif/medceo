@@ -6,6 +6,8 @@ import { MotionBlurText, NoiseOverlay, TextEffect, TextShimmer } from "@/compone
 import webnarHeroBackground from "@/assets/medceo/webnar-hero-background.jpg";
 import "@/webnar.css";
 
+const logoUrl = "/logo.png";
+
 const TITLE = "Aulas semanais MedCEO — grupo de médicos donos de clínica";
 const DESCRIPTION =
   "Toda semana uma aula ao vivo sobre pacientes qualificados, margem e previsibilidade de faturamento. Entre no grupo do WhatsApp e receba presentes e oportunidades.";
@@ -62,6 +64,14 @@ function Webnar() {
         <NoiseOverlay />
 
         <div className="wb-container wb-hero-inner">
+          <img
+            className="wb-hero-logo"
+            src={logoUrl}
+            alt="MedCEO — método de gestão para médicos donos de clínica"
+            width={140}
+            height={60}
+          />
+
           <p className="wb-eyebrow">
             <TextShimmer>Grupo MedCEO · aulas semanais</TextShimmer>
           </p>
