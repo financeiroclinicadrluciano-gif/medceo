@@ -55,7 +55,8 @@
   background-size: 240% 100%;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
+  color: currentColor;
   animation: kit-shimmer var(--kit-shimmer-duration, 2.6s) linear infinite;
 }
 
