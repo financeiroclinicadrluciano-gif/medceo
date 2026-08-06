@@ -37,18 +37,9 @@ export const Route = createFileRoute("/webnar")({
 });
 
 const gifts = [
-  {
-    strong: "Aula nova toda semana",
-    text: "ao vivo, com o time que opera clínicas de verdade — não teoria de palco.",
-  },
-  {
-    strong: "Presentes liberados no grupo",
-    text: "planilhas de margem, scripts comerciais e o mapa de maturidade da operação.",
-  },
-  {
-    strong: "Oportunidades antes de todo mundo",
-    text: "vagas, bastidores e convites que só circulam entre quem está lá dentro.",
-  },
+  { strong: "1 Aula gratuita toda semana" },
+  { strong: "Presentes especiais no grupo" },
+  { strong: "Comunidade de médicos CEO" },
 ];
 
 function Webnar() {
