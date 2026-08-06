@@ -585,3 +585,70 @@ html .mc-v3-page {
   line-height: 1.06;
   letter-spacing: -0.02em;
 }
+
+/* =============================================================
+   Fundo Elite — otimização de performance (mobile) + legibilidade
+   ============================================================= */
+
+/* O grid de 88px + dois radiais grandes custam caro em GPU móvel.
+   Em telas pequenas mantemos só um radial dourado (fixo, sem repaint)
+   e trocamos o grid por uma malha mais leve. */
+@media (max-width: 900px) {
+  html .mc-v3-page {
+    background:
+      radial-gradient(760px 420px at 15% -6%, rgba(205, 174, 88, 0.13), transparent 64%),
+      linear-gradient(rgba(240, 217, 138, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240, 217, 138, 0.018) 1px, transparent 1px), #050505;
+    background-size: auto, 120px 120px, 120px 120px, auto;
+    background-attachment: scroll;
+  }
+
+  /* blur pesado no header sticky derruba o scroll em aparelhos medianos */
+  .mc-v3-header {
+    backdrop-filter: blur(8px);
+    background: rgba(5, 5, 6, 0.9);
+  }
+}
+
+@media (max-width: 560px) {
+  html .mc-v3-page {
+    background:
+      radial-gradient(520px 320px at 50% -8%, rgba(205, 174, 88, 0.12), transparent 66%), #050505;
+  }
+
+  .mc-v3-page::after {
+    opacity: 0.16;
+  }
+}
+
+/* Contraste: sobre o fundo Elite o texto secundário precisa de mais luz
+   em telas pequenas (brilho ambiente + telas OLED). */
+@media (max-width: 900px) {
+  .mc-v3-page {
+    --mc-v3-muted: rgba(244, 241, 234, 0.78);
+  }
+
+  .mc-v3-nav-links a {
+    color: rgba(244, 241, 234, 0.82);
+  }
+
+  .mc-v3-list li {
+    color: rgba(244, 241, 234, 0.8);
+  }
+}
+
+/* Alvo de toque confortável e ação principal destacada no mobile. */
+@media (max-width: 720px) {
+  .mc-v3-btn,
+  .mc-v3-nav-action {
+    min-height: 52px;
+    padding-inline: 26px;
+    font-size: 13px;
+  }
+
+  .mc-v3-btn--primary,
+  .mc-v3-btn.is-primary {
+    width: 100%;
+    box-shadow: 0 16px 40px rgba(205, 174, 88, 0.2);
+  }
+}
