@@ -35,33 +35,66 @@
   min-height: 100svh;
   min-height: 100dvh;
   background:
-    linear-gradient(rgba(240, 217, 138, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240, 217, 138, 0.035) 1px, transparent 1px), #03080c;
+    linear-gradient(rgba(240, 217, 138, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240, 217, 138, 0.022) 1px, transparent 1px), #050505;
   background-size: 88px 88px;
 }
 
+/* Assinatura: corte diagonal de 8° na transição foto/conteúdo */
 .medceo-page .mc-hero-vsl::after {
-  display: none;
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 2;
+  height: clamp(64px, 9vw, 132px);
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0) 0%, #050505 62%);
+  clip-path: polygon(0 42%, 100% 0, 100% 100%, 0 100%);
+  pointer-events: none;
 }
 
 .medceo-page .mc-hero-vsl .mc-hero-background {
-  background-position: 50% 38%;
-  filter: saturate(0.45) contrast(1.16) brightness(0.28);
-  opacity: 0.34;
+  background-position: 62% 46%;
+  filter: saturate(0.85) contrast(1.05) brightness(1.35);
+  opacity: 1;
+  transform: scale(1.02);
+  animation: mc-hero-photo-settle 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mc-hero-photo-settle {
+  from {
+    opacity: 0;
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.02);
+  }
 }
 
 .medceo-page .mc-hero-vsl .mc-hero-wash {
   background:
-    radial-gradient(circle at 72% 40%, rgba(27, 74, 97, 0.22), transparent 31%),
+    radial-gradient(circle at 74% 34%, rgba(211, 183, 91, 0.14), transparent 42%),
     linear-gradient(
       90deg,
-      rgba(3, 8, 12, 0.96) 0%,
-      rgba(3, 8, 12, 0.72) 44%,
-      rgba(3, 8, 12, 0.5) 72%,
-      rgba(3, 8, 12, 0.88) 100%
+      rgba(5, 5, 5, 0.95) 0%,
+      rgba(5, 5, 5, 0.86) 32%,
+      rgba(5, 5, 5, 0.42) 60%,
+      rgba(5, 5, 5, 0.7) 100%
     ),
-    linear-gradient(180deg, rgba(3, 8, 12, 0.48), rgba(3, 8, 12, 0.98));
+    linear-gradient(180deg, rgba(5, 5, 5, 0.62) 0%, rgba(5, 5, 5, 0.12) 40%, rgba(5, 5, 5, 0.92) 100%);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .medceo-page .mc-hero-vsl .mc-hero-background {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 
 .mc-hero-decade-word {
   position: absolute;
@@ -202,11 +235,31 @@
 .mc-hero-video {
   grid-area: video;
   position: relative;
+  z-index: 1;
   align-self: center;
-  border: 1px solid rgba(240, 217, 138, 0.3);
-  background: rgba(2, 7, 11, 0.82);
-  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.44);
+  border: 1px solid rgba(240, 217, 138, 0.22);
+  background: rgba(6, 8, 10, 0.52);
+  -webkit-backdrop-filter: blur(18px) saturate(0.9);
+  backdrop-filter: blur(18px) saturate(0.9);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+
+/* luz dourada recortada atrás do vidro fumê */
+.mc-hero-video::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -14%;
+  right: -12%;
+  width: 46%;
+  height: 46%;
+  background: radial-gradient(circle, rgba(211, 183, 91, 0.24), transparent 68%);
+  filter: blur(38px);
+  pointer-events: none;
+}
+
 
 .mc-hero-video::before {
   position: absolute;
