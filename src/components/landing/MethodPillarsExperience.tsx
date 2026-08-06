@@ -9,6 +9,7 @@ export type MethodPillarExperienceItem = {
   thesis: string;
   topics: string[];
   image: string;
+  imageAlt?: string;
   imagePosition?: string;
 };
 
@@ -336,7 +337,7 @@ export default function MethodPillarsExperience({ pillars }: MethodPillarsExperi
                     <div className="mpx-portrait">
                       <img
                         src={pillar.image}
-                        alt={`Retrato de ${pillar.name}, responsável por ${pillar.role}`}
+                        alt={pillar.imageAlt ?? `Retrato de ${pillar.name}, responsável pelo pilar de ${pillar.role} no MedCEO`}
                         width={1200}
                         height={1600}
                         loading="lazy"
