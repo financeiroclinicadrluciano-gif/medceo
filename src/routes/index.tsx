@@ -16,6 +16,7 @@ import CaseEvolution from "@/components/landing/CaseEvolution";
 import MethodPillarsExperience, {
   type MethodPillarExperienceItem,
 } from "@/components/landing/MethodPillarsExperience";
+import CountUp from "@/components/landing/CountUp";
 import SplitText from "@/components/landing/SplitText";
 
 import heroBackground from "@/assets/medceo/medceo-hero-background.jpg";
@@ -474,11 +475,20 @@ function Index() {
 
                   <dl className="mc-authority-credentials" aria-label="Credenciais publicadas">
                     <div>
-                      <dt>2.500+</dt>
+                      <dt>
+                        <CountUp
+                          value={2500}
+                          format={(current) =>
+                            `${new Intl.NumberFormat("pt-BR").format(Math.round(current))}+`
+                          }
+                        />
+                      </dt>
                       <dd>pacientes atendidos informados pela Natuá</dd>
                     </div>
                     <div>
-                      <dt>15+ anos</dt>
+                      <dt>
+                        <CountUp value={15} format={(c) => `${Math.round(c)}+ anos`} />
+                      </dt>
                       <dd>de experiência em saúde publicada</dd>
                     </div>
                     <div>
