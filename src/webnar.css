@@ -36,14 +36,14 @@
   position: absolute;
   inset: 0 0 0 auto;
   z-index: -2;
-  width: min(62%, 1040px);
+  width: min(56%, 980px);
   background-image: var(--wb-hero-image);
   background-size: cover;
   background-position: right bottom;
   background-repeat: no-repeat;
   /* A foto se dissolve na área negativa da esquerda, onde vive o texto. */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 22%, #000 44%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 22%, #000 44%, #000 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.55) 18%, #000 40%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.55) 18%, #000 40%, #000 100%);
 }
 
 .wb-hero-media::after {
@@ -67,7 +67,7 @@
 .wb-hero-inner {
   display: grid;
   gap: clamp(22px, 3vw, 34px);
-  max-width: min(40rem, 46%);
+  max-width: min(38rem, 42%);
 }
 
 .wb-eyebrow {
@@ -94,7 +94,7 @@
   max-width: 100%;
   margin: 0;
   font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
-  font-size: clamp(2.4rem, 1.7rem + 3.6vw, 4.6rem);
+  font-size: clamp(2.2rem, 1.6rem + 2.9vw, 3.9rem);
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.035em;
