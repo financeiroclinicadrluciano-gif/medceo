@@ -17,20 +17,16 @@ import MethodPillarsExperience, {
   type MethodPillarExperienceItem,
 } from "@/components/landing/MethodPillarsExperience";
 import CountUp from "@/components/landing/CountUp";
-import SplitText from "@/components/landing/SplitText";
 import {
-  BeamsBackground,
   HowItWorks,
   Magnetic,
   MarqueeCta,
-  NoiseOverlay,
   PointerHighlight,
   ShineBorder,
   SpotlightMaskedGrid,
   TextShimmer,
 } from "@/components/kit";
 
-import heroBackground from "@/assets/medceo/medceo-hero-background.jpg";
 import drLucianoSectionBackground from "@/assets/medceo/dr-luciano-section-background.jpg";
 import drLuizSectionBackground from "@/assets/medceo/dr-luiz-section-background.jpg";
 import alessandraPortrait from "@/assets/medceo/method-pillars/alessandra.jpg";
@@ -63,7 +59,6 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: DESCRIPTION },
     ],
     links: [
-      { rel: "preload", href: heroBackground, as: "image" },
       {
         rel: "preconnect",
         href: "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br",
@@ -210,7 +205,6 @@ function Index() {
   });
   const filterPrimaryY = useTransform(filterScrollProgress, [0, 1], [52, -12]);
   const filterSecondaryY = useTransform(filterScrollProgress, [0, 1], [84, -24]);
-  const heroDecadeY = useTransform(scrollY, [0, 1100], [0, -160]);
 
   useMotionValueEvent(scrollY, "change", (latest) => setHeaderCondensed(latest > 48));
 
@@ -297,41 +291,23 @@ function Index() {
       </header>
 
       <main id="conteudo">
-        <section id="top" className="mc-hero mc-hero-vsl" aria-labelledby="hero-title">
-          <div
-            className="mc-hero-background"
-            style={{ backgroundImage: `url(${heroBackground})` }}
-            aria-hidden="true"
-          />
-          <div className="mc-hero-wash" aria-hidden="true" />
-          <BeamsBackground className="mc-hero-kit-layer" />
-          <SpotlightMaskedGrid className="mc-hero-kit-layer" />
-          <NoiseOverlay className="mc-hero-kit-layer" />
-          <motion.span
-            className="mc-hero-decade-word"
-            style={{ y: shouldReduceMotion ? 0 : heroDecadeY }}
-            aria-hidden="true"
-          >
-            10 anos
-          </motion.span>
+        <section id="top" className="mc-hero mc-hero-vsl mc-hero-elite" aria-labelledby="hero-title">
+          <div className="mc-hero-ambient mc-hero-ambient-a" aria-hidden="true" />
+          <div className="mc-hero-ambient mc-hero-ambient-b" aria-hidden="true" />
+          <div className="mc-hero-hairline" aria-hidden="true" />
 
           <div className="mc-container mc-hero-layout">
             <div className="mc-hero-copy">
-              <p className="mc-eyebrow">
-                <TextShimmer shine="rgba(240,217,138,0.95)">
-                  [ Para médicos que querem construir uma empresa, não apenas uma agenda cheia ]
-                </TextShimmer>
+              <p className="mc-eyebrow mc-eyebrow-rule">
+                Mentoria estratégica para donos de clínica
               </p>
-              <SplitText
-                id="hero-title"
-                as="h1"
-                text={"Os próximos 20 minutos\npodem definir os próximos\n10 anos da sua clínica."}
-                className="mc-hero-title"
-                threshold={0.01}
-              />
+              <h1 id="hero-title" className="mc-hero-title">
+                Os próximos <em>20 minutos</em> podem definir os próximos 10 anos da sua clínica.
+              </h1>
               <p className="mc-hero-lead">
-                Assista e identifique o que hoje limita sua liderança, sua receita e a capacidade da
-                clínica crescer sem depender de você.
+                Existe uma distância silenciosa entre ser um médico excelente e ser dono de uma
+                empresa que cresce sem você no centro de tudo. Esta apresentação mostra exatamente
+                onde essa distância está na sua clínica — e o que precisa ser decidido primeiro.
               </p>
               <div className="mc-hero-promise-rail" aria-label="Promessa da apresentação">
                 <span>
@@ -348,6 +324,7 @@ function Index() {
                   <strong>01</strong>
                   decisão
                 </span>
+
               </div>
             </div>
 
@@ -357,7 +334,10 @@ function Index() {
               aria-label="Apresentação em vídeo do MedCEO"
             >
               <div className="mc-hero-video-header" aria-hidden="true">
-                <span>Apresentação MedCEO</span>
+                <span className="mc-hero-video-live">
+                  <i />
+                  Apresentação MedCEO
+                </span>
                 <span>20 minutos · uma decisão</span>
               </div>
               <div className="mc-hero-video-frame">
@@ -373,9 +353,16 @@ function Index() {
                   allowFullScreen
                 />
               </div>
-              <p className="mc-hero-urgency">
-                Assista com cuidado. Esta apresentação sai do ar em breve.
-              </p>
+              <div className="mc-hero-video-meta">
+                <p className="mc-hero-urgency">
+                  Conteúdo restrito a médicos proprietários. Sai do ar em breve.
+                </p>
+                <span className="mc-hero-video-duration" aria-hidden="true">
+                  <small>Duração</small>
+                  20 min
+                </span>
+              </div>
+
             </div>
 
             {heroCtaVisible ? (

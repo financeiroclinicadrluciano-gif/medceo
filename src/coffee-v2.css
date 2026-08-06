@@ -839,3 +839,285 @@
     animation: none !important;
   }
 }
+
+/* ============================================================
+   Hero v3 — "Elite cinematográfico"
+   Preto absoluto, luz dourada ambiente, sem foto e sem granulado.
+   ============================================================ */
+.medceo-page .mc-hero.mc-hero-elite {
+  --mc-elite-gold: #cdae58;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #070807;
+}
+
+.medceo-page .mc-hero.mc-hero-elite::after {
+  display: none;
+}
+
+.mc-hero-ambient {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mc-hero-ambient-a {
+  top: -22%;
+  right: -12%;
+  width: min(760px, 62vw);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(205, 174, 88, 0.22) 0%, rgba(205, 174, 88, 0.05) 42%, transparent 70%);
+}
+
+.mc-hero-ambient-b {
+  bottom: -26%;
+  left: -14%;
+  width: min(620px, 56vw);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(205, 174, 88, 0.12) 0%, transparent 68%);
+}
+
+.mc-hero-hairline {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(205, 174, 88, 0.28), transparent);
+  pointer-events: none;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-layout {
+  position: relative;
+  z-index: 1;
+  grid-template-columns: minmax(0, 1fr) minmax(440px, 0.92fr);
+  grid-template-areas:
+    "copy video"
+    "actions video";
+  align-items: center;
+  gap: clamp(24px, 3vw, 40px) clamp(48px, 5vw, 92px);
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(18px, 2.6vh, 28px);
+  color: var(--mc-elite-gold);
+  font-family: var(--medceo-font-ui);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule::before {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 1px;
+  background: var(--mc-elite-gold);
+  content: "";
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-title {
+  max-width: 15ch;
+  color: #f6f3ec;
+  font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
+  font-size: clamp(2.6rem, 1.5rem + 3vw, 4.25rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.07;
+  text-wrap: balance;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-title em {
+  color: var(--mc-elite-gold);
+  font-style: italic;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-lead {
+  max-width: 46ch;
+  margin-top: clamp(18px, 2.4vh, 28px);
+  color: rgba(246, 243, 236, 0.58);
+  font-size: clamp(15px, 0.95rem + 0.2vw, 18px);
+  font-weight: 300;
+  line-height: 1.68;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-promise-rail {
+  max-width: 520px;
+  margin-top: clamp(26px, 3.6vh, 40px);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 22px 0;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-promise-rail strong {
+  color: var(--mc-elite-gold);
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-actions {
+  grid-area: actions;
+  align-items: center;
+  align-self: start;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video {
+  align-self: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 13, 12, 0.72);
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(205, 174, 88, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video::after {
+  top: -18%;
+  right: -14%;
+  width: 52%;
+  height: 52%;
+  background: radial-gradient(circle, rgba(205, 174, 88, 0.28), transparent 70%);
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 48px;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+.mc-hero-video-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mc-hero-video-live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e0483b;
+  animation: mc-live-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes mc-live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.mc-hero-video-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px 16px 16px;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-urgency {
+  margin: 0;
+  color: rgba(246, 243, 236, 0.42);
+  font-family: var(--medceo-font-ui);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mc-hero-video-duration {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  color: var(--mc-elite-gold);
+  font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.mc-hero-video-duration small {
+  color: rgba(246, 243, 236, 0.35);
+  font-family: var(--medceo-font-ui);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-signature {
+  opacity: 0.32;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-hero-video-live i {
+    animation: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .medceo-page .mc-hero.mc-hero-elite .mc-hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "copy"
+      "video"
+      "actions";
+  }
+
+  .medceo-page .mc-hero.mc-hero-elite .mc-hero-title {
+    max-width: none;
+  }
+}
+
+/* Hero v3 — correções de encaixe */
+.medceo-page .mc-hero.mc-hero-elite,
+.medceo-page .mc-hero.mc-hero-elite::before {
+  background-image: none;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-layout > * {
+  min-width: 0;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-video {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-title {
+  max-width: 17ch;
+  font-size: clamp(2.3rem, 1.4rem + 2.1vw, 3.4rem);
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+}
+
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule,
+.medceo-page .mc-hero.mc-hero-elite .mc-eyebrow-rule * {
+  color: var(--mc-elite-gold);
+  -webkit-text-fill-color: currentColor;
+}
+
+.medceo-page .mc-hero.mc-hero-elite > .mc-hero-cut,
+.medceo-page .mc-hero.mc-hero-elite > .mc-diagonal,
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-kit-layer {
+  display: none;
+}
+
+.medceo-page .mc-hero.mc-hero-elite::before {
+  content: none;
+}
+
+.medceo-page .mc-hero.mc-hero-elite::after,
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-wash,
+.medceo-page .mc-hero.mc-hero-elite .mc-hero-background {
+  content: none;
+  display: none;
+}
