@@ -121,6 +121,8 @@ const methodPillars: MethodPillarExperienceItem[] = [
       "Tráfego pago",
     ],
     image: gustavoPortrait,
+    imageAlt:
+      "Gustavo, responsável pelo pilar de Marketing do MedCEO, em retrato de estúdio com fundo escuro.",
     imagePosition: "center 18%",
   },
   {
@@ -134,6 +136,8 @@ const methodPillars: MethodPillarExperienceItem[] = [
       "Técnicas de venda",
     ],
     image: comercialPortrait,
+    imageAlt:
+      "Alessandra e Dr. Luciano lado a lado, representando o pilar Comercial do MedCEO.",
     imagePosition: "center 22%",
   },
   {
@@ -148,6 +152,8 @@ const methodPillars: MethodPillarExperienceItem[] = [
       "Retenção de bons profissionais",
     ],
     image: alessandraPortrait,
+    imageAlt:
+      "Alessandra, responsável pelo pilar de Gestão do MedCEO, em retrato de estúdio com fundo escuro.",
     imagePosition: "center 16%",
   },
   {

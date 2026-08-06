@@ -178,7 +178,7 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, transparent 46%, rgba(2, 7, 11, 0.18) 66%, rgba(2, 7, 11, 0.92) 100%),
+    linear-gradient(180deg, rgba(2, 7, 11, 0.62) 0%, rgba(2, 7, 11, 0.16) 26%, transparent 46%, rgba(2, 7, 11, 0.34) 66%, rgba(2, 7, 11, 0.95) 100%),
     linear-gradient(90deg, rgba(2, 7, 11, 0.18), transparent 32% 74%, rgba(2, 7, 11, 0.12));
   content: "";
   pointer-events: none;
@@ -202,6 +202,7 @@
   font-size: clamp(2.25rem, 5vw, 5.8rem);
   letter-spacing: -0.08em;
   line-height: 1;
+  text-shadow: 0 2px 18px rgba(2, 7, 11, 0.72);
 }
 
 .mpx-portrait-owner {
@@ -217,6 +218,7 @@
   letter-spacing: var(--medceo-ls-wide, 0.18em);
   text-align: right;
   text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(2, 7, 11, 0.85);
 }
 
 .mpx-card-content {
