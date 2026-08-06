@@ -405,7 +405,10 @@ function Index() {
           <div className="mc-container mc-filter-layout">
             <AnimatedContent className="mc-filter-intro" distance={24}>
               <p className="mc-eyebrow">Filtro do diagnóstico</p>
-              <h2>Não é para toda clínica. É para quem já tem uma operação real.</h2>
+              <h2>
+                Não é para toda clínica. É para quem já tem uma{" "}
+                <PointerHighlight>operação real</PointerHighlight>.
+              </h2>
               <p>
                 O diagnóstico precisa de matéria-prima: pacientes, equipe, faturamento, decisões e
                 gargalos que já podem ser observados.
@@ -419,17 +422,19 @@ function Index() {
                 style={{ y: shouldReduceMotion ? 0 : filterPrimaryY }}
               >
                 <AnimatedContent distance={22} delay={0.04}>
-                  <div className="mc-filter-card mc-filter-card-positive">
-                    <div className="mc-filter-card-title">
-                      <Check aria-hidden="true" />
-                      <h3>Faz sentido para você se...</h3>
+                  <ShineBorder>
+                    <div className="mc-filter-card mc-filter-card-positive">
+                      <div className="mc-filter-card-title">
+                        <Check aria-hidden="true" />
+                        <h3>Faz sentido para você se...</h3>
+                      </div>
+                      <ul>
+                        {diagnosisFor.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul>
-                      {diagnosisFor.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  </ShineBorder>
                 </AnimatedContent>
               </motion.div>
 
@@ -452,6 +457,38 @@ function Index() {
                 </AnimatedContent>
               </motion.div>
             </div>
+          </div>
+        </section>
+
+        <section id="como-funciona" className="mc-section mc-how-section">
+          <div className="mc-container">
+            <AnimatedContent distance={22}>
+              <p className="mc-eyebrow">Como funciona</p>
+              <h2>Três passos entre a dúvida de hoje e a prioridade da semana.</h2>
+            </AnimatedContent>
+            <HowItWorks
+              className="mc-how-kit"
+              steps={[
+                {
+                  step: "01",
+                  title: "Responda às 20 perguntas",
+                  description:
+                    "Cerca de 5 minutos sobre margem, comercial, operação, equipe e escala da sua clínica.",
+                },
+                {
+                  step: "02",
+                  title: "Receba o nível de maturidade",
+                  description:
+                    "O resultado aponta em que estágio a operação está hoje e qual gargalo trava o próximo passo.",
+                },
+                {
+                  step: "03",
+                  title: "Saia com três próximos passos",
+                  description:
+                    "Ações coerentes com o seu estágio, não um plano genérico de crescimento.",
+                },
+              ]}
+            />
           </div>
         </section>
 
