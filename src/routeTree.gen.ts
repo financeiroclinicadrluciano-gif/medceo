@@ -16,6 +16,7 @@ import { Route as MetodoRouteImport } from './routes/metodo'
 import { Route as MentoriaRouteImport } from './routes/mentoria'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as KitRouteImport } from './routes/kit'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DesignSystemRouteImport } from './routes/design-system'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -57,6 +58,11 @@ const KitRoute = KitRouteImport.update({
   path: '/kit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DesignSystemRoute = DesignSystemRouteImport.update({
   id: '/design-system',
   path: '/design-system',
@@ -89,6 +95,7 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/design-system': typeof DesignSystemRoute
+  '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
   '/mentoria': typeof MentoriaRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/design-system': typeof DesignSystemRoute
+  '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
   '/mentoria': typeof MentoriaRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/design-system': typeof DesignSystemRoute
+  '/faq': typeof FaqRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
   '/mentoria': typeof MentoriaRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/design-system'
+    | '/faq'
     | '/kit'
     | '/mcp'
     | '/mentoria'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/design-system'
+    | '/faq'
     | '/kit'
     | '/mcp'
     | '/mentoria'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/design-system'
+    | '/faq'
     | '/kit'
     | '/mcp'
     | '/mentoria'
@@ -177,6 +189,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DesignSystemRoute: typeof DesignSystemRoute
+  FaqRoute: typeof FaqRoute
   KitRoute: typeof KitRoute
   McpRoute: typeof McpRoute
   MentoriaRoute: typeof MentoriaRoute
@@ -240,6 +253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/design-system': {
       id: '/design-system'
       path: '/design-system'
@@ -281,6 +301,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DesignSystemRoute: DesignSystemRoute,
+  FaqRoute: FaqRoute,
   KitRoute: KitRoute,
   McpRoute: McpRoute,
   MentoriaRoute: MentoriaRoute,
