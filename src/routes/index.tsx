@@ -299,7 +299,7 @@ function Index() {
           <div className="mc-container mc-hero-layout">
             <div className="mc-hero-copy">
               <p className="mc-eyebrow mc-eyebrow-rule">
-                <TextShimmer shine="rgba(240,217,138,0.95)">Mentoria estratégica para donos de clínica</TextShimmer>
+                Mentoria estratégica para donos de clínica
               </p>
               <h1 id="hero-title" className="mc-hero-title">
                 Os próximos <em>20 minutos</em> podem definir os próximos 10 anos da sua clínica.

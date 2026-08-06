@@ -1110,3 +1110,7 @@
 .medceo-page .mc-hero.mc-hero-elite .mc-hero-kit-layer {
   display: none;
 }
+
+.medceo-page .mc-hero.mc-hero-elite::before {
+  content: none;
+}
