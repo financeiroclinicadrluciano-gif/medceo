@@ -73,9 +73,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-const TITLE = "MedCEO — Diagnóstico de Maturidade Empresarial para Clínicas";
+const TITLE = "MedCEO — Diagnóstico de Gestão para Clínicas Médicas";
 const DESCRIPTION =
-  "Diagnóstico gratuito em 20 perguntas para médicos donos de clínica. Descubra o nível de maturidade da operação, o gargalo prioritário e os próximos passos.";
+  "Diagnóstico gratuito em 20 perguntas para médicos donos de clínica: veja o nível de maturidade da operação, o gargalo principal e os próximos passos.";
 
 const getSiteOrigin = createServerFn({ method: "GET" }).handler(
   () => getRequestUrl({ xForwardedHost: true }).origin,
