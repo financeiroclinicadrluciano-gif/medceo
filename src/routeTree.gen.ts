@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WebnarRouteImport } from './routes/webnar'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as MetodoRouteImport } from './routes/metodo'
 import { Route as MentoriaRouteImport } from './routes/mentoria'
@@ -24,6 +25,11 @@ import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[
 const WebnarRoute = WebnarRouteImport.update({
   id: '/webnar',
   path: '/webnar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/mentoria': typeof MentoriaRoute
   '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/mentoria': typeof MentoriaRoute
   '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/mentoria': typeof MentoriaRoute
   '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/mentoria'
     | '/metodo'
     | '/sitemap.xml'
+    | '/sobre'
     | '/webnar'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/mentoria'
     | '/metodo'
     | '/sitemap.xml'
+    | '/sobre'
     | '/webnar'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/mentoria'
     | '/metodo'
     | '/sitemap.xml'
+    | '/sobre'
     | '/webnar'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -170,6 +182,7 @@ export interface RootRouteChildren {
   MentoriaRoute: typeof MentoriaRoute
   MetodoRoute: typeof MetodoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreRoute: typeof SobreRoute
   WebnarRoute: typeof WebnarRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -183,6 +196,13 @@ declare module '@tanstack/react-router' {
       path: '/webnar'
       fullPath: '/webnar'
       preLoaderRoute: typeof WebnarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -266,6 +286,7 @@ const rootRouteChildren: RootRouteChildren = {
   MentoriaRoute: MentoriaRoute,
   MetodoRoute: MetodoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreRoute: SobreRoute,
   WebnarRoute: WebnarRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
