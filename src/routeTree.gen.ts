@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WebnarRouteImport } from './routes/webnar'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as MetodoRouteImport } from './routes/metodo'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as KitRouteImport } from './routes/kit'
 import { Route as DesignSystemRouteImport } from './routes/design-system'
@@ -27,6 +28,11 @@ const WebnarRoute = WebnarRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetodoRoute = MetodoRouteImport.update({
+  id: '/metodo',
+  path: '/metodo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/design-system': typeof DesignSystemRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/design-system': typeof DesignSystemRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/design-system': typeof DesignSystemRoute
   '/kit': typeof KitRoute
   '/mcp': typeof McpRoute
+  '/metodo': typeof MetodoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/webnar': typeof WebnarRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/design-system'
     | '/kit'
     | '/mcp'
+    | '/metodo'
     | '/sitemap.xml'
     | '/webnar'
     | '/.mcp/list-tools'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/design-system'
     | '/kit'
     | '/mcp'
+    | '/metodo'
     | '/sitemap.xml'
     | '/webnar'
     | '/.mcp/list-tools'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/design-system'
     | '/kit'
     | '/mcp'
+    | '/metodo'
     | '/sitemap.xml'
     | '/webnar'
     | '/.mcp/list-tools'
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   DesignSystemRoute: typeof DesignSystemRoute
   KitRoute: typeof KitRoute
   McpRoute: typeof McpRoute
+  MetodoRoute: typeof MetodoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WebnarRoute: typeof WebnarRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -164,6 +177,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metodo': {
+      id: '/metodo'
+      path: '/metodo'
+      fullPath: '/metodo'
+      preLoaderRoute: typeof MetodoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   DesignSystemRoute: DesignSystemRoute,
   KitRoute: KitRoute,
   McpRoute: McpRoute,
+  MetodoRoute: MetodoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   WebnarRoute: WebnarRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
