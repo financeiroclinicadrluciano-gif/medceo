@@ -34,8 +34,8 @@ export default function MotionBlurText({
       variants={{ visible: { transition: { staggerChildren: reduce ? 0 : stagger, delayChildren: delay } } }}
     >
       {words.map((word, index) => (
+        <span key={`${word}-${index}`}>
         <motion.span
-          key={`${word}-${index}`}
           className="inline-block will-change-[transform,filter]"
           variants={{
             hidden: reduce ? { opacity: 1 } : { opacity: 0, y: "0.35em", filter: "blur(12px)" },
@@ -48,8 +48,9 @@ export default function MotionBlurText({
           }}
         >
           {word}
-          {index < words.length - 1 ? "\u00A0" : null}
         </motion.span>
+        {index < words.length - 1 ? " " : null}
+        </span>
       ))}
     </Tag>
   );

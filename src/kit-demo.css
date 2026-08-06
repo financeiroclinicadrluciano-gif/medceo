@@ -1,0 +1,328 @@
+/* =============================================================
+   MedCEO Kit — página de demonstração (/kit)
+   Layout de catálogo: cada componente, seus estados e o guia de uso.
+   ============================================================= */
+
+.kd-page {
+  --kd-gold: var(--medceo-color-gold, #cdae58);
+  --kd-gold-soft: var(--medceo-color-gold-soft, #f0d98a);
+  --kd-ink: var(--medceo-color-paper, #f4ebdd);
+  --kd-muted: rgba(244, 235, 221, 0.62);
+  --kd-line: rgba(240, 217, 138, 0.16);
+  min-height: 100dvh;
+  padding-bottom: clamp(64px, 9vw, 128px);
+  background:
+    radial-gradient(circle at 78% -6%, rgba(27, 74, 97, 0.28), transparent 42%),
+    linear-gradient(180deg, #041019 0%, #02070b 62%);
+  color: var(--kd-ink);
+  font-family: var(--medceo-font-sans, "Montserrat", system-ui, sans-serif);
+  overflow-x: clip;
+}
+
+.kd-container {
+  width: min(100% - 2 * clamp(20px, 5vw, 64px), 1180px);
+  margin-inline: auto;
+}
+
+.kd-header {
+  padding: clamp(64px, 9vw, 128px) 0 clamp(32px, 4vw, 56px);
+  border-bottom: 1px solid var(--kd-line);
+}
+
+.kd-header h1 {
+  margin: 12px 0 0;
+  font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
+  font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.kd-header p {
+  margin: 16px 0 0;
+  max-width: 52ch;
+  color: var(--kd-muted);
+  line-height: 1.6;
+}
+
+.kd-eyebrow {
+  margin: 0;
+  color: var(--kd-gold);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.kd-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(20px, 3vw, 32px);
+}
+
+.kd-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--kd-line);
+  border-radius: 999px;
+  background: rgba(9, 37, 54, 0.42);
+  color: var(--kd-ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.kd-toggle:hover {
+  border-color: rgba(240, 217, 138, 0.4);
+}
+
+.kd-toggle[aria-pressed="true"] {
+  border-color: var(--kd-gold);
+  background: rgba(205, 174, 88, 0.14);
+  color: var(--kd-gold-soft);
+}
+
+.kd-toggle:focus-visible {
+  outline: 2px solid var(--kd-gold-soft);
+  outline-offset: 3px;
+}
+
+/* ---------- seções e grelha de amostras ---------- */
+.kd-section {
+  padding: clamp(40px, 6vw, 84px) 0 0;
+}
+
+.kd-section > .kd-container > h2 {
+  margin: 0 0 6px;
+  font-family: var(--medceo-font-serif, "Playfair Display", Georgia, serif);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.kd-section > .kd-container > p {
+  margin: 0 0 clamp(20px, 3vw, 32px);
+  max-width: 60ch;
+  color: var(--kd-muted);
+  line-height: 1.6;
+}
+
+.kd-grid {
+  display: grid;
+  gap: clamp(16px, 2vw, 24px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.kd-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  padding: clamp(18px, 2.4vw, 26px);
+  border: 1px solid var(--kd-line);
+  border-radius: 14px;
+  background: rgba(9, 37, 54, 0.34);
+}
+
+.kd-card.kd-card-wide {
+  grid-column: 1 / -1;
+}
+
+.kd-card > header {
+  display: grid;
+  gap: 4px;
+}
+
+.kd-card h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.kd-card header p,
+.kd-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--kd-muted);
+}
+
+.kd-demo {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  padding: clamp(14px, 2vw, 22px);
+  border: 1px dashed rgba(240, 217, 138, 0.14);
+  border-radius: 10px;
+  background: rgba(2, 7, 11, 0.42);
+}
+
+.kd-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.kd-state {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(240, 217, 138, 0.7);
+}
+
+.kd-code {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--kd-line);
+  border-radius: 8px;
+  background: rgba(2, 7, 11, 0.62);
+  color: rgba(244, 235, 221, 0.86);
+  font-family: var(--medceo-font-mono, "JetBrains Mono", ui-monospace, monospace);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.kd-bg-frame {
+  position: relative;
+  min-height: 220px;
+  border-radius: 10px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.kd-bg-frame > span.kd-bg-caption {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  font-size: 0.75rem;
+  color: rgba(244, 235, 221, 0.82);
+}
+
+.kd-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid rgba(240, 217, 138, 0.4);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--kd-ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.kd-button:hover {
+  background: rgba(205, 174, 88, 0.12);
+  border-color: var(--kd-gold);
+}
+
+.kd-button:focus-visible {
+  outline: 2px solid var(--kd-gold-soft);
+  outline-offset: 3px;
+}
+
+/* ---------- guia de composição ---------- */
+.kd-guide-grid {
+  display: grid;
+  gap: clamp(16px, 2vw, 24px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.kd-swatch {
+  display: grid;
+  gap: 8px;
+}
+
+.kd-swatch-chip {
+  height: 64px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.kd-scale-row {
+  display: grid;
+  gap: 6px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--kd-line);
+}
+
+.kd-scale-row:last-child {
+  border-bottom: 0;
+}
+
+.kd-spacing-bar {
+  height: 10px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--kd-gold), rgba(205, 174, 88, 0.14));
+}
+
+.kd-do-dont {
+  display: grid;
+  gap: clamp(16px, 2vw, 24px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.kd-do-dont ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kd-do-dont li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: rgba(244, 235, 221, 0.8);
+}
+
+.kd-do-dont li::before {
+  position: absolute;
+  left: 0;
+  color: var(--kd-gold);
+}
+
+.kd-do li::before {
+  content: "+";
+}
+
+.kd-dont li::before {
+  content: "−";
+  color: #a85d4a;
+}
+
+/* ---------- simulação de reduced motion na página ---------- */
+.kd-page[data-reduced="true"] * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+.kd-page[data-reduced="true"] .kit-text-shimmer {
+  color: inherit;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+@media (max-width: 720px) {
+  .kd-code {
+    font-size: 0.6875rem;
+  }
+}
