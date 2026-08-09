@@ -11,6 +11,7 @@ export const NAV_LINKS = [
   { to: "/", label: "Início" },
   { to: "/metodo", label: "Método" },
   { to: "/mentoria", label: "Mentoria" },
+  { to: "/blog", label: "Blog" },
   { to: "/sobre", label: "Sobre" },
   { to: "/faq", label: "FAQ" },
   { to: "/contato", label: "Contato" },

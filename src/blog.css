@@ -1,0 +1,783 @@
+/* MedCEO — camada blog: listagem e post.
+   Tradução do layout aprovado em preview/medceo-pilar.html para o padrão do
+   repo. As cores saem dos tokens de marca (src/brand/tokens/colors.css); as
+   únicas variáveis novas são as duas de texto sobre papel, que existem porque
+   --medceo-text-on-light-secondary mede 4,2:1 sobre o papel e não passa em AA.
+   Toda transição usa transform/opacity/cor. Nada anima width ou height. */
+
+.mc-blog {
+  --mc-blog-frame: var(--medceo-color-night);
+  --mc-blog-frame-2: #0a1a25;
+  --mc-blog-paper: var(--medceo-color-paper);
+  --mc-blog-paper-2: var(--medceo-color-paper-2);
+  --mc-blog-gold: var(--medceo-color-gold);
+  --mc-blog-gold-soft: var(--medceo-color-gold-soft);
+  --mc-blog-bronze: var(--medceo-color-bronze);
+  --mc-blog-ink: var(--medceo-color-ink);
+  --mc-blog-ink-2: #3a4550; /* 8,3:1 sobre o papel */
+  --mc-blog-on-dark: var(--medceo-color-paper);
+  --mc-blog-on-dark-2: var(--medceo-color-paper-2);
+  --mc-blog-line: rgba(205, 174, 88, 0.34);
+  --mc-blog-line-soft: rgba(16, 29, 39, 0.14);
+  --mc-blog-column: min(712px, 100% - 40px);
+}
+
+.mc-blog :where(a, button, summary):focus-visible {
+  outline: 2px solid var(--mc-blog-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Listagem ---------- */
+
+.mc-blog-index-hero {
+  padding-block: clamp(56px, 8vw, 104px) clamp(28px, 4vw, 48px);
+}
+
+.mc-blog-index-hero h1 {
+  max-width: 20ch;
+}
+
+.mc-blog-index-hero .mc-blog-index-count {
+  margin: 26px 0 0;
+  color: var(--mc-blog-gold-soft);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.mc-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.mc-blog-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.028);
+  overflow: hidden;
+  transition:
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.mc-blog-card:hover,
+.mc-blog-card:focus-within {
+  border-color: var(--mc-blog-line);
+  transform: translateY(-3px);
+}
+
+.mc-blog-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.mc-blog-card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--mc-blog-frame-2);
+}
+
+.mc-blog-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+}
+
+.mc-blog-card-hat {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(4, 16, 25, 0.88);
+  color: var(--mc-blog-gold-soft);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mc-blog-card-body {
+  padding: 22px 22px 26px;
+}
+
+.mc-blog-card-body h2 {
+  max-width: none;
+  font-family: var(--medceo-font-serif, "Playfair Display", serif);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.02em;
+}
+
+.mc-blog-card-dek {
+  margin: 12px 0 0;
+  color: var(--mc-blog-on-dark-2);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.mc-blog-card-meta {
+  margin: 16px 0 0;
+  color: rgba(244, 235, 221, 0.72);
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Cromo de leitura ---------- */
+
+.mc-blog-progress {
+  position: fixed;
+  z-index: 70;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+.mc-blog-progress-bar {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--mc-blog-gold);
+  will-change: transform;
+}
+
+.mc-blog-sticky {
+  position: fixed;
+  z-index: 65;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-bottom: 1px solid rgba(240, 217, 138, 0.16);
+  /* Opaca de propósito. Com 0,96 o cabeçalho do site (que também é fixo, logo
+   * atrás) aparecia como fantasma cinza atrás do título do post. */
+  background: #041019;
+  transform: translateY(-110%);
+  transition: transform 220ms ease;
+}
+
+.mc-blog-sticky.is-on {
+  transform: translateY(0);
+}
+
+.mc-blog-sticky-inner {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1180px, 100% - 40px);
+  min-height: 54px;
+  margin-inline: auto;
+}
+
+.mc-blog-sticky-inner p {
+  margin: 0;
+  overflow: hidden;
+  color: var(--mc-blog-on-dark);
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mc-blog-sticky-action {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: var(--mc-blog-gold);
+  color: #0a0a0a;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mc-blog-rail {
+  position: fixed;
+  z-index: 20;
+  top: 132px;
+  left: 24px;
+  display: none;
+  width: 214px;
+}
+
+.mc-blog-rail-title {
+  margin: 0 0 12px;
+  color: var(--mc-blog-on-dark-2);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mc-blog-rail ol {
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid rgba(240, 217, 138, 0.24);
+  list-style: none;
+}
+
+.mc-blog-rail a {
+  display: block;
+  margin-left: -1px;
+  padding: 8px 0 8px 14px;
+  border-left: 1px solid transparent;
+  color: rgba(244, 235, 221, 0.66);
+  font-size: 12.5px;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.mc-blog-rail a:hover,
+.mc-blog-rail a.is-active {
+  border-left-color: var(--mc-blog-gold);
+  color: var(--mc-blog-gold-soft);
+}
+
+/*
+ * O índice é fixo e a página troca de fundo no meio da leitura: escuro no
+ * cabeçalho do post, papel claro no corpo. Com uma paleta só, o índice ficava
+ * em creme sobre creme assim que o corpo passava por trás dele, ou seja,
+ * ilegível em todo o trecho que mais importa. Quando o papel encosta na altura
+ * do índice, o `PostChrome` liga esta classe e a paleta inverte.
+ */
+.mc-blog-rail.is-on-paper .mc-blog-rail-title {
+  color: #6c6152; /* 4,9:1 sobre o papel */
+}
+
+.mc-blog-rail.is-on-paper ol {
+  border-left-color: rgba(107, 83, 35, 0.32);
+}
+
+.mc-blog-rail.is-on-paper a {
+  color: #4a4335; /* 8,1:1 sobre o papel */
+}
+
+.mc-blog-rail.is-on-paper a:hover,
+.mc-blog-rail.is-on-paper a.is-active {
+  border-left-color: var(--mc-blog-bronze);
+  color: #2c2718;
+  font-weight: 600;
+}
+
+@media (min-width: 1240px) {
+  .mc-blog-rail {
+    display: block;
+  }
+}
+
+/* ---------- Cabeçalho do post ---------- */
+
+.mc-blog-post-hero {
+  padding-block: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 44px);
+}
+
+.mc-blog-column {
+  width: var(--mc-blog-column);
+  margin-inline: auto;
+}
+
+.mc-blog-breadcrumb {
+  margin: 0 0 22px;
+  color: var(--mc-blog-on-dark-2);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mc-blog-breadcrumb a {
+  color: var(--mc-blog-on-dark-2);
+  text-decoration: none;
+}
+
+.mc-blog-breadcrumb a:hover {
+  color: var(--mc-blog-gold-soft);
+}
+
+.mc-blog-post-hero h1 {
+  max-width: 20ch;
+  margin: 0 0 18px;
+  color: var(--mc-blog-on-dark);
+  font-family: var(--medceo-font-serif, "Playfair Display", serif);
+  font-size: clamp(29px, 4.2vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.mc-blog-dek {
+  max-width: 60ch;
+  margin: 0 0 22px;
+  color: var(--mc-blog-on-dark-2);
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.55;
+}
+
+.mc-blog-byline {
+  margin: 0 0 4px;
+  color: var(--mc-blog-on-dark-2);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mc-blog-byline a {
+  color: var(--mc-blog-gold-soft);
+  text-decoration: none;
+}
+
+.mc-blog-timestamp {
+  margin: 0 0 26px;
+  color: rgba(244, 235, 221, 0.7);
+  font-size: 12.5px;
+}
+
+.mc-blog-share {
+  display: flex;
+  gap: 12px;
+}
+
+.mc-blog-share a,
+.mc-blog-share button {
+  display: inline-flex;
+  flex: 1;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(240, 217, 138, 0.22);
+  border-radius: 12px;
+  background: rgba(244, 235, 221, 0.07);
+  color: var(--mc-blog-on-dark);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.mc-blog-share a:hover,
+.mc-blog-share button:hover {
+  border-color: var(--mc-blog-line);
+  background: rgba(205, 174, 88, 0.16);
+}
+
+.mc-blog-cover {
+  padding-bottom: clamp(28px, 4vw, 44px);
+}
+
+.mc-blog-cover img {
+  display: block;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: 3px;
+  object-fit: cover;
+  object-position: center 32%;
+}
+
+.mc-blog-caption {
+  margin: 14px 0 0;
+  color: rgba(244, 235, 221, 0.72);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* ---------- Corpo do artigo, em papel ---------- */
+
+.mc-blog-paper {
+  padding-block: clamp(40px, 6vw, 64px) clamp(48px, 7vw, 80px);
+  background: var(--mc-blog-paper);
+  color: var(--mc-blog-ink);
+}
+
+.mc-blog-article {
+  font-family: var(--medceo-font-sans, system-ui, sans-serif);
+  font-size: 17.5px;
+  line-height: 1.62;
+  letter-spacing: -0.01em;
+}
+
+.mc-blog-article p {
+  margin: 0 0 28px;
+}
+
+.mc-blog-article h2 {
+  max-width: 24ch;
+  margin: 44px 0 16px;
+  color: var(--mc-blog-ink);
+  font-family: var(--medceo-font-serif, "Playfair Display", serif);
+  font-size: clamp(23px, 2.6vw, 28px);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  scroll-margin-top: 84px;
+}
+
+.mc-blog-article h2:first-child {
+  margin-top: 0;
+}
+
+.mc-blog-article h3 {
+  margin: 34px 0 12px;
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  scroll-margin-top: 84px;
+}
+
+.mc-blog-link {
+  color: var(--mc-blog-bronze);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.mc-blog-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.mc-blog-list {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.mc-blog-list li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 22px;
+}
+
+.mc-blog-list li::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--mc-blog-bronze);
+}
+
+.mc-blog-quote {
+  margin: 0 0 32px;
+  padding-left: 26px;
+  border-left: 1px solid var(--mc-blog-gold);
+}
+
+.mc-blog-quote p {
+  margin: 0;
+  font-family: var(--medceo-font-serif, "Playfair Display", serif);
+  font-size: 21px;
+  line-height: 1.36;
+}
+
+.mc-blog-table-wrap {
+  margin: 0 0 32px;
+  border: 1px solid var(--mc-blog-line-soft);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.mc-blog-table-wrap table {
+  width: 100%;
+  min-width: 540px;
+  border-collapse: collapse;
+}
+
+.mc-blog-table-wrap th {
+  padding: 12px 16px;
+  background: var(--mc-blog-paper-2);
+  color: var(--mc-blog-ink);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.mc-blog-table-wrap td {
+  padding: 12px 16px;
+  border-top: 1px solid var(--mc-blog-line-soft);
+  font-size: 15.5px;
+  line-height: 1.5;
+  vertical-align: top;
+}
+
+.mc-blog-table-wrap td:first-child {
+  font-weight: 600;
+}
+
+/* ---------- FAQ ---------- */
+
+.mc-blog-section-title {
+  margin: 44px 0 16px;
+  font-family: var(--medceo-font-serif, "Playfair Display", serif);
+  font-size: clamp(23px, 2.6vw, 28px);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  scroll-margin-top: 84px;
+}
+
+.mc-blog-faq {
+  margin: 0 0 40px;
+}
+
+.mc-blog-faq details {
+  padding: 4px 0;
+  border-top: 1px solid var(--mc-blog-line-soft);
+}
+
+.mc-blog-faq summary {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14px 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.42;
+  list-style: none;
+  cursor: pointer;
+}
+
+.mc-blog-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.mc-blog-faq-sign {
+  flex: 0 0 auto;
+  color: var(--mc-blog-bronze);
+  font-family: var(--medceo-font-mono, monospace);
+  font-weight: 700;
+  transition: transform 200ms ease;
+}
+
+.mc-blog-faq details[open] .mc-blog-faq-sign {
+  transform: rotate(45deg);
+}
+
+.mc-blog-faq p {
+  margin: 0 0 16px;
+  color: var(--mc-blog-ink-2);
+  font-size: 16.5px;
+  line-height: 1.6;
+}
+
+/* ---------- Fontes, leia também, autor, tags ---------- */
+
+.mc-blog-sources {
+  margin: 0 0 40px;
+  padding: 18px 20px;
+  border: 1px solid var(--mc-blog-line-soft);
+  border-radius: 10px;
+}
+
+.mc-blog-sources h2 {
+  max-width: none;
+  margin: 0 0 10px;
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mc-blog-sources ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+  color: var(--mc-blog-ink-2);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.mc-blog-related {
+  margin: 0 0 40px;
+  padding: 0;
+  list-style: none;
+}
+
+.mc-blog-related li {
+  padding: 14px 0;
+  border-top: 1px solid var(--mc-blog-line-soft);
+}
+
+.mc-blog-related a {
+  color: var(--mc-blog-bronze);
+  font-size: 18.5px;
+  font-weight: 700;
+  line-height: 1.34;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.mc-blog-related a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.mc-blog-author {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin: 0 0 30px;
+  padding-top: 28px;
+  border-top: 1px solid var(--mc-blog-line);
+}
+
+.mc-blog-author img {
+  flex: 0 0 96px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.mc-blog-author-name {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.mc-blog-author-role {
+  margin: 0 0 10px;
+  color: var(--mc-blog-ink-2);
+  font-size: 14px;
+}
+
+.mc-blog-author-bio {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.mc-blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mc-blog-tags li {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: var(--mc-blog-paper-2);
+  color: var(--mc-blog-ink-2);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- CTA para o diagnóstico ---------- */
+
+.mc-blog-cta {
+  display: block;
+  margin: 0 0 40px;
+  padding: 26px;
+  border-radius: 14px;
+  background: var(--mc-blog-frame);
+  color: var(--mc-blog-on-dark);
+  text-decoration: none;
+  transition: transform 200ms ease;
+}
+
+.mc-blog-cta:hover {
+  transform: translateY(-2px);
+}
+
+.mc-blog-cta-label {
+  margin: 0 0 10px;
+  color: var(--mc-blog-gold);
+  font-family: var(--medceo-font-ui, system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mc-blog-cta-title {
+  margin: 0 0 8px;
+  color: var(--mc-blog-gold-soft);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.mc-blog-cta-support {
+  margin: 0;
+  color: var(--mc-blog-on-dark-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.mc-blog-disclaimer {
+  width: var(--mc-blog-column);
+  margin: 0 auto;
+  padding-block: 28px 40px;
+  color: rgba(244, 235, 221, 0.7);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+/* ---------- Responsivo e acessibilidade ---------- */
+
+@media (max-width: 560px) {
+  .mc-blog {
+    --mc-blog-column: calc(100% - 32px);
+  }
+
+  .mc-blog-article {
+    font-size: 17px;
+  }
+
+  .mc-blog-author {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .mc-blog-sticky-inner {
+    width: calc(100% - 32px);
+  }
+}
+
+/* WCAG 2.2 AA 2.5.8: alvo de toque de 24px em link dentro de texto corrido.
+   O padding cresce a área clicável e a margem negativa mantém o ritmo. */
+@media (pointer: coarse) {
+  .mc-blog-article a,
+  .mc-blog-breadcrumb a,
+  .mc-blog-related a {
+    display: inline-block;
+    margin-block: -5px;
+    padding-block: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-blog *,
+  .mc-blog-sticky,
+  .mc-blog-progress-bar {
+    transition-duration: 0.01ms !important;
+  }
+}
