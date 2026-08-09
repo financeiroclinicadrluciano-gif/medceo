@@ -15,7 +15,6 @@ import appCss from "../styles.css?url";
 import nocturneCss from "../nocturne.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-halo-bg px-4 text-halo-text">
@@ -84,9 +83,21 @@ const getSiteOrigin = createServerFn({ method: "GET" }).handler(
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: () => getSiteOrigin(),
-  head: ({ loaderData }) => {
+  head: ({ loaderData, matches }) => {
     const origin = loaderData ?? "";
     const ogImage = origin ? new URL("/og.png", origin).toString() : "/og.png";
+
+    /**
+     * O root sempre declarou `canonical` apontando para a home. Nas páginas do
+     * blog isso gerava DUAS tags `canonical` na mesma página (a do root, "/", e
+     * a do post), e o buscador descarta as duas quando elas se contradizem: o
+     * post ficaria sem endereço canônico nenhum. As rotas do blog declaram o
+     * próprio canonical absoluto de propósito, travado no domínio de produção,
+     * para que uma URL de preview do Lovable não seja indexada no lugar dele.
+     * Então aqui o root sai da frente quando a rota é do blog.
+     */
+    const pathname = matches[matches.length - 1]?.pathname ?? "/";
+    const rotaTemCanonicalProprio = pathname.startsWith("/blog");
 
     return {
       meta: [
@@ -119,7 +130,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { rel: "stylesheet", href: appCss },
         { rel: "stylesheet", href: nocturneCss },
         { rel: "icon", type: "image/png", href: "/favicon.png" },
-        ...(origin ? [{ rel: "canonical", href: new URL("/", origin).toString() }] : []),
+        ...(origin && !rotaTemCanonicalProprio
+          ? [{ rel: "canonical", href: new URL("/", origin).toString() }]
+          : []),
       ],
     };
   },
