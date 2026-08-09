@@ -7,7 +7,7 @@ silo: O dinheiro da clínica
 keyword: taxa de no-show em clínica
 meta_description: "A taxa de no-show em clínica vira custo em 3 parcelas: hora de estrutura, receita perdida e fila não chamada. Veja a conta aberta, com tabela e a correção."
 dek: "A ausência não tem campo contábil, então some do relatório no mesmo dia em que acontece. Cair de 12% para 8% devolve horas produtivas sem contratar ninguém nem gastar mais em anúncio."
-data: 2026-08-08
+data: 2026-08-12
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1200
 imagem_capa: DSC00199-2.jpg

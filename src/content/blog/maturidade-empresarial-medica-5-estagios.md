@@ -7,7 +7,7 @@ silo: Maturidade e dependência do dono
 keyword: maturidade empresarial médica
 meta_description: "Os 5 estágios da maturidade empresarial médica, o sinal de cada um e o gargalo que trava a passagem para o próximo. Com as 5 perguntas que revelam o seu."
 dek: "Duas clínicas podem faturar o mesmo e estar em mundos diferentes. O que separa uma da outra não é volume: é o quanto a operação sobrevive sem o dono no centro."
-data: 2026-08-08
+data: 2026-08-09
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1500
 imagem_capa: IMG_0223.jpg

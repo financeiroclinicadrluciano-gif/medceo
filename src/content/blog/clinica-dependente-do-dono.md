@@ -7,7 +7,7 @@ silo: Maturidade e dependência do dono
 keyword: clínica dependente do dono
 meta_description: Clínica dependente do dono trava em 4 pontos assim que ele sai da rotina. Veja quais são, o que falta em cada um e qual é a correção que vem primeiro.
 dek: Os quatro pontos são decisão de exceção, preço, fila de agenda e cobrança, e todos voltam para a mesma mesa em menos de uma semana. A ausência não cria o problema, ela apenas mostra o que já existia.
-data: 2026-08-08
+data: 2026-08-13
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1300
 imagem_capa: DSC00208-2.jpg

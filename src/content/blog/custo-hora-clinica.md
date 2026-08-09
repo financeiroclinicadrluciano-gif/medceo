@@ -7,7 +7,7 @@ silo: O dinheiro da clínica
 keyword: como calcular a hora clínica
 meta_description: "Como calcular a hora clínica com 3 variáveis: faturamento, horas de porta aberta e custo fixo do mês. A conta aberta, com tabela e os 3 erros mais comuns."
 dek: "A conta tem três variáveis e cabe em dez minutos: faturamento, horas de porta aberta e custo fixo do mês. Sem ela, toda tabela de preço nasce de comparação com o vizinho de sala."
-data: 2026-08-08
+data: 2026-08-12
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1300
 imagem_capa: DSC00192-2.jpg

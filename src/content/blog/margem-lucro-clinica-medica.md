@@ -7,7 +7,7 @@ silo: O dinheiro da clínica
 keyword: margem de lucro em clínica médica
 meta_description: "A margem de lucro em clínica médica some em 4 pontos: hora aberta, parcelamento, falta e mix. Veja as quatro contas abertas, com tabela e ordem de ataque."
 dek: "Faturamento é uma linha de entrada e não informa quanto custou produzir aquele número. Quatro perdas se acumulam entre a receita bruta e o que sobra no caixa do dono, e nenhuma delas aparece no extrato."
-data: 2026-08-08
+data: 2026-08-09
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 2650
 imagem_capa: DSC00213-2.jpg

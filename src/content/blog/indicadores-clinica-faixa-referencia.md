@@ -7,7 +7,7 @@ silo: Maturidade e dependência do dono
 keyword: indicadores de desempenho para clínicas
 meta_description: Clínica mede ocupação, no-show e margem sem faixa de referência nenhuma. Veja a fórmula de cada indicador e como montar a sua linha de base em 90 dias.
 dek: O post mais lido do nicho lista dez indicadores em 903 palavras, cerca de 60 por indicador, sem uma única fórmula ou tabela. Sem faixa de referência publicada, a linha de base honesta é o histórico da própria clínica.
-data: 2026-08-08
+data: 2026-08-11
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1400
 imagem_capa: DSC00213-2.jpg

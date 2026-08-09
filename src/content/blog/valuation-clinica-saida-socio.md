@@ -7,7 +7,7 @@ silo: O dinheiro da clínica
 keyword: valuation de clínica médica
 meta_description: "Valuation de clínica médica não é múltiplo de faturamento. Veja como a receita ligada ao sócio que sai derruba o preço, com tabela e as contas à mostra."
 dek: A Sênior Consulting publicou dois textos sobre valor de clínica em julho de 2026 e assinou os dois como "Admin". O tema decide patrimônio de família, e quem escreve sobre ele precisa ter nome, credencial e conta aberta.
-data: 2026-08-08
+data: 2026-08-10
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1450
 imagem_capa: DSC00208-2.jpg

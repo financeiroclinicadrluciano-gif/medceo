@@ -7,7 +7,7 @@ silo: O dinheiro da clínica
 keyword: custo do parcelamento em clínica
 meta_description: "O custo do parcelamento em clínica cresce com a espera média, não com o número de parcelas. Veja a fórmula por variável e a tabela de 1 a 12 parcelas."
 dek: "A espera média de um pagamento em 12 vezes é de 6,5 meses, e é ela que multiplica a taxa, não o número de parcelas. Por isso 12 vezes não custa o dobro de 6, custa 1,86 vez."
-data: 2026-08-08
+data: 2026-08-10
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1150
 imagem_capa: IMG_0223.jpg

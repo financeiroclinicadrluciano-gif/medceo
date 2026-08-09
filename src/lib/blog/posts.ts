@@ -206,7 +206,7 @@ const files = import.meta.glob("../../content/blog/*.md", {
   eager: true,
 }) as Record<string, string>;
 
-export const posts: Post[] = Object.entries(files)
+const TODOS_OS_POSTS: Post[] = Object.entries(files)
   .map(([path, source]) => {
     const { data, body } = splitFrontmatter(source);
     const fileSlug = path.split("/").pop()!.replace(/\.md$/, "");
@@ -253,3 +253,15 @@ export function getRelated(post: Post, limit = 3): Post[] {
 }
 
 export { SITE_URL };
+
+/**
+ * Publicacao escalonada.
+ * O repositorio guarda os 10 posts; o site so exibe os que ja atingiram a data.
+ * Publicar tudo no mesmo minuto le como descarga de conteudo; distribuido, le
+ * como crescimento. A data do proprio post decide, sem cron e sem backend.
+ */
+const hojeISO = (): string => new Date().toISOString().slice(0, 10);
+
+export const posts: Post[] = TODOS_OS_POSTS.filter((post) => post.data <= hojeISO());
+
+export const postsAgendados: Post[] = TODOS_OS_POSTS.filter((post) => post.data > hojeISO());

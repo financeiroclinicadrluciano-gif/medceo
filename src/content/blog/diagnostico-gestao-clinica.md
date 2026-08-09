@@ -7,7 +7,7 @@ silo: Maturidade e dependência do dono
 keyword: diagnóstico de gestão para clínica médica
 meta_description: Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor inteiro não responde.
 dek: O post saiu em 21/07/2026 com quatro níveis nomeados, cinco dimensões de avaliação e um quiz no fim. Três semanas depois, nenhum concorrente do setor publicou resposta, comparação ou crítica pública ao modelo.
-data: 2026-08-08
+data: 2026-08-11
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1250
 imagem_capa: DSC00192-2.jpg

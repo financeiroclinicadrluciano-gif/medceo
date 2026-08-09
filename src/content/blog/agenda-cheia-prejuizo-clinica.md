@@ -7,7 +7,7 @@ silo: Maturidade e dependência do dono
 keyword: agenda cheia clínica prejuízo
 meta_description: Agenda cheia esconde prejuízo em 3 sinais que aparecem antes de o caixa apertar. Veja quais são, como medir cada um e o que corrigir primeiro de tudo.
 dek: Os três sinais são hora clínica desconhecida, mix de serviço sem margem e condição de pagamento decidida no balcão. Eles aparecem semanas antes do extrato, e é por isso que dá para corrigir sem perder o trimestre.
-data: 2026-08-08
+data: 2026-08-13
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1200
 imagem_capa: DSC00199-2.jpg
