@@ -1,2 +1,11 @@
+# O buscador chega aqui antes de rastrear qualquer pagina. A linha Sitemap e o
+# que evita depender de descoberta passiva: sem ela o Google precisa achar as
+# URLs seguindo link, e post novo demora mais para ser visto.
+#
+# O sitemap e uma rota de servidor (src/routes/sitemap[.]xml.ts), gerada a cada
+# requisicao, entao ele ja nasce com os posts do dia e nao precisa de cron.
+
 User-agent: *
 Allow: /
+
+Sitemap: https://medceo.online/sitemap.xml
