@@ -2129,6 +2129,20 @@ p {
    Adicionada em 10/08, quando o blog estava no ar e invisivel para quem
    entrava pela home. */
 
+/* O h2 de secao nao tem tamanho por padrao neste site: cada secao declara o
+   seu. Sem esta regra o titulo saia em 16px Montserrat, do lado de um FAQ de
+   46px Playfair — a secao parecia um bloco de outro site. Mesma escala do
+   #faq, que e a secao vizinha. */
+.mc-home-blog h2 {
+  max-width: 20ch;
+  color: var(--mc-v3-ink, #f6f2e9);
+  font-family: "Playfair Display", serif;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
 .mc-home-blog-lead {
   max-width: 62ch;
   margin-top: 12px;
