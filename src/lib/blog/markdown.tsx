@@ -10,7 +10,7 @@
 import { Fragment, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 
-import { postSlugs } from "./posts";
+import { getPostSlugs } from "./posts";
 
 export type Heading = { id: string; label: string };
 export type FaqPair = { question: string; answer: string };
@@ -196,7 +196,7 @@ function renderLink(label: string, href: string, key: string): ReactNode {
   if (internal) {
     // Link para post que ainda não foi publicado vira texto puro: melhor uma
     // frase inteira do que um link que devolve 404 para o leitor e para o robô.
-    if (!postSlugs.has(internal[1])) return <Fragment key={key}>{label}</Fragment>;
+    if (!getPostSlugs().has(internal[1])) return <Fragment key={key}>{label}</Fragment>;
     return (
       <Link key={key} to="/blog/$slug" params={{ slug: internal[1] }} className="mc-blog-link">
         {label}

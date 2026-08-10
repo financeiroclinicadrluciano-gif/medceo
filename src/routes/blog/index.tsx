@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import SiteLayout from "@/components/site/SiteLayout";
 import PostCard from "@/components/blog/PostCard";
-import { posts, PROFESSIONAL_SERVICE_SCHEMA, SITE_URL } from "@/lib/blog/posts";
+import { getPosts, PROFESSIONAL_SERVICE_SCHEMA, SITE_URL } from "@/lib/blog/posts";
 import "@/blog.css";
 
 const TITLE = "Blog MedCEO — gestão, margem e maturidade de clínica médica";
@@ -10,7 +10,11 @@ const DESCRIPTION =
   "Textos com conta aberta, tabela e fonte declarada sobre margem, hora clínica, no-show, valuation e dependência do dono. Escritos dentro de uma operação real.";
 
 export const Route = createFileRoute("/blog/")({
-  head: () => ({
+  head: () => {
+    // Avaliado por requisicao, nunca no escopo do modulo: em Cloudflare
+    // Workers o relogio so existe depois que a requisicao chega.
+    const posts = getPosts();
+    return {
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
@@ -53,11 +57,14 @@ export const Route = createFileRoute("/blog/")({
         }),
       },
     ],
-  }),
+    };
+  },
   component: BlogIndexPage,
 });
 
 function BlogIndexPage() {
+  const posts = getPosts();
+
   return (
     <SiteLayout active="/blog">
       <div className="mc-blog">

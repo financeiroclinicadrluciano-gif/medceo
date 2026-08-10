@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-import { posts, SITE_URL } from "@/lib/blog/posts";
+import { getPosts, SITE_URL } from "@/lib/blog/posts";
 
 /**
  * O `<loc>` do sitemap precisa ser URL absoluta: o protocolo exige, e caminho
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/webnar", changefreq: "monthly", priority: "0.6" },
           // O pilar do silo pesa mais que o satélite: é ele que precisa ser
           // descoberto e indexado primeiro para receber os links ascendentes.
-          ...posts.map((post) => ({
+          ...getPosts().map((post) => ({
             path: `/blog/${post.slug}`,
             changefreq: "monthly",
             priority: post.tipo === "pilar" ? "0.8" : "0.7",

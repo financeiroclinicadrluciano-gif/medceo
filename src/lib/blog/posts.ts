@@ -221,19 +221,25 @@ const TODOS_OS_POSTS: Post[] = Object.entries(files)
  * Publicar tudo no mesmo minuto le como descarga de conteudo; distribuido, le
  * como crescimento. A data do proprio post decide, sem cron e sem backend.
  *
- * Este bloco fica aqui, e nao no fim do arquivo, porque tudo abaixo depende de
- * `posts`. Quando ele estava no fim, `postSlugs` lia `posts` antes da
- * inicializacao e o site inteiro respondia 500 com
- * "Cannot read properties of undefined (reading 'map')" — home junto, porque o
- * modulo quebrava no import, nao na rota do blog.
+ * Por que sao funcoes, e nao arrays prontos: este site roda em Cloudflare
+ * Workers, e la o relogio nao existe durante a avaliacao do escopo global do
+ * modulo — `new Date()` devolve a epoca Unix ate a primeira requisicao chegar.
+ * Com o filtro rodando na carga do modulo, `hoje` virava "1970-01-01", todo
+ * post ficava com data maior que isso e o blog publicava a pagina anunciando
+ * "0 textos publicados", com os 10 markdowns presentes no bundle. Chamando por
+ * requisicao, a data e a real.
  */
 const hojeISO = (): string => new Date().toISOString().slice(0, 10);
 
-export const posts: Post[] = TODOS_OS_POSTS.filter((post) => post.data <= hojeISO());
+/** Posts que ja atingiram a data de publicacao. Avaliado por requisicao. */
+export const getPosts = (): Post[] => TODOS_OS_POSTS.filter((post) => post.data <= hojeISO());
 
-export const postsAgendados: Post[] = TODOS_OS_POSTS.filter((post) => post.data > hojeISO());
+/** Posts ainda no futuro. Ficam no repositorio, fora do site. */
+export const getPostsAgendados = (): Post[] =>
+  TODOS_OS_POSTS.filter((post) => post.data > hojeISO());
 
-export const postSlugs = new Set(posts.map((post) => post.slug));
+/** Slugs publicados, usado para nao linkar post que ainda nao existe no ar. */
+export const getPostSlugs = (): Set<string> => new Set(getPosts().map((post) => post.slug));
 
 /**
  * Trava de build: o manifesto é gerado pelo script do vault
@@ -260,7 +266,7 @@ if (faltando.length > 0 || sobrando.length > 0) {
 }
 
 export function getPost(slug: string): Post | undefined {
-  return posts.find((post) => post.slug === slug);
+  return getPosts().find((post) => post.slug === slug);
 }
 
 /** Posts do mesmo silo, que é a régua de densidade topical do blog. */
@@ -269,7 +275,7 @@ export function getRelated(post: Post, limit = 3): Post[] {
     .map((link) => getPost(link.slug))
     .filter((item): item is Post => Boolean(item) && item!.slug !== post.slug);
 
-  const sameSilo = posts.filter(
+  const sameSilo = getPosts().filter(
     (item) => item.silo === post.silo && item.slug !== post.slug && !declared.includes(item),
   );
 
