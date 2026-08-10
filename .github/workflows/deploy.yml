@@ -28,19 +28,6 @@ jobs:
       - name: Build
         run: bun run build
 
-      # Temporario: o site publicou mostrando "0 textos publicados" enquanto o
-      # repositorio tem 10 markdowns e 4 ja na data. Isto mostra o que o build
-      # de fato enxergou, em vez de supor.
-      - name: Diagnostico temporario, o que o build enxergou
-        continue-on-error: true
-        run: |
-          echo "data do runner: $(date -u +%F)"
-          echo "markdowns no repo: $(ls src/content/blog/*.md | wc -l)"
-          echo "--- slugs dentro do bundle SSR ---"
-          grep -rhoE "(margem-lucro-clinica-medica|valuation-clinica-saida-socio)" .output/server | sort | uniq -c
-          echo "--- chunk de posts gerado ---"
-          ls .output/server/_ssr/ | grep -i posts || echo "nenhum chunk posts"
-
       # O wrangler-action com bun nao repassou a credencial (erro 9106 mesmo
       # com token valido, que publicou o outro site minutos antes). Chamando o
       # wrangler direto, com as variaveis no ambiente do processo, que e como
@@ -51,25 +38,30 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@3.90.0 deploy --config .output/server/wrangler.json
 
-      # Temporario: o worker publica, mas responde 500 com a pagina de erro do
-      # src/server.ts, que faz console.error do erro real. O tail e o unico jeito
-      # de ler esse erro, porque ele nunca chega ao navegador.
-      - name: Diagnostico temporario, ler o erro real do SSR
-        continue-on-error: true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Deploy verde nao prova site no ar. Em 10/08 o worker publicou com
+      # sucesso tres vezes seguidas servindo 500 no site inteiro, e depois
+      # servindo o blog com zero posts. Este passo e o criterio objetivo de
+      # pronto: se o site nao responde de verdade, o run fica vermelho.
+      - name: Verificar o site no ar
         run: |
-          npx --yes wrangler@3.90.0 tail financeiroclinicadrluciano-gif-medceo \
-            --format json > /tmp/tail.log 2>&1 &
-          TAIL_PID=$!
-          sleep 15
-          echo "--- batendo no worker ---"
-          curl -s -o /dev/null -w "home: %{http_code}\n" \
-            https://financeiroclinicadrluciano-gif-medceo.financeiroclinicadrluciano.workers.dev/
-          curl -s -o /dev/null -w "blog: %{http_code}\n" \
-            https://financeiroclinicadrluciano-gif-medceo.financeiroclinicadrluciano.workers.dev/blog
-          sleep 15
-          kill $TAIL_PID 2>/dev/null || true
-          echo "--- log do worker ---"
-          cat /tmp/tail.log
+          BASE=https://financeiroclinicadrluciano-gif-medceo.financeiroclinicadrluciano.workers.dev
+          sleep 20
+          FALHAS=0
+          for ROTA in / /metodo /mentoria /blog /sobre /faq /contato /sitemap.xml; do
+            CODE=$(curl -s -m 30 -o /dev/null -w '%{http_code}' "$BASE$ROTA")
+            echo "$CODE $ROTA"
+            [ "$CODE" = "200" ] || FALHAS=$((FALHAS+1))
+          done
+
+          # O blog precisa listar post de verdade. Zero post com markdown no
+          # repositorio foi exatamente o sintoma do relogio do Workers.
+          PUBLICADOS=$(curl -s -m 30 --compressed "$BASE/blog" \
+            | grep -aoE 'href="/blog/[a-z0-9-]+"' | sort -u | wc -l | tr -d ' ')
+          echo "posts listados no /blog: $PUBLICADOS"
+          [ "$PUBLICADOS" -gt 0 ] || FALHAS=$((FALHAS+1))
+
+          if [ "$FALHAS" -gt 0 ]; then
+            echo "::error::Deploy publicou, mas o site nao respondeu como esperado ($FALHAS falhas)."
+            exit 1
+          fi
+          echo "Site verificado no ar."
