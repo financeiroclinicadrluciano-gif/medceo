@@ -1,0 +1,110 @@
+# Cria o registro TXT de verificacao do Google Search Console.
+#
+# A propriedade do tipo "Dominio" (a que cobre http, https, www e todos os
+# subdominios de uma vez) e verificada por um TXT no apex da zona. Este
+# workflow cria esse registro pela API da Cloudflare, porque o token mora nos
+# secrets deste repositorio.
+#
+# Serve para as duas marcas: as duas zonas (medceo.online e natuamedspa.com)
+# estao na mesma conta Cloudflare, e o token alcanca as duas.
+#
+# O que ele NAO faz: entrar na conta Google. O codigo de verificacao so aparece
+# depois do login no Search Console, entao ele entra aqui como input.
+#
+# Reexecutavel: se ja existir um TXT de verificacao do Google no apex, ele e
+# atualizado em vez de duplicado. Dois google-site-verification diferentes no
+# mesmo nome confundem a checagem.
+
+name: Verificar no Search Console
+
+on:
+  workflow_dispatch:
+    inputs:
+      hostname:
+        description: Dominio da propriedade (medceo.online ou natuamedspa.com)
+        required: true
+        default: medceo.online
+      valor:
+        description: Conteudo do TXT, comecando com google-site-verification=
+        required: true
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HOSTNAME: ${{ inputs.hostname }}
+      VALOR: ${{ inputs.valor }}
+      API: https://api.cloudflare.com/client/v4
+    steps:
+      - name: Conferir o formato do valor
+        run: |
+          set -uo pipefail
+          # O erro mais comum e colar a tag HTML inteira em vez do conteudo do
+          # TXT. O Google mostra as duas coisas na mesma tela.
+          case "$VALOR" in
+            google-site-verification=*) echo "formato ok" ;;
+            *)
+              echo "::error::O valor precisa comecar com google-site-verification=. Recebido: ${VALOR:0:40}"
+              exit 1
+              ;;
+          esac
+
+      - name: Achar a zona
+        run: |
+          set -uo pipefail
+          ZONA=$(echo "$HOSTNAME" | rev | cut -d. -f1-2 | rev)
+          ZONE_ID=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "$API/zones?name=$ZONA" | jq -r '.result[0].id // empty')
+
+          if [ -z "$ZONE_ID" ]; then
+            echo "::error::Zona $ZONA nao encontrada nesta conta."
+            curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API/zones" \
+              | jq -r '.result[] | "  \(.name)  \(.status)"'
+            exit 1
+          fi
+          echo "ZONE_ID=$ZONE_ID" >> "$GITHUB_ENV"
+          echo "zona $ZONA encontrada"
+
+      - name: Criar ou atualizar o TXT
+        run: |
+          set -uo pipefail
+          EXISTENTE=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "$API/zones/$ZONE_ID/dns_records?type=TXT&name=$HOSTNAME" \
+            | jq -r '.result[] | select(.content | startswith("google-site-verification=")) | .id' \
+            | head -1)
+
+          CORPO=$(jq -nc --arg n "$HOSTNAME" --arg c "$VALOR" \
+            '{type:"TXT", name:$n, content:$c, ttl:300}')
+
+          if [ -n "$EXISTENTE" ]; then
+            echo "ja existia um TXT de verificacao, atualizando no lugar"
+            RESP=$(curl -s -X PUT "$API/zones/$ZONE_ID/dns_records/$EXISTENTE" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" --data "$CORPO")
+          else
+            RESP=$(curl -s -X POST "$API/zones/$ZONE_ID/dns_records" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" --data "$CORPO")
+          fi
+
+          echo "$RESP" | jq '{success, errors}'
+          echo "$RESP" | jq -e '.success' > /dev/null
+
+      - name: Confirmar que o TXT ja resolve
+        run: |
+          set -uo pipefail
+          # Registro criado na API nao e registro visivel no DNS. Sem esta
+          # checagem, o Verificar do Google falha e ninguem sabe por que.
+          sleep 25
+          for TENTATIVA in 1 2 3 4 5 6; do
+            SAIDA=$(dig +short TXT "$HOSTNAME" @1.1.1.1 | tr -d '"')
+            echo "tentativa $TENTATIVA: $SAIDA"
+            if echo "$SAIDA" | grep -q "$VALOR"; then
+              echo "TXT resolvendo. Pode clicar em Verificar no Search Console."
+              exit 0
+            fi
+            sleep 20
+          done
+          echo "::error::O TXT foi criado mas ainda nao resolve. Aguarde alguns minutos e rode de novo para conferir."
+          exit 1
