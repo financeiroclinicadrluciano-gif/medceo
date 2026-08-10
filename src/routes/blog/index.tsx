@@ -15,48 +15,48 @@ export const Route = createFileRoute("/blog/")({
     // Workers o relogio so existe depois que a requisicao chega.
     const posts = getPosts();
     return {
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/blog` }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Blog",
-              name: "Blog MedCEO",
-              description: DESCRIPTION,
-              url: `${SITE_URL}/blog`,
-              inLanguage: "pt-BR",
-              publisher: { "@id": `${SITE_URL}/#medceo` },
-              blogPost: posts.map((post) => ({
-                "@type": "BlogPosting",
-                headline: post.titulo,
-                datePublished: post.dataISO,
-                url: post.url,
-              })),
-            },
-            {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Início", item: SITE_URL },
-                { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
-              ],
-            },
-            PROFESSIONAL_SERVICE_SCHEMA,
-          ],
-        }),
-      },
-    ],
+      meta: [
+        { title: TITLE },
+        { name: "description", content: DESCRIPTION },
+        { property: "og:title", content: TITLE },
+        { property: "og:description", content: DESCRIPTION },
+        { property: "og:type", content: "website" },
+        { name: "twitter:title", content: TITLE },
+        { name: "twitter:description", content: DESCRIPTION },
+      ],
+      links: [{ rel: "canonical", href: `${SITE_URL}/blog` }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Blog",
+                name: "Blog MedCEO",
+                description: DESCRIPTION,
+                url: `${SITE_URL}/blog`,
+                inLanguage: "pt-BR",
+                publisher: { "@id": `${SITE_URL}/#medceo` },
+                blogPost: posts.map((post) => ({
+                  "@type": "BlogPosting",
+                  headline: post.titulo,
+                  datePublished: post.dataISO,
+                  url: post.url,
+                })),
+              },
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Início", item: SITE_URL },
+                  { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+                ],
+              },
+              PROFESSIONAL_SERVICE_SCHEMA,
+            ],
+          }),
+        },
+      ],
     };
   },
   component: BlogIndexPage,

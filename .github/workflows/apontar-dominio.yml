@@ -54,9 +54,18 @@ jobs:
         run: |
           set -uo pipefail
           echo "Estes sao os valores de rollback. Se algo der errado, recriar daqui."
-          curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            "$API/zones/$ZONE_ID/dns_records?per_page=200" \
-            | jq -r '.result[] | "  \(.type)\t\(.name)\t\(.content)\tproxied=\(.proxied)"'
+          RESP=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "$API/zones/$ZONE_ID/dns_records?per_page=200")
+
+          # Imprime a resposta crua quando falha. Sem isso o erro chega como
+          # "Cannot iterate over null" do jq, que esconde o motivo real —
+          # foi assim que uma falta de permissao passou por erro de sintaxe.
+          if ! echo "$RESP" | jq -e '.success' > /dev/null 2>&1; then
+            echo "::error::A API recusou a leitura do DNS. Resposta crua abaixo."
+            echo "$RESP" | jq . || echo "$RESP"
+            exit 1
+          fi
+          echo "$RESP" | jq -r '.result[] | "  \(.type)\t\(.name)\t\(.content)\tproxied=\(.proxied)"'
 
       - name: Apagar A, AAAA e CNAME do apex
         run: |
