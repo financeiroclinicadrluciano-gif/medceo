@@ -1,13 +1,16 @@
 # Aponta medceo.online para o worker do MedCEO.
 #
-# Roda a mao (workflow_dispatch), nao em push: e uma mudanca de DNS, nao de
-# codigo. Existe como workflow, e nao como clique no painel, porque o token da
+# Roda a mao (workflow_dispatch), nao em push: e mudanca de DNS, nao de codigo.
+# Existe como workflow, e nao como clique no painel, porque o token da
 # Cloudflare mora nos secrets deste repositorio e nao na maquina de ninguem.
 #
 # Contexto: em 10/08 o dominio saiu da HostGator e entrou na Cloudflare
 # continuando a apontar para o Lovable. O Lovable passou a responder 421 para
 # requisicao vinda por proxy de terceiro, e o site caiu. Apontar para o worker
 # conserta e ao mesmo tempo coloca o deploy automatico no dominio real.
+#
+# Usa jq, nao python inline: a primeira versao deste arquivo quebrou o YAML por
+# aninhamento de aspas dentro de f-string, e o GitHub nem registrou o gatilho.
 
 name: Apontar dominio
 
@@ -22,75 +25,78 @@ on:
 jobs:
   apontar:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      HOSTNAME: ${{ inputs.hostname }}
+      WORKER: financeiroclinicadrluciano-gif-medceo
+      API: https://api.cloudflare.com/client/v4
     steps:
-      - name: Anexar dominio ao worker
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          HOSTNAME: ${{ inputs.hostname }}
-          WORKER: financeiroclinicadrluciano-gif-medceo
-        run: |
-          set -euo pipefail
-          API=https://api.cloudflare.com/client/v4
-          AUTH="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
-
-          # O dominio raiz e a zona. Para subdominio, a zona e o registrado.
-          ZONA=$(echo "$HOSTNAME" | rev | cut -d. -f1-2 | rev)
-          echo "hostname: $HOSTNAME | zona procurada: $ZONA"
-
-          ZONE_ID=$(curl -s -H "$AUTH" "$API/zones?name=$ZONA" \
-            | python3 -c 'import json,sys; r=json.load(sys.stdin)["result"]; print(r[0]["id"] if r else "")')
-
-          if [ -z "$ZONE_ID" ]; then
-            echo "::error::Zona $ZONA nao encontrada nesta conta Cloudflare."
-            curl -s -H "$AUTH" "$API/zones" \
-              | python3 -c 'import json,sys; [print(" zona visivel:", z["name"], z["status"]) for z in json.load(sys.stdin)["result"]]'
-            exit 1
-          fi
-          echo "zone id encontrado"
-
-          # Registro completo da zona ANTES de mexer. Isto e o material de
-          # rollback: se algo der errado, os valores estao no log deste run.
-          echo "--- zona $ZONA antes da mudanca ---"
-          curl -s -H "$AUTH" "$API/zones/$ZONE_ID/dns_records?per_page=200" \
-            | python3 -c '
-import json, sys
-for r in json.load(sys.stdin).get("result", []):
-    print(f"  {r[\"type\"]:6} {r[\"name\"]:34} {r[\"content\"]:44} proxied={r.get(\"proxied\")}")'
-
-          # Apaga so A, AAAA e CNAME do proprio hostname. MX, TXT, SPF, DKIM e
-          # qualquer subdominio ficam intactos: apagar MX aqui derrubaria o
-          # e-mail do dominio junto com o site.
-          echo "--- apagando A/AAAA/CNAME de $HOSTNAME ---"
-          curl -s -H "$AUTH" "$API/zones/$ZONE_ID/dns_records?per_page=200" \
-            | python3 -c "
-import json, sys
-alvo = '$HOSTNAME'
-for r in json.load(sys.stdin).get('result', []):
-    if r['name'] == alvo and r['type'] in ('A', 'AAAA', 'CNAME'):
-        print(r['id'], r['type'], r['content'])
-" > /tmp/apagar.txt
-          cat /tmp/apagar.txt
-          while read -r ID TIPO CONTEUDO; do
-            [ -z "${ID:-}" ] && continue
-            echo "  apagando $TIPO $CONTEUDO"
-            curl -s -X DELETE "$API/zones/$ZONE_ID/dns_records/$ID" -H "$AUTH" > /dev/null
-          done < /tmp/apagar.txt
-
-          echo "--- anexando $HOSTNAME ao worker $WORKER ---"
-          RESP=$(curl -s -X PUT "$API/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" \
-            -H "$AUTH" -H "Content-Type: application/json" \
-            --data "{\"environment\":\"production\",\"hostname\":\"$HOSTNAME\",\"service\":\"$WORKER\",\"zone_id\":\"$ZONE_ID\"}")
-          echo "$RESP" | python3 -m json.tool
-
-          echo "$RESP" | python3 -c 'import json,sys; sys.exit(0 if json.load(sys.stdin).get("success") else 1)'
-
-      - name: Verificar o dominio no ar
-        env:
-          HOSTNAME: ${{ inputs.hostname }}
+      - name: Achar a zona
         run: |
           set -uo pipefail
-          echo "aguardando propagacao e emissao de certificado"
+          ZONA=$(echo "$HOSTNAME" | rev | cut -d. -f1-2 | rev)
+          echo "hostname: $HOSTNAME | zona: $ZONA"
+
+          ZONE_ID=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "$API/zones?name=$ZONA" | jq -r '.result[0].id // empty')
+
+          if [ -z "$ZONE_ID" ]; then
+            echo "::error::Zona $ZONA nao encontrada nesta conta."
+            curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API/zones" \
+              | jq -r '.result[] | "  \(.name)  \(.status)"'
+            exit 1
+          fi
+          echo "ZONE_ID=$ZONE_ID" >> "$GITHUB_ENV"
+          echo "zona encontrada"
+
+      - name: Registrar a zona antes de mexer
+        run: |
+          set -uo pipefail
+          echo "Estes sao os valores de rollback. Se algo der errado, recriar daqui."
+          curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "$API/zones/$ZONE_ID/dns_records?per_page=200" \
+            | jq -r '.result[] | "  \(.type)\t\(.name)\t\(.content)\tproxied=\(.proxied)"'
+
+      - name: Apagar A, AAAA e CNAME do apex
+        run: |
+          set -uo pipefail
+          # So o proprio hostname, e so estes tres tipos. MX, TXT, SPF, DKIM e
+          # subdominios ficam intactos: apagar MX aqui derrubaria o e-mail do
+          # dominio junto com o site.
+          curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "$API/zones/$ZONE_ID/dns_records?per_page=200" \
+            | jq -r --arg alvo "$HOSTNAME" \
+              '.result[] | select(.name == $alvo) | select(.type == "A" or .type == "AAAA" or .type == "CNAME") | "\(.id) \(.type) \(.content)"' \
+            > /tmp/apagar.txt
+
+          if [ ! -s /tmp/apagar.txt ]; then
+            echo "nenhum registro a apagar"
+            exit 0
+          fi
+          cat /tmp/apagar.txt
+
+          while read -r ID TIPO CONTEUDO; do
+            [ -z "${ID:-}" ] && continue
+            echo "apagando $TIPO $CONTEUDO"
+            curl -s -X DELETE "$API/zones/$ZONE_ID/dns_records/$ID" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | jq -r '.success'
+          done < /tmp/apagar.txt
+
+      - name: Anexar o dominio ao worker
+        run: |
+          set -uo pipefail
+          RESP=$(curl -s -X PUT "$API/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "{\"environment\":\"production\",\"hostname\":\"$HOSTNAME\",\"service\":\"$WORKER\",\"zone_id\":\"$ZONE_ID\"}")
+          echo "$RESP" | jq .
+          echo "$RESP" | jq -e '.success' > /dev/null
+
+      - name: Verificar o dominio no ar
+        run: |
+          set -uo pipefail
+          echo "aguardando propagacao e certificado"
           sleep 60
           FALHAS=0
           for ROTA in / /metodo /blog /sitemap.xml; do
@@ -105,7 +111,7 @@ for r in json.load(sys.stdin).get('result', []):
           [ "$PUBLICADOS" -gt 0 ] || FALHAS=$((FALHAS+1))
 
           if [ "$FALHAS" -gt 0 ]; then
-            echo "::error::Dominio anexado, mas ainda nao responde como esperado ($FALHAS falhas). Certificado pode levar ate 15 min."
+            echo "::error::Dominio anexado, mas ainda nao responde. Certificado pode levar ate 15 min."
             exit 1
           fi
           echo "Dominio verificado no ar."
