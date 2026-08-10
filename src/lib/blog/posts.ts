@@ -215,6 +215,24 @@ const TODOS_OS_POSTS: Post[] = Object.entries(files)
   .filter((post): post is Post => post !== null)
   .sort((a, b) => (a.data < b.data ? 1 : a.data > b.data ? -1 : a.slug.localeCompare(b.slug)));
 
+/**
+ * Publicacao escalonada.
+ * O repositorio guarda os 10 posts; o site so exibe os que ja atingiram a data.
+ * Publicar tudo no mesmo minuto le como descarga de conteudo; distribuido, le
+ * como crescimento. A data do proprio post decide, sem cron e sem backend.
+ *
+ * Este bloco fica aqui, e nao no fim do arquivo, porque tudo abaixo depende de
+ * `posts`. Quando ele estava no fim, `postSlugs` lia `posts` antes da
+ * inicializacao e o site inteiro respondia 500 com
+ * "Cannot read properties of undefined (reading 'map')" — home junto, porque o
+ * modulo quebrava no import, nao na rota do blog.
+ */
+const hojeISO = (): string => new Date().toISOString().slice(0, 10);
+
+export const posts: Post[] = TODOS_OS_POSTS.filter((post) => post.data <= hojeISO());
+
+export const postsAgendados: Post[] = TODOS_OS_POSTS.filter((post) => post.data > hojeISO());
+
 export const postSlugs = new Set(posts.map((post) => post.slug));
 
 /**
@@ -223,10 +241,16 @@ export const postSlugs = new Set(posts.map((post) => post.slug));
  * inexistente e travessão. Se o markdown em `src/content/blog/` for editado à
  * mão sem passar pelo script, os dois conjuntos divergem e o build para aqui,
  * em vez de publicar um blog que ninguém validou.
+ *
+ * Compara contra `TODOS_OS_POSTS`, nunca contra `posts`: o manifesto lista os
+ * 10 posts do repositório, enquanto `posts` só traz os que já chegaram na data.
+ * Comparar contra o conjunto filtrado faria o build quebrar sozinho todo dia em
+ * que houvesse post agendado, que é justamente o normal aqui.
  */
+const todosOsSlugs = new Set(TODOS_OS_POSTS.map((post) => post.slug));
 const manifestSlugs = MANIFEST.map((item) => item.slug as string);
-const faltando = manifestSlugs.filter((slug) => !postSlugs.has(slug));
-const sobrando = [...postSlugs].filter((slug) => !manifestSlugs.includes(slug));
+const faltando = manifestSlugs.filter((slug) => !todosOsSlugs.has(slug));
+const sobrando = [...todosOsSlugs].filter((slug) => !manifestSlugs.includes(slug));
 if (faltando.length > 0 || sobrando.length > 0) {
   throw new Error(
     "Blog fora de sincronia com o manifesto. Rode scripts/gerar_dados_medceo.py. " +
@@ -253,15 +277,3 @@ export function getRelated(post: Post, limit = 3): Post[] {
 }
 
 export { SITE_URL };
-
-/**
- * Publicacao escalonada.
- * O repositorio guarda os 10 posts; o site so exibe os que ja atingiram a data.
- * Publicar tudo no mesmo minuto le como descarga de conteudo; distribuido, le
- * como crescimento. A data do proprio post decide, sem cron e sem backend.
- */
-const hojeISO = (): string => new Date().toISOString().slice(0, 10);
-
-export const posts: Post[] = TODOS_OS_POSTS.filter((post) => post.data <= hojeISO());
-
-export const postsAgendados: Post[] = TODOS_OS_POSTS.filter((post) => post.data > hojeISO());
