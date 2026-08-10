@@ -1,0 +1,37 @@
+# Deploy automatico do site do MedCEO.
+#
+# O projeto builda com TanStack Start + Nitro no preset Cloudflare, gerando
+# .output/server (worker SSR) e .output/public (assets). O worker se chama
+# financeiroclinicadrluciano-gif-medceo, conforme .output/server/wrangler.json.
+#
+# Por que existe: o Lovable so publica no clique manual. Com este workflow, todo
+# push na main vai ao ar sozinho, incluindo os posts que entram pela publicacao
+# escalonada por data.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Publicar no Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: .output/server
+          command: deploy
