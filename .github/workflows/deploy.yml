@@ -33,5 +33,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: .output/server
-          command: deploy
+          # O Nitro gera .output/server/wrangler.json com o entry-point e os
+          # assets. Sem apontar o config, o wrangler nao acha o main e falha
+          # com "Missing entry-point".
+          command: deploy --config .output/server/wrangler.json
