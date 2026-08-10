@@ -28,27 +28,6 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Diagnostico temporario do token Cloudflare
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          echo "--- token verify ---"
-          curl -s -X GET "https://api.cloudflare.com/client/v4/user/tokens/verify" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | tee /tmp/verify.json
-          echo ""
-          echo "--- account lookup ---"
-          curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | tee /tmp/account.json
-          echo ""
-          echo "--- workers scripts list ---"
-          curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | tee /tmp/scripts.json
-          echo ""
-          echo "--- workers services (endpoint que falha) ---"
-          curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/services/financeiroclinicadrluciano-gif-medceo" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | tee /tmp/services.json
-
       # O wrangler-action com bun nao repassou a credencial (erro 9106 mesmo
       # com token valido, que publicou o outro site minutos antes). Chamando o
       # wrangler direto, com as variaveis no ambiente do processo, que e como
@@ -58,3 +37,26 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@3.90.0 deploy --config .output/server/wrangler.json
+
+      # Temporario: o worker publica, mas responde 500 com a pagina de erro do
+      # src/server.ts, que faz console.error do erro real. O tail e o unico jeito
+      # de ler esse erro, porque ele nunca chega ao navegador.
+      - name: Diagnostico temporario, ler o erro real do SSR
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@3.90.0 tail financeiroclinicadrluciano-gif-medceo \
+            --format json > /tmp/tail.log 2>&1 &
+          TAIL_PID=$!
+          sleep 15
+          echo "--- batendo no worker ---"
+          curl -s -o /dev/null -w "home: %{http_code}\n" \
+            https://financeiroclinicadrluciano-gif-medceo.financeiroclinicadrluciano.workers.dev/
+          curl -s -o /dev/null -w "blog: %{http_code}\n" \
+            https://financeiroclinicadrluciano-gif-medceo.financeiroclinicadrluciano.workers.dev/blog
+          sleep 15
+          kill $TAIL_PID 2>/dev/null || true
+          echo "--- log do worker ---"
+          cat /tmp/tail.log
