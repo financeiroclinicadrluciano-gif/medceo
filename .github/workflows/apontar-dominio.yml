@@ -49,6 +49,34 @@ jobs:
           fi
           echo "zone id encontrado"
 
+          # Registro completo da zona ANTES de mexer. Isto e o material de
+          # rollback: se algo der errado, os valores estao no log deste run.
+          echo "--- zona $ZONA antes da mudanca ---"
+          curl -s -H "$AUTH" "$API/zones/$ZONE_ID/dns_records?per_page=200" \
+            | python3 -c '
+import json, sys
+for r in json.load(sys.stdin).get("result", []):
+    print(f"  {r[\"type\"]:6} {r[\"name\"]:34} {r[\"content\"]:44} proxied={r.get(\"proxied\")}")'
+
+          # Apaga so A, AAAA e CNAME do proprio hostname. MX, TXT, SPF, DKIM e
+          # qualquer subdominio ficam intactos: apagar MX aqui derrubaria o
+          # e-mail do dominio junto com o site.
+          echo "--- apagando A/AAAA/CNAME de $HOSTNAME ---"
+          curl -s -H "$AUTH" "$API/zones/$ZONE_ID/dns_records?per_page=200" \
+            | python3 -c "
+import json, sys
+alvo = '$HOSTNAME'
+for r in json.load(sys.stdin).get('result', []):
+    if r['name'] == alvo and r['type'] in ('A', 'AAAA', 'CNAME'):
+        print(r['id'], r['type'], r['content'])
+" > /tmp/apagar.txt
+          cat /tmp/apagar.txt
+          while read -r ID TIPO CONTEUDO; do
+            [ -z "${ID:-}" ] && continue
+            echo "  apagando $TIPO $CONTEUDO"
+            curl -s -X DELETE "$API/zones/$ZONE_ID/dns_records/$ID" -H "$AUTH" > /dev/null
+          done < /tmp/apagar.txt
+
           echo "--- anexando $HOSTNAME ao worker $WORKER ---"
           RESP=$(curl -s -X PUT "$API/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" \
             -H "$AUTH" -H "Content-Type: application/json" \
