@@ -28,6 +28,19 @@ jobs:
       - name: Build
         run: bun run build
 
+      # Temporario: o site publicou mostrando "0 textos publicados" enquanto o
+      # repositorio tem 10 markdowns e 4 ja na data. Isto mostra o que o build
+      # de fato enxergou, em vez de supor.
+      - name: Diagnostico temporario, o que o build enxergou
+        continue-on-error: true
+        run: |
+          echo "data do runner: $(date -u +%F)"
+          echo "markdowns no repo: $(ls src/content/blog/*.md | wc -l)"
+          echo "--- slugs dentro do bundle SSR ---"
+          grep -rhoE "(margem-lucro-clinica-medica|valuation-clinica-saida-socio)" .output/server | sort | uniq -c
+          echo "--- chunk de posts gerado ---"
+          ls .output/server/_ssr/ | grep -i posts || echo "nenhum chunk posts"
+
       # O wrangler-action com bun nao repassou a credencial (erro 9106 mesmo
       # com token valido, que publicou o outro site minutos antes). Chamando o
       # wrangler direto, com as variaveis no ambiente do processo, que e como
