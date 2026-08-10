@@ -67,7 +67,7 @@ export default function SiteLayout({
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
               WhatsApp do time MedCEO
             </a>
-            <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">
+            <a href="https://natuamedspa.com/" target="_blank" rel="noreferrer">
               Natuá MedSpa
             </a>
             <a

@@ -19,6 +19,7 @@ import MethodPillarsExperience, {
 import CountUp from "@/components/landing/CountUp";
 import FaqAccordion from "@/components/site/FaqAccordion";
 import JourneyTimeline from "@/components/site/JourneyTimeline";
+import { getPosts } from "@/lib/blog/posts";
 import { benefits, faqItems, journeySteps } from "@/lib/site-content";
 import {
   HowItWorks,
@@ -197,6 +198,11 @@ function DiagnosticButton({ children, onClick }: DiagnosticButtonProps) {
 }
 
 function Index() {
+  // Avaliado por requisicao, nunca no escopo do modulo: em Cloudflare Workers
+  // o relogio so existe depois que a requisicao chega, e no escopo global
+  // new Date() devolve 1970 — o que fazia o filtro de data descartar todos os
+  // posts e o blog anunciar "0 textos publicados".
+  const postsRecentes = getPosts().slice(0, 3);
   const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
   const [headerCondensed, setHeaderCondensed] = useState(false);
   const [heroCtaVisible, setHeroCtaVisible] = useState(false);
@@ -275,10 +281,17 @@ function Index() {
             <img src="/logo.png" alt="MedCEO" />
           </a>
 
+          {/*
+            O Blog entrou aqui em 10/08. A home tem menu proprio, separado do
+            NAV_LINKS que as paginas internas usam, entao o blog existia, era
+            navegavel por /blog e nao aparecia para quem entrava pela home.
+            Menu que diverge em dois lugares e o jeito de um deles envelhecer.
+          */}
           <div className="mc-nav-links">
             <a href="/metodo">Método</a>
             <a href="/mentoria">Mentoria</a>
             <a href="#como-funciona">Como funciona</a>
+            <a href="/blog">Blog</a>
             <a href="/sobre">Sobre</a>
             <a href="#faq">FAQ</a>
             <a href="/contato">Contato</a>
@@ -566,7 +579,7 @@ function Index() {
                   </dl>
 
                   <nav className="mc-authority-links" aria-label="Fontes oficiais do Dr. Luciano">
-                    <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">
+                    <a href="https://natuamedspa.com/" target="_blank" rel="noreferrer">
                       Conhecer a Natuá
                       <ExternalLink aria-hidden="true" />
                     </a>
@@ -601,6 +614,48 @@ function Index() {
             <FaqAccordion items={faqItems} />
           </div>
         </section>
+
+        {/*
+          Entrada do blog na home. Fica depois do FAQ e antes do CTA: quem
+          chegou ate aqui e nao clicou no diagnostico ainda esta decidindo, e
+          o artigo e o proximo passo de menor compromisso. Mostra so os tres
+          mais recentes ja publicados — a lista completa fica em /blog.
+        */}
+        {postsRecentes.length > 0 ? (
+          <section id="blog" className="mc-section mc-home-blog">
+            <div className="mc-container">
+              <AnimatedContent distance={22}>
+                <p className="mc-eyebrow">No blog</p>
+                <h2>Gestão de clínica com a conta à mostra.</h2>
+                <p className="mc-home-blog-lead">
+                  Cada texto abre o número, mostra a fonte e termina com o que fazer na
+                  segunda-feira.
+                </p>
+              </AnimatedContent>
+
+              <div className="mc-home-blog-grid">
+                {postsRecentes.map((post) => (
+                  <a key={post.slug} href={`/blog/${post.slug}`} className="mc-home-blog-card">
+                    <img src={post.cover} alt={post.coverAlt} loading="lazy" />
+                    <div className="mc-home-blog-card-body">
+                      <p className="mc-home-blog-silo">{post.silo}</p>
+                      <h3>{post.titulo}</h3>
+                      <p className="mc-home-blog-dek">{post.dek}</p>
+                      <small>
+                        {post.dataLegivel} · {post.minutos} min de leitura
+                      </small>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              <a href="/blog" className="mc-home-blog-todos">
+                Ver todos os textos
+                <ArrowRight aria-hidden="true" />
+              </a>
+            </div>
+          </section>
+        ) : null}
 
         <section id="diagnostico" className="mc-final-section">
           <div className="mc-final-wash" aria-hidden="true" />

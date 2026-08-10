@@ -87,7 +87,7 @@ function SobrePage() {
             <div className="mc-v3-actions">
               <a
                 className="mc-v3-btn mc-v3-btn-ghost"
-                href="https://natuamedspa.com.br/"
+                href="https://natuamedspa.com/"
                 target="_blank"
                 rel="noreferrer"
               >

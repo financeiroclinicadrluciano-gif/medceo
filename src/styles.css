@@ -2121,3 +2121,119 @@ p {
     display: none !important;
   }
 }
+
+/* Blog na home ------------------------------------------------------------
+   Entrada para o blog a partir da home. Reaproveita os tokens ja existentes
+   (--medceo-accent, --medceo-font-display, --mc-container) em vez de trazer
+   cor nova: a secao precisa parecer parte da pagina, nao um bloco colado.
+   Adicionada em 10/08, quando o blog estava no ar e invisivel para quem
+   entrava pela home. */
+
+.mc-home-blog-lead {
+  max-width: 62ch;
+  margin-top: 12px;
+  color: var(--medceo-text-muted, rgba(244, 241, 234, 0.62));
+}
+
+.mc-home-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.mc-home-blog-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.028);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.mc-home-blog-card:hover,
+.mc-home-blog-card:focus-visible {
+  border-color: var(--medceo-accent, #cdae58);
+  transform: translateY(-3px);
+}
+
+.mc-home-blog-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.mc-home-blog-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 22px 24px;
+}
+
+.mc-home-blog-silo {
+  color: var(--medceo-accent-soft, #f0d98a);
+  font-family: var(--medceo-font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mc-home-blog-card h3 {
+  font-family: var(--medceo-font-display, "Playfair Display", serif);
+  font-size: clamp(19px, 2vw, 23px);
+  line-height: 1.25;
+}
+
+.mc-home-blog-dek {
+  flex: 1;
+  color: var(--medceo-text-muted, rgba(244, 241, 234, 0.62));
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.mc-home-blog-card small {
+  color: var(--medceo-text-muted, rgba(244, 241, 234, 0.5));
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.mc-home-blog-todos {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 36px;
+  color: var(--medceo-accent, #cdae58);
+  font-family: var(--medceo-font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mc-home-blog-todos:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.mc-home-blog-todos svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Toda animacao de entrada some para quem pediu menos movimento. */
+@media (prefers-reduced-motion: reduce) {
+  .mc-home-blog-card {
+    transition: none;
+  }
+
+  .mc-home-blog-card:hover,
+  .mc-home-blog-card:focus-visible {
+    transform: none;
+  }
+}
