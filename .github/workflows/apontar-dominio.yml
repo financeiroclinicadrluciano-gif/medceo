@@ -1,0 +1,83 @@
+# Aponta medceo.online para o worker do MedCEO.
+#
+# Roda a mao (workflow_dispatch), nao em push: e uma mudanca de DNS, nao de
+# codigo. Existe como workflow, e nao como clique no painel, porque o token da
+# Cloudflare mora nos secrets deste repositorio e nao na maquina de ninguem.
+#
+# Contexto: em 10/08 o dominio saiu da HostGator e entrou na Cloudflare
+# continuando a apontar para o Lovable. O Lovable passou a responder 421 para
+# requisicao vinda por proxy de terceiro, e o site caiu. Apontar para o worker
+# conserta e ao mesmo tempo coloca o deploy automatico no dominio real.
+
+name: Apontar dominio
+
+on:
+  workflow_dispatch:
+    inputs:
+      hostname:
+        description: Dominio a apontar para o worker
+        required: true
+        default: medceo.online
+
+jobs:
+  apontar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Anexar dominio ao worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          HOSTNAME: ${{ inputs.hostname }}
+          WORKER: financeiroclinicadrluciano-gif-medceo
+        run: |
+          set -euo pipefail
+          API=https://api.cloudflare.com/client/v4
+          AUTH="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+
+          # O dominio raiz e a zona. Para subdominio, a zona e o registrado.
+          ZONA=$(echo "$HOSTNAME" | rev | cut -d. -f1-2 | rev)
+          echo "hostname: $HOSTNAME | zona procurada: $ZONA"
+
+          ZONE_ID=$(curl -s -H "$AUTH" "$API/zones?name=$ZONA" \
+            | python3 -c 'import json,sys; r=json.load(sys.stdin)["result"]; print(r[0]["id"] if r else "")')
+
+          if [ -z "$ZONE_ID" ]; then
+            echo "::error::Zona $ZONA nao encontrada nesta conta Cloudflare."
+            curl -s -H "$AUTH" "$API/zones" \
+              | python3 -c 'import json,sys; [print(" zona visivel:", z["name"], z["status"]) for z in json.load(sys.stdin)["result"]]'
+            exit 1
+          fi
+          echo "zone id encontrado"
+
+          echo "--- anexando $HOSTNAME ao worker $WORKER ---"
+          RESP=$(curl -s -X PUT "$API/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" \
+            -H "$AUTH" -H "Content-Type: application/json" \
+            --data "{\"environment\":\"production\",\"hostname\":\"$HOSTNAME\",\"service\":\"$WORKER\",\"zone_id\":\"$ZONE_ID\"}")
+          echo "$RESP" | python3 -m json.tool
+
+          echo "$RESP" | python3 -c 'import json,sys; sys.exit(0 if json.load(sys.stdin).get("success") else 1)'
+
+      - name: Verificar o dominio no ar
+        env:
+          HOSTNAME: ${{ inputs.hostname }}
+        run: |
+          set -uo pipefail
+          echo "aguardando propagacao e emissao de certificado"
+          sleep 60
+          FALHAS=0
+          for ROTA in / /metodo /blog /sitemap.xml; do
+            CODE=$(curl -s -m 30 -o /dev/null -w '%{http_code}' "https://$HOSTNAME$ROTA")
+            echo "$CODE $ROTA"
+            [ "$CODE" = "200" ] || FALHAS=$((FALHAS+1))
+          done
+
+          PUBLICADOS=$(curl -s -m 30 --compressed "https://$HOSTNAME/blog" \
+            | grep -aoE 'href="/blog/[a-z0-9-]+"' | sort -u | wc -l | tr -d ' ')
+          echo "posts listados no /blog: $PUBLICADOS"
+          [ "$PUBLICADOS" -gt 0 ] || FALHAS=$((FALHAS+1))
+
+          if [ "$FALHAS" -gt 0 ]; then
+            echo "::error::Dominio anexado, mas ainda nao responde como esperado ($FALHAS falhas). Certificado pode levar ate 15 min."
+            exit 1
+          fi
+          echo "Dominio verificado no ar."
