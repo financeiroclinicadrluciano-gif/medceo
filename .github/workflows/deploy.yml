@@ -1,12 +1,11 @@
-# Deploy automatico do site do MedCEO.
+# Deploy do site MedCEO.
 #
-# O projeto builda com TanStack Start + Nitro no preset Cloudflare, gerando
-# .output/server (worker SSR) e .output/public (assets). O worker se chama
-# financeiroclinicadrluciano-gif-medceo, conforme .output/server/wrangler.json.
+# O site e estatico: HTML/CSS/JS em `site/`, servidos pelo binding ASSETS do
+# Cloudflare Workers. Nao ha build step — o que esta no repositorio e exatamente
+# o que vai ao ar, o que torna qualquer regressao rastreavel por diff.
 #
-# Por que existe: o Lovable so publica no clique manual. Com este workflow, todo
-# push na main vai ao ar sozinho, incluindo os posts que entram pela publicacao
-# escalonada por data.
+# O blog e gerado a partir dos markdown em `conteudo/blog/` pelo
+# `scripts/gerar_blog.py`, que respeita a publicacao escalonada por data.
 
 name: Deploy
 
@@ -14,6 +13,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Post agendado precisa entrar no ar no dia marcado, sem push.
+  schedule:
+    - cron: "0 9 * * *"
 
 jobs:
   deploy:
@@ -21,47 +23,45 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-      - run: bun install --frozen-lockfile
+      - name: Regerar o blog (respeita a data de publicacao)
+        run: python3 scripts/gerar_blog.py
 
-      - name: Build
-        run: bun run build
-
-      # O wrangler-action com bun nao repassou a credencial (erro 9106 mesmo
-      # com token valido, que publicou o outro site minutos antes). Chamando o
-      # wrangler direto, com as variaveis no ambiente do processo, que e como
-      # ele espera receber.
       - name: Publicar no Cloudflare Workers
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx --yes wrangler@3.90.0 deploy --config .output/server/wrangler.json
+        run: npx --yes wrangler@4.42.0 deploy --config wrangler.json
 
       # Deploy verde nao prova site no ar. Em 10/08 o worker publicou com
-      # sucesso tres vezes seguidas servindo 500 no site inteiro, e depois
-      # servindo o blog com zero posts. Este passo e o criterio objetivo de
-      # pronto: se o site nao responde de verdade, o run fica vermelho.
+      # sucesso tres vezes seguidas servindo 500. Este passo e o criterio
+      # objetivo de pronto: se o site nao responde, o run fica vermelho.
       - name: Verificar o site no ar
         run: |
-          BASE=https://financeiroclinicadrluciano-gif-medceo.financeiroclinicadrluciano.workers.dev
+          BASE=https://medceo.online
           sleep 20
           FALHAS=0
-          for ROTA in / /metodo /mentoria /blog /sobre /faq /contato /sitemap.xml; do
-            CODE=$(curl -s -m 30 -o /dev/null -w '%{http_code}' "$BASE$ROTA")
+          for ROTA in / /diagnostico /webnar /blog /sitemap.xml; do
+            CODE=$(curl -s -m 30 -o /dev/null -w '%{http_code}' -L "$BASE$ROTA")
             echo "$CODE $ROTA"
             [ "$CODE" = "200" ] || FALHAS=$((FALHAS+1))
           done
 
-          # O blog precisa listar post de verdade. Zero post com markdown no
-          # repositorio foi exatamente o sintoma do relogio do Workers.
+          # O blog precisa listar post de verdade — zero post com markdown no
+          # repositorio foi exatamente o sintoma do bug do relogio do Workers.
           PUBLICADOS=$(curl -s -m 30 --compressed "$BASE/blog" \
             | grep -aoE 'href="/blog/[a-z0-9-]+"' | sort -u | wc -l | tr -d ' ')
           echo "posts listados no /blog: $PUBLICADOS"
-          [ "$PUBLICADOS" -gt 0 ] || FALHAS=$((FALHAS+1))
+          [ "$PUBLICADOS" -ge 1 ] || FALHAS=$((FALHAS+1))
 
-          if [ "$FALHAS" -gt 0 ]; then
-            echo "::error::Deploy publicou, mas o site nao respondeu como esperado ($FALHAS falhas)."
-            exit 1
+          # O numero do case precisa bater com a transcricao do depoimento.
+          if curl -s -m 30 --compressed "$BASE/" | grep -q "200 mil"; then
+            echo "ERRO: numero sem fonte (R\$ 200 mil) voltou ao ar"
+            FALHAS=$((FALHAS+1))
           fi
-          echo "Site verificado no ar."
+
+          [ "$FALHAS" -eq 0 ] || { echo "FALHAS: $FALHAS"; exit 1; }
+          echo "site no ar, verificado"

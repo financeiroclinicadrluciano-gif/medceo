@@ -1,0 +1,242 @@
+/* MedCEO — comportamento do site. Vanilla, sem dependencia externa.
+   Portado do runtime original (DCLogic): progresso, nav, reveals, contadores,
+   reguas, tilt, sheen, comparador arrastavel e o carrossel de pilares. */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- Pilares ---------------- */
+  var PILLARS = window.__MC_PILLARS__ || [];
+  var atual = 0;
+
+  function pintarPilar(i) {
+    var p = PILLARS[i];
+    if (!p) return;
+    atual = i;
+    var painel = document.querySelector("[data-pill-panel]");
+
+    function set(nome, valor) {
+      document.querySelectorAll('[data-pill="' + nome + '"]').forEach(function (el) {
+        el.textContent = valor;
+      });
+    }
+    set("number", p.number);
+    set("name", p.name);
+    set("kicker", p.kicker);
+    set("role", p.role);
+    set("thesis", p.thesis);
+    set("counter", p.number + " / " + String(PILLARS.length).padStart(2, "0"));
+    set("live", "Pilar em destaque: " + p.role + ", com " + p.name + ".");
+
+    var img = document.querySelector('img[data-pill="image"]');
+    if (img) {
+      img.setAttribute("src", p.image);
+      img.setAttribute("alt", p.alt || "");
+      if (p.position) img.style.objectPosition = p.position;
+    }
+
+    var ul = document.querySelector("[data-topics]");
+    if (ul) {
+      ul.innerHTML = "";
+      (p.topics || []).forEach(function (t, n) {
+        var li = document.createElement("li");
+        li.setAttribute("style",
+          "display:grid;grid-template-columns:32px minmax(0,1fr);gap:14px;align-items:baseline;" +
+          "padding:14px 0;border-bottom:1px solid rgba(234,226,207,.09);color:rgba(234,226,207,.74);" +
+          "font-size:14px;font-weight:300;line-height:1.6;letter-spacing:.015em");
+        var num = document.createElement("span");
+        num.setAttribute("aria-hidden", "true");
+        num.setAttribute("style",
+          "color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;" +
+          "font-weight:300;letter-spacing:.16em");
+        num.textContent = String(n + 1).padStart(2, "0");
+        var txt = document.createElement("span");
+        txt.textContent = t;
+        li.appendChild(num); li.appendChild(txt); ul.appendChild(li);
+      });
+    }
+
+    var barra = document.querySelector("[data-pill-progress]");
+    if (barra) barra.style.width = Math.round(((i + 1) / PILLARS.length) * 100) + "%";
+
+    document.querySelectorAll("[data-pillar-btn]").forEach(function (btn) {
+      var ativo = Number(btn.getAttribute("data-pillar-btn")) === i;
+      btn.setAttribute("aria-current", ativo ? "true" : "false");
+      var n = btn.querySelector("[data-pill-num]");
+      var r = btn.querySelector("[data-pill-role]");
+      if (n) n.style.color = ativo ? "#C3A14E" : "rgba(234,226,207,.36)";
+      if (r) r.style.color = ativo ? "#EAE2CF" : "rgba(234,226,207,.5)";
+    });
+
+    if (painel && !reduce) {
+      painel.style.animation = "none";
+      void painel.offsetWidth;
+      painel.style.animation = "mcRise .7s cubic-bezier(.16,1,.3,1) both";
+    }
+  }
+
+  document.querySelectorAll("[data-pillar-btn]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      pintarPilar(Number(btn.getAttribute("data-pillar-btn")));
+    });
+  });
+  if (PILLARS.length) pintarPilar(0);
+
+  /* ---------------- Comparador arrastavel ---------------- */
+  (function () {
+    var wrap = document.querySelector("[data-compare]");
+    if (!wrap) return;
+    var top = wrap.querySelector("[data-compare-top]");
+    var handle = wrap.querySelector("[data-compare-handle]");
+    var input = wrap.querySelector("[data-compare-input]");
+    if (!top || !handle) return;
+
+    function set(pct) {
+      var p = Math.max(2, Math.min(98, pct));
+      top.style.clipPath = "inset(0 " + (100 - p) + "% 0 0)";
+      handle.style.left = p + "%";
+      if (input) input.value = String(Math.round(p));
+    }
+    function fromEvent(e) {
+      var r = wrap.getBoundingClientRect();
+      var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      set((x / r.width) * 100);
+    }
+    var dragging = false;
+    wrap.addEventListener("pointerdown", function (e) { dragging = true; fromEvent(e); });
+    window.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      fromEvent(e);
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+    window.addEventListener("pointerup", function () { dragging = false; });
+    if (input) input.addEventListener("input", function () { set(Number(input.value)); });
+  })();
+
+  if (reduce) return;
+
+  /* ---------------- Progresso + nav + dica de rolagem ---------------- */
+  (function () {
+    var bar = document.querySelector("[data-progress]");
+    var nav = document.querySelector("[data-nav]");
+    var hint = document.querySelector("[data-scrollhint]");
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        if (bar) bar.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
+        if (nav) {
+          var solid = y > 60;
+          nav.style.background = solid ? "rgba(5,7,10,.94)" : "rgba(5,7,10,.72)";
+          nav.style.borderBottomColor = solid ? "rgba(195,161,78,.24)" : "rgba(195,161,78,.14)";
+        }
+        if (hint) {
+          hint.style.opacity = y > 40 ? "0" : ".8";
+          hint.style.transform = y > 40 ? "translateX(-50%) translateY(6px)" : "translateX(-50%)";
+        }
+        ticking = false;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
+
+  /* ---------------- Reveals, reguas, contadores ---------------- */
+  (function () {
+    var vh = window.innerHeight;
+    var reveals = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"))
+      .filter(function (el) { return el.getBoundingClientRect().top > vh * 0.92; });
+    reveals.forEach(function (el) {
+      el.style.opacity = "0";
+      el.style.filter = "blur(6px)";
+      el.style.transform = "translateY(16px)";
+      el.style.transition =
+        "opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1), filter .8s cubic-bezier(.16,1,.3,1)";
+    });
+
+    var rulers = Array.prototype.slice.call(document.querySelectorAll("[data-ruler]"));
+    rulers.forEach(function (el) { el.style.transform = "scaleX(0)"; });
+
+    var counters = Array.prototype.slice.call(document.querySelectorAll("[data-count]"));
+    var alvos = counters.map(function (el) { return el.textContent; });
+    counters.forEach(function (el) { el.textContent = "0" + (el.dataset.suffix || ""); });
+
+    function runCounter(el) {
+      var target = Number(el.dataset.count) || 0;
+      var suffix = el.dataset.suffix || "";
+      var t0 = performance.now();
+      // rede de seguranca: se o rAF for interrompido (aba em background, snapshot
+      // estatico, throttling), o numero final entra de qualquer jeito.
+      var garantia = setTimeout(function () { el.textContent = target + suffix; }, 2200);
+      (function tick(now) {
+        var p = Math.min((now - t0) / 1500, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+        if (p < 1) { requestAnimationFrame(tick); }
+        else { clearTimeout(garantia); el.textContent = target + suffix; }
+      })(t0);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        if (el.hasAttribute("data-reveal")) {
+          el.style.opacity = "1"; el.style.filter = "none"; el.style.transform = "none";
+        } else if (el.hasAttribute("data-ruler")) {
+          el.style.transform = "scaleX(" + (el.dataset.w || 0) + ")";
+        } else if (el.hasAttribute("data-count")) {
+          runCounter(el);
+        }
+        io.unobserve(el);
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.08 });
+
+    reveals.concat(rulers, counters).forEach(function (el) { io.observe(el); });
+
+    // se o observer nunca disparar, ou a animacao parar no meio, o valor final entra
+    setTimeout(function () {
+      counters.forEach(function (el) {
+        var alvo = (Number(el.dataset.count) || 0) + (el.dataset.suffix || "");
+        if (el.textContent !== alvo) el.textContent = alvo;
+      });
+    }, 2600);
+  })();
+
+  /* ---------------- Tilt ---------------- */
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll("[data-tilt]").forEach(function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var r = card.getBoundingClientRect();
+        var rx = ((e.clientY - r.top) / r.height - 0.5) * -4;
+        var ry = ((e.clientX - r.left) / r.width - 0.5) * 4;
+        card.style.transform =
+          "perspective(1200px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-3px)";
+      });
+      card.addEventListener("pointerleave", function () {
+        card.style.transform = "perspective(1200px) rotateX(0) rotateY(0)";
+      });
+    });
+  }
+
+  /* ---------------- Sheen nos botoes ---------------- */
+  document.querySelectorAll("[data-sheen]").forEach(function (btn) {
+    var gleam = document.createElement("span");
+    gleam.setAttribute("aria-hidden", "true");
+    gleam.style.cssText =
+      "position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 38%," +
+      "rgba(239,224,187,.34) 50%,transparent 62%);background-size:220% 100%;background-position:-140% 0;" +
+      "transition:background-position .9s cubic-bezier(.16,1,.3,1)";
+    btn.appendChild(gleam);
+    btn.addEventListener("pointerenter", function () { gleam.style.backgroundPosition = "140% 0"; });
+    btn.addEventListener("pointerleave", function () {
+      gleam.style.transition = "none";
+      gleam.style.backgroundPosition = "-140% 0";
+      requestAnimationFrame(function () {
+        gleam.style.transition = "background-position .9s cubic-bezier(.16,1,.3,1)";
+      });
+    });
+  });
+})();

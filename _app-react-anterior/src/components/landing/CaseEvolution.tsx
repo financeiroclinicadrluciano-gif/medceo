@@ -35,7 +35,6 @@ function RevenueCount({ value }: { value: number }) {
   return <CountUp value={value} format={(current) => formatRevenue(Math.round(current))} />;
 }
 
-
 /**
  * A single-fold, proportionally accurate view of the Dr. Luis case.
  * Motion adds depth, but every claim remains available in the static DOM.
