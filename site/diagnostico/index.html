@@ -36,6 +36,30 @@
 .mc-opt:active { transform: translateY(0) scale(.995); }
 [hidden] { display: none !important; }
 
+  /* Em tela pequena a terceira opcao de resposta ficava fora da dobra — 0px
+     renderizados em 360x640 e no in-app do Instagram (375x553) — e ela e sempre a
+     de maior pontuacao. O quiz enviesava o resultado para baixo, 20 vezes seguidas.
+     Idem o CTA da intro, que terminava 36px abaixo da dobra em 375x553.
+     `!important` e obrigatorio: o JS escreve os estilos das opcoes via
+     setAttribute("style", ...) e inline vence folha. Fonte fica em 14px; o que
+     encolhe e espaco, nao texto. */
+  @media (max-width: 640px) {
+    [data-stage="quiz"] .mc-opt { padding: 16px 18px !important; gap: 14px !important; }
+    [data-stage="quiz"] .mc-opt > span:last-child { gap: 5px !important; }
+    [data-stage="quiz"] .mc-opt > span:last-child > span { line-height: 1.5 !important; }
+    [data-stage="quiz"] [data-options] { gap: 10px !important; margin-top: 20px !important; }
+    [data-stage="quiz"] [data-qpanel] h2 { font-size: 1.55rem !important; }
+    [data-stage="quiz"] { padding-top: 16px !important; padding-bottom: 28px !important; }
+    [data-stage="quiz"] [data-segments] { margin-bottom: 12px !important; }
+    [data-stage="quiz"] [data-segments] + div { margin-bottom: 18px !important; }
+
+    [data-stage="intro"] { padding-top: 28px !important; padding-bottom: 40px !important; }
+    [data-stage="intro"] h1 { font-size: 2rem !important; margin-top: 16px !important; }
+    [data-stage="intro"] h1 + p { margin-top: 16px !important; }
+    [data-stage="intro"] h1 + p + div { margin-top: 24px !important; }
+    [data-stage="intro"] > div > div:last-child { padding: 22px !important; }
+  }
+
 </style>
 
 <style>

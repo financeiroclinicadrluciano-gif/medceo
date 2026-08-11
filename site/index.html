@@ -68,6 +68,10 @@
      Os paddings sao inline, entao aqui precisa de !important. */
   @media (max-width: 700px) {
     main > section:not(#topo) { padding-block: 72px !important; }
+    /* A tarja do marquee tem 31px de conteudo e nao e uma dobra: com os 72px acima
+       ela ia a 177px, 24% do viewport para uma faixa decorativa. O seletor precisa
+       ser tao especifico quanto o de cima (o #topo dentro do :not() pesa como id). */
+    main > section:not(#topo)[aria-label="Princípios do método"] { padding-block: 20px !important; }
   }
 
 
