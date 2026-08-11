@@ -42,7 +42,9 @@ jobs:
       - name: Verificar o site no ar
         run: |
           BASE=https://medceo.online
-          sleep 20
+          # 20s nao bastava: em 11/08 o teste leu a versao anterior e contou 0 posts
+          # num blog que ja tinha 6. A propagacao do Workers precisa de mais folga.
+          sleep 60
           FALHAS=0
           for ROTA in / /diagnostico /webnar /blog /sitemap.xml; do
             CODE=$(curl -s -m 30 -o /dev/null -w '%{http_code}' -L "$BASE$ROTA")
