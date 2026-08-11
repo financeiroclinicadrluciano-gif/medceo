@@ -112,7 +112,7 @@ const cardsStack = [
 ];
 
 const testimonials = [
-  { quote: "A clareza veio antes do crescimento.", name: "Dr. Luiz Henrique", role: "Clínica própria" },
+  { quote: "A clareza veio antes do crescimento.", name: "Dr. Luis", role: "Clínica própria" },
   { quote: "Parei de apagar incêndio e comecei a decidir.", name: "Dra. Amanda", role: "Gestão clínica" },
   { quote: "O diagnóstico apontou o que eu evitava olhar.", name: "Dr. Marcos", role: "Comercial" },
 ];
@@ -232,7 +232,7 @@ function KitCatalog() {
         </Card>
         <Card title="MovingDotCard" note="Superfície com ponto de luz em órbita — use em métricas." code={`<MovingDotCard><MetricCard … /></MovingDotCard>`}>
           <MovingDotCard>
-            <MetricCard label="Faturamento" value="R$ 200 mil" delta="+150%" caption="Case Dr. Luiz Henrique" />
+            <MetricCard label="Faturamento" value="R$ 180 mil" delta="+350%" caption="Case Dr. Luis" />
           </MovingDotCard>
         </Card>
         <Card title="Loader" note="Estado de carregamento com rótulo textual, nunca só o spinner." code={`{loading ? <Loader label="Calculando" /> : <Result />}`}>

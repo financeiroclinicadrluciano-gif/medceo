@@ -14,7 +14,7 @@ export default function AnimatedCaseStudy({ slides }: AnimatedCaseStudyProps) {
   if (slides.length === 0) return null;
 
   return (
-    <section className="mc-case-story-static" aria-label="Evolução do case do Dr. Luiz Henrique">
+    <section className="mc-case-story-static" aria-label="Evolução do case do Dr. Luis">
       {slides.map((slide, index) => (
         <article key={slide.label}>
           <div className="mc-case-story-topline">

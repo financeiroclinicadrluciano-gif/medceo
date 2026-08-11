@@ -457,3 +457,44 @@
 .mc-case-evolution-heading h2 {
   font-variant-numeric: tabular-nums;
 }
+
+/* ---------------------------------------------------------------------------
+   Depoimento em vídeo — o formato do arquivo é vertical (9:16), então o player
+   fica estreito e centrado. Num container 16:9 ele geraria duas tarjas pretas.
+   -------------------------------------------------------------------------- */
+.mc-case-evolution-video {
+  margin: clamp(28px, 4vh, 44px) 0 0;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.mc-case-evolution-video-frame {
+  position: relative;
+  width: min(100%, 340px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #000;
+  box-shadow:
+    0 20px 44px rgb(1 3 5 / 54%),
+    0 52px 108px rgb(1 3 5 / 42%),
+    0 104px 180px rgb(1 3 5 / 26%);
+}
+
+.mc-case-evolution-video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.mc-case-evolution-video figcaption {
+  max-width: 34ch;
+  color: rgb(234 226 207 / 58%);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  text-align: center;
+}

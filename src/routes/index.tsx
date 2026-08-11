@@ -657,15 +657,88 @@ function Index() {
           </section>
         ) : null}
 
+        <section
+          id="grupo-whatsapp"
+          className="mc-whatsapp-section"
+          aria-label="Grupo gratuito no WhatsApp"
+        >
+          <div className="mc-whatsapp-aura" aria-hidden="true" />
+          <div className="mc-whatsapp-dots" aria-hidden="true" />
+          <div className="mc-container mc-whatsapp-content">
+            <p className="mc-whatsapp-badge">
+              <span className="mc-whatsapp-dot" aria-hidden="true" />
+              Gratuito · toda semana
+            </p>
+            <h2>Entre no nosso Grupo Gratuito do WhatsApp</h2>
+            <p className="mc-whatsapp-lede">
+              Realizamos encontros semanais online liberando acesso a um encontro da nossa mentoria
+              MedCEO, de graça.
+            </p>
+            <a
+              className="mc-whatsapp-cta"
+              href="https://chat.whatsapp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="whatsapp"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="21" height="21" fill="currentColor">
+                <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.2 4.79 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2z" />
+              </svg>
+              Entrar no grupo agora
+            </a>
+            <small>Entrada gratuita · saia quando quiser</small>
+          </div>
+        </section>
+
+        <section
+          id="convite-diagnostico"
+          className="mc-invite-section"
+          aria-label="Convite ao diagnóstico da clínica"
+        >
+          <div
+            className="mc-invite-background"
+            aria-hidden="true"
+            style={{ backgroundImage: `url(${drLucianoSectionBackground})` }}
+          />
+          <div className="mc-invite-wash" aria-hidden="true" />
+          <div className="mc-container mc-invite-content">
+            <p className="mc-eyebrow">Onde está o seu gargalo</p>
+            <h2 className="mc-invite-title">
+              Gostaria de realizar um <em>diagnóstico</em> da sua clínica?
+            </h2>
+            <p className="mc-invite-lede">
+              Aborde Marketing, Comercial, Gestão ou Financeiro para saber onde está o gargalo da sua
+              clínica — junto com um plano de ação prático de 60 dias para você entrar no MedCEO.
+            </p>
+            <ul className="mc-invite-chips">
+              <li>Marketing</li>
+              <li>Comercial</li>
+              <li>Gestão</li>
+              <li>Financeiro</li>
+            </ul>
+            <div className="mc-invite-actions">
+              <Magnetic>
+                <DiagnosticButton onClick={openDiagnostic}>Fazer o diagnóstico</DiagnosticButton>
+              </Magnetic>
+              <small>
+                Gratuito · 5 minutos
+                <br />
+                plano de 60 dias no fim
+              </small>
+            </div>
+          </div>
+        </section>
+
         <section id="diagnostico" className="mc-final-section">
           <div className="mc-final-wash" aria-hidden="true" />
           <SpotlightMaskedGrid className="mc-final-kit-layer" />
           <div className="mc-container mc-final-content">
             <p className="mc-eyebrow">Diagnóstico disponível</p>
-            <h2>Agora, descubra onde sua clínica está.</h2>
+            <h2>Realize seu diagnóstico agora com a nossa Inteligência Artificial</h2>
             <p>
-              Responda às 20 perguntas e receba seu nível de maturidade, o gargalo prioritário e os
-              três próximos passos coerentes com a operação.
+              São mais de 17 anos de conhecimento clínico, empresarial, gestão, marketing, comercial,
+              financeiro e mentalidade juntos em uma inteligência artificial que pode virar a chave
+              do seu negócio.
             </p>
             <Magnetic>
               <DiagnosticButton onClick={openDiagnostic}>Fazer o diagnóstico agora</DiagnosticButton>

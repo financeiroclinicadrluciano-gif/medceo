@@ -43,7 +43,7 @@ const typeScale = [
     sample: "Estratégia não é uma coleção de iniciativas. É saber o que merece atenção agora.",
     className: "ds-type-body",
   },
-  { name: "Data / Evidência", sample: "R$ 200 mil", className: "ds-type-data" },
+  { name: "Data / Evidência", sample: "R$ 180 mil", className: "ds-type-data" },
   { name: "Label / Índice", sample: "SISTEMA 01 / 06", className: "ds-type-label" },
 ];
 
@@ -364,7 +364,7 @@ function DesignSystem() {
         <figure className="ds-photo-proof">
           <img
             src={drLuizBackground}
-            alt="Retrato editorial do Dr. Luiz em fundo azul profundo"
+            alt="Retrato editorial do Dr. Luis em fundo azul profundo"
             loading="lazy"
           />
           <figcaption>

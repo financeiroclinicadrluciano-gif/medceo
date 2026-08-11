@@ -19,6 +19,8 @@ export type CaseEvolutionProps = {
   totalPillars?: number;
   imagePosition?: CSSProperties["backgroundPosition"];
   disclaimer?: string;
+  /** ID do depoimento no Panda Video. Vazio esconde o player. */
+  videoId?: string;
 };
 
 const numberFormatter = new Intl.NumberFormat("pt-BR", {
@@ -35,22 +37,29 @@ function RevenueCount({ value }: { value: number }) {
 
 
 /**
- * A single-fold, proportionally accurate view of the Dr. Luiz case.
+ * A single-fold, proportionally accurate view of the Dr. Luis case.
  * Motion adds depth, but every claim remains available in the static DOM.
  */
 export default function CaseEvolution({
   backgroundImage,
   id = "prova-social",
   className = "",
-  caseName = "Dr. Luiz Henrique",
-  initialRevenue = 80,
-  finalRevenue = 200,
-  duration = "aproximadamente 3 meses",
-  durationMetric = "≈ 3 meses",
+  // Números conferidos contra a transcrição do depoimento gravado
+  // (`Depoimento Dr. Luis Oficial.mov`, transcrito por Whisper em 2026-08-10 —
+  // ver 03-PROJETOS/03.2-MEDCEO/BANCO-DE-PROVAS-DEPOIMENTOS-MEDCEO.md).
+  // Antes daqui o site publicava "R$ 80 mil → R$ 200 mil em ~3 meses", que não
+  // aparece em lugar nenhum da fala dele: no vídeo ele diz 40 → 80 em 60 dias,
+  // ultrapassa 100 aos 6 meses e termina a mentoria em 180.
+  caseName = "Dr. Luis",
+  initialRevenue = 40,
+  finalRevenue = 180,
+  duration = "o período da mentoria",
+  durationMetric = "60 dias para dobrar",
   focus = "Mentalidade CEO",
   totalPillars = 6,
   imagePosition = "22% center",
   disclaimer = "Resultado individual informado pelo case. O registro não isola causalidade nem garante repetição; resultados variam conforme contexto e execução.",
+  videoId = "6e8f2654-57ab-4069-950e-eb9bfe5d1018",
 }: CaseEvolutionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -104,7 +113,7 @@ export default function CaseEvolution({
 
       <div className="mc-case-evolution-inner">
         <header className="mc-case-evolution-heading">
-          <p className="mc-case-evolution-eyebrow">Case individual · Dr. Luiz Henrique</p>
+          <p className="mc-case-evolution-eyebrow">Case individual · {caseName}</p>
           <h2 id={`${id}-title`}>
             De{" "}
             <span>
@@ -179,6 +188,22 @@ export default function CaseEvolution({
             <dd>{pillarFraction}</dd>
           </div>
         </dl>
+
+        {videoId ? (
+          <figure className="mc-case-evolution-video">
+            <div className="mc-case-evolution-video-frame">
+              <iframe
+                src={`https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=${videoId}`}
+                title={`Depoimento de ${caseName} sobre a mentoria MedCEO`}
+                allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+            <figcaption>Ele conta a história inteira — sem corte, na palavra dele.</figcaption>
+          </figure>
+        ) : null}
 
         <div className="mc-case-evolution-horizon">
           <span>O próximo horizonte</span>

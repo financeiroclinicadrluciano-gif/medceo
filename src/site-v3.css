@@ -652,3 +652,243 @@ html .mc-v3-page {
     box-shadow: 0 16px 40px rgba(205, 174, 88, 0.2);
   }
 }
+
+/* ===========================================================================
+   Cantos arredondados nos botões — o padrão anterior era quadrado (radius 0),
+   que endurecia a página inteira.
+   ========================================================================== */
+.medceo-page .mc-button,
+.medceo-page .mc-button-primary,
+.medceo-page .mc-final-button {
+  border-radius: 999px;
+}
+
+/* ===========================================================================
+   Grupo gratuito no WhatsApp
+   ========================================================================== */
+.mc-whatsapp-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(72px, 10vh, 104px) 0;
+  border-top: 1px solid rgb(37 211 102 / 22%);
+  border-bottom: 1px solid rgb(37 211 102 / 22%);
+  background: linear-gradient(180deg, #07130d 0%, #05100a 100%);
+}
+
+.mc-whatsapp-aura {
+  position: absolute;
+  z-index: -2;
+  top: -30%;
+  left: 50%;
+  width: min(900px, 110vw);
+  aspect-ratio: 1.4;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgb(37 211 102 / 18%), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  animation: mc-whatsapp-pulse 7s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+@keyframes mc-whatsapp-pulse {
+  from { opacity: 0.55; transform: translateX(-50%) scale(1); }
+  to { opacity: 1; transform: translateX(-50%) scale(1.08); }
+}
+
+.mc-whatsapp-dots {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(rgb(37 211 102 / 14%) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(60% 50% at 50% 40%, #000, transparent);
+  pointer-events: none;
+}
+
+.mc-whatsapp-content {
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 2vh, 22px);
+  text-align: center;
+}
+
+.mc-whatsapp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border: 1px solid rgb(37 211 102 / 40%);
+  border-radius: 999px;
+  background: rgb(37 211 102 / 8%);
+  color: #7be8a6;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.mc-whatsapp-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #25d366;
+  animation: mc-whatsapp-blink 2.4s ease-in-out infinite;
+}
+
+@keyframes mc-whatsapp-blink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgb(37 211 102 / 50%); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 7px rgb(37 211 102 / 0%); }
+}
+
+.mc-whatsapp-section h2 {
+  max-width: 20ch;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 4.2vw, 3.3rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.mc-whatsapp-lede {
+  max-width: 60ch;
+  color: rgb(234 226 207 / 70%);
+  font-size: 15.5px;
+  font-weight: 300;
+  line-height: 1.72;
+}
+
+.mc-whatsapp-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 60px;
+  margin-top: clamp(12px, 2vh, 20px);
+  padding: 16px clamp(30px, 4vw, 44px);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #25d366, #128c4b);
+  color: #04140b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 14px 34px rgb(37 211 102 / 28%), 0 30px 70px rgb(4 20 11 / 50%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
+}
+
+.mc-whatsapp-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px rgb(37 211 102 / 40%), 0 40px 90px rgb(4 20 11 / 55%);
+}
+
+.mc-whatsapp-section small {
+  color: rgb(234 226 207 / 50%);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ===========================================================================
+   Convite ao diagnóstico — foto grande do Dr. Luciano
+   ========================================================================== */
+.mc-invite-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: clamp(620px, 86vh, 880px);
+  padding: clamp(72px, 10vh, 112px) 0;
+}
+
+.mc-invite-background {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  background-size: cover;
+  background-position: 78% center;
+  filter: saturate(0.6) contrast(1.1);
+}
+
+.mc-invite-wash {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(5 7 10 / 97%) 0%, rgb(5 7 10 / 90%) 42%, rgb(5 7 10 / 42%) 72%, rgb(5 7 10 / 70%) 100%),
+    linear-gradient(0deg, rgb(5 7 10 / 96%) 0%, rgb(5 7 10 / 30%) 36%, transparent 68%);
+}
+
+.mc-invite-content {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 640px);
+  margin-right: auto;
+  display: grid;
+  gap: clamp(14px, 2vh, 22px);
+}
+
+.mc-invite-title {
+  max-width: 17ch;
+  color: #f6f3ec;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.1rem, 1.2rem + 3vw, 3.6rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.03;
+  text-wrap: balance;
+}
+
+.mc-invite-title em {
+  color: #d9be7e;
+  font-style: italic;
+}
+
+.mc-invite-lede {
+  max-width: 52ch;
+  color: rgb(234 226 207 / 72%);
+  font-size: 15.5px;
+  font-weight: 300;
+  line-height: 1.72;
+}
+
+.mc-invite-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: clamp(6px, 1.2vh, 12px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mc-invite-chips li {
+  padding: 9px 18px;
+  border: 1px solid rgb(195 161 78 / 30%);
+  border-radius: 999px;
+  color: rgb(234 226 207 / 80%);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.mc-invite-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(14px, 2.2vh, 24px);
+}
+
+.mc-invite-actions small {
+  color: rgb(234 226 207 / 60%);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
