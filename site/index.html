@@ -64,6 +64,13 @@
 @media (min-width: 1120px) { .mc-navwide { display: flex !important; } }
 .mc-pillbtn:hover { background: rgba(234,226,207,.026); }
 
+  /* 112px de respiro e certo no desktop e sufoca em tela de 740px de altura.
+     Os paddings sao inline, entao aqui precisa de !important. */
+  @media (max-width: 700px) {
+    main > section:not(#topo) { padding-block: 72px !important; }
+  }
+
+
   /* 4 itens só têm duas divisões honestas: 4x1 e 2x2. O auto-fit escolhia 3+1,
      e as duas células vazias viravam uma barra escura sobre o fundo marfim. */
   .mc-grid4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -145,8 +152,8 @@
           <p style="max-width:46ch;margin-top:30px;color:rgba(234,226,207,.6);font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em;animation:mcRise .9s cubic-bezier(.16,1,.3,1) .56s both">A resposta honesta vale mais do que qualquer plano de crescimento. Ela diz se você construiu uma empresa — ou um emprego caro com a sua assinatura no rodapé de tudo.</p>
 
           <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:40px;animation:mcRise .9s cubic-bezier(.16,1,.3,1) .68s both">
-            <a href="/diagnostico" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;flex:1 1 250px;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:14px 32px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)" class="dc-77e7c021">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
-            <a href="#metodo" style="display:inline-flex;flex:0 1 200px;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:14px 28px;border:1px solid rgba(234,226,207,.16);border-radius:999px;color:rgba(234,226,207,.8);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, color .5s ease" class="dc-fec2fb34">Conhecer o método</a>
+            <a href="/diagnostico" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;flex:1 1 250px;align-items:center;justify-content:center;gap:12px;min-height:60px;padding:14px 32px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)" class="dc-77e7c021">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
+            <a href="#metodo" style="display:inline-flex;flex:0 1 200px;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:14px 28px;border:1px solid rgba(234,226,207,.16);border-radius:999px;color:rgba(234,226,207,.8);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, color .5s ease" class="dc-fec2fb34">Conhecer o método</a>
           </div>
 
           <p style="margin-top:18px;color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;animation:mcRise .9s cubic-bezier(.16,1,.3,1) .78s both">Gratuito · resultado na hora · sem cadastro</p>
@@ -355,7 +362,7 @@
     </section>
 
     <!-- ================= 07 · PROVA — DOBRA A: O ROSTO ================= -->
-    <section id="evidencia" style="position:relative;overflow:hidden;isolation:isolate;padding:clamp(96px,12vh,132px) 0;border-top:1px solid rgba(195,161,78,.1)">
+    <section id="evidencia" style="position:relative;overflow:hidden;isolation:isolate;padding:112px 0;border-top:1px solid rgba(195,161,78,.1)">
       <div aria-hidden="true" style="position:absolute;z-index:-2;top:-10%;right:-6%;width:min(680px,64vw);aspect-ratio:1.6;background:radial-gradient(58% 52% at 52% 48%, rgba(195,161,78,.12), transparent 70%);filter:blur(52px);pointer-events:none"></div>
       <div aria-hidden="true" style="position:absolute;z-index:-1;inset:0;opacity:.24;mix-blend-mode:overlay;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='pv'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23pv)' opacity='0.5'/%3E%3C/svg%3E&quot;)"></div>
 
@@ -455,12 +462,12 @@
             <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer" style="display:inline-flex;min-height:44px;align-items:center;color:rgba(234,226,207,.78);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;text-decoration:underline;text-decoration-color:rgba(195,161,78,.4);text-underline-offset:7px;transition:color .4s ease" class="dc-a127d864">Conhecer a Natuá ↗</a>
             <a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noreferrer" style="display:inline-flex;min-height:44px;align-items:center;color:rgba(234,226,207,.78);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;text-decoration:underline;text-decoration-color:rgba(195,161,78,.4);text-underline-offset:7px;transition:color .4s ease" class="dc-a127d864">Instagram oficial ↗</a>
           </nav>
-          <small style="display:block;margin-top:4px;color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.1em;line-height:1.6">Credenciais verificáveis nos canais oficiais da Natuá e do Dr. Luciano.</small>
+          
         </div>
       </div>
     </section>
     <!-- ================= 09 · GRUPO WHATSAPP ================= -->
-    <section aria-label="Grupo gratuito no WhatsApp" style="position:relative;overflow:hidden;isolation:isolate;padding:clamp(72px,10vh,104px) 0;border-top:1px solid rgba(37,211,102,.22);border-bottom:1px solid rgba(37,211,102,.22);background:linear-gradient(180deg,#07130D 0%,#05100A 100%)">
+    <section aria-label="Grupo gratuito no WhatsApp" style="position:relative;overflow:hidden;isolation:isolate;padding:112px 0;border-top:1px solid rgba(37,211,102,.22);border-bottom:1px solid rgba(37,211,102,.22);background:linear-gradient(180deg,#07130D 0%,#05100A 100%)">
       <div aria-hidden="true" class="mc-pulse" style="position:absolute;z-index:-2;top:-30%;left:50%;width:min(900px,110vw);aspect-ratio:1.4;transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 50%, rgba(37,211,102,.18), transparent 70%);filter:blur(60px);pointer-events:none"></div>
       <div aria-hidden="true" style="position:absolute;z-index:-1;inset:0;opacity:.5;background-image:radial-gradient(rgba(37,211,102,.14) 1px, transparent 1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(60% 50% at 50% 40%, #000, transparent);mask-image:radial-gradient(60% 50% at 50% 40%, #000, transparent);pointer-events:none"></div>
 
@@ -482,7 +489,7 @@
 
 
     <!-- ================= 09b · CONVITE AO DIAGNÓSTICO ================= -->
-    <section aria-label="Convite ao diagnóstico da clínica" style="position:relative;overflow:hidden;isolation:isolate;min-height:clamp(620px,86vh,880px);display:flex;align-items:center;padding:clamp(72px,10vh,112px) 0">
+    <section aria-label="Convite ao diagnóstico da clínica" style="position:relative;overflow:hidden;isolation:isolate;min-height:clamp(620px,86vh,880px);display:flex;align-items:center;padding:112px 0">
       <div aria-hidden="true" style="position:absolute;z-index:-5;inset:0"><img src="/assets/medceo/luciano-bg.jpg" alt="" width="1600" height="900" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:78% center;filter:saturate(.6) contrast(1.1);animation:mcKen 26s cubic-bezier(.4,0,.2,1) infinite alternate" /></div>
       <div aria-hidden="true" style="position:absolute;z-index:-4;inset:0;background:linear-gradient(90deg, rgba(5,7,10,.97) 0%, rgba(5,7,10,.9) 42%, rgba(5,7,10,.42) 72%, rgba(5,7,10,.7) 100%), linear-gradient(0deg, rgba(5,7,10,.96) 0%, rgba(5,7,10,.3) 36%, transparent 68%)"></div>
       <div aria-hidden="true" style="position:absolute;z-index:-3;top:12%;left:-6%;width:min(700px,74vw);aspect-ratio:1.7;background:radial-gradient(60% 54% at 44% 46%, rgba(195,161,78,.16), transparent 70%);filter:blur(50px);animation:mcAura 12s cubic-bezier(.4,0,.2,1) infinite alternate;pointer-events:none"></div>
@@ -508,7 +515,7 @@
           </ul>
 
           <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:clamp(14px,2.2vh,24px)">
-            <a href="/diagnostico" data-sheen="" class="mc-btn mc-btn--primary" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:14px;min-height:60px;padding:16px clamp(28px,3.4vw,40px);border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg, rgba(217,190,126,.16), rgba(195,161,78,.06));color:#EFE0BB;font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;letter-spacing:.02em;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
+            <a href="/diagnostico" data-sheen="" class="mc-btn mc-btn--primary" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:14px;min-height:60px;padding:16px clamp(28px,3.4vw,40px);border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg, rgba(217,190,126,.16), rgba(195,161,78,.06));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
             <p style="color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Gratuito · 5 minutos<br />plano de 60 dias no fim</p>
           </div>
         </div>
@@ -536,7 +543,7 @@
     </section>
 
     <!-- ================= 11 · CTA FINAL ================= -->
-    <section id="diagnostico" style="position:relative;overflow:hidden;isolation:isolate;padding:120px 0;border-top:1px solid rgba(195,161,78,.14)">
+    <section id="diagnostico" style="position:relative;overflow:hidden;isolation:isolate;padding:112px 0;border-top:1px solid rgba(195,161,78,.14)">
       <div aria-hidden="true" style="position:absolute;z-index:-3;inset:0"><img src="/assets/medceo/office-web.webp" alt="" width="1100" height="1375" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.18;filter:saturate(.55) contrast(1.1)" /></div>
       <div aria-hidden="true" style="position:absolute;z-index:-2;inset:0;background:radial-gradient(760px 420px at 22% 0%, rgba(195,161,78,.15), transparent 66%), linear-gradient(180deg, rgba(5,7,10,.93), rgba(5,7,10,.97))"></div>
       <div aria-hidden="true" style="position:absolute;z-index:-1;inset:0;opacity:.22;mix-blend-mode:overlay;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g3'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g3)' opacity='0.5'/%3E%3C/svg%3E&quot;)"></div>
@@ -546,7 +553,7 @@
           <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase"><span aria-hidden="true" style="flex:0 0 auto;width:32px;height:1px;background:#C3A14E"></span>Próximo passo</p>
           <h2 style="max-width:16ch;margin-top:22px;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:300;letter-spacing:-.04em;line-height:1;text-wrap:balance">Realize seu diagnóstico agora com a nossa Inteligência Artificial</h2>
           <p style="max-width:52ch;margin-top:24px;color:rgba(234,226,207,.62);font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em">Uma inteligência artificial que faz as perguntas que um consultor faria na primeira reunião. Em cinco minutos você sai com o gargalo nomeado e o próximo passo definido.</p>
-          <a href="/diagnostico" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:14px;min-height:58px;margin-top:36px;padding:16px 38px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)" class="dc-77e7c021">Fazer o diagnóstico agora <span aria-hidden="true">→</span></a>
+          <a href="/diagnostico" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:14px;min-height:60px;margin-top:36px;padding:16px 38px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)" class="dc-77e7c021">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
           <p style="margin-top:18px;color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.18em;text-transform:uppercase">Gratuito · resultado imediato · cerca de 5 minutos</p>
         </div>
 
