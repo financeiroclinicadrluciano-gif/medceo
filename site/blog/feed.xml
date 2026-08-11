@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Blog MedCEO</title>
+  <link>https://medceo.online/blog</link>
+  <atom:link href="https://medceo.online/blog/feed.xml" rel="self" type="application/rss+xml" />
+  <description>Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.</description>
+  <language>pt-BR</language>
+  <lastBuildDate>Tue, 11 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <item>
+    <title>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</title>
+    <link>https://medceo.online/blog/diagnostico-gestao-clinica</link>
+    <guid isPermaLink="true">https://medceo.online/blog/diagnostico-gestao-clinica</guid>
+    <pubDate>Tue, 11 Aug 2026 09:00:00 -0300</pubDate>
+    <category>Maturidade e dependência do dono</category>
+    <description>O post saiu em 21/07/2026 com quatro níveis nomeados, cinco dimensões de avaliação e um quiz no fim. Três semanas depois, nenhum concorrente do setor publicou resposta, comparação ou crítica pública ao modelo.</description>
+  </item>
+  <item>
+    <title>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</title>
+    <link>https://medceo.online/blog/indicadores-clinica-faixa-referencia</link>
+    <guid isPermaLink="true">https://medceo.online/blog/indicadores-clinica-faixa-referencia</guid>
+    <pubDate>Tue, 11 Aug 2026 09:00:00 -0300</pubDate>
+    <category>Maturidade e dependência do dono</category>
+    <description>O post mais lido do nicho lista dez indicadores em 903 palavras, cerca de 60 por indicador, sem uma única fórmula ou tabela. Sem faixa de referência publicada, a linha de base honesta é o histórico da própria clínica.</description>
+  </item>
+  <item>
+    <title>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</title>
+    <link>https://medceo.online/blog/parcelamento-clinica-margem</link>
+    <guid isPermaLink="true">https://medceo.online/blog/parcelamento-clinica-margem</guid>
+    <pubDate>Mon, 10 Aug 2026 09:00:00 -0300</pubDate>
+    <category>O dinheiro da clínica</category>
+    <description>A espera média de um pagamento em 12 vezes é de 6,5 meses, e é ela que multiplica a taxa, não o número de parcelas. Por isso 12 vezes não custa o dobro de 6, custa 1,86 vez.</description>
+  </item>
+  <item>
+    <title>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</title>
+    <link>https://medceo.online/blog/valuation-clinica-saida-socio</link>
+    <guid isPermaLink="true">https://medceo.online/blog/valuation-clinica-saida-socio</guid>
+    <pubDate>Mon, 10 Aug 2026 09:00:00 -0300</pubDate>
+    <category>O dinheiro da clínica</category>
+    <description>A Sênior Consulting publicou dois textos sobre valor de clínica em julho de 2026 e assinou os dois como &quot;Admin&quot;. O tema decide patrimônio de família, e quem escreve sobre ele precisa ter nome, credencial e conta aberta.</description>
+  </item>
+  <item>
+    <title>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</title>
+    <link>https://medceo.online/blog/margem-lucro-clinica-medica</link>
+    <guid isPermaLink="true">https://medceo.online/blog/margem-lucro-clinica-medica</guid>
+    <pubDate>Sun, 09 Aug 2026 09:00:00 -0300</pubDate>
+    <category>O dinheiro da clínica</category>
+    <description>Faturamento é uma linha de entrada e não informa quanto custou produzir aquele número. Quatro perdas se acumulam entre a receita bruta e o que sobra no caixa do dono, e nenhuma delas aparece no extrato.</description>
+  </item>
+  <item>
+    <title>Maturidade empresarial médica: os 5 estágios de uma clínica (e como saber em qual a sua está)</title>
+    <link>https://medceo.online/blog/maturidade-empresarial-medica-5-estagios</link>
+    <guid isPermaLink="true">https://medceo.online/blog/maturidade-empresarial-medica-5-estagios</guid>
+    <pubDate>Sun, 09 Aug 2026 09:00:00 -0300</pubDate>
+    <category>Maturidade e dependência do dono</category>
+    <description>Duas clínicas podem faturar o mesmo e estar em mundos diferentes. O que separa uma da outra não é volume: é o quanto a operação sobrevive sem o dono no centro.</description>
+  </item>
+</channel>
+</rss>

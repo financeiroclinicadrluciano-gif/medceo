@@ -146,6 +146,26 @@
     onScroll();
   })();
 
+  /* ---------------- Fachada de video ----------------
+     O player do Panda no heroi era `loading="eager"` e baixava 436 KB de JS de
+     terceiro mais 4,4 MB de segmentos de video ANTES de qualquer clique — mais
+     do que o site inteiro. `loading="lazy"` nao resolve porque o iframe esta
+     dentro do viewport inicial. O poster e o primeiro quadro do proprio video,
+     entao a dobra continua igual; o player so nasce no clique. */
+  document.querySelectorAll("[data-video-facade]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var f = document.createElement("iframe");
+      f.src = btn.getAttribute("data-video-facade") + "&autoplay=1";
+      f.title = btn.getAttribute("data-video-title") || "";
+      f.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
+      f.setAttribute("allowfullscreen", "true");
+      f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      f.style.cssText = "position:absolute;inset:0;display:block;width:100%;height:100%;border:0";
+      btn.replaceWith(f);
+      f.focus();
+    }, { once: true });
+  });
+
   // Daqui para baixo e tudo movimento: reveals, contadores, tilt, sheen.
   if (reduce) return;
 
@@ -244,4 +264,5 @@
       });
     });
   });
+
 })();

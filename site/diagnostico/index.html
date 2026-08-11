@@ -16,7 +16,11 @@
 <meta name="description" content="Diagnóstico de maturidade empresarial MedCEO — 20 perguntas, 5 minutos. Nível da operação, gargalo prioritário e três próximos passos." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Poppins:wght@200;300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" />
+<!-- media=print + onload tira a folha do caminho critico de render; o body ja
+     declara Poppins/system-ui, entao o texto pinta na hora e troca no swap. -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" /></noscript>
 <style>
   *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body { margin: 0; background: #05070A; color: #EAE2CF; font-family: "Poppins", system-ui, sans-serif; font-size: 15px; font-weight: 300; line-height: 1.7; letter-spacing: .02em; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
