@@ -42,9 +42,7 @@ jobs:
       - name: Verificar o site no ar
         run: |
           BASE=https://medceo.online
-          # 20s nao bastava: em 11/08 o teste leu a versao anterior e contou 0 posts
-          # num blog que ja tinha 6. A propagacao do Workers precisa de mais folga.
-          sleep 60
+          sleep 25
           FALHAS=0
           for ROTA in / /diagnostico /webnar /blog /sitemap.xml; do
             CODE=$(curl -s -m 30 -o /dev/null -w '%{http_code}' -L "$BASE$ROTA")
@@ -54,13 +52,13 @@ jobs:
 
           # O blog precisa listar post de verdade — zero post com markdown no
           # repositorio foi exatamente o sintoma do bug do relogio do Workers.
-          PUBLICADOS=$(curl -s -m 30 --compressed "$BASE/blog" \
+          PUBLICADOS=$(curl -s -m 30 -L --compressed "$BASE/blog" \
             | grep -aoE 'href="/blog/[a-z0-9-]+"' | sort -u | wc -l | tr -d ' ')
           echo "posts listados no /blog: $PUBLICADOS"
           [ "$PUBLICADOS" -ge 1 ] || FALHAS=$((FALHAS+1))
 
           # O numero do case precisa bater com a transcricao do depoimento.
-          if curl -s -m 30 --compressed "$BASE/" | grep -q "200 mil"; then
+          if curl -s -m 30 -L --compressed "$BASE/" | grep -q "200 mil"; then
             echo "ERRO: numero sem fonte (R\$ 200 mil) voltou ao ar"
             FALHAS=$((FALHAS+1))
           fi
