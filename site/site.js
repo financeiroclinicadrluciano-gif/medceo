@@ -113,9 +113,11 @@
     if (input) input.addEventListener("input", function () { set(Number(input.value)); });
   })();
 
-  if (reduce) return;
-
-  /* ---------------- Progresso + nav + dica de rolagem ---------------- */
+  /* ---------------- Progresso + nav + dica de rolagem ----------------
+     Fica ACIMA do corte de reduced-motion de proposito: barra de progresso e o
+     estado "rolado" da navbar sao feedback de ESTADO, nao movimento decorativo.
+     Quem pede menos movimento nao pediu menos informacao — e o CSS de
+     prefers-reduced-motion ja zera a duracao das transicoes deles. */
   (function () {
     var bar = document.querySelector("[data-progress]");
     var nav = document.querySelector("[data-nav]");
@@ -143,6 +145,9 @@
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   })();
+
+  // Daqui para baixo e tudo movimento: reveals, contadores, tilt, sheen.
+  if (reduce) return;
 
   /* ---------------- Reveals, reguas, contadores ---------------- */
   (function () {

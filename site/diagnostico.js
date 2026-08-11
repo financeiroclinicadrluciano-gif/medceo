@@ -101,7 +101,23 @@
         desc.textContent = op[2];
         wrap.appendChild(forte); wrap.appendChild(desc);
         b.appendChild(letra); b.appendChild(wrap);
-        b.addEventListener("click", function () { responder(op[1]); });
+        var escolhida = estado.answers[i] === op[1];
+        b.setAttribute("aria-pressed", escolhida ? "true" : "false");
+        function marcar() {
+          b.setAttribute("aria-pressed", "true");
+          b.style.borderColor = "rgba(195,161,78,.62)";
+          b.style.background = "rgba(195,161,78,.08)";
+          letra.style.borderColor = "#C3A14E";
+          letra.style.background = "rgba(195,161,78,.16)";
+          letra.style.color = "#EFE0BB";
+        }
+        if (escolhida) marcar();
+        b.addEventListener("click", function () {
+          // 1 frame de confirmacao antes de trocar a pergunta: sem isto o botao
+          // clicado some no mesmo tick e o clique nao devolve nada.
+          marcar();
+          setTimeout(function () { responder(op[1]); }, reduce ? 0 : 140);
+        });
         caixa.appendChild(b);
       });
     }
@@ -220,7 +236,8 @@
   function voltar() {
     if (estado.index === 0) { estado.stage = "intro"; mostrar("intro"); return; }
     estado.index -= 1;
-    estado.answers = estado.answers.slice(0, estado.index);
+    // A resposta NAO e descartada: quem volta precisa ver o que respondeu.
+    // responder() sobrescreve a posicao atual de qualquer jeito (slice + concat).
     pintarPergunta();
   }
   function refazer() {

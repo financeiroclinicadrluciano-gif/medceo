@@ -25,7 +25,7 @@
   a:hover { color: #EFE0BB; }
   img { display: block; max-width: 100%; }
   button { font: inherit; color: inherit; }
-  :focus-visible { outline: 1px solid #C3A14E; outline-offset: 4px; }
+  :focus-visible { outline: 2px solid #C3A14E; outline-offset: 4px; }
   ::selection { background: rgba(195,161,78,.28); color: #F6F3EC; }
   @keyframes dgRise { from { opacity: 0; filter: blur(6px); transform: translateY(16px) } to { opacity: 1; filter: blur(0); transform: none } }
   @keyframes dgWord { from { transform: translateY(112%); filter: blur(5px); opacity: .001 } to { transform: translateY(0); filter: blur(0); opacity: 1 } }
@@ -136,9 +136,9 @@
           </div>
 
           <div data-qpanel aria-live="polite" aria-atomic="true" style="animation:dgRise .6s cubic-bezier(.16,1,.3,1) both">
-            <h2 style="max-width:22ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,1.2rem + 2.1vw,2.9rem);font-weight:400;letter-spacing:-.035em;line-height:1.08;text-wrap:balance"><span data-qtext></span></h2>
+            <h2 style="max-width:22ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,1.2rem + 2.1vw,2.9rem);font-weight:400;letter-spacing:-.035em;line-height:1.08;text-wrap:balance"><span data-qtext id="dg-qtext"></span></h2>
 
-            <div data-options role="group" style="display:grid;gap:12px;margin-top:clamp(30px,4.5vh,46px)">
+            <div data-options role="group" aria-labelledby="dg-qtext" style="display:grid;gap:12px;margin-top:clamp(30px,4.5vh,46px)">
               
             </div>
           </div>

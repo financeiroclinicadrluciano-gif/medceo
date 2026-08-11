@@ -29,7 +29,14 @@
   a:hover { color: #EFE0BB; }
   img { display: block; max-width: 100%; }
   button { font: inherit; color: inherit; }
-  :focus-visible { outline: 1px solid #C3A14E; outline-offset: 4px; }
+  /* Anel de foco ciente da superficie. Ouro sobre marfim mede 1,91:1 e reprova
+     em SC 1.4.11 (min. 3:1) — nas secoes marfim o anel vira tinta #17140D.
+     Largura 2px = --medceo-focus-ring-width do design system (era 1px). */
+  :focus-visible { outline: 2px solid #C3A14E; outline-offset: 4px; }
+  #problema :focus-visible,
+  #metodo   :focus-visible,
+  #faq      :focus-visible { outline-color: #17140D; }
+  a[href="#conteudo"]:focus-visible { outline-color: #17140D; }
   ::selection { background: rgba(195,161,78,.28); color: #F6F3EC; }
   details > summary { list-style: none; cursor: pointer; }
   details > summary::-webkit-details-marker { display: none; }
@@ -54,7 +61,8 @@
   }
   /* Grupo WhatsApp */
   @keyframes mcPulse { from { opacity: .55; transform: translateX(-50%) scale(1) } to { opacity: 1; transform: translateX(-50%) scale(1.08) } }
-  .mc-pulse { animation: mcPulse 7s cubic-bezier(.4,0,.2,1) infinite alternate; }
+  /* O design system proibe laco decorativo infinito: 3 ciclos e para. */
+  .mc-pulse { animation: mcPulse 7s cubic-bezier(.4,0,.2,1) 3 alternate forwards; }
   @keyframes mcDot { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(37,211,102,.5) } 50% { opacity: .6; box-shadow: 0 0 0 7px rgba(37,211,102,0) } }
   .mc-dot { animation: mcDot 2.4s ease-in-out infinite; }
   .mc-wa:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(37,211,102,.4), 0 40px 90px rgba(4,20,11,.55); color: #04140B; }
@@ -62,7 +70,19 @@
 
 .mc-navwide { display: none !important; }
 @media (min-width: 1120px) { .mc-navwide { display: flex !important; } }
-.mc-pillbtn:hover { background: rgba(234,226,207,.026); }
+/* 2,6% de marfim sobre #05070A da 1,04:1 — invisivel. O hover vai para a regua
+   esquerda, que e o grafismo do sistema, em vez de lavar o fundo. O item ativo
+   tambem passa a ter marca estrutural, nao so cor (WCAG 1.4.1). */
+.mc-pillbtn { border-left: 1px solid transparent !important; padding-left: 14px !important; }
+/* !important tambem no fundo: o botao traz `background:transparent` inline. */
+.mc-pillbtn:hover { background: rgba(195,161,78,.06) !important; border-left-color: rgba(195,161,78,.34) !important; }
+.mc-pillbtn[aria-current="true"] { border-left-color: #C3A14E !important; background: rgba(195,161,78,.05) !important; }
+
+/* SC 2.2.2 — movimento automatico acima de 5s precisa de mecanismo de parada.
+   Pausa no hover e no foco de teclado, sem tirar o efeito. */
+.mc-marquee { animation: mcMarquee 44s linear infinite; }
+.mc-marquee:hover, .mc-marquee:focus-within { animation-play-state: paused; }
+section:has(.mc-marquee):hover .mc-marquee { animation-play-state: paused; }
 
   /* 112px de respiro e certo no desktop e sufoca em tela de 740px de altura.
      Os paddings sao inline, entao aqui precisa de !important. */
@@ -94,11 +114,31 @@
 .dc-d3146d72:hover { background:rgba(195,161,78,.08);border-color:rgba(195,161,78,.6);color:#EFE0BB }
 .dc-77e7c021:hover { border-color:#D9BE7E;background:linear-gradient(180deg, rgba(217,190,126,.22), rgba(195,161,78,.08));transform:translateY(-2px) }
 .dc-fec2fb34:hover { border-color:rgba(234,226,207,.62);color:#EAE2CF }
-.dc-13f234d5:hover { background:#F0E9D9 }
+.dc-13f234d5:hover { background:#F0E9D9; box-shadow: inset 3px 0 0 #6B5320 }
 .dc-5600929a:hover { background:rgba(234,226,207,.026) }
 .dc-a127d864:hover { color:#D9BE7E }
 .dc-82c9718c:hover { border-color:rgba(195,161,78,.24) }
 .dc-f2f3847f:hover { color:#EAE2CF }
+
+/* Estado de pressao. Sem isto, no celular — onde :hover nao existe e o
+   tap-highlight nativo esta desligado no reset — o toque nao devolve nada.
+   readme.md:86 do Nocturne: "Press -> translateY(1px)". */
+.dc-77e7c021:active,
+.mc-btn--primary:active,
+.dc-fec2fb34:active,
+.dc-d3146d72:active { transform: translateY(1px); transition-duration: 60ms; }
+.mc-wa:active       { transform: translateY(1px); transition-duration: 60ms; }
+.mc-pillbtn:active  { background: rgba(195,161,78,.10); }
+.dc-13f234d5:active { background: #E2D8BF; }
+#faq summary:active { background: rgba(23,20,13,.06); }
+.dc-7b06eec9:active, .dc-a127d864:active, .dc-f2f3847f:active { opacity: .7; }
+
+/* Hover so em ponteiro de verdade — sem isto o botao fica "levantado" depois do
+   toque ate o dedo cair em outro lugar. */
+@media (hover: none) {
+  .dc-77e7c021:hover, .mc-btn--primary:hover, .mc-wa:hover,
+  .dc-fec2fb34:hover, .dc-13f234d5:hover { transform: none; }
+}
 </style>
 </head>
 <body>
@@ -182,7 +222,7 @@
 
     <!-- ================= MARQUEE ================= -->
     <section aria-label="Princípios do método" style="position:relative;overflow:hidden;border-top:1px solid rgba(195,161,78,.16);border-bottom:1px solid rgba(195,161,78,.16);background:#080B0F;padding:22px 0">
-      <div style="display:flex;width:max-content;animation:mcMarquee 44s linear infinite">
+      <div class="mc-marquee" tabindex="0" style="display:flex;width:max-content">
         <div style="display:flex;align-items:center;gap:36px;padding-right:36px;color:rgba(234,226,207,.66);font-family:'Playfair Display',serif;font-size:18px;font-weight:300;letter-spacing:.02em;white-space:nowrap">
           <span>Diagnosticar antes de prometer</span><i aria-hidden="true" style="color:#C3A14E;font-size:10px;font-style:normal">◆</i>
           <span>Estruturar antes de amplificar</span><i aria-hidden="true" style="color:#C3A14E;font-size:10px;font-style:normal">◆</i>
