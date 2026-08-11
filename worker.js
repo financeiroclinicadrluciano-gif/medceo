@@ -19,11 +19,9 @@ const REDIRECIONAMENTOS = new Map([
   ["/webinar", "/webnar"],
 ]);
 
-const SEGURANCA = {
-  "X-Content-Type-Options": "nosniff",
-  "Referrer-Policy": "strict-origin-when-cross-origin",
-  "X-Frame-Options": "SAMEORIGIN",
-};
+// Os cabeçalhos de segurança e de cache moram em `site/_headers`: com Static
+// Assets o binding responde antes deste script, então header definido aqui só
+// chegava nas respostas que passam pelo worker (404 e redirect).
 
 export default {
   async fetch(request, env) {
@@ -35,11 +33,6 @@ export default {
       return Response.redirect(new URL(destino, url.origin).toString(), 301);
     }
 
-    const resposta = await env.ASSETS.fetch(request);
-    const nova = new Response(resposta.body, resposta);
-    for (const [chave, valor] of Object.entries(SEGURANCA)) {
-      nova.headers.set(chave, valor);
-    }
-    return nova;
+    return env.ASSETS.fetch(request);
   },
 };

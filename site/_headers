@@ -1,0 +1,24 @@
+# Com Workers Static Assets o binding responde ANTES do worker.js, então os
+# headers definidos lá só chegavam em 404. Este arquivo é lido pelo próprio
+# binding e vale para toda resposta.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# HTML muda a cada deploy: revalida sempre, mas serve do cache enquanto revalida.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Imagem e fonte são imutáveis na prática: o nome muda quando o conteúdo muda.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/blog/capas/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# JS do site: uma semana, com revalidação.
+/*.js
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

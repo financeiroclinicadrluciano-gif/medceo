@@ -106,6 +106,12 @@
       });
     }
 
+    // O botao que recebeu o clique acabou de ser removido pelo innerHTML="",
+    // entao o foco cairia no <body> e o teclado teria que percorrer a pagina
+    // inteira de novo, 20 vezes seguidas. Levar o foco para a primeira opcao.
+    var primeiro = document.querySelector("[data-options] button");
+    if (primeiro && estado.stage === "quiz") primeiro.focus();
+
     var painel = document.querySelector("[data-qpanel]");
     if (painel && !reduce) {
       painel.style.animation = "none";

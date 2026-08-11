@@ -104,18 +104,14 @@
     <section data-stage="quiz" style="flex:1;display:flex;flex-direction:column;padding:clamp(28px,5vh,52px) 0 clamp(40px,7vh,76px)">
         <div style="width:100%;max-width:900px;margin-inline:auto;padding-inline:28px">
 
-          <div data-segments aria-hidden="true" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px">
-            
-              </div>
-            </sc-for>
-          </div>
+          <div data-segments role="progressbar" aria-label="Progresso do diagnóstico" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px"></div>
 
           <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:clamp(30px,5vh,58px);color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.22em;text-transform:uppercase">
             <span style="color:#C3A14E">Pilar <span data-pillar-short></span> · <span data-pillar-label></span></span>
             <span><span data-qnum></span> / 20 · <span data-minutes></span></span>
           </div>
 
-          <div data-qpanel style="animation:dgRise .6s cubic-bezier(.16,1,.3,1) both">
+          <div data-qpanel aria-live="polite" aria-atomic="true" style="animation:dgRise .6s cubic-bezier(.16,1,.3,1) both">
             <h2 style="max-width:22ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,1.2rem + 2.1vw,2.9rem);font-weight:400;letter-spacing:-.035em;line-height:1.08;text-wrap:balance"><span data-qtext></span></h2>
 
             <div data-options role="group" style="display:grid;gap:12px;margin-top:clamp(30px,4.5vh,46px)">
@@ -131,7 +127,7 @@
       </section>
 
     <!-- ================= ETAPA 3 · RESULTADO ================= -->
-    <section data-stage="result" aria-live="polite" style="flex:1 1 auto;padding:clamp(44px,7vh,84px) 0 clamp(56px,9vh,104px);animation:dgRise .7s cubic-bezier(.16,1,.3,1) both">
+    <section data-stage="result" style="flex:1 1 auto;padding:clamp(44px,7vh,84px) 0 clamp(56px,9vh,104px);animation:dgRise .7s cubic-bezier(.16,1,.3,1) both">
         <div style="width:100%;max-width:1120px;margin-inline:auto;padding-inline:28px">
 
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(26px,4vw,56px);padding:clamp(30px,3.4vw,46px);border:1px solid rgba(195,161,78,.24);border-radius:8px;background:linear-gradient(180deg, rgba(29,41,54,.78), rgba(10,14,19,.92));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 26px 70px rgba(1,3,5,.5)">

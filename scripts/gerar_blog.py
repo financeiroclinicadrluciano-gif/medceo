@@ -245,7 +245,19 @@ for p in publicados:
 <a class="btn" href="/diagnostico">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
 </section>
 </article></main>"""
-    ld = f"""<script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":{fm.get('titulo','')!r},"datePublished":"{p['data']}","author":{{"@type":"Person","name":"Dr. Luciano Alves Neves"}},"publisher":{{"@type":"Organization","name":"MedCEO"}},"mainEntityOfPage":"{SITE}/blog/{p['slug']}"}}</script>""".replace("'", '"')
+    # json.dumps escapa aspas e apostrofo corretamente. A versao anterior usava
+    # repr() + replace("'", '"'), que quebrava o JSON em qualquer titulo com
+    # apostrofo (ex.: "d'agua") e derrubava o rich snippet em silencio.
+    import json as _json
+    ld_dados = {
+        "@context": "https://schema.org", "@type": "Article",
+        "headline": str(fm.get("titulo", "")),
+        "datePublished": str(p["data"]),
+        "author": {"@type": "Person", "name": "Dr. Luciano Alves Neves"},
+        "publisher": {"@type": "Organization", "name": "MedCEO"},
+        "mainEntityOfPage": f"{SITE}/blog/{p['slug']}",
+    }
+    ld = '<script type="application/ld+json">' + _json.dumps(ld_dados, ensure_ascii=False) + "</script>"
     destino = blog / p["slug"]
     destino.mkdir(parents=True, exist_ok=True)
     (destino / "index.html").write_text(
