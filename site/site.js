@@ -266,3 +266,96 @@
   });
 
 })();
+
+/* ==========================================================================
+   MedCEO — extensao do redesign 2026-08-11.
+   Camadas que o runtime original nao tinha: stagger dos reveals (--d),
+   scrub da timeline do metodo, parallax em GPU e o selo de maturidade.
+   Tudo respeita prefers-reduced-motion; a classe .js no <html> vem de um
+   script inline no <head> (antes da primeira pintura, para o gate no-JS).
+   ========================================================================== */
+
+/* Stagger: reveals com --d entram em cascata (delay so na saida). */
+(function () {
+  document.querySelectorAll("[data-reveal]").forEach(function (el) {
+    if (!el.style.getPropertyValue("--d")) return;
+    var d = "calc(var(--d,0)*.09s)";
+    el.style.transition =
+      "opacity .8s cubic-bezier(.16,1,.3,1) " + d + "," +
+      "transform .8s cubic-bezier(.16,1,.3,1) " + d + "," +
+      "filter .8s cubic-bezier(.16,1,.3,1) " + d;
+  });
+})();
+
+/* Scrub da timeline: o fio dourado avanca com a rolagem da secao. */
+(function () {
+  var tl = document.querySelector("[data-timeline]");
+  var draw = document.querySelector("[data-draw]");
+  if (!tl || !draw) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    draw.style.transform = "scaleY(1)";
+    return;
+  }
+  var ticking = false;
+  function update() {
+    var r = tl.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var total = r.height + vh;
+    var p = total > 0 ? (vh - r.top) / total : 0;
+    p = Math.max(0, Math.min(1, p));
+    draw.style.transform = "scaleY(" + p.toFixed(3) + ")";
+    ticking = false;
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  update();
+})();
+
+/* Parallax em GPU para [data-parallax] — fotos e fundos. */
+(function () {
+  var els = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+  if (!els.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var ticking = false;
+  function update() {
+    var vh = window.innerHeight;
+    els.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -240 || r.top > vh + 240) return;
+      var speed = Number(el.getAttribute("data-speed") || 0.1);
+      var mid = r.top + r.height / 2 - vh / 2;
+      var maxMove = Math.max(20, el.offsetHeight * 0.035);
+      var y = -mid * speed;
+      y = Math.max(-maxMove, Math.min(maxMove, y));
+      el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+    });
+    ticking = false;
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  update();
+})();
+
+/* Selo de maturidade: desenha o anel quando entra no viewport. */
+(function () {
+  var seal = document.querySelector("[data-seal]");
+  if (!seal) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        seal.classList.add("ativo");
+        io.unobserve(seal);
+      }
+    });
+  }, { threshold: 0.35 });
+  io.observe(seal);
+})();
