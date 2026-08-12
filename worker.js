@@ -11,8 +11,9 @@
 // externos. Sem isso elas viram 404 e a gente perde o que já tinha ranqueado.
 const REDIRECIONAMENTOS = new Map([
   ["/metodo", "/#metodo"],
-  ["/servico":"/servicos",
-  "/mentoria", "/#metodo"],
+  ["/servico", "/servicos"],
+  ["/servicos/", "/servicos"],
+  ["/mentoria", "/#metodo"],
   ["/sobre", "/#quem"],
   ["/faq", "/#faq"],
   ["/contato", "/#diagnostico"],
