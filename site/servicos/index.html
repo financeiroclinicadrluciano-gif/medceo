@@ -1,20 +1,21 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MedCEO</title>
-<link rel="canonical" href="https://medceo.online/">
-<meta property="og:title" content="MedCEO — Mentoria exclusiva para médicos">
+<title>Serviços | MedCEO</title>
+<link rel="canonical" href="https://medceo.online/servicos">
+<meta property="og:title" content="Serviços | MedCEO">
 <meta property="og:description" content="Mentoria exclusiva para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://medceo.online/">
+<meta property="og:url" content="https://medceo.online/servicos">
 <meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/assets/medceo/logo-icone.png">
 <link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
 
-<meta name="description" content="Mentoria exclusiva para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba." />
+<meta name="description" content="Os seis serviços do MedCEO: MedDay, MedManager, MedScale, Consultoria, MedCEO e MedCEO Alpha. O que cada um faz, quanto dura e para quem é." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" />
@@ -625,50 +626,6 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
   transform:translateY(-240%)}
 .skip:focus-visible{transform:translateY(0)}
-/* ---- 6. filtro: os dois cartoes entram em cascata na rolagem ------------ */
-html.js .fcard{opacity:0;transform:translateY(26px) scale(.985);
-  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-html.js .fcard.dentro{opacity:1;transform:none}
-html.js .fcard--no{transition-delay:.14s}
-html.js .fcard li{opacity:0;transform:translateX(-10px);
-  transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1)}
-html.js .fcard.dentro li{opacity:1;transform:none}
-html.js .fcard.dentro li:nth-child(1){transition-delay:.16s}
-html.js .fcard.dentro li:nth-child(2){transition-delay:.24s}
-html.js .fcard.dentro li:nth-child(3){transition-delay:.32s}
-html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
-@media(prefers-reduced-motion:reduce){
-  html.js .fcard,html.js .fcard li{opacity:1!important;transform:none!important}
-}
-
-/* ---- 10. prova: titulo e video na mesma regua --------------------------- */
-#evidencia .env{display:grid;gap:36px;align-items:center}
-@media(min-width:960px){
-  #evidencia .env{grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:60px}
-  #evidencia .prova__video{justify-self:end}
-}
-#evidencia .prova__frame{margin-inline:0}
-
-/* ---- 11. quem conduz: dobra deixa de ser gigante ------------------------ */
-#quem{padding-block:clamp(64px,8vh,96px)}
-#quem .quem__in{align-items:center}
-@media(min-width:960px){#quem .quem__in{min-height:0}}
-#quem .quem__bg{max-height:640px}
-
-/* ---- 16. CTA final: painel de niveis a direita -------------------------- */
-.final__niveis{display:grid;gap:1px;background:rgba(234,226,207,.12);
-  border:1px solid rgba(195,161,78,.22);align-self:center}
-.final__niveis li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:14px;align-items:center;
-  background:rgba(5,7,10,.72);padding:14px 18px}
-.final__niveis b{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;
-  letter-spacing:.18em;color:var(--gold)}
-.final__niveis span{font-family:'Playfair Display',Georgia,serif;font-size:15.5px;
-  font-weight:500;color:var(--ivory-bright)}
-.final__niveis small{display:block;margin-top:3px;font-family:'Poppins',sans-serif;font-size:12px;
-  font-weight:300;line-height:1.5;color:rgba(234,226,207,.6)}
-.final__niveis li:last-child{background:rgba(195,161,78,.1)}
-@media(min-width:960px){.final__in{align-items:center}}
-
 /* ---- pilares avancam com a rolagem ------------------------------------- */
 @media(min-width:1040px) and (prefers-reduced-motion:no-preference){
   /* A dobra fica alta e SO o painel gruda: a introducao rola embora e o painel
@@ -824,17 +781,62 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 .posts__rodape{margin-top:40px}
 
 </style>
+<style>
+/* ================= PAGINA DE SERVICOS ================= */
+.svc-hero{position:relative;isolation:isolate;overflow:hidden;background:var(--bg);
+  padding-block:clamp(120px,16vh,190px) clamp(64px,8vh,96px)}
+.svc-hero__bg{position:absolute;inset:0;z-index:-2}
+.svc-hero__bg img{width:100%;height:100%;object-fit:cover;opacity:.3;filter:saturate(.6) contrast(1.1)}
+.svc-hero__veil{position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(70% 60% at 18% 0%,rgba(195,161,78,.14),transparent 62%),
+  linear-gradient(180deg,rgba(5,7,10,.72),rgba(5,7,10,.94) 62%,var(--bg))}
+.svc-indice{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px}
+.svc-indice a{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(234,226,207,.78);padding:8px 13px;
+  border:1px solid rgba(195,161,78,.3);transition:background .3s ease,color .3s ease}
+.svc-indice a:hover{background:rgba(195,161,78,.12);color:#F6F3EC}
+.svc-indice a:active{background:rgba(195,161,78,.2)}
+
+.svc{padding-block:clamp(64px,9vh,104px);border-top:1px solid rgba(234,226,207,.09)}
+.svc--ivory{background:#EAE2CF;color:var(--ink);border-top-color:rgba(23,20,13,.12)}
+.svc__in{display:grid;gap:38px}
+@media(min-width:960px){
+  .svc__in{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center}
+  .svc:nth-of-type(even) .svc__fig{order:2}
+}
+.svc__fig{position:relative;aspect-ratio:4/3;overflow:hidden;background:rgba(234,226,207,.05)}
+.svc__fig img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.svc:hover .svc__fig img{transform:scale(1.035)}
+.svc__fig figcaption{position:absolute;left:0;bottom:0;
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:#05070A;background:var(--gold);padding:7px 12px}
+.svc__n{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.28em;color:var(--gold)}
+.svc--ivory .svc__n{color:#6B5320}
+.svc h2{margin:14px 0 0;font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(1.8rem,1.3rem+1.8vw,2.6rem);font-weight:500;line-height:1.1}
+.svc__func{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(217,190,126,.9)}
+.svc--ivory .svc__func{color:#6B5320}
+.svc__lead{margin-top:18px;font-size:15.5px;line-height:1.78;color:rgba(234,226,207,.74);max-width:56ch}
+.svc--ivory .svc__lead{color:var(--ink-soft)}
+.svc ul{margin:22px 0 0;display:grid;gap:11px;padding:0;list-style:none}
+.svc li{display:grid;grid-template-columns:16px minmax(0,1fr);gap:12px;
+  font-size:14.5px;line-height:1.68;color:rgba(234,226,207,.7)}
+.svc--ivory li{color:var(--ink-soft)}
+.svc li::before{content:"";width:5px;height:5px;margin-top:9px;border-radius:50%;background:var(--gold)}
+.svc__meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}
+.svc__meta span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(217,190,126,.9);padding:6px 11px;border:1px solid rgba(195,161,78,.3)}
+.svc--ivory .svc__meta span{color:#6B5320;border-color:rgba(107,83,32,.28)}
+.svc__pra{margin-top:22px;padding-left:16px;border-left:2px solid var(--gold);
+  font-size:14px;line-height:1.7;color:rgba(234,226,207,.62);max-width:54ch}
+.svc--ivory .svc__pra{color:var(--ink-soft)}
+.svc .btn{margin-top:26px}
+</style>
 </head>
 <body>
-<div style="position:relative;min-height:100vh;background:#05070A">
-
-  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
-
-  <div aria-hidden="true" data-progress="" style="position:fixed;z-index:200;top:0;left:0;height:1px;width:0%;
-    background:linear-gradient(90deg,#8C6F2E,#D9BE7E);box-shadow:0 0 12px rgba(195,161,78,.5)"></div>
-
-  <!-- ================= NAVBAR ================= -->
-  <header data-nav="" class="nav">
+<script>document.documentElement.classList.add("js");</script>
+<header data-nav="" class="nav">
     <nav aria-label="Navegação principal" class="env nav__in">
       <a href="#topo" aria-label="MedCEO — início" class="nav__brand">
         <img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26" />
@@ -857,524 +859,141 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 
   <main id="conteudo">
 
-    <!-- ================= 01 · HERO ================= -->
-    <section id="topo" aria-labelledby="hero-title" class="hero">
-      <div aria-hidden="true" class="hero__bg" data-parallax data-speed="0.16"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1920" height="1088" fetchpriority="high" /></div>
-      <div aria-hidden="true" class="hero__veil"></div>
-      <div aria-hidden="true" class="hero__veil2"></div>
-      <div aria-hidden="true" class="hero__grid"></div>
-      <div aria-hidden="true" class="hero__aura"></div>
-      <div aria-hidden="true" class="hero__grain"></div>
-
-      <p aria-hidden="true" class="hero__side">MedCEO · Curitiba · CRM/PR 45049</p>
-
-      <div class="env hero__in">
-        <div style="min-width:0">
-
-          <h1 id="hero-title" class="hero__title">
-            <span class="linha"><span class="w" style="--i:0">Mentoria</span> <span class="w" style="--i:1">exclusiva</span></span>
-            <span class="linha"><span class="w" style="--i:2">para</span> <em><span class="w" style="--i:3">médicos</span></em></span>
-          </h1>
-
-          <p class="hero__sub">Mais de 17 anos rodando a própria clínica, compilados em encontros semanais com toda a minha equipe. Você aprende a faturar sem a clínica depender de você, a ter tempo para si e para a sua família, e a profissionalizar a operação em quatro frentes: <b>Mentalidade, Marketing, Comercial e Gestão</b>.</p>
-
-          <div class="hero__actions">
-            <a href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+do+site+do+MedCEO+e+quero+saber+mais+sobre+a+mentoria.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" data-sheen="" class="btn">Quero saber mais <span aria-hidden="true">→</span></a>
-          </div>
-
-
-        </div>
-
-        <div class="hero__media">
-          <div class="hero__frame" data-tilt="">
-            <div aria-hidden="true" class="glow"></div>
-            <button type="button" data-video-facade="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=85638f9a-6681-4a3d-bdab-83aed5805455" data-video-title="Apresentação MedCEO — os próximos 20 minutos podem definir os próximos 10 anos" aria-label="Reproduzir a apresentação MedCEO" class="video-facade">
-              <img src="/assets/medceo/video-poster.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async" />
-              <span aria-hidden="true" class="play">&#9654;</span>
-            </button>
-            <span aria-hidden="true" class="hero__chip"><i></i>Apresentação do método</span>
-          </div>
-        </div>
-      </div>
-
-      <div aria-hidden="true" data-scrollhint="" class="scrollcue"></div>
-    </section>
-
-    <!-- ================= MARQUEE ================= -->
-    <section aria-label="Princípios do método" class="marquee-sec">
-      <div class="marquee" tabindex="0">
-        <div>
-          <span>Diagnosticar antes de prometer</span><i aria-hidden="true">◆</i>
-          <span>Estruturar antes de amplificar</span><i aria-hidden="true">◆</i>
-          <span>Faturamento sem margem é vaidade</span><i aria-hidden="true">◆</i>
-          <span>Entrega que não depende do humor</span><i aria-hidden="true">◆</i>
-          <span>Se não sobrevive 30 dias, não é empresa</span><i aria-hidden="true">◆</i>
-        </div>
-        <div aria-hidden="true">
-          <span>Diagnosticar antes de prometer</span><i aria-hidden="true">◆</i>
-          <span>Estruturar antes de amplificar</span><i aria-hidden="true">◆</i>
-          <span>Faturamento sem margem é vaidade</span><i aria-hidden="true">◆</i>
-          <span>Entrega que não depende do humor</span><i aria-hidden="true">◆</i>
-          <span>Se não sobrevive 30 dias, não é empresa</span><i aria-hidden="true">◆</i>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 02 · PROBLEMA ================= -->
-    <section id="problema" class="sec sec--ivory">
+    <section class="svc-hero" aria-labelledby="t-svc">
+      <div aria-hidden="true" class="svc-hero__bg"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1920" height="1088" fetchpriority="high"></div>
+      <div aria-hidden="true" class="svc-hero__veil"></div>
       <div class="env">
-        <div data-reveal="" style="max-width:720px">
-          <p class="eyebrow">01 &middot; O problema</p>
-          <h2 class="h2">A clínica cresceu. A sua semana também.</h2>
-          <p class="lede">Sábado de manhã, o celular acende: a recepção não sabe responder um preço e devolve a pergunta para você. Faturar mais não devolveu nenhuma hora do seu dia, porque a operação inteira continua passando por dentro de uma pessoa só. Os quatro sintomas abaixo têm o mesmo diagnóstico atrás.</p>
-        </div>
-
-        <div class="sintomas">
-          <article class="sintoma" data-reveal="" style="--d:0">
-            <span aria-hidden="true" class="ghost">01</span>
-            <b>01</b>
-            <h3>Agenda cheia, caixa magro</h3>
-            <p>Você sabe quanto entrou no mês. Não sabe quanto sobrou em cada procedimento. Enquanto a margem por linha não tem nome, todo crescimento é aposta feita com o seu dinheiro.</p>
-          </article>
-          <article class="sintoma" data-reveal="" style="--d:1">
-            <span aria-hidden="true" class="ghost">02</span>
-            <b>02</b>
-            <h3>O padrão sai de férias junto com você</h3>
-            <p>Na semana em que você viaja, o atendimento muda de temperatura. O paciente sente antes de reclamar, e a reputação cobra a conta em silêncio, meses depois.</p>
-          </article>
-          <article class="sintoma" data-reveal="" style="--d:2">
-            <span aria-hidden="true" class="ghost">03</span>
-            <b>03</b>
-            <h3>A recepção responde. E o lead some.</h3>
-            <p>A mensagem chega, é respondida em minutos e morre ali. Sem qualificação e sem cadência de retorno, investir em tráfego só acelera o vazamento.</p>
-          </article>
-          <article class="sintoma" data-reveal="" style="--d:3">
-            <span aria-hidden="true" class="ghost">04</span>
-            <b>04</b>
-            <h3>Toda decisão volta para a sua mesa</h3>
-            <p>Preço, exceção, reclamação, contratação. Ninguém abaixo de você tem alçada para decidir sozinho, então a fila de decisões cresce no mesmo ritmo da clínica.</p>
-          </article>
-        </div>
+        <p class="eyebrow">Serviços</p>
+        <h1 class="h2" id="t-svc" style="max-width:22ch">Seis caminhos. Um método só por trás.</h1>
+        <p class="lede" style="margin-top:22px">
+          Não é o mesmo conteúdo em preços diferentes. Cada serviço entra num estágio diferente da
+          clínica, com duração, profundidade e resultado próprios. Abaixo, o que cada um faz — e
+          para quem ele é.
+        </p>
+        <nav class="svc-indice" aria-label="Ir para um serviço"><a href="#medday">MedDay</a><a href="#medmanager">MedManager</a><a href="#medscale">MedScale</a><a href="#consultoria">Consultoria</a><a href="#medceo">MedCEO</a><a href="#alpha">MedCEO Alpha</a></nav>
       </div>
     </section>
 
-    <!-- ================= 03 · FILTRO ================= -->
-    <section id="filtro" class="sec filtro">
-      <div aria-hidden="true" class="filtro__dots"></div>
-
-      <div class="env filtro__in">
-        <div data-reveal="" style="min-width:0">
-          <p class="eyebrow">02 &middot; Filtro</p>
-          <h2 class="h2" style="font-size:clamp(2rem,3.6vw,3rem)">Não é para qualquer médico. É para quem já tem clínica.</h2>
-          <p class="lede" style="max-width:46ch">O diagnóstico lê o que já existe: pacientes atendidos, equipe contratada, faturamento entrando e decisões tomadas. Ele não projeta um futuro bonito. Ele mostra onde a sua operação de hoje trava.</p>
-          <p class="mono mono-apoio">Responda como é, não como gostaria que fosse. É o único jeito de o resultado servir.</p>
-        </div>
-
-        <div class="filtro__cards">
-          <div class="fcard fcard--yes" data-reveal="" style="--d:0">
-            <h3><i aria-hidden="true">✓</i>Faz sentido para você se…</h3>
-            <ul>
-              <li>Você já tem clínica com pacientes, equipe e faturamento em andamento.</li>
-              <li>Chega demanda, mas parte dela morre entre o WhatsApp e a cadeira.</li>
-              <li>Agenda, margem, equipe e decisão ainda voltam todas para a sua mesa.</li>
-              <li>Você quer arrumar a estrutura antes de colocar dinheiro na próxima frente de crescimento.</li>
-            </ul>
-          </div>
-
-          <div class="fcard fcard--no" data-reveal="" style="--d:1">
-            <h3><i aria-hidden="true">✕</i>Ainda não é o momento se…</h3>
-            <ul>
-              <li>A operação ainda não abriu. Sem rotina rodando, não há o que diagnosticar.</li>
-              <li>Você procura promessa de faturamento rápido ou fórmula pronta de marketing.</li>
-              <li>Você quer só mais pacientes, sem olhar margem, equipe e processo.</li>
-              <li>Você não quer responder com clareza sobre os próprios gargalos.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 04 · MÉTODO ================= -->
-    <section id="metodo" class="sec sec--ivory">
-      <div class="env">
-        <div data-reveal="" style="max-width:720px">
-          <p class="eyebrow">03 &middot; O método</p>
-          <h2 class="h2">Antes do plano, o retrato honesto.</h2>
-          <p class="lede">Não vendemos fórmula mágica. Conduzimos um diagnóstico estruturado e construímos o plano de evolução com você: do custo oculto ao próximo passo.</p>
-        </div>
-
-        <div class="timeline" data-timeline="">
-          <div aria-hidden="true" class="timeline__track"></div>
-          <div aria-hidden="true" class="timeline__draw" data-draw></div>
-
-          <div class="tstep" data-reveal="" style="--d:0">
-            <span aria-hidden="true" class="tstep__node">01</span>
-            <div><p class="tstep__kicker">Cena real</p><h3>Você no espelho</h3><p>Como você opera hoje: agenda, equipe, margem, conversão e o que acontece quando você se ausenta.</p></div>
-            <span class="tstep__selo">Retrato honesto</span>
-          </div>
-          <div class="tstep" data-reveal="" style="--d:1">
-            <span aria-hidden="true" class="tstep__node">02</span>
-            <div><p class="tstep__kicker">Diagnóstico</p><h3>Onde está o custo oculto</h3><p>Cada pilar é medido e recebe um nível. O diagnóstico revela onde o dinheiro e o tempo vazam.</p></div>
-            <span class="tstep__selo">Gargalo nomeado</span>
-          </div>
-          <div class="tstep" data-reveal="" style="--d:2">
-            <span aria-hidden="true" class="tstep__node">03</span>
-            <div><p class="tstep__kicker">Plano</p><h3>Estrutura antes da escala</h3><p>Prioridades por impacto e esforço: processo, indicador, comercial, equipe, na ordem certa.</p></div>
-            <span class="tstep__selo">Prioridade da semana</span>
-          </div>
-          <div class="tstep" data-reveal="" style="--d:3">
-            <span aria-hidden="true" class="tstep__node">04</span>
-            <div><p class="tstep__kicker">Execução</p><h3>Acompanhamento com critério</h3><p>Revisões de rotina e métricas vivas. O plano muda quando a realidade muda, não quando o discurso muda.</p></div>
-            <span class="tstep__selo">Execução acompanhada</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-        <!-- ================= 05 · ATLAS DO TIME ================= -->
-    <section id="time" class="sec atlas">
-      <div class="env">
-        <div class="atlas__head" data-reveal="">
-          <span aria-hidden="true">04 · Arquitetura do método</span>
-          <span>06 inteligências integradas</span>
-        </div>
-
-        <div class="atlas__intro" data-reveal="" style="--d:1">
-          <h2>Você não precisa virar <em>seis profissionais.</em></h2>
-          <div class="bloco">
-            <strong>Mentalidade CEO é a base.</strong>
-            <p>Os outros cinco pilares transformam direção em visibilidade, venda, cultura, execução e conteúdo. Cada frente tem um responsável que faz aquilo todo dia dentro de uma clínica de verdade. Você aprende a dirigir as seis, não a executar as seis.</p>
-          </div>
-        </div>
-
-        <div class="atlas__panel" data-reveal="" style="--d:2">
-          <div class="atlas__status">
-            <span>Pilar em foco</span>
-            <span><b data-pill="counter">01 / 06</b></span>
-          </div>
-
-          <div class="pillpanel" data-pill-panel>
-            <figure class="pillpanel__media">
-              <div class="moldura">
-                <img data-pill="image" alt="" width="1200" height="1600" loading="lazy" fetchpriority="low" decoding="async" />
-                <span aria-hidden="true" class="vinheta"></span>
-                <span aria-hidden="true" class="num"><span data-pill="number">01</span></span>
-              </div>
-              <figcaption>Com <span data-pill="name"></span></figcaption>
-            </figure>
-
-            <div class="pillpanel__info">
-              <p class="kicker"><span data-pill="kicker"></span></p>
-              <h3><span data-pill="role"></span></h3>
-              <p class="thesis"><span data-pill="thesis"></span></p>
-
-              <p class="desenv">O que você desenvolve</p>
-              <ul data-topics></ul>
-            </div>
-          </div>
-
-          <nav class="pillrail-wrap" aria-label="Navegar pelos pilares do método">
-            <div aria-hidden="true" class="pillrail-progress"><span data-pill-progress></span></div>
-            <ol class="pillrail">
-              <li><button type="button" data-pillar-btn="0"><small data-pill-num>01</small><strong data-pill-role>Mentalidade CEO</strong></button></li>
-              <li><button type="button" data-pillar-btn="1"><small data-pill-num>02</small><strong data-pill-role>Margem</strong></button></li>
-              <li><button type="button" data-pillar-btn="2"><small data-pill-num>03</small><strong data-pill-role>Comercial</strong></button></li>
-              <li><button type="button" data-pillar-btn="3"><small data-pill-num>04</small><strong data-pill-role>Operação</strong></button></li>
-              <li><button type="button" data-pillar-btn="4"><small data-pill-num>05</small><strong data-pill-role>Projetos</strong></button></li>
-              <li><button type="button" data-pillar-btn="5"><small data-pill-num>06</small><strong data-pill-role>Filmmaker</strong></button></li>
-            </ol>
-          </nav>
-
-          <p aria-live="polite" aria-atomic="true" class="mono" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"><span data-pill="live"></span></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 06 · PROVA ================= -->
-    <section id="evidencia" class="sec prova">
-      <div aria-hidden="true" class="prova__aura"></div>
-      <div aria-hidden="true" class="prova__grain"></div>
-
-      <div class="env">
-        <div data-reveal="" style="max-width:760px">
-          <p class="eyebrow">05 &middot; Prova</p>
-          <h2 class="h2" style="max-width:17ch">Ele já tinha feito outras mentorias. Nenhuma mexeu no faturamento.</h2>
-        </div>
-
-        <div class="prova__video">
-          <div class="prova__frame" data-tilt="">
-            <iframe id="panda-6e8f2654-57ab-4069-950e-eb9bfe5d1018" src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=6e8f2654-57ab-4069-950e-eb9bfe5d1018" title="Depoimento do Dr. Luis sobre a mentoria MedCEO" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-          </div>
-          <p class="prova__legenda">Depoimento gravado pelo próprio médico. Resultado individual, não é média nem promessa.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 07 · ALÉM DO FATURAMENTO ================= -->
-    <section aria-label="O que muda além do faturamento" class="alem">
-      <div class="alem__split">
-        <figure class="alem__media">
-          <img src="/assets/medceo/dr-luis-consultorio-wide.jpg" alt="Dr. Luis no consultório, mentorado do MedCEO." width="2000" height="1333" loading="lazy" fetchpriority="low" decoding="async" data-parallax data-speed="0.08" />
-          <span aria-hidden="true" class="fade"></span>
+    <section id="medday" class="svc" aria-labelledby="t-medday">
+      <div class="env svc__in">
+        <figure class="svc__fig" data-reveal>
+          <img src="/blog/capas/IMG_0223.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <figcaption>01 &middot; MedDay</figcaption>
         </figure>
-
-        <div class="alem__text">
-          <p class="eyebrow" data-reveal="">Além do número</p>
-
-          <h2 class="h2" data-reveal="" style="--d:1;max-width:18ch">+350% de faturamento após o MedCEO</h2>
-
-          <div data-reveal="" style="--d:2;max-width:520px;margin-top:clamp(10px,1.6vh,18px)">
-            <p class="chart-label">Mas não foi só o número: hoje a clínica roda sem depender dele, o faturamento virou previsível e a equipe assumiu a operação. · faturamento mensal</p>
-
-            <div class="chart">
-              <div aria-hidden="true" class="chart__base"><span data-ruler="" data-w="1"></span></div>
-
-              <div class="chart__col">
-                <span class="valor"><small>R$</small><span data-count="40">40</span><small>mil</small></span>
-                <span aria-hidden="true" class="dot"></span>
-                <span class="rotulo">Início</span>
-              </div>
-              <div class="chart__col">
-                <span class="valor"><small>R$</small><span data-count="80">80</span><small>mil</small></span>
-                <span aria-hidden="true" class="dot"></span>
-                <span class="rotulo">60 dias</span>
-              </div>
-              <div class="chart__col">
-                <span class="valor"><small>R$</small><span data-count="100">100</span><small>mil</small></span>
-                <span aria-hidden="true" class="dot"></span>
-                <span class="rotulo">6 meses</span>
-              </div>
-              <div class="chart__col">
-                <span class="valor"><small>R$</small><span data-count="180">180</span><small>mil</small></span>
-                <span aria-hidden="true" class="dot"></span>
-                <span class="rotulo">Ao final</span>
-              </div>
-            </div>
-
-            <p class="chart__nota">Valores relatados pelo próprio médico em depoimento gravado. Resultado individual, não é média nem promessa.</p>
-          </div>
+        <div data-reveal style="--d:1">
+          <p class="svc__n">Serviço 01</p>
+          <h2 id="t-medday">MedDay<span class="svc__func">Consciência e diagnóstico</span></h2>
+          <p class="svc__lead">Um dia inteiro sobre uma dor só. Você chega com a queixa que mais dói hoje e sai com ela medida, nomeada e com o próximo passo definido.</p>
+          <ul><li>Recorte de uma dor urgente, com diagnóstico ao vivo</li><li>Entrega de alto valor em quatro horas</li><li>Score da sua clínica ao final</li><li>Convite ao diagnóstico completo, se fizer sentido</li></ul>
+          <div class="svc__meta"><span>4 horas</span><span>Uma dor específica</span><span>Score da clínica e convite ao diagnóstico</span></div>
+          <p class="svc__pra">Para quem ainda não sabe se o problema é margem, comercial, operação ou dependência do dono.</p>
+          <a class="btn" href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Falar sobre o MedDay <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+    <section id="medmanager" class="svc svc--ivory" aria-labelledby="t-medmanager">
+      <div class="env svc__in">
+        <figure class="svc__fig" data-reveal>
+          <img src="/blog/capas/DSC00192-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <figcaption>02 &middot; MedManager</figcaption>
+        </figure>
+        <div data-reveal style="--d:1">
+          <p class="svc__n">Serviço 02</p>
+          <h2 id="t-medmanager">MedManager<span class="svc__func">Conhecimento estruturado</span></h2>
+          <p class="svc__lead">A formação executiva do método, disciplina por disciplina. Cada competência tem aula-base, leitura, caso, exercício e avaliação — e termina num projeto aplicado à sua clínica.</p>
+          <ul><li>Trilha completa das quatro frentes: Comercial, Marketing, Gestão e Mentalidade CEO</li><li>Dez vídeos por disciplina, com caso e exercício</li><li>Tutoria para tirar dúvida de aplicação</li><li>Projeto aplicado ao fim de cada disciplina</li></ul>
+          <div class="svc__meta"><span>Autoinstrucional + tutoria</span><span>Competência executiva</span><span>Projeto aplicado por disciplina</span></div>
+          <p class="svc__pra">Para quem precisa da base antes de conduzir — ou quer formar alguém da equipe.</p>
+          <a class="btn" href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Falar sobre o MedManager <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+    <section id="medscale" class="svc" aria-labelledby="t-medscale">
+      <div class="env svc__in">
+        <figure class="svc__fig" data-reveal>
+          <img src="/blog/capas/DSC00199-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <figcaption>03 &middot; MedScale</figcaption>
+        </figure>
+        <div data-reveal style="--d:1">
+          <p class="svc__n">Serviço 03</p>
+          <h2 id="t-medscale">MedScale<span class="svc__func">Estruturação e tração</span></h2>
+          <p class="svc__lead">Seis meses para sair do improviso. Ao fim, a clínica tem a máquina básica rodando: entra lead, converte, entrega e sobra margem — com número em cada etapa.</p>
+          <ul><li>Aquisição: de onde vem o paciente e a que custo</li><li>Conversão: processo comercial replicável, não talento individual</li><li>Margem: o que sobra por procedimento, não só o que entra</li><li>Execução: rotina, indicador e responsável por frente</li></ul>
+          <div class="svc__meta"><span>24 semanas</span><span>Fundamentos e execução</span><span>Máquina básica funcionando</span></div>
+          <p class="svc__pra">Para negócio em início ou tração básica, que ainda não tem estrutura montada.</p>
+          <a class="btn" href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Falar sobre o MedScale <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+    <section id="consultoria" class="svc svc--ivory" aria-labelledby="t-consultoria">
+      <div class="env svc__in">
+        <figure class="svc__fig" data-reveal>
+          <img src="/assets/medceo/office-web.webp" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <figcaption>04 &middot; Consultoria</figcaption>
+        </figure>
+        <div data-reveal style="--d:1">
+          <p class="svc__n">Serviço 04</p>
+          <h2 id="t-consultoria">Consultoria<span class="svc__func">Intervenção específica</span></h2>
+          <p class="svc__lead">Quando o problema já tem nome e o que falta é execução guiada. Escopo fechado, indicador combinado antes de começar e prazo curto.</p>
+          <ul><li>Um gargalo por vez, com escopo escrito</li><li>Indicador de sucesso combinado antes do início</li><li>Implantação acompanhada, não só recomendação</li><li>Entrega delimitada em quatro a seis semanas</li></ul>
+          <div class="svc__meta"><span>4 a 6 semanas</span><span>Um gargalo prioritário</span><span>Implantação delimitada e mensurada</span></div>
+          <p class="svc__pra">Para quem já sabe onde dói e precisa que alguém entre junto para resolver.</p>
+          <a class="btn" href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Falar sobre o Consultoria <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+    <section id="medceo" class="svc" aria-labelledby="t-medceo">
+      <div class="env svc__in">
+        <figure class="svc__fig" data-reveal>
+          <img src="/assets/medceo/hero-bg.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <figcaption>05 &middot; MedCEO</figcaption>
+        </figure>
+        <div data-reveal style="--d:1">
+          <p class="svc__n">Serviço 05</p>
+          <h2 id="t-medceo">MedCEO<span class="svc__func">Transformação e liberdade</span></h2>
+          <p class="svc__lead">A mentoria principal. Encontros semanais com a equipe inteira, onde a clínica deixa de depender de você — sistemas no lugar de heroísmo, liderança no lugar de execução.</p>
+          <ul><li>Encontros semanais ao vivo, com decisão e plano a cada aula</li><li>Laboratório de aplicação (MedLAB) entre os encontros</li><li>As quatro frentes conduzidas em profundidade</li><li>Governança, indicadores e autonomia da equipe</li></ul>
+          <div class="svc__meta"><span>24 semanas + MedLAB</span><span>Sistemas, liderança e escala</span><span>Empresa menos dependente do fundador</span></div>
+          <p class="svc__pra">Para clínica com operação e equipe rodando, onde o gargalo virou o próprio dono.</p>
+          <a class="btn" href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Falar sobre o MedCEO <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+    <section id="alpha" class="svc svc--ivory" aria-labelledby="t-alpha">
+      <div class="env svc__in">
+        <figure class="svc__fig" data-reveal>
+          <img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <figcaption>06 &middot; MedCEO Alpha</figcaption>
+        </figure>
+        <div data-reveal style="--d:1">
+          <p class="svc__n">Serviço 06</p>
+          <h2 id="t-alpha">MedCEO Alpha<span class="svc__func">Profundidade, comunidade e legado</span></h2>
+          <p class="svc__lead">Um ano com fundadores maduros. Aqui o trabalho não é mais a operação: é a obra, a rede e a própria mentoria de quem já conduz.</p>
+          <ul><li>Trabalho sobre o fundador, os valores e o legado</li><li>Rede de pares em estágio parecido</li><li>Construção da obra própria e da autoridade</li><li>Relações e parcerias dentro do ecossistema</li></ul>
+          <div class="svc__meta"><span>12 meses</span><span>Fundador, obra, relações e parcerias</span><span>Maturidade e rede de pares</span></div>
+          <p class="svc__pra">Para fundador maduro, financeiramente transparente e culturalmente aderente.</p>
+          <a class="btn" href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Falar sobre o MedCEO Alpha <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ================= 08 · QUEM CONDUZ ================= -->
-    <section id="quem" class="quem">
-      <div aria-hidden="true" class="quem__bg" data-parallax data-speed="0.1"></div>
-      <div aria-hidden="true" class="quem__veil"></div>
-      <div aria-hidden="true" class="quem__grain"></div>
-
-      <div class="env">
-        <div class="quem__in" data-reveal="">
-          <p class="eyebrow">06 &middot; Quem conduz</p>
-          <h2 class="h2" style="max-width:14ch;font-size:clamp(2.2rem,4.5vw,3.6rem);margin-top:22px">O método nasceu dentro de uma clínica que atende.</h2>
-          <p class="quem__lede">Dr. Luciano Alves Neves é médico, CEO e fundador da Natuá MedSpa, em Curitiba. Cada processo do MedCEO foi testado primeiro na operação dele, com paciente marcado, equipe contratada e decisão que não podia esperar a próxima reunião.</p>
-
-          <blockquote class="quote">
-            Faturamento sem margem é vaidade empresarial. Se você não sabe quanto sobra, você não sabe se está crescendo.
-            <cite><strong>Dr. Luciano Alves Neves</strong><br />CRM/PR 45049 · Natuá MedSpa</cite>
-          </blockquote>
-
-          <dl class="creds" aria-label="Credenciais publicadas">
-            <div><dt>Médico atuante</dt><dd>atende na própria clínica, não só ensina</dd></div>
-            <div><dt>Natuá MedSpa</dt><dd>clínica própria em Curitiba, onde o método nasceu</dd></div>
-            <div><dt>CRM/PR 45049</dt><dd>médico, CEO e fundador</dd></div>
-            <div><dt>DOC365</dt><dd>método criado dentro da própria operação</dd></div>
-          </dl>
-
-          <nav class="quem__links" aria-label="Fontes oficiais do Dr. Luciano">
-            <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">Conhecer a Natuá ↗</a>
-            <a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noreferrer">Instagram oficial ↗</a>
-          </nav>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 09 · GRUPO WHATSAPP ================= -->
-    <section aria-label="Grupo gratuito no WhatsApp" class="sec wa-sec">
-      <div aria-hidden="true" class="pulse"></div>
-      <div aria-hidden="true" class="dots"></div>
-
-      <div class="env wa-sec__in">
-        <p class="wa-chip" data-reveal=""><i aria-hidden="true"></i>Gratuito · toda semana</p>
-
-        <h2 class="h2" data-reveal="" style="--d:1;max-width:20ch">Entre no nosso Grupo Gratuito do WhatsApp</h2>
-
-        <p class="lede" data-reveal="" style="--d:2">Toda semana um encontro online da mentoria MedCEO fica aberto para quem está no grupo. É a mesma conversa que os mentorados têm: um tema, um gargalo, o que fazer na semana seguinte. Sem custo.</p>
-
-        <a data-reveal="" data-track="whatsapp" href="https://wa.me/554184875688?text=Ol%C3%A1%21%20Quero%20entrar%20no%20grupo%20gratuito%20do%20MedCEO%2C%20o%20das%20aulas%20semanais." target="_blank" rel="noopener noreferrer" class="btn btn--wa" style="--d:3">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="21" height="21" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.470 0 1.46 1.06 2.87 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.2 4.79 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2z"/></svg>
-          Entrar no grupo agora
-        </a>
-
-        <p class="micro" data-reveal="" style="--d:4">Entrada gratuita · saia quando quiser</p>
-      </div>
-    </section>
-
-    <!-- ================= 10 · CONVITE AO DIAGNÓSTICO ================= -->
-        <!-- ============ ESTEIRA DE PRODUTOS, EM ESCADA ============
-         Função, duração, profundidade e resultado de cada degrau. Fonte:
-         arquitetura mestre de produtos e currículo (13/07/2026), Tabela 5.
-         Sem preço: o documento não traz valores. -->
-    <section id="esteira" class="sec sec--ivory" aria-labelledby="t-esteira">
-      <div class="env">
-        <div>
-          <p class="eyebrow" data-reveal>07 &middot; A esteira</p>
-          <h2 class="h2" id="t-esteira" data-reveal style="--d:1">Cada degrau resolve um problema diferente</h2>
-          <p class="lede" data-reveal style="--d:2">
-            Não é o mesmo conteúdo em três preços. Cada produto entra num estágio diferente da
-            clínica, com profundidade e duração próprias — e o diagnóstico é o que diz em qual
-            degrau você está.
-          </p>
-          <p class="escada__nota" data-reveal style="--d:3">
-            O caminho não se escolhe pelo preço. Ele se escolhe pelo estágio da empresa, pela
-            urgência, pela capacidade de execução e pelo quanto a clínica ainda depende de você.
-          </p>
-        </div>
-        <ol class="escada2" aria-label="Esteira de produtos, do degrau de entrada ao mais profundo">
-            <li class="deg" data-reveal style="--d:0">
-              <span class="deg__n">01</span>
-              <span class="deg__nome">MedDay<span class="deg__f">Consciência</span></span>
-              <span class="deg__d"><b>4 horas</b>Score e convite ao diagnóstico</span>
-            </li>
-            <li class="deg" data-reveal style="--d:1">
-              <span class="deg__n">02</span>
-              <span class="deg__nome">MedManager<span class="deg__f">Conhecimento</span></span>
-              <span class="deg__d"><b>Autoinstrucional</b>Competência executiva</span>
-            </li>
-            <li class="deg" data-reveal style="--d:2">
-              <span class="deg__n">03</span>
-              <span class="deg__nome">MedScale<span class="deg__f">Estruturação</span></span>
-              <span class="deg__d"><b>24 semanas</b>Máquina básica funcionando</span>
-            </li>
-            <li class="deg" data-reveal style="--d:3">
-              <span class="deg__n">04</span>
-              <span class="deg__nome">Consultoria<span class="deg__f">Intervenção</span></span>
-              <span class="deg__d"><b>4 a 6 semanas</b>Um gargalo resolvido</span>
-            </li>
-            <li class="deg" data-reveal style="--d:4">
-              <span class="deg__n">05</span>
-              <span class="deg__nome">MedCEO<span class="deg__f">Transformação</span></span>
-              <span class="deg__d"><b>24 semanas + MedLAB</b>Empresa que não depende de você</span>
-            </li>
-            <li class="deg" data-reveal style="--d:5">
-              <span class="deg__n">06</span>
-              <span class="deg__nome">MedCEO Alpha<span class="deg__f">Legado</span></span>
-              <span class="deg__d"><b>12 meses</b>Fundador, obra e rede de pares</span>
-            </li>
-        </ol>
-        <p style="grid-column:1/-1;margin-top:8px">
-          <a class="btn btn--ghost" href="/servicos">Ver cada serviço em detalhe <span aria-hidden="true">&rarr;</span></a>
+    <section class="sec sec--dark" aria-labelledby="t-svc-fim">
+      <div class="env" style="text-align:center">
+        <p class="eyebrow" style="justify-content:center">Próximo passo</p>
+        <h2 class="h2" id="t-svc-fim" style="margin-inline:auto;max-width:20ch">Não sabe em qual degrau você está?</h2>
+        <p class="lede" style="margin-inline:auto;margin-top:20px">
+          O diagnóstico mede a sua clínica em quatro frentes e diz qual caminho faz sentido agora.
         </p>
-      </div>
-    </section>
-
-    <!-- ================= 11 · FAQ ================= -->
-    <section id="faq" class="sec sec--ivory">
-      <div class="env">
-        <div data-reveal="" style="max-width:720px">
-          <p class="eyebrow">Perguntas frequentes</p>
-          <h2 class="h2" style="max-width:18ch">O que perguntam antes de começar.</h2>
-        </div>
-
-        <div class="faq" data-reveal="" style="--d:1">
-          <details><summary>O diagnóstico é gratuito?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Sim. São 20 perguntas, cerca de cinco minutos, e o resultado aparece na hora: nível de maturidade, gargalo prioritário e três próximos passos.</p></details>
-          <details><summary>Preciso já ter uma clínica funcionando?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Sim. O diagnóstico precisa de matéria-prima: pacientes, equipe, faturamento e decisões que já podem ser observadas. Quem ainda não abriu a operação não tem o que diagnosticar.</p></details>
-          <details><summary>Isso é mais um curso de marketing médico?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Não. Marketing é apenas uma das seis frentes. Antes dela vêm mentalidade de CEO, margem, comercial, gestão de pessoas e projetos, porque mais pacientes em uma operação desorganizada só amplifica o gargalo.</p></details>
-          <details><summary>Quanto tempo preciso dedicar por semana?<span class="faq__plus" aria-hidden="true">+</span></summary><p>O diagnóstico leva cerca de cinco minutos. A mentoria é desenhada para caber na agenda de quem atende: encontros com pauta objetiva e execução acompanhada, não maratona de aulas.</p></details>
-          <details><summary>Vocês prometem determinado faturamento?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Não. Nenhum resultado é garantido: ele depende da sua operação, do seu mercado e da sua execução. O que entregamos é diagnóstico, direção e acompanhamento.</p></details>
-          <details><summary>Atende clínicas de qualquer especialidade?<span class="faq__plus" aria-hidden="true">+</span></summary><p>O método é de gestão, então se aplica a clínicas de diferentes especialidades. O que define o encaixe é o estágio da operação, não a área médica.</p></details>
-          <details><summary>E depois do diagnóstico, o que acontece?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Você recebe o resultado imediatamente e pode falar com o time pelo WhatsApp para entender se a mentoria faz sentido para o seu estágio. Não há cobrança nem compromisso.</p></details>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:32px">
+          <a class="btn" href="/diagnostico">Fazer o diagnóstico <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn--ghost" href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener">Entrar no grupo de WhatsApp</a>
         </div>
       </div>
     </section>
 
-    <!-- ================= 12 · CTA FINAL ================= -->
-    <!-- ============ BLOG ============
-         Os 6 artigos publicados. Título, descrição e data lidos do HTML que o
-         gerador escreveu, para a home nunca divergir do que está no ar. -->
-    <section id="blog" class="sec sec--dark" aria-labelledby="t-blog">
-      <div class="env">
-        <p class="eyebrow" data-reveal>08 &middot; Leitura</p>
-        <h2 class="h2" id="t-blog" data-reveal style="--d:1">Conheça nosso blog</h2>
-        <p class="lede" data-reveal style="--d:2">
-          Margem, no-show, dependência do dono, valuation. Os números que decidem a sua clínica, destrinchados com a conta à mostra — sem promessa e sem atalho.
-        </p>
-        <div class="blogwrap">
-          <a class="bdest" href="/blog/diagnostico-gestao-clinica" data-reveal style="--d:1">
-            <span class="bdest__tag">Mais recente</span>
-            <span class="bdest__img"><img src="/blog/capas/DSC00192-2.jpg" alt="" width="900" height="600" loading="lazy" decoding="async"></span>
-            <span class="bdest__txt">
-              <time datetime="2026-08-11">11 ago 2026</time>
-              <h3>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h3>
-              <p>Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor inteiro não respo…</p>
-            </span>
-          </a>
-          <div class="blist" data-reveal style="--d:2">
-            <a class="bitem" href="/blog/indicadores-clinica-faixa-referencia">
-              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-11">11 ago 2026</time>
-                <h4>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h4>
-              </span>
-            </a>
-            <a class="bitem" href="/blog/parcelamento-clinica-margem">
-              <span class="bitem__img"><img src="/blog/capas/IMG_0223.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-10">10 ago 2026</time>
-                <h4>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h4>
-              </span>
-            </a>
-            <a class="bitem" href="/blog/valuation-clinica-saida-socio">
-              <span class="bitem__img"><img src="/blog/capas/DSC00208-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-10">10 ago 2026</time>
-                <h4>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h4>
-              </span>
-            </a>
-            <a class="bitem" href="/blog/margem-lucro-clinica-medica">
-              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-09">9 ago 2026</time>
-                <h4>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h4>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="posts__rodape" data-reveal>
-          <a class="btn btn--ghost" href="/blog">Ver todos os artigos</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="diagnostico" class="sec final">
-      <div aria-hidden="true" class="final__bg"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1100" height="1375" loading="lazy" fetchpriority="low" decoding="async" /></div>
-      <div aria-hidden="true" class="final__veil"></div>
-      <div aria-hidden="true" class="final__grain"></div>
-
-      <div class="env final__in">
-        <div class="final__text" data-reveal="">
-          <p class="eyebrow">Próximo passo</p>
-          <h2 class="h2">Realize seu diagnóstico agora com a nossa Inteligência Artificial</h2>
-          <p>Uma inteligência artificial que faz as perguntas que um consultor faria na primeira reunião. Em cinco minutos você sai com o gargalo nomeado e o próximo passo definido.</p>
-          <a href="/diagnostico" data-sheen="" class="btn">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
-          <p class="micro">Gratuito · resultado imediato · cerca de 5 minutos</p>
-        </div>
-
-        <div class="seal" data-reveal="" style="--d:1" data-seal="">
-          <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="86"></circle><circle cx="100" cy="100" r="78" style="stroke:rgba(195,161,78,.18);stroke-width:.5"></circle></svg>
-          <div class="seal__inner">
-            <span>Nível de maturidade</span>
-            <b>Médico CEO</b>
-            <i>5 níveis</i>
-          </div>
-        </div>
-        <ol class="final__niveis" aria-label="Os cinco níveis de maturidade"><li><b>01</b><span>Sobrevivência<small>A clínica depende de você para tudo.</small></span></li><li><b>02</b><span>Organização<small>Existe processo, mas ele mora na sua cabeça.</small></span></li><li><b>03</b><span>Delegação<small>A equipe executa; você ainda decide tudo.</small></span></li><li><b>04</b><span>Previsibilidade<small>Número entra sem susto e a margem é conhecida.</small></span></li><li><b>05</b><span>Médico CEO<small>A empresa cresce sem você no centro.</small></span></li></ol>
-      </div>
-    </section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="footer">
+<footer class="footer">
     <div aria-hidden="true" class="footer__dots"></div>
 
     <div class="env footer__grid">
@@ -1409,9 +1028,6 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
       <small>CRM/PR 45049 · Curitiba, PR</small>
     </div>
   </footer>
-</div>
-<script>window.__MC_PILLARS__=[{"number": "01", "name": "Dr. Luciano", "role": "Mentalidade CEO", "kicker": "A base de todo o método", "thesis": "De médico indispensável a CEO capaz de liderar, decidir e desenhar um negócio que cresce sem ele no centro de tudo.", "image": "/assets/medceo/pilar-luciano.jpg", "position": "center 24%", "alt": "Dr. Luciano Alves Neves, responsável pelo pilar de Mentalidade CEO no MedCEO.", "topics": ["Liderança", "Mentalidade de dono", "Tomada de decisões", "Modelos de negócio"]}, {"number": "02", "name": "Gustavo", "role": "Marketing", "kicker": "Pilar de desenvolvimento", "thesis": "Transformar visibilidade em demanda mensurável — e demanda em receita previsível, com número na mesa.", "image": "/assets/medceo/pilar-gustavo.jpg", "position": "center 18%", "alt": "Gustavo, responsável pelo pilar de Marketing do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["Visibilidade", "Análise de dados e indicadores", "IA para copy, sites e análise", "Receita previsível", "Tráfego pago"]}, {"number": "03", "name": "Marcos", "role": "Comercial", "kicker": "Pilar de desenvolvimento", "thesis": "Tirar a venda do improviso e criar um processo comercial replicável — do primeiro contato ao fechamento.", "image": "/assets/medceo/pilar-marcos.jpg", "position": "center 22%", "alt": "Retrato representando o pilar Comercial do MedCEO.", "topics": ["Scripts comerciais para clínicas", "Análise de dados e indicadores", "Técnicas de venda"]}, {"number": "04", "name": "Alessandra", "role": "Gestão", "kicker": "Pilar de desenvolvimento", "thesis": "Construir cultura, elevar performance e reter gente boa sem centralizar todas as decisões no dono.", "image": "/assets/medceo/pilar-alessandra.jpg", "position": "center 16%", "alt": "Alessandra, responsável pelo pilar de Gestão do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["Cultura", "Gestão de pessoas", "Perfil comportamental", "Retenção de bons profissionais"]}, {"number": "05", "name": "Michele", "role": "Projetos", "kicker": "Pilar de desenvolvimento", "thesis": "Fazer a IA sair do discurso e virar execução: projetos com dono, prazo e critério de sucesso.", "image": "/assets/medceo/pilar-michele.jpg", "position": "center 17%", "alt": "Michele, responsável pelo pilar de Projetos do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["IA para clínicas", "IA aplicada à gestão e análise", "Gestão de projetos"]}, {"number": "06", "name": "Amanda", "role": "Filmmaker", "kicker": "Pilar de desenvolvimento", "thesis": "Transformar conhecimento médico em conteúdo que prende atenção e sustenta posicionamento.", "image": "/assets/medceo/pilar-amanda.jpg", "position": "center 14%", "alt": "Amanda, responsável pelo pilar de conteúdo e filmmaking do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["Gravação: equipamentos e técnicas", "Criação de roteiros", "Edição de vídeo"]}];</script>
-<script src="/site.js" defer></script>
-<script src="/tracking.js" defer></script>
+<script src="/site.js" defer></script><script src="/tracking.js" defer></script>
 </body>
 </html>

@@ -397,3 +397,20 @@
   });
   medir();
 })();
+
+/* Cascata dos cartoes do filtro: entram quando a dobra aparece, um depois do
+   outro, e os itens de cada lista atras. Quem pede menos movimento ja tem tudo
+   visivel pelo CSS, entao aqui so ligamos a classe. */
+(function () {
+  var cards = document.querySelectorAll(".fcard");
+  if (!cards.length || !("IntersectionObserver" in window)) {
+    cards.forEach(function (c) { c.classList.add("dentro"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (ent) {
+    ent.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("dentro"); io.unobserve(e.target); }
+    });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.15 });
+  cards.forEach(function (c) { io.observe(c); });
+})();
