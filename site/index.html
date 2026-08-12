@@ -621,6 +621,68 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
   transform:translateY(-240%)}
 .skip:focus-visible{transform:translateY(0)}
+
+/* ---- pilares em detalhe -------------------------------------------------- */
+.pilar4{display:grid;gap:1px;margin-top:56px;background:rgba(234,226,207,.1)}
+@media(min-width:820px){.pilar4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pilar4 li{background:var(--bg);padding:34px 32px;display:flex;flex-direction:column}
+.pilar4 .num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;
+  letter-spacing:.28em;color:var(--gold);text-transform:uppercase}
+.pilar4 h3{margin:16px 0 0;font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(1.35rem,1.1rem+1vw,1.75rem);font-weight:500;line-height:1.15;color:var(--ivory-bright)}
+.pilar4 p{margin-top:14px;font-size:14.5px;line-height:1.75;color:rgba(234,226,207,.72)}
+.pilar4 .kpi{margin-top:auto;padding-top:22px;display:flex;flex-wrap:wrap;gap:7px}
+.pilar4 .kpi span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(217,190,126,.9);padding:5px 10px;
+  border:1px solid rgba(195,161,78,.28);border-radius:2px}
+.pilar4 .kpi b{display:block;width:100%;margin-bottom:4px;font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:rgba(234,226,207,.42)}
+
+/* ---- esteira em escada --------------------------------------------------- */
+.escada{margin-top:56px;display:grid;gap:14px;counter-reset:deg}
+.degrau{position:relative;display:grid;gap:6px 26px;align-items:start;
+  grid-template-columns:minmax(0,1fr);padding:26px 28px;
+  background:rgba(23,20,13,.03);border:1px solid rgba(23,20,13,.1);
+  border-left:2px solid var(--gold);transition:background .35s ease,border-color .35s ease}
+.sec--ivory .degrau:hover{background:rgba(195,161,78,.07);border-left-color:var(--gold-deep)}
+@media(min-width:900px){
+  .degrau{grid-template-columns:minmax(0,260px) minmax(0,1fr) minmax(0,230px);align-items:center}
+  /* a escada sobe: cada degrau recua um pouco mais que o anterior */
+  .degrau:nth-child(1){margin-left:0}
+  .degrau:nth-child(2){margin-left:3%}
+  .degrau:nth-child(3){margin-left:6%}
+  .degrau:nth-child(4){margin-left:9%}
+  .degrau:nth-child(5){margin-left:12%}
+  .degrau:nth-child(6){margin-left:15%}
+}
+.degrau__nome{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;font-weight:500;
+  line-height:1.2;color:var(--ink)}
+.degrau__func{display:block;margin-top:5px;font-family:'JetBrains Mono',monospace;font-size:9px;
+  font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#6B5320}
+.degrau__res{font-size:14.5px;line-height:1.7;color:var(--ink-soft)}
+.degrau__meta{display:flex;flex-wrap:wrap;gap:6px}
+.degrau__meta span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:#6B5320;padding:5px 9px;border:1px solid rgba(107,83,32,.26);border-radius:2px}
+.escada__nota{margin-top:30px;padding-left:18px;border-left:2px solid var(--gold);
+  font-size:14px;line-height:1.75;color:var(--ink-soft);max-width:64ch}
+
+/* ---- blog ---------------------------------------------------------------- */
+.posts{display:grid;gap:1px;margin-top:52px;background:rgba(234,226,207,.1)}
+@media(min-width:760px){.posts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1180px){.posts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.post{background:var(--bg);padding:30px 28px;display:flex;flex-direction:column;
+  transition:background .35s ease}
+.post:hover{background:rgba(195,161,78,.05)}
+.post:active{background:rgba(195,161,78,.1)}
+.post time{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;
+  letter-spacing:.24em;text-transform:uppercase;color:rgba(217,190,126,.8)}
+.post h3{margin:14px 0 0;font-family:'Playfair Display',Georgia,serif;
+  font-size:1.16rem;font-weight:500;line-height:1.3;color:var(--ivory-bright)}
+.post p{margin-top:12px;font-size:13.5px;line-height:1.7;color:rgba(234,226,207,.62)}
+.post .ler{margin-top:auto;padding-top:22px;font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.posts__rodape{margin-top:40px}
+
 </style>
 </head>
 <body>
@@ -646,7 +708,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
         <a href="#metodo">Método</a>
         <a href="#time">Time</a>
         <a href="#quem">Quem conduz</a>
-        <a href="/webnar">Aulas</a>
+        <a href="/webnar">Blog</a>
       </div>
 
       <a href="/diagnostico" data-sheen="" class="nav__cta">Diagnóstico</a>
@@ -731,7 +793,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     <section id="problema" class="sec sec--ivory">
       <div class="env">
         <div data-reveal="" style="max-width:720px">
-          <p class="eyebrow">01 · O problema</p>
+          <p class="eyebrow">01 &middot; O problema</p>
           <h2 class="h2">A clínica cresceu. A sua semana também.</h2>
           <p class="lede">Sábado de manhã, o celular acende: a recepção não sabe responder um preço e devolve a pergunta para você. Faturar mais não devolveu nenhuma hora do seu dia, porque a operação inteira continua passando por dentro de uma pessoa só. Os quatro sintomas abaixo têm o mesmo diagnóstico atrás.</p>
         </div>
@@ -771,7 +833,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <div class="env filtro__in">
         <div data-reveal="" style="min-width:0">
-          <p class="eyebrow">02 · Filtro</p>
+          <p class="eyebrow">02 &middot; Filtro</p>
           <h2 class="h2" style="font-size:clamp(2rem,3.6vw,3rem)">Não é para qualquer médico. É para quem já tem clínica.</h2>
           <p class="lede" style="max-width:46ch">O diagnóstico lê o que já existe: pacientes atendidos, equipe contratada, faturamento entrando e decisões tomadas. Ele não projeta um futuro bonito. Ele mostra onde a sua operação de hoje trava.</p>
           <p class="mono mono-apoio">Responda como é, não como gostaria que fosse. É o único jeito de o resultado servir.</p>
@@ -805,7 +867,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     <section id="metodo" class="sec sec--ivory">
       <div class="env">
         <div data-reveal="" style="max-width:720px">
-          <p class="eyebrow">03 · O método</p>
+          <p class="eyebrow">03 &middot; O método</p>
           <h2 class="h2">Antes do plano, o retrato honesto.</h2>
           <p class="lede">Não vendemos fórmula mágica. Conduzimos um diagnóstico estruturado e construímos o plano de evolução com você: do custo oculto ao próximo passo.</p>
         </div>
@@ -837,6 +899,47 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
         </div>
       </div>
     </section>
+
+    <!-- ============ OS QUATRO PILARES, EM DETALHE ============
+         Missão e indicadores-mãe de cada pilar. Fonte: arquitetura mestre de
+         produtos e currículo (13/07/2026), Tabela 9. -->
+    <section id="pilares" class="sec sec--dark" aria-labelledby="t-pilares">
+      <div class="env">
+        <p class="eyebrow" data-reveal>04 &middot; Os quatro pilares</p>
+        <h2 class="h2" id="t-pilares" data-reveal style="--d:1">O que exatamente é medido na sua clínica</h2>
+        <p class="lede" data-reveal style="--d:2">
+          O diagnóstico não devolve opinião. Ele devolve o seu número em cada um dos quatro
+          pilares — e o pilar mais fraco é o que define o teto dos outros três.
+        </p>
+        <ul class="pilar4">
+        <li data-reveal style="--d:0">
+          <span class="num">Pilar 01</span>
+          <h3>Comercial</h3>
+          <p>Transformar interesse em receita com ética, processo, qualificação, conversão, retenção e previsibilidade.</p>
+          <div class="kpi"><b>O que é medido</b><span>Pipeline</span><span>Conversão</span><span>Show rate</span><span>Ticket</span><span>LTV</span></div>
+        </li>
+        <li data-reveal style="--d:1">
+          <span class="num">Pilar 02</span>
+          <h3>Marketing</h3>
+          <p>Criar diferenciação, autoridade e demanda conectada ao comercial — não audiência que não vira reunião.</p>
+          <div class="kpi"><b>O que é medido</b><span>Leads ICP</span><span>BANT</span><span>CAC</span><span>Demanda direta</span><span>Reuniões</span></div>
+        </li>
+        <li data-reveal style="--d:2">
+          <span class="num">Pilar 03</span>
+          <h3>Gestão</h3>
+          <p>Transformar a clínica em empresa: finanças, pessoas, processos, indicadores e governança.</p>
+          <div class="kpi"><b>O que é medido</b><span>Margem</span><span>Caixa</span><span>Produtividade</span><span>Prazos</span><span>Dependência</span></div>
+        </li>
+        <li data-reveal style="--d:3">
+          <span class="num">Pilar 04</span>
+          <h3>Mentalidade CEO</h3>
+          <p>Transformar a identidade e a vida do fundador para sustentar liderança, liberdade, valores e legado.</p>
+          <div class="kpi"><b>O que é medido</b><span>Agenda estratégica</span><span>Autonomia da equipe</span><span>Bem-estar</span><span>Coerência</span></div>
+        </li>
+        </ul>
+      </div>
+    </section>
+
 
     <!-- ================= 05 · ATLAS DO TIME ================= -->
     <section id="time" class="sec atlas">
@@ -904,7 +1007,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <div class="env">
         <div data-reveal="" style="max-width:760px">
-          <p class="eyebrow">05 · Prova</p>
+          <p class="eyebrow">05 &middot; Prova</p>
           <h2 class="h2" style="max-width:17ch">Ele já tinha feito outras mentorias. Nenhuma mexeu no faturamento.</h2>
         </div>
 
@@ -972,7 +1075,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <div class="env">
         <div class="quem__in" data-reveal="">
-          <p class="eyebrow">06 · Quem conduz</p>
+          <p class="eyebrow">06 &middot; Quem conduz</p>
           <h2 class="h2" style="max-width:14ch;font-size:clamp(2.2rem,4.5vw,3.6rem);margin-top:22px">O método nasceu dentro de uma clínica que atende.</h2>
           <p class="quem__lede">Dr. Luciano Alves Neves é médico, CEO e fundador da Natuá MedSpa, em Curitiba. Cada processo do MedCEO foi testado primeiro na operação dele, com paciente marcado, equipe contratada e decisão que não podia esperar a próxima reunião.</p>
 
@@ -1018,34 +1121,74 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </section>
 
     <!-- ================= 10 · CONVITE AO DIAGNÓSTICO ================= -->
-    <section aria-label="Convite ao diagnóstico da clínica" class="convite">
-      <div aria-hidden="true" class="convite__bg"><img src="/assets/medceo/luciano-bg.jpg" alt="" width="1920" height="1080" loading="lazy" fetchpriority="low" decoding="async" /></div>
-      <div aria-hidden="true" class="convite__veil"></div>
-      <div aria-hidden="true" class="convite__aura"></div>
-      <div aria-hidden="true" class="convite__grain"></div>
-
-      <div class="env convite__in">
-        <p class="eyebrow" data-reveal="">Onde está o seu gargalo</p>
-
-        <h2 class="h2">
-          <span class="linha"><span class="w" style="--i:0">Gostaria</span> <span class="w" style="--i:1">de</span> <span class="w" style="--i:2">realizar</span> <span class="w" style="--i:3">um</span></span>
-          <span class="linha"><em><span class="w" style="--i:4">diagnóstico</span></em> <span class="w" style="--i:5">da</span> <span class="w" style="--i:6">sua</span></span>
-          <span class="linha"><span class="w" style="--i:7">clínica?</span></span>
-        </h2>
-
-        <p class="lede" data-reveal="" style="--d:1;max-width:52ch;color:rgba(234,226,207,.72)">São 20 perguntas sobre margem, comercial, operação, equipe e escala. No fim, o gargalo da sua clínica aparece com nome, junto com os próximos passos coerentes com o seu estágio.</p>
-
-        <ul class="convite__pills" data-reveal="" style="--d:2">
-          <li>Marketing</li>
-          <li>Comercial</li>
-          <li>Gestão</li>
-          <li>Escala</li>
-        </ul>
-
-        <div class="convite__cta" data-reveal="" style="--d:3">
-          <a href="/diagnostico" data-sheen="" class="btn">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
-          <p class="micro">Gratuito · 5 minutos<br />plano de 60 dias no fim</p>
-        </div>
+        <!-- ============ ESTEIRA DE PRODUTOS, EM ESCADA ============
+         Função, duração, profundidade e resultado de cada degrau. Fonte:
+         arquitetura mestre de produtos e currículo (13/07/2026), Tabela 5.
+         Sem preço: o documento não traz valores. -->
+    <section id="esteira" class="sec sec--ivory" aria-labelledby="t-esteira">
+      <div class="env">
+        <p class="eyebrow" data-reveal>07 &middot; A esteira</p>
+        <h2 class="h2" id="t-esteira" data-reveal style="--d:1">Cada degrau resolve um problema diferente</h2>
+        <p class="lede" data-reveal style="--d:2">
+          Não é o mesmo conteúdo em três preços. Cada produto entra num estágio diferente da
+          clínica, com profundidade e duração próprias — e o diagnóstico é o que diz em qual
+          degrau você está.
+        </p>
+        <ol class="escada">
+          <li class="degrau" data-reveal style="--d:0">
+            <div>
+              <span class="degrau__nome">MedDay</span>
+              <span class="degrau__func">Consciência e diagnóstico</span>
+            </div>
+            <p class="degrau__res">Você sai com o score da sua clínica e o convite ao diagnóstico. É o degrau de entrada: serve para enxergar o problema com nome, não para resolvê-lo.</p>
+            <div class="degrau__meta"><span>4 horas</span><span>Uma dor específica</span></div>
+          </li>
+          <li class="degrau" data-reveal style="--d:1">
+            <div>
+              <span class="degrau__nome">MedManager</span>
+              <span class="degrau__func">Conhecimento estruturado</span>
+            </div>
+            <p class="degrau__res">A formação executiva do método, disciplina por disciplina, com projeto aplicado em cada uma. Para quem precisa da base antes de conduzir.</p>
+            <div class="degrau__meta"><span>Autoinstrucional + tutoria</span><span>Competência executiva</span></div>
+          </li>
+          <li class="degrau" data-reveal style="--d:2">
+            <div>
+              <span class="degrau__nome">MedScale</span>
+              <span class="degrau__func">Estruturação e tração</span>
+            </div>
+            <p class="degrau__res">Para negócio em início ou tração básica. Ao fim, a máquina básica de aquisição, conversão e margem está funcionando.</p>
+            <div class="degrau__meta"><span>24 semanas</span><span>Fundamentos e execução</span></div>
+          </li>
+          <li class="degrau" data-reveal style="--d:3">
+            <div>
+              <span class="degrau__nome">MedCEO</span>
+              <span class="degrau__func">Transformação e liberdade</span>
+            </div>
+            <p class="degrau__res">Para clínica com operação e equipe. É aqui que a empresa deixa de depender do fundador — sistemas, liderança e escala.</p>
+            <div class="degrau__meta"><span>24 semanas + MedLAB</span><span>Sistemas, liderança e escala</span></div>
+          </li>
+          <li class="degrau" data-reveal style="--d:4">
+            <div>
+              <span class="degrau__nome">Consultoria</span>
+              <span class="degrau__func">Intervenção específica</span>
+            </div>
+            <p class="degrau__res">Quando o problema já tem nome e o que falta é execução guiada. Implantação delimitada, com indicador combinado antes de começar.</p>
+            <div class="degrau__meta"><span>4 a 6 semanas</span><span>Um gargalo prioritário</span></div>
+          </li>
+          <li class="degrau" data-reveal style="--d:5">
+            <div>
+              <span class="degrau__nome">MedCEO Alpha</span>
+              <span class="degrau__func">Profundidade, comunidade e legado</span>
+            </div>
+            <p class="degrau__res">Para fundador maduro. Trabalha a obra, a rede de pares e a própria mentoria de quem já conduz.</p>
+            <div class="degrau__meta"><span>12 meses</span><span>Fundador, obra, relações e parcerias</span></div>
+          </li>
+        </ol>
+        <p class="escada__nota" data-reveal>
+          O caminho não se escolhe pelo preço. O diagnóstico recomenda o degrau conforme o
+          estágio da empresa, a urgência, a capacidade de execução e o quanto a clínica ainda
+          depende de você.
+        </p>
       </div>
     </section>
 
@@ -1070,6 +1213,61 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </section>
 
     <!-- ================= 12 · CTA FINAL ================= -->
+    <!-- ============ BLOG ============
+         Os 6 artigos publicados. Título, descrição e data lidos do HTML que o
+         gerador escreveu, para a home nunca divergir do que está no ar. -->
+    <section id="blog" class="sec sec--dark" aria-labelledby="t-blog">
+      <div class="env">
+        <p class="eyebrow" data-reveal>08 &middot; Leitura</p>
+        <h2 class="h2" id="t-blog" data-reveal style="--d:1">O raciocínio, por escrito</h2>
+        <p class="lede" data-reveal style="--d:2">
+          Os mesmos números que o diagnóstico mede, destrinchados em texto: margem, no-show,
+          dependência do dono, valuation. Sem promessa, com conta à mostra.
+        </p>
+        <div class="posts">
+          <a class="post" href="/blog/diagnostico-gestao-clinica" data-reveal style="--d:0">
+            <time datetime="2026-08-11">11 ago 2026</time>
+            <h3>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h3>
+            <p>Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor…</p>
+            <span class="ler">Ler o artigo &rarr;</span>
+          </a>
+          <a class="post" href="/blog/indicadores-clinica-faixa-referencia" data-reveal style="--d:1">
+            <time datetime="2026-08-11">11 ago 2026</time>
+            <h3>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h3>
+            <p>Clínica mede ocupação, no-show e margem sem faixa de referência nenhuma. Veja a fórmula de cada indicador e como montar a sua linha…</p>
+            <span class="ler">Ler o artigo &rarr;</span>
+          </a>
+          <a class="post" href="/blog/parcelamento-clinica-margem" data-reveal style="--d:2">
+            <time datetime="2026-08-10">10 ago 2026</time>
+            <h3>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h3>
+            <p>O custo do parcelamento em clínica cresce com a espera média, não com o número de parcelas. Veja a fórmula por variável e a tabela d…</p>
+            <span class="ler">Ler o artigo &rarr;</span>
+          </a>
+          <a class="post" href="/blog/valuation-clinica-saida-socio" data-reveal style="--d:3">
+            <time datetime="2026-08-10">10 ago 2026</time>
+            <h3>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h3>
+            <p>Valuation de clínica médica não é múltiplo de faturamento. Veja como a receita ligada ao sócio que sai derruba o preço, com tabela e…</p>
+            <span class="ler">Ler o artigo &rarr;</span>
+          </a>
+          <a class="post" href="/blog/margem-lucro-clinica-medica" data-reveal style="--d:4">
+            <time datetime="2026-08-09">9 ago 2026</time>
+            <h3>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h3>
+            <p>A margem de lucro em clínica médica some em 4 pontos: hora aberta, parcelamento, falta e mix. Veja as quatro contas abertas, com tab…</p>
+            <span class="ler">Ler o artigo &rarr;</span>
+          </a>
+          <a class="post" href="/blog/maturidade-empresarial-medica-5-estagios" data-reveal style="--d:5">
+            <time datetime="2026-08-09">9 ago 2026</time>
+            <h3>Maturidade empresarial médica: os 5 estágios de uma clínica (e como saber em qual a sua está)</h3>
+            <p>Os 5 estágios da maturidade empresarial médica, o sinal de cada um e o gargalo que trava a passagem para o próximo. Com as 5 pergunt…</p>
+            <span class="ler">Ler o artigo &rarr;</span>
+          </a>
+        </div>
+        <div class="posts__rodape" data-reveal>
+          <a class="btn btn--ghost" href="/blog">Ver todos os artigos</a>
+        </div>
+      </div>
+    </section>
+
     <section id="diagnostico" class="sec final">
       <div aria-hidden="true" class="final__bg"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1100" height="1375" loading="lazy" fetchpriority="low" decoding="async" /></div>
       <div aria-hidden="true" class="final__veil"></div>
