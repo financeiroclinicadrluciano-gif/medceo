@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MedCEO — O gabinete do diagnóstico para médicos donos de clínica</title>
+<title>MedCEO</title>
 <link rel="canonical" href="https://medceo.online/">
 <meta property="og:title" content="MedCEO — O gabinete do diagnóstico para médicos donos de clínica">
 <meta property="og:description" content="MedCEO — o gabinete do diagnóstico para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba.">
@@ -11,7 +11,8 @@
 <meta property="og:url" content="https://medceo.online/">
 <meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" href="/assets/medceo/logo-icone.png">
+<link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
 
 <meta name="description" content="MedCEO — o gabinete do diagnóstico para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -195,6 +196,9 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .hero__sub{max-width:46ch;margin-top:30px;color:var(--ivory-dim);font-size:15px;font-weight:300;
   line-height:1.7;letter-spacing:.02em;animation:rise .9s var(--ease) .56s both}
 .hero__actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:40px;animation:rise .9s var(--ease) .68s both}
+/* Com dois botoes o `flex:1 1 250px` dividia a linha; com um so ele esticava
+   pela coluna inteira. Botao unico cresce pelo proprio conteudo. */
+.hero__actions:has(> :only-child) .btn{flex:0 0 auto;min-width:min(100%,300px)}
 .hero__actions .btn{flex:1 1 250px}
 .hero__micro{margin-top:18px;color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;
   font-size:9.5px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;animation:rise .9s var(--ease) .78s both}
@@ -621,6 +625,86 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
   transform:translateY(-240%)}
 .skip:focus-visible{transform:translateY(0)}
+/* ---- esteira: escada de verdade, texto a esquerda ----------------------- */
+#esteira .env{display:grid;gap:44px}
+@media(min-width:1040px){
+  #esteira .env{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:64px;align-items:center}
+}
+.escada2{display:flex;align-items:flex-end;gap:10px;min-height:340px}
+.deg{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:16px 14px 18px;
+  background:linear-gradient(180deg,rgba(195,161,78,.16),rgba(195,161,78,.05));
+  border:1px solid rgba(107,83,32,.22);border-bottom:2px solid var(--gold);
+  transition:background .4s ease,transform .4s cubic-bezier(.16,1,.3,1)}
+.deg:hover{background:linear-gradient(180deg,rgba(195,161,78,.3),rgba(195,161,78,.1));transform:translateY(-5px)}
+.deg:active{transform:translateY(-1px)}
+.deg:nth-child(1){height:150px}
+.deg:nth-child(2){height:190px}
+.deg:nth-child(3){height:232px}
+.deg:nth-child(4){height:274px}
+.deg:nth-child(5){height:318px}
+.deg:nth-child(6){height:362px}
+.deg__n{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;
+  font-size:8.5px;letter-spacing:.2em;color:#6B5320}
+/* nome quebra dentro da coluna em vez de vazar: 'MedManager' e 'Consultoria'
+   sao mais largos que o degrau em telas de 1440. */
+.deg__nome{font-family:'Playfair Display',Georgia,serif;font-size:clamp(.82rem,.62rem+.42vw,1.05rem);
+  font-weight:500;line-height:1.16;color:var(--ink);
+  overflow-wrap:anywhere;hyphens:auto}
+.deg__f{display:block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:8px;
+  letter-spacing:.16em;text-transform:uppercase;color:#6B5320}
+.deg__d{margin-top:10px;padding-top:10px;border-top:1px solid rgba(107,83,32,.2);
+  font-size:11px;line-height:1.5;color:var(--ink-soft)}
+.deg__d b{display:block;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;color:#6B5320;margin-bottom:3px}
+/* No celular a escada deita: vira lista, que e o que cabe num polegar. */
+@media(max-width:1039px){
+  .escada2{flex-direction:column;align-items:stretch;gap:1px;min-height:0;background:rgba(107,83,32,.18)}
+  .deg{height:auto!important;padding:18px 20px;border:0;border-left:2px solid var(--gold)}
+  .deg__n{position:static;margin-bottom:8px}
+  .deg__d{font-size:12.5px}
+}
+
+/* ---- blog: um destaque com capa grande + lista com miniatura ------------- */
+.blogwrap{display:grid;gap:34px;margin-top:52px}
+@media(min-width:1020px){.blogwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:44px;align-items:start}}
+.bdest{display:block;position:relative;isolation:isolate;overflow:hidden;
+  border:1px solid rgba(234,226,207,.12);background:var(--bg)}
+.bdest__img{position:relative;aspect-ratio:16/10;overflow:hidden}
+.bdest__img img{width:100%;height:100%;object-fit:cover;
+  transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.bdest:hover .bdest__img img{transform:scale(1.045)}
+.bdest__img::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(5,7,10,.82))}
+.bdest__txt{padding:26px 28px 30px}
+.bdest time{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold)}
+.bdest h3{margin:12px 0 0;font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(1.3rem,1.05rem+1vw,1.7rem);font-weight:500;line-height:1.24;color:var(--ivory-bright)}
+.bdest p{margin-top:12px;font-size:14px;line-height:1.7;color:rgba(234,226,207,.66)}
+.bdest__tag{position:absolute;z-index:2;top:16px;left:16px;
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:#05070A;background:var(--gold);padding:6px 11px}
+.blist{display:grid;gap:1px;background:rgba(234,226,207,.1)}
+.bitem{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:center;
+  background:var(--bg);padding:16px 18px;transition:background .3s ease}
+.bitem:hover{background:rgba(195,161,78,.06)}
+.bitem:active{background:rgba(195,161,78,.11)}
+.bitem__img{aspect-ratio:1;overflow:hidden;background:rgba(234,226,207,.05)}
+.bitem__img img{width:100%;height:100%;object-fit:cover}
+.bitem time{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(217,190,126,.8)}
+.bitem h4{margin:7px 0 0;font-family:'Playfair Display',Georgia,serif;font-size:15.5px;
+  font-weight:500;line-height:1.34;color:var(--ivory-bright)}
+@media(max-width:520px){.bitem{grid-template-columns:74px minmax(0,1fr);gap:14px}}
+
+/* ---- FAQ centrado ------------------------------------------------------- */
+#faq .env{text-align:center}
+#faq .eyebrow{justify-content:center}
+#faq .h2{margin-inline:auto;max-width:22ch}
+#faq .lede{margin-inline:auto}
+#faq .faq{margin-inline:auto;max-width:860px;text-align:left}
+
 
 /* ---- pilares em detalhe -------------------------------------------------- */
 .pilar4{display:grid;gap:1px;margin-top:56px;background:rgba(234,226,207,.1)}
@@ -698,8 +782,6 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     <nav aria-label="Navegação principal" class="env nav__in">
       <a href="#topo" aria-label="MedCEO — início" class="nav__brand">
         <img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26" />
-        <i aria-hidden="true"></i>
-        <small>Gabinete do<br />diagnóstico</small>
       </a>
 
       <div class="nav__links">
@@ -708,7 +790,8 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
         <a href="#metodo">Método</a>
         <a href="#time">Time</a>
         <a href="#quem">Quem conduz</a>
-        <a href="/webnar">Blog</a>
+        <a href="/blog">Blog</a>
+        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener">Grupo de WhatsApp</a>
       </div>
 
       <a href="/diagnostico" data-sheen="" class="nav__cta">Diagnóstico</a>
@@ -730,28 +813,19 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <div class="env hero__in">
         <div style="min-width:0">
-          <p class="hero__eyebrow">O gabinete do diagnóstico</p>
 
           <h1 id="hero-title" class="hero__title">
-            <span class="linha"><span class="w" style="--i:0">Se</span> <span class="w" style="--i:1">você</span> <span class="w" style="--i:2">sumisse</span> <span class="w" style="--i:3">por</span></span>
-            <span class="linha"><span class="w" style="--i:4">30</span> <span class="w" style="--i:5">dias,</span> <span class="w" style="--i:6">a</span> <span class="w" style="--i:7">clínica</span></span>
-            <span class="linha"><em><span class="w" style="--i:8">continuaria</span> <span class="w" style="--i:9">crescendo</span></em><span class="w" style="--i:10">?</span></span>
+            <span class="linha"><span class="w" style="--i:0">Mentoria</span> <span class="w" style="--i:1">exclusiva</span></span>
+            <span class="linha"><span class="w" style="--i:2">para</span> <em><span class="w" style="--i:3">médicos</span></em></span>
           </h1>
 
-          <p class="hero__sub">A resposta honesta vale mais do que qualquer plano de crescimento. Ela diz se você construiu uma empresa — ou um emprego caro com a sua assinatura no rodapé de tudo.</p>
+          <p class="hero__sub">Mais de 17 anos rodando a própria clínica, compilados em encontros semanais com toda a minha equipe. Você aprende a faturar sem a clínica depender de você, a ter tempo para si e para a sua família, e a profissionalizar a operação em quatro frentes: <b>Mentalidade, Marketing, Comercial e Gestão</b>.</p>
 
           <div class="hero__actions">
-            <a href="/diagnostico" data-sheen="" class="btn">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
-            <a href="#metodo" class="btn btn--ghost">Conhecer o método</a>
+            <a href="https://api.whatsapp.com/send/?phone=5541995474511&amp;text=Ol%C3%A1%21+Vim+do+site+do+MedCEO+e+quero+saber+mais+sobre+a+mentoria.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" data-sheen="" class="btn">Quero saber mais <span aria-hidden="true">→</span></a>
           </div>
 
-          <p class="hero__micro">Gratuito · resultado na hora · sem cadastro</p>
 
-          <dl class="hero__stats">
-            <div class="stat"><dt><b>20</b></dt><dd><span>perguntas</span></dd></div>
-            <div class="stat"><dt><b>05</b></dt><dd><span>minutos</span></dd></div>
-            <div class="stat"><dt><b>01</b></dt><dd><span>gargalo</span></dd></div>
-          </dl>
         </div>
 
         <div class="hero__media">
@@ -900,48 +974,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
       </div>
     </section>
 
-    <!-- ============ OS QUATRO PILARES, EM DETALHE ============
-         Missão e indicadores-mãe de cada pilar. Fonte: arquitetura mestre de
-         produtos e currículo (13/07/2026), Tabela 9. -->
-    <section id="pilares" class="sec sec--dark" aria-labelledby="t-pilares">
-      <div class="env">
-        <p class="eyebrow" data-reveal>04 &middot; Os quatro pilares</p>
-        <h2 class="h2" id="t-pilares" data-reveal style="--d:1">O que exatamente é medido na sua clínica</h2>
-        <p class="lede" data-reveal style="--d:2">
-          O diagnóstico não devolve opinião. Ele devolve o seu número em cada um dos quatro
-          pilares — e o pilar mais fraco é o que define o teto dos outros três.
-        </p>
-        <ul class="pilar4">
-        <li data-reveal style="--d:0">
-          <span class="num">Pilar 01</span>
-          <h3>Comercial</h3>
-          <p>Transformar interesse em receita com ética, processo, qualificação, conversão, retenção e previsibilidade.</p>
-          <div class="kpi"><b>O que é medido</b><span>Pipeline</span><span>Conversão</span><span>Show rate</span><span>Ticket</span><span>LTV</span></div>
-        </li>
-        <li data-reveal style="--d:1">
-          <span class="num">Pilar 02</span>
-          <h3>Marketing</h3>
-          <p>Criar diferenciação, autoridade e demanda conectada ao comercial — não audiência que não vira reunião.</p>
-          <div class="kpi"><b>O que é medido</b><span>Leads ICP</span><span>BANT</span><span>CAC</span><span>Demanda direta</span><span>Reuniões</span></div>
-        </li>
-        <li data-reveal style="--d:2">
-          <span class="num">Pilar 03</span>
-          <h3>Gestão</h3>
-          <p>Transformar a clínica em empresa: finanças, pessoas, processos, indicadores e governança.</p>
-          <div class="kpi"><b>O que é medido</b><span>Margem</span><span>Caixa</span><span>Produtividade</span><span>Prazos</span><span>Dependência</span></div>
-        </li>
-        <li data-reveal style="--d:3">
-          <span class="num">Pilar 04</span>
-          <h3>Mentalidade CEO</h3>
-          <p>Transformar a identidade e a vida do fundador para sustentar liderança, liberdade, valores e legado.</p>
-          <div class="kpi"><b>O que é medido</b><span>Agenda estratégica</span><span>Autonomia da equipe</span><span>Bem-estar</span><span>Coerência</span></div>
-        </li>
-        </ul>
-      </div>
-    </section>
-
-
-    <!-- ================= 05 · ATLAS DO TIME ================= -->
+        <!-- ================= 05 · ATLAS DO TIME ================= -->
     <section id="time" class="sec atlas">
       <div class="env">
         <div class="atlas__head" data-reveal="">
@@ -1031,10 +1064,10 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
         <div class="alem__text">
           <p class="eyebrow" data-reveal="">Além do número</p>
 
-          <h2 class="h2" data-reveal="" style="--d:1;max-width:18ch">O número subiu. O sábado voltou.</h2>
+          <h2 class="h2" data-reveal="" style="--d:1;max-width:18ch">+350% de faturamento após o MedCEO</h2>
 
           <div data-reveal="" style="--d:2;max-width:520px;margin-top:clamp(10px,1.6vh,18px)">
-            <p class="chart-label">A progressão, como ele contou · faturamento mensal</p>
+            <p class="chart-label">Mas não foi só o número: hoje a clínica roda sem depender dele, o faturamento virou previsível e a equipe assumiu a operação. · faturamento mensal</p>
 
             <div class="chart">
               <div aria-hidden="true" class="chart__base"><span data-ruler="" data-w="1"></span></div>
@@ -1127,68 +1160,51 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
          Sem preço: o documento não traz valores. -->
     <section id="esteira" class="sec sec--ivory" aria-labelledby="t-esteira">
       <div class="env">
-        <p class="eyebrow" data-reveal>07 &middot; A esteira</p>
-        <h2 class="h2" id="t-esteira" data-reveal style="--d:1">Cada degrau resolve um problema diferente</h2>
-        <p class="lede" data-reveal style="--d:2">
-          Não é o mesmo conteúdo em três preços. Cada produto entra num estágio diferente da
-          clínica, com profundidade e duração próprias — e o diagnóstico é o que diz em qual
-          degrau você está.
-        </p>
-        <ol class="escada">
-          <li class="degrau" data-reveal style="--d:0">
-            <div>
-              <span class="degrau__nome">MedDay</span>
-              <span class="degrau__func">Consciência e diagnóstico</span>
-            </div>
-            <p class="degrau__res">Você sai com o score da sua clínica e o convite ao diagnóstico. É o degrau de entrada: serve para enxergar o problema com nome, não para resolvê-lo.</p>
-            <div class="degrau__meta"><span>4 horas</span><span>Uma dor específica</span></div>
-          </li>
-          <li class="degrau" data-reveal style="--d:1">
-            <div>
-              <span class="degrau__nome">MedManager</span>
-              <span class="degrau__func">Conhecimento estruturado</span>
-            </div>
-            <p class="degrau__res">A formação executiva do método, disciplina por disciplina, com projeto aplicado em cada uma. Para quem precisa da base antes de conduzir.</p>
-            <div class="degrau__meta"><span>Autoinstrucional + tutoria</span><span>Competência executiva</span></div>
-          </li>
-          <li class="degrau" data-reveal style="--d:2">
-            <div>
-              <span class="degrau__nome">MedScale</span>
-              <span class="degrau__func">Estruturação e tração</span>
-            </div>
-            <p class="degrau__res">Para negócio em início ou tração básica. Ao fim, a máquina básica de aquisição, conversão e margem está funcionando.</p>
-            <div class="degrau__meta"><span>24 semanas</span><span>Fundamentos e execução</span></div>
-          </li>
-          <li class="degrau" data-reveal style="--d:3">
-            <div>
-              <span class="degrau__nome">MedCEO</span>
-              <span class="degrau__func">Transformação e liberdade</span>
-            </div>
-            <p class="degrau__res">Para clínica com operação e equipe. É aqui que a empresa deixa de depender do fundador — sistemas, liderança e escala.</p>
-            <div class="degrau__meta"><span>24 semanas + MedLAB</span><span>Sistemas, liderança e escala</span></div>
-          </li>
-          <li class="degrau" data-reveal style="--d:4">
-            <div>
-              <span class="degrau__nome">Consultoria</span>
-              <span class="degrau__func">Intervenção específica</span>
-            </div>
-            <p class="degrau__res">Quando o problema já tem nome e o que falta é execução guiada. Implantação delimitada, com indicador combinado antes de começar.</p>
-            <div class="degrau__meta"><span>4 a 6 semanas</span><span>Um gargalo prioritário</span></div>
-          </li>
-          <li class="degrau" data-reveal style="--d:5">
-            <div>
-              <span class="degrau__nome">MedCEO Alpha</span>
-              <span class="degrau__func">Profundidade, comunidade e legado</span>
-            </div>
-            <p class="degrau__res">Para fundador maduro. Trabalha a obra, a rede de pares e a própria mentoria de quem já conduz.</p>
-            <div class="degrau__meta"><span>12 meses</span><span>Fundador, obra, relações e parcerias</span></div>
-          </li>
+        <div>
+          <p class="eyebrow" data-reveal>07 &middot; A esteira</p>
+          <h2 class="h2" id="t-esteira" data-reveal style="--d:1">Cada degrau resolve um problema diferente</h2>
+          <p class="lede" data-reveal style="--d:2">
+            Não é o mesmo conteúdo em três preços. Cada produto entra num estágio diferente da
+            clínica, com profundidade e duração próprias — e o diagnóstico é o que diz em qual
+            degrau você está.
+          </p>
+          <p class="escada__nota" data-reveal style="--d:3">
+            O caminho não se escolhe pelo preço. Ele se escolhe pelo estágio da empresa, pela
+            urgência, pela capacidade de execução e pelo quanto a clínica ainda depende de você.
+          </p>
+        </div>
+        <ol class="escada2" aria-label="Esteira de produtos, do degrau de entrada ao mais profundo">
+            <li class="deg" data-reveal style="--d:0">
+              <span class="deg__n">01</span>
+              <span class="deg__nome">MedDay<span class="deg__f">Consciência</span></span>
+              <span class="deg__d"><b>4 horas</b>Score e convite ao diagnóstico</span>
+            </li>
+            <li class="deg" data-reveal style="--d:1">
+              <span class="deg__n">02</span>
+              <span class="deg__nome">MedManager<span class="deg__f">Conhecimento</span></span>
+              <span class="deg__d"><b>Autoinstrucional</b>Competência executiva</span>
+            </li>
+            <li class="deg" data-reveal style="--d:2">
+              <span class="deg__n">03</span>
+              <span class="deg__nome">MedScale<span class="deg__f">Estruturação</span></span>
+              <span class="deg__d"><b>24 semanas</b>Máquina básica funcionando</span>
+            </li>
+            <li class="deg" data-reveal style="--d:3">
+              <span class="deg__n">04</span>
+              <span class="deg__nome">Consultoria<span class="deg__f">Intervenção</span></span>
+              <span class="deg__d"><b>4 a 6 semanas</b>Um gargalo resolvido</span>
+            </li>
+            <li class="deg" data-reveal style="--d:4">
+              <span class="deg__n">05</span>
+              <span class="deg__nome">MedCEO<span class="deg__f">Transformação</span></span>
+              <span class="deg__d"><b>24 semanas + MedLAB</b>Empresa que não depende de você</span>
+            </li>
+            <li class="deg" data-reveal style="--d:5">
+              <span class="deg__n">06</span>
+              <span class="deg__nome">MedCEO Alpha<span class="deg__f">Legado</span></span>
+              <span class="deg__d"><b>12 meses</b>Fundador, obra e rede de pares</span>
+            </li>
         </ol>
-        <p class="escada__nota" data-reveal>
-          O caminho não se escolhe pelo preço. O diagnóstico recomenda o degrau conforme o
-          estágio da empresa, a urgência, a capacidade de execução e o quanto a clínica ainda
-          depende de você.
-        </p>
       </div>
     </section>
 
@@ -1219,48 +1235,50 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     <section id="blog" class="sec sec--dark" aria-labelledby="t-blog">
       <div class="env">
         <p class="eyebrow" data-reveal>08 &middot; Leitura</p>
-        <h2 class="h2" id="t-blog" data-reveal style="--d:1">O raciocínio, por escrito</h2>
+        <h2 class="h2" id="t-blog" data-reveal style="--d:1">Conheça nosso blog</h2>
         <p class="lede" data-reveal style="--d:2">
-          Os mesmos números que o diagnóstico mede, destrinchados em texto: margem, no-show,
-          dependência do dono, valuation. Sem promessa, com conta à mostra.
+          Margem, no-show, dependência do dono, valuation. Os números que decidem a sua clínica, destrinchados com a conta à mostra — sem promessa e sem atalho.
         </p>
-        <div class="posts">
-          <a class="post" href="/blog/diagnostico-gestao-clinica" data-reveal style="--d:0">
-            <time datetime="2026-08-11">11 ago 2026</time>
-            <h3>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h3>
-            <p>Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor…</p>
-            <span class="ler">Ler o artigo &rarr;</span>
+        <div class="blogwrap">
+          <a class="bdest" href="/blog/diagnostico-gestao-clinica" data-reveal style="--d:1">
+            <span class="bdest__tag">Mais recente</span>
+            <span class="bdest__img"><img src="/blog/capas/DSC00192-2.jpg" alt="" width="900" height="600" loading="lazy" decoding="async"></span>
+            <span class="bdest__txt">
+              <time datetime="2026-08-11">11 ago 2026</time>
+              <h3>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h3>
+              <p>Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor inteiro não respo…</p>
+            </span>
           </a>
-          <a class="post" href="/blog/indicadores-clinica-faixa-referencia" data-reveal style="--d:1">
-            <time datetime="2026-08-11">11 ago 2026</time>
-            <h3>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h3>
-            <p>Clínica mede ocupação, no-show e margem sem faixa de referência nenhuma. Veja a fórmula de cada indicador e como montar a sua linha…</p>
-            <span class="ler">Ler o artigo &rarr;</span>
-          </a>
-          <a class="post" href="/blog/parcelamento-clinica-margem" data-reveal style="--d:2">
-            <time datetime="2026-08-10">10 ago 2026</time>
-            <h3>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h3>
-            <p>O custo do parcelamento em clínica cresce com a espera média, não com o número de parcelas. Veja a fórmula por variável e a tabela d…</p>
-            <span class="ler">Ler o artigo &rarr;</span>
-          </a>
-          <a class="post" href="/blog/valuation-clinica-saida-socio" data-reveal style="--d:3">
-            <time datetime="2026-08-10">10 ago 2026</time>
-            <h3>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h3>
-            <p>Valuation de clínica médica não é múltiplo de faturamento. Veja como a receita ligada ao sócio que sai derruba o preço, com tabela e…</p>
-            <span class="ler">Ler o artigo &rarr;</span>
-          </a>
-          <a class="post" href="/blog/margem-lucro-clinica-medica" data-reveal style="--d:4">
-            <time datetime="2026-08-09">9 ago 2026</time>
-            <h3>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h3>
-            <p>A margem de lucro em clínica médica some em 4 pontos: hora aberta, parcelamento, falta e mix. Veja as quatro contas abertas, com tab…</p>
-            <span class="ler">Ler o artigo &rarr;</span>
-          </a>
-          <a class="post" href="/blog/maturidade-empresarial-medica-5-estagios" data-reveal style="--d:5">
-            <time datetime="2026-08-09">9 ago 2026</time>
-            <h3>Maturidade empresarial médica: os 5 estágios de uma clínica (e como saber em qual a sua está)</h3>
-            <p>Os 5 estágios da maturidade empresarial médica, o sinal de cada um e o gargalo que trava a passagem para o próximo. Com as 5 pergunt…</p>
-            <span class="ler">Ler o artigo &rarr;</span>
-          </a>
+          <div class="blist" data-reveal style="--d:2">
+            <a class="bitem" href="/blog/indicadores-clinica-faixa-referencia">
+              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+              <span>
+                <time datetime="2026-08-11">11 ago 2026</time>
+                <h4>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h4>
+              </span>
+            </a>
+            <a class="bitem" href="/blog/parcelamento-clinica-margem">
+              <span class="bitem__img"><img src="/blog/capas/IMG_0223.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+              <span>
+                <time datetime="2026-08-10">10 ago 2026</time>
+                <h4>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h4>
+              </span>
+            </a>
+            <a class="bitem" href="/blog/valuation-clinica-saida-socio">
+              <span class="bitem__img"><img src="/blog/capas/DSC00208-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+              <span>
+                <time datetime="2026-08-10">10 ago 2026</time>
+                <h4>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h4>
+              </span>
+            </a>
+            <a class="bitem" href="/blog/margem-lucro-clinica-medica">
+              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+              <span>
+                <time datetime="2026-08-09">9 ago 2026</time>
+                <h4>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h4>
+              </span>
+            </a>
+          </div>
         </div>
         <div class="posts__rodape" data-reveal>
           <a class="btn btn--ghost" href="/blog">Ver todos os artigos</a>
