@@ -10,8 +10,8 @@ dek: "A espera média de um pagamento em 12 vezes é de 6,5 meses, e é ela que 
 data: 2026-08-10
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1150
-imagem_capa: IMG_0223.jpg
-imagem_capa_legenda: "Dr. Luciano Alves Neves, fundador do MedCEO. A condição de pagamento é decidida na sala do dono e cobrada depois, na maquininha. Foto: acervo MedCEO"
+imagem_capa: DSC00219.jpg
+imagem_capa_legenda: Mesa de trabalho com o fechamento do mês aberto. Parcelamento longo consome margem antes de qualquer desconto.
 links_internos:
   - slug: margem-lucro-clinica-medica
     ancora: as quatro perdas de margem, na ordem em que acontecem

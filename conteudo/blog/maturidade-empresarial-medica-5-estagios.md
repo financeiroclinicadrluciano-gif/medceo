@@ -1,5 +1,5 @@
 ---
-titulo: "Maturidade empresarial médica: os 5 estágios de uma clínica (e como saber em qual a sua está)"
+titulo: Clínica médica passa por 5 estágios e quase toda para no segundo
 slug: maturidade-empresarial-medica-5-estagios
 marca: medceo
 tipo: pilar
@@ -10,8 +10,8 @@ dek: "Duas clínicas podem faturar o mesmo e estar em mundos diferentes. O que s
 data: 2026-08-09
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1500
-imagem_capa: IMG_0223.jpg
-imagem_capa_legenda: "Dr. Luciano Alves Neves na clínica onde o método foi construído antes de virar mentoria. Foto: acervo MedCEO"
+imagem_capa: IMG_7115.jpg
+imagem_capa_legenda: Dr. Luciano Alves Neves na clínica em Curitiba. Cada estágio de maturidade tem um gargalo próprio, e só um por vez.
 links_internos:
   - slug: clinica-dependente-do-dono
     ancora: o que acontece quando a clínica depende do dono para tudo

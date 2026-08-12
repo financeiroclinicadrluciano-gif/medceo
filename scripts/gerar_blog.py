@@ -24,7 +24,7 @@ HOJE = datetime.date.today()
 
 # As capas são todas 900x600 (conferido com sips). Declarar width/height evita
 # reflow de layout enquanto a imagem carrega.
-CAPA_W, CAPA_H = 900, 600
+CAPA_W, CAPA_H = 1200, 675
 
 FONTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
           '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'

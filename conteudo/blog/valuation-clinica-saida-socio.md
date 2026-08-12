@@ -10,8 +10,8 @@ dek: A Sênior Consulting publicou dois textos sobre valor de clínica em julho 
 data: 2026-08-10
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1450
-imagem_capa: DSC00208-2.jpg
-imagem_capa_legenda: Mesa de consultório vazia no fim do expediente, onde a conversa sobre saída de sócio costuma começar. Foto: acervo MedCEO
+imagem_capa: IMG_7685.jpg
+imagem_capa_legenda: Dr. Luciano Alves Neves na clínica. O valor de uma clínica muda conforme quem produz a receita continue ou não.
 links_internos:
   - slug: margem-lucro-clinica-medica
     ancora: a margem que sustenta o preço da clínica

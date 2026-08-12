@@ -10,8 +10,8 @@ dek: "Faturamento é uma linha de entrada e não informa quanto custou produzir 
 data: 2026-08-09
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 2650
-imagem_capa: DSC00213-2.jpg
-imagem_capa_legenda: "Calculadora sobre a mesa do consultório, ao lado do dispenser e da orquídea, onde a conta da margem quase nunca é aberta. Foto: acervo MedCEO"
+imagem_capa: DSC00192-2.jpg
+imagem_capa_legenda: Estante de livros de gestão na recepção da clínica. Faturamento em alta e margem em queda cabem no mesmo mês.
 links_internos:
   - slug: custo-hora-clinica
     ancora: o custo da sua hora, com a conta à mostra

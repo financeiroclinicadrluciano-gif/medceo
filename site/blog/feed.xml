@@ -6,9 +6,25 @@
   <atom:link href="https://medceo.online/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Tue, 11 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <lastBuildDate>Wed, 12 Aug 2026 09:00:00 -0300</lastBuildDate>
   <item>
-    <title>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</title>
+    <title>Médico calcula o preço da consulta sem saber quanto custa a própria hora</title>
+    <link>https://medceo.online/blog/custo-hora-clinica</link>
+    <guid isPermaLink="true">https://medceo.online/blog/custo-hora-clinica</guid>
+    <pubDate>Wed, 12 Aug 2026 09:00:00 -0300</pubDate>
+    <category>O dinheiro da clínica</category>
+    <description>A conta tem três variáveis e cabe em dez minutos: faturamento, horas de porta aberta e custo fixo do mês. Sem ela, toda tabela de preço nasce de comparação com o vizinho de sala.</description>
+  </item>
+  <item>
+    <title>Paciente falta e a cadeira vazia cobra 3 custos que ninguém lança na planilha</title>
+    <link>https://medceo.online/blog/custo-no-show-clinica</link>
+    <guid isPermaLink="true">https://medceo.online/blog/custo-no-show-clinica</guid>
+    <pubDate>Wed, 12 Aug 2026 09:00:00 -0300</pubDate>
+    <category>O dinheiro da clínica</category>
+    <description>A ausência não tem campo contábil, então some do relatório no mesmo dia em que acontece. Cair de 12% para 8% devolve horas produtivas sem contratar ninguém nem gastar mais em anúncio.</description>
+  </item>
+  <item>
+    <title>Clínica sem diagnóstico corrige o sintoma errado e repete o gargalo por anos</title>
     <link>https://medceo.online/blog/diagnostico-gestao-clinica</link>
     <guid isPermaLink="true">https://medceo.online/blog/diagnostico-gestao-clinica</guid>
     <pubDate>Tue, 11 Aug 2026 09:00:00 -0300</pubDate>
@@ -48,7 +64,7 @@
     <description>Faturamento é uma linha de entrada e não informa quanto custou produzir aquele número. Quatro perdas se acumulam entre a receita bruta e o que sobra no caixa do dono, e nenhuma delas aparece no extrato.</description>
   </item>
   <item>
-    <title>Maturidade empresarial médica: os 5 estágios de uma clínica (e como saber em qual a sua está)</title>
+    <title>Clínica médica passa por 5 estágios e quase toda para no segundo</title>
     <link>https://medceo.online/blog/maturidade-empresarial-medica-5-estagios</link>
     <guid isPermaLink="true">https://medceo.online/blog/maturidade-empresarial-medica-5-estagios</guid>
     <pubDate>Sun, 09 Aug 2026 09:00:00 -0300</pubDate>

@@ -10,8 +10,8 @@ dek: "A ausência não tem campo contábil, então some do relatório no mesmo d
 data: 2026-08-12
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1200
-imagem_capa: DSC00199-2.jpg
-imagem_capa_legenda: "Poltronas vazias no corredor da clínica, onde o custo da estrutura corre igual com ou sem paciente sentado. Foto: acervo MedCEO"
+imagem_capa: DSC00208-2.jpg
+imagem_capa_legenda: Sala de atendimento vazia no horário de consulta. A cadeira parada cobra três custos que a planilha não registra.
 links_internos:
   - slug: margem-lucro-clinica-medica
     ancora: por que o faturamento sobe e o caixa não acompanha

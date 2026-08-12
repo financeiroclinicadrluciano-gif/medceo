@@ -10,8 +10,8 @@ dek: O post mais lido do nicho lista dez indicadores em 903 palavras, cerca de 6
 data: 2026-08-11
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1400
-imagem_capa: DSC00213-2.jpg
-imagem_capa_legenda: A calculadora sobre a mesa do consultório, ao lado do dispenser e da orquídea. Foto: acervo MedCEO
+imagem_capa: IMG_0212.jpg
+imagem_capa_legenda: Dr. Luciano Alves Neves na mesa de trabalho. Indicador sem faixa de referência não sustenta decisão nenhuma.
 links_internos:
   - slug: maturidade-empresarial-medica-5-estagios
     ancora: em qual estágio cada número faz sentido

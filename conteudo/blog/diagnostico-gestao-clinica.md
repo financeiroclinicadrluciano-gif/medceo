@@ -1,5 +1,5 @@
 ---
-titulo: Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde
+titulo: Clínica sem diagnóstico corrige o sintoma errado e repete o gargalo por anos
 slug: diagnostico-gestao-clinica
 marca: medceo
 tipo: satelite
@@ -10,8 +10,8 @@ dek: O post saiu em 21/07/2026 com quatro níveis nomeados, cinco dimensões de 
 data: 2026-08-11
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1250
-imagem_capa: DSC00192-2.jpg
-imagem_capa_legenda: A estante de livros de gestão na parede da clínica, onde o médico costuma procurar sozinho a resposta que o diagnóstico deveria dar. Foto: acervo MedCEO
+imagem_capa: IMG_0213.jpg
+imagem_capa_legenda: Dr. Luciano Alves Neves analisando indicadores da operação. Diagnóstico vem antes de qualquer plano de ação.
 links_internos:
   - slug: maturidade-empresarial-medica-5-estagios
     ancora: o método de cinco estágios, aberto

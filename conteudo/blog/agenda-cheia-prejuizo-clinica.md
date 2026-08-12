@@ -11,7 +11,7 @@ data: 2026-08-13
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1200
 imagem_capa: DSC00199-2.jpg
-imagem_capa_legenda: Corredor de espera cheio às onze da manhã, o horário em que a agenda parece dar certo. Foto: acervo MedCEO
+imagem_capa_legenda: Corredor de espera de clínica em Curitiba. Agenda cheia e margem apertada convivem sem que ninguém perceba.
 links_internos:
   - slug: maturidade-empresarial-medica-5-estagios
     ancora: o estágio em que a clínica costuma travar

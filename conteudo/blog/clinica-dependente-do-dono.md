@@ -10,8 +10,8 @@ dek: Os quatro pontos são decisão de exceção, preço, fila de agenda e cobra
 data: 2026-08-13
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1300
-imagem_capa: DSC00208-2.jpg
-imagem_capa_legenda: Consultório com a mesa vazia no meio da tarde, no dia em que o dono não apareceu. Foto: acervo MedCEO
+imagem_capa: IMG_0223.jpg
+imagem_capa_legenda: Dr. Luciano Alves Neves, criador do método DOC365. Clínica que só anda com o dono presente tem teto de crescimento.
 links_internos:
   - slug: maturidade-empresarial-medica-5-estagios
     ancora: os cinco estágios e o que trava a passagem de cada um

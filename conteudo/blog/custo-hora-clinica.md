@@ -10,8 +10,8 @@ dek: "A conta tem três variáveis e cabe em dez minutos: faturamento, horas de 
 data: 2026-08-12
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1300
-imagem_capa: DSC00192-2.jpg
-imagem_capa_legenda: "Estante de livros de gestão na sala onde as decisões de preço da clínica são tomadas. Foto: acervo MedCEO"
+imagem_capa: DSC00213-2.jpg
+imagem_capa_legenda: Consultório com calculadora sobre a mesa. O preço da consulta sai da conta da hora, não da tabela do vizinho.
 links_internos:
   - slug: margem-lucro-clinica-medica
     ancora: onde a margem some na operação inteira
