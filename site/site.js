@@ -359,3 +359,41 @@
   }, { threshold: 0.35 });
   io.observe(seal);
 })();
+
+/* Pilares por rolagem: a dobra e alta e o painel gruda; cada trecho avanca um
+   pilar. A troca acontece clicando no proprio botao, entao o estado, o aria e o
+   teclado continuam valendo. Sem a preferencia de menos movimento, nada disso
+   liga — a dobra volta ao normal e so os botoes operam. */
+(function () {
+  var sec = document.getElementById("time");
+  if (!sec) return;
+  var botoes = Array.prototype.slice.call(sec.querySelectorAll("[data-pillar-btn]"));
+  if (botoes.length < 2) return;
+
+  var mq = window.matchMedia("(min-width:1040px) and (prefers-reduced-motion:no-preference)");
+  var atual = -1, pendente = false;
+
+  function medir() {
+    pendente = false;
+    if (!mq.matches) return;
+    var r = sec.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var total = r.height - vh;
+    if (total <= 0) return;
+    var p = Math.min(Math.max(-r.top / total, 0), 0.9999);
+    var i = Math.floor(p * botoes.length);
+    if (i !== atual) { atual = i; botoes[i].click(); }
+  }
+  function onScroll() {
+    if (pendente) return;
+    pendente = true;
+    requestAnimationFrame(medir);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  // clique manual continua mandando: reseta o indice para o proximo scroll nao brigar
+  botoes.forEach(function (b, i) {
+    b.addEventListener("click", function () { atual = i; });
+  });
+  medir();
+})();

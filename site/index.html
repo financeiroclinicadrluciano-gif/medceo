@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MedCEO</title>
 <link rel="canonical" href="https://medceo.online/">
-<meta property="og:title" content="MedCEO — O gabinete do diagnóstico para médicos donos de clínica">
-<meta property="og:description" content="MedCEO — o gabinete do diagnóstico para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba.">
+<meta property="og:title" content="MedCEO — Mentoria exclusiva para médicos">
+<meta property="og:description" content="Mentoria exclusiva para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://medceo.online/">
 <meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg">
@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="/assets/medceo/logo-icone.png">
 <link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
 
-<meta name="description" content="MedCEO — o gabinete do diagnóstico para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba." />
+<meta name="description" content="Mentoria exclusiva para médicos donos de clínica. Gestão, margem, comercial, operação e escala. Método criado dentro da Natuá MedSpa, Curitiba." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" />
@@ -355,7 +355,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   gap:clamp(28px,4vw,72px);align-items:center}
 .pillpanel__media{position:relative;min-width:0}
 .pillpanel__media .moldura{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);border-radius:12px;background:#030405}
-.pillpanel__media img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.02) brightness(.95);
+.pillpanel__media img{width:100%;height:100%;object-fit:cover;filter:contrast(1.04) saturate(1.02);
   transition:opacity .5s ease,transform 8s var(--ease)}
 .pillpanel__media .vinheta{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,5,.03) 0%,rgba(3,4,5,.3) 60%,rgba(3,4,5,.88) 100%)}
 .pillpanel__media .num{position:absolute;top:22px;right:24px;color:rgba(234,226,207,.24);
@@ -625,6 +625,18 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
   transform:translateY(-240%)}
 .skip:focus-visible{transform:translateY(0)}
+/* ---- pilares avancam com a rolagem ------------------------------------- */
+@media(min-width:1040px) and (prefers-reduced-motion:no-preference){
+  /* A dobra fica alta e SO o painel gruda: a introducao rola embora e o painel
+     do pilar fica preso. Grudar o `.env` inteiro cortava o topo, porque o
+     conteudo da dobra passa de 100vh. */
+  html.js #time{min-height:400vh}
+  html.js #time .atlas__panel{position:sticky;top:96px}
+}
+/* o trilho de botoes marca o pilar corrente enquanto a rolagem avanca */
+.pillrail button[aria-current="true"] strong{color:var(--ivory-bright)}
+.pillrail button[aria-current="true"] small{color:var(--gold)}
+
 /* ---- esteira: escada de verdade, texto a esquerda ----------------------- */
 #esteira .env{display:grid;gap:44px}
 @media(min-width:1040px){
