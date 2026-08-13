@@ -6,7 +6,23 @@
   <atom:link href="https://medceo.online/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Wed, 12 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <lastBuildDate>Thu, 13 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <item>
+    <title>Agenda cheia esconde prejuízo em 3 sinais que aparecem antes do caixa</title>
+    <link>https://medceo.online/blog/agenda-cheia-prejuizo-clinica</link>
+    <guid isPermaLink="true">https://medceo.online/blog/agenda-cheia-prejuizo-clinica</guid>
+    <pubDate>Thu, 13 Aug 2026 09:00:00 -0300</pubDate>
+    <category>Maturidade e dependência do dono</category>
+    <description>Os três sinais são hora clínica desconhecida, mix de serviço sem margem e condição de pagamento decidida no balcão. Eles aparecem semanas antes do extrato, e é por isso que dá para corrigir sem perder o trimestre.</description>
+  </item>
+  <item>
+    <title>Clínica dependente do dono trava em 4 pontos quando ele sai da rotina</title>
+    <link>https://medceo.online/blog/clinica-dependente-do-dono</link>
+    <guid isPermaLink="true">https://medceo.online/blog/clinica-dependente-do-dono</guid>
+    <pubDate>Thu, 13 Aug 2026 09:00:00 -0300</pubDate>
+    <category>Maturidade e dependência do dono</category>
+    <description>Os quatro pontos são decisão de exceção, preço, fila de agenda e cobrança, e todos voltam para a mesma mesa em menos de uma semana. A ausência não cria o problema, ela apenas mostra o que já existia.</description>
+  </item>
   <item>
     <title>Médico calcula o preço da consulta sem saber quanto custa a própria hora</title>
     <link>https://medceo.online/blog/custo-hora-clinica</link>
@@ -64,12 +80,12 @@
     <description>Faturamento é uma linha de entrada e não informa quanto custou produzir aquele número. Quatro perdas se acumulam entre a receita bruta e o que sobra no caixa do dono, e nenhuma delas aparece no extrato.</description>
   </item>
   <item>
-    <title>Clínica médica passa por 5 estágios e quase toda para no segundo</title>
+    <title>Gestão de clínica médica: guia completo para sair do improviso</title>
     <link>https://medceo.online/blog/maturidade-empresarial-medica-5-estagios</link>
     <guid isPermaLink="true">https://medceo.online/blog/maturidade-empresarial-medica-5-estagios</guid>
     <pubDate>Sun, 09 Aug 2026 09:00:00 -0300</pubDate>
-    <category>Maturidade e dependência do dono</category>
-    <description>Duas clínicas podem faturar o mesmo e estar em mundos diferentes. O que separa uma da outra não é volume: é o quanto a operação sobrevive sem o dono no centro.</description>
+    <category>Gestão de clínica médica</category>
+    <description>Agenda cheia não é sinônimo de empresa saudável. Este guia mostra como transformar números, processos, pessoas e decisões em uma clínica menos dependente do dono.</description>
   </item>
 </channel>
 </rss>
