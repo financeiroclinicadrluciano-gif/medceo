@@ -246,8 +246,9 @@ def md_para_html(md, slugs_vivos=None, origem=""):
             itens = "".join(f"<li>{inline(l[2:].strip())}</li>" for l in b.split("\n") if re.match(r"^[-*] ", l))
             saida.append(f"<ul>{itens}</ul>")
         elif re.match(r"^\d+\. ", b):
-            itens = "".join(f"<li>{inline(re.sub(r'^\d+\. ', '', l).strip())}</li>"
-                            for l in b.split("\n") if re.match(r"^\d+\. ", l))
+            linhas_numeradas = (l for l in b.split("\n") if re.match(r"^\d+\. ", l))
+            itens = "".join("<li>" + inline(re.sub(r"^\d+\. ", "", l).strip()) + "</li>"
+                            for l in linhas_numeradas)
             saida.append(f"<ol>{itens}</ol>")
         else:
             saida.append(f"<p>{inline(b)}</p>")
@@ -278,17 +279,19 @@ def data_rfc(d):
 
 LINKS_NAV = [("/#topo", "Home"), ("/#time", "Mentores"), ("/#metodo", "Método"),
              ("/#resultado", "Resultado"), ("/servicos", "Serviços"), ("/blog", "Blog"),
-             ("https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0", "Grupo")]
+             ("/webnar", "Grupo")]
 
 
 def topo(ativo=""):
     """Mesmo topo da home: nav larga escondida abaixo de 1120px e Diagnóstico
     como pílula. A home esconde os links no mobile — o blog fazia o contrário e
     empilhava 6 links de 10px com 29px de altura de toque."""
-    itens = "".join(
-        f'<a href="{href}"{" aria-current=\"page\"" if rot.lower() == ativo else ""}'
-        f'{" target=\"_blank\" rel=\"noopener\"" if href.startswith("https://") else ""}>{rot}</a>'
-        for href, rot in LINKS_NAV)
+    def link_nav(href, rot):
+        atual = ' aria-current="page"' if rot.lower() == ativo else ""
+        externo = ' target="_blank" rel="noopener"' if href.startswith("https://") else ""
+        return f'<a href="{href}"{atual}{externo}>{rot}</a>'
+
+    itens = "".join(link_nav(href, rot) for href, rot in LINKS_NAV)
     return f"""<header class="top" data-section="topo"><nav class="principal" aria-label="Navegação principal">
 <a class="brand" href="/" aria-label="MedCEO — início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26"></a>
 <div class="navwide">{itens}</div>

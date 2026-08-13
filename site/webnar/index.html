@@ -42,8 +42,29 @@
 <style>
 .dc-ee2f7a07:focus-visible { transform:translateY(0) }
 .dc-77e7c021:hover { border-color:#D9BE7E;background:linear-gradient(180deg, rgba(217,190,126,.22), rgba(195,161,78,.08));transform:translateY(-2px) }
+.dc-77e7c021[aria-disabled="true"] { opacity:.38;cursor:not-allowed;transform:none;pointer-events:none }
 .dc-d3146d72:hover { background:rgba(195,161,78,.08);border-color:rgba(195,161,78,.6);color:#EFE0BB }
 .dc-f2f3847f:hover { color:#EAE2CF }
+.audience-gate{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;max-width:34rem;
+  margin-top:clamp(10px,1.6vh,18px);padding:18px 20px;border:1px solid rgba(195,161,78,.32);
+  background:rgba(5,7,10,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.audience-gate__mark{display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(217,190,126,.5);
+  color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase}
+.audience-gate__title{color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:1.08rem;font-weight:400;line-height:1.25}
+.audience-gate__copy{margin-top:5px;color:rgba(234,226,207,.62);font-size:12.5px;line-height:1.6}
+.audience-gate__confirm{display:flex;align-items:flex-start;gap:10px;margin-top:12px;color:#EAE2CF;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;line-height:1.55;text-transform:uppercase;cursor:pointer}
+.audience-gate__confirm input{flex:0 0 auto;width:16px;height:16px;margin-top:0;accent-color:#C3A14E;cursor:pointer}
+.audience-gate__status{min-height:1.4em;margin-top:7px;color:#D9BE7E;font-family:'JetBrains Mono',monospace;
+  font-size:8px;letter-spacing:.12em;line-height:1.5;text-transform:uppercase}
+@media(max-width:480px){.audience-gate{grid-template-columns:1fr}.audience-gate__mark{width:40px;height:40px}}
+@media(min-width:900px) and (min-height:800px){
+  .group-hero{padding-block:54px!important}
+  .group-hero__content{gap:9px!important}
+  .group-hero__content>a:first-child{margin-bottom:8px!important}
+  .audience-gate{margin-top:4px;padding-block:14px}
+  .audience-gate__confirm{margin-top:8px}
+}
 </style>
 </head>
 <body>
@@ -52,14 +73,14 @@
   <a href="#aula" style="position:fixed;z-index:1000;top:12px;left:12px;padding:12px 18px;background:#EAE2CF;color:#05070A;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;transform:translateY(-240%)" class="dc-ee2f7a07">Pular para a aula</a>
 
   <!-- ================= 01 · CONVITE ================= -->
-  <section style="position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:100dvh;padding:clamp(88px,11vh,132px) 0 clamp(56px,8vh,96px)">
+  <section class="group-hero" style="position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:100dvh;padding:clamp(88px,11vh,132px) 0 clamp(56px,8vh,96px)">
     <div aria-hidden="true" style="position:absolute;z-index:-5;inset:0;overflow:hidden"><img src="/assets/medceo/webnar-hero.jpg" alt="" width="1600" height="900" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;object-position:74% center;opacity:.34;filter:saturate(.6) contrast(1.1);animation:wbKen 24s cubic-bezier(.4,0,.2,1) infinite alternate" /></div>
     <div aria-hidden="true" style="position:absolute;z-index:-4;inset:0;background:linear-gradient(90deg, rgba(5,7,10,.97) 0%, rgba(5,7,10,.9) 40%, rgba(5,7,10,.4) 70%, rgba(5,7,10,.62) 100%), linear-gradient(0deg, rgba(5,7,10,.96) 0%, rgba(5,7,10,.34) 34%, transparent 66%)"></div>
     <div aria-hidden="true" style="position:absolute;z-index:-3;inset:0;background:radial-gradient(125% 100% at 44% 40%, transparent 48%, rgba(5,7,10,.46) 82%, rgba(5,7,10,.82) 100%)"></div>
     <div aria-hidden="true" style="position:absolute;z-index:-2;top:16%;left:-6%;width:min(660px,72vw);aspect-ratio:1.7;background:radial-gradient(62% 55% at 44% 46%, rgba(195,161,78,.15), transparent 70%);filter:blur(46px);animation:wbAura 12s cubic-bezier(.4,0,.2,1) infinite alternate;pointer-events:none"></div>
     <div aria-hidden="true" style="position:absolute;z-index:-1;inset:0;opacity:.3;mix-blend-mode:overlay;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='wg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23wg)' opacity='0.5'/%3E%3C/svg%3E&quot;)"></div>
 
-    <div style="position:relative;z-index:2;width:min(100% - 2 * clamp(24px,5vw,64px), 44rem);margin-left:clamp(24px,5vw,64px);margin-right:auto;display:grid;align-content:center;gap:clamp(12px,1.8vh,22px)">
+    <div class="group-hero__content" style="position:relative;z-index:2;width:min(100% - 2 * clamp(24px,5vw,64px), 44rem);margin-left:clamp(24px,5vw,64px);margin-right:auto;display:grid;align-content:center;gap:clamp(12px,1.8vh,22px)">
 
       <a href="/" aria-label="MedCEO — ir para o site" style="display:inline-flex;align-items:center;gap:14px;width:fit-content;margin-bottom:clamp(10px,1.8vh,22px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .05s both">
         <img src="/assets/medceo/logo.png" alt="MedCEO" width="124" height="27" style="height:clamp(24px,3vh,28px);width:auto;object-fit:contain;object-position:left" />
@@ -67,7 +88,7 @@
         <small style="color:rgba(217,190,126,.8);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;letter-spacing:.28em;line-height:1.5;text-transform:uppercase">Gabinete do<br />diagnóstico</small>
       </a>
 
-      <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .12s both"><span aria-hidden="true" style="flex:0 0 auto;width:32px;height:1px;background:rgba(195,161,78,.7)"></span>Grupo MedCEO · toda semana</p>
+      <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .12s both"><span aria-hidden="true" style="flex:0 0 auto;width:32px;height:1px;background:rgba(195,161,78,.7)"></span>Exclusivo para médicos · toda semana</p>
 
       <h1 style="max-width:16ch;margin-top:8px;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:min(clamp(2.2rem,1.3rem + 3vw,3.8rem), 7.4vh);font-weight:300;letter-spacing:-.04em;line-height:1.02;text-wrap:balance">
         <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .2s both">Uma</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .26s both">aula</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .32s both">por</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .38s both">semana</span></span>
@@ -83,9 +104,22 @@
         <li style="display:flex;gap:14px;color:rgba(234,226,207,.74);font-size:min(14px, 2.1vh);font-weight:300;line-height:1.6;letter-spacing:.015em"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.62em;width:5px;height:5px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:400">Sala com outros médicos donos de clínica</strong> — mesma dor, mesmo vocabulário.</span></li>
       </ul>
 
+      <div class="audience-gate" data-audience-gate style="animation:wbRise .9s cubic-bezier(.16,1,.3,1) .82s both">
+        <span class="audience-gate__mark" aria-hidden="true">CRM</span>
+        <div>
+          <p class="audience-gate__title">Este grupo é exclusivo para médicos.</p>
+          <p class="audience-gate__copy">Não é destinado a estudantes, gestores, fornecedores ou outros profissionais. O acesso é liberado somente após a confirmação abaixo.</p>
+          <label class="audience-gate__confirm">
+            <input type="checkbox" data-doctor-confirm />
+            <span>Confirmo que sou médico(a)</span>
+          </label>
+          <p class="audience-gate__status" data-gate-status aria-live="polite">Confirme para liberar o acesso.</p>
+        </div>
+      </div>
+
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:clamp(12px,2vh,24px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .88s both">
-        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px clamp(26px,3vw,38px);border:1px solid rgba(217,190,126,.5);border-radius:3px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)" class="dc-77e7c021">Entrar no grupo do WhatsApp <span aria-hidden="true">↗</span></a>
-        <p style="color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Entrada gratuita<br /></p>
+        <a data-group-access data-group-url="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" aria-disabled="true" tabindex="-1" target="_blank" rel="noopener noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px clamp(26px,3vw,38px);border:1px solid rgba(217,190,126,.5);border-radius:3px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease" class="dc-77e7c021">Sou médico e quero entrar <span aria-hidden="true">↗</span></a>
+        <p style="color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Entrada gratuita<br />Exclusiva para médicos</p>
       </div>
     </div>
   </section>
@@ -129,6 +163,31 @@
     </div>
   </footer>
 </div>
+<script>
+(() => {
+  const confirmacao = document.querySelector('[data-doctor-confirm]');
+  const acesso = document.querySelector('[data-group-access]');
+  const status = document.querySelector('[data-gate-status]');
+  if (!confirmacao || !acesso || !status) return;
+
+  const atualizarAcesso = () => {
+    if (confirmacao.checked) {
+      acesso.href = acesso.dataset.groupUrl;
+      acesso.setAttribute('aria-disabled', 'false');
+      acesso.tabIndex = 0;
+      status.textContent = 'Acesso liberado para continuar.';
+      return;
+    }
+    acesso.removeAttribute('href');
+    acesso.setAttribute('aria-disabled', 'true');
+    acesso.tabIndex = -1;
+    status.textContent = 'Confirme para liberar o acesso.';
+  };
+
+  confirmacao.addEventListener('change', atualizarAcesso);
+  atualizarAcesso();
+})();
+</script>
 <script src="/tracking.js" defer></script>
 </body>
 </html>
