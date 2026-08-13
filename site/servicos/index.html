@@ -95,10 +95,9 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .btn--ghost{border-color:rgba(234,226,207,.16);color:rgba(234,226,207,.8);flex:0 1 auto;min-height:52px}
 .btn--ghost:hover{border-color:rgba(234,226,207,.62);color:var(--ivory);background:transparent}
 .btn--wa{min-height:60px;border:0;background:linear-gradient(135deg,#25D366,#128C4B);color:#04140B;
-  font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;letter-spacing:.02em;
-  box-shadow:0 14px 34px rgba(37,211,102,.28),0 30px 70px rgba(4,20,11,.5)}
+  font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;letter-spacing:.02em}
 .btn--wa:hover{background:linear-gradient(135deg,#2EE078,#149B52);color:#04140B;
-  transform:translateY(-3px);box-shadow:0 20px 44px rgba(37,211,102,.4),0 40px 90px rgba(4,20,11,.55)}
+  transform:translateY(-3px)}
 /* Estado de pressao. Sem isto, no celular — onde `:hover` nao existe e o
    tap-highlight nativo esta desligado no reset — tocar em nav, card, FAQ,
    pilar ou rodape nao devolve nada, e a pessoa toca de novo. A producao ja
@@ -165,9 +164,11 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   html{scroll-padding-top:118px}
   .nav__in{gap:8px 18px;padding-bottom:8px}
   .nav__links{order:3;display:flex;flex:1 0 100%;justify-content:flex-start;gap:22px;overflow-x:auto;
-    padding:2px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    max-width:100%;padding:2px max(0px,calc((100vw - 100%) / 2)) 4px;scrollbar-width:none;
+    scroll-snap-type:x proximity;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
   .nav__links::-webkit-scrollbar{display:none}
-  .nav__links a{flex:0 0 auto;min-height:44px;display:inline-flex;align-items:center;font-size:9px}
+  .nav__links a{flex:0 0 auto;min-height:44px;display:inline-flex;align-items:center;font-size:9px;scroll-snap-align:start}
+  .nav__links a:last-child{margin-right:22px}
 }
 @media(max-width:430px){
   .nav__brand img{height:23px}
@@ -456,8 +457,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .chart__col .dot{width:7px;height:7px;border:1px solid rgba(234,226,207,.4);border-radius:50%;background:var(--bg2)}
 .chart__col:nth-child(2) .dot{border-color:rgba(195,161,78,.7)}
 .chart__col:nth-child(3) .dot{border-color:rgba(195,161,78,.85)}
-.chart__col:nth-child(4) .dot{width:9px;height:9px;border-color:var(--gold-soft);background:var(--gold);
-  box-shadow:0 0 14px rgba(195,161,78,.6)}
+.chart__col:nth-child(4) .dot{width:9px;height:9px;border-color:var(--gold-soft);background:var(--gold)}
 .chart__col .rotulo{color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;
   font-size:clamp(7px,.8vw,8.5px);font-weight:300;letter-spacing:.16em;line-height:1.5;text-transform:uppercase}
 .chart__col:nth-child(4) .rotulo{color:var(--gold-bright);font-weight:400}
@@ -814,14 +814,51 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .svc__in{display:grid;gap:38px}
 @media(min-width:960px){
   .svc__in{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center}
-  .svc:nth-of-type(even) .svc__fig{order:2}
+  .svc:nth-of-type(even) .svc__map{order:2}
 }
-.svc__fig{position:relative;aspect-ratio:4/3;overflow:hidden;background:rgba(234,226,207,.05)}
-.svc__fig img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1)}
-.svc:hover .svc__fig img{transform:scale(1.035)}
-.svc__fig figcaption{position:absolute;left:0;bottom:0;
-  font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
-  color:#05070A;background:var(--gold);padding:7px 12px}
+.svc__map{--map-border:rgba(195,161,78,.32);--map-line:rgba(234,226,207,.12);
+  --map-copy:rgba(234,226,207,.88);--map-muted:rgba(234,226,207,.48);
+  position:relative;isolation:isolate;min-height:clamp(410px,44vw,520px);display:grid;
+  grid-template-columns:clamp(72px,8vw,104px) minmax(0,1fr);overflow:hidden;
+  border:1px solid var(--map-border);background:#090C10}
+.svc--ivory .svc__map{--map-border:rgba(107,83,32,.32);--map-line:rgba(23,20,13,.14);
+  --map-copy:#17140D;--map-muted:rgba(23,20,13,.55);background:#E3DAC5}
+.svc__map::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0 49.8%,var(--map-line) 50%,transparent 50.2%),
+  linear-gradient(var(--map-line) 1px,transparent 1px);background-size:100% 100%,100% 25%;opacity:.62}
+.svc__map-rail{display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:26px 12px;border-right:1px solid var(--map-line);background:rgba(195,161,78,.055)}
+.svc--ivory .svc__map-rail{background:rgba(107,83,32,.055)}
+.svc__map-index{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,5vw,4.8rem);
+  font-weight:500;line-height:.8;color:transparent;-webkit-text-stroke:1px var(--map-border)}
+.svc__map-axis{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--map-muted);writing-mode:vertical-rl;transform:rotate(180deg)}
+.svc__map-body{min-width:0;display:grid;grid-template-rows:auto repeat(3,1fr) auto;padding:0 clamp(22px,3.2vw,42px)}
+.svc__map-head,.svc__map-foot{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding-block:19px;border-bottom:1px solid var(--map-line)}
+.svc__map-head span,.svc__map-foot span,.svc__map-step span{font-family:'JetBrains Mono',monospace;
+  font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--map-muted)}
+.svc__map-head strong{font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:400;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.svc__map-step{position:relative;display:grid;grid-template-columns:minmax(70px,.38fr) minmax(0,1fr);
+  align-items:center;gap:20px;padding-block:18px;border-bottom:1px solid var(--map-line)}
+.svc__map-step::before{content:"";position:absolute;left:-4px;top:50%;width:7px;height:7px;
+  border:1px solid var(--gold);background:#090C10;transform:translate(-50%,-50%) rotate(45deg);
+  transition:background .35s cubic-bezier(.16,1,.3,1),transform .35s cubic-bezier(.16,1,.3,1)}
+.svc--ivory .svc__map-step::before{background:#E3DAC5}
+.svc:hover .svc__map-step::before{background:var(--gold);transform:translate(-50%,-50%) rotate(135deg)}
+.svc__map-step p{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.05rem,.86rem+.65vw,1.4rem);
+  line-height:1.25;color:var(--map-copy)}
+.svc__map-foot{border-bottom:0;border-top:0}
+.svc__map-foot strong{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:500;
+  line-height:1.3;text-align:right;color:var(--map-copy)}
+@media(max-width:580px){
+  .svc__map{min-height:390px;grid-template-columns:58px minmax(0,1fr)}
+  .svc__map-rail{padding:22px 8px}.svc__map-body{padding-inline:18px}
+  .svc__map-head,.svc__map-foot{gap:12px;padding-block:16px}
+  .svc__map-step{grid-template-columns:1fr;gap:7px;padding-block:14px}
+  .svc__map-head strong{max-width:16ch;text-align:right}.svc__map-foot strong{font-size:.82rem}
+}
 .svc__n{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.28em;color:var(--gold)}
 .svc--ivory .svc__n{color:#6B5320}
 .svc h2{margin:14px 0 0;font-family:'Playfair Display',Georgia,serif;
@@ -887,10 +924,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
     <section id="medday" class="svc" aria-labelledby="t-medday">
       <div class="env svc__in">
-        <figure class="svc__fig" data-reveal>
-          <img src="/blog/capas/IMG_0223.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <figcaption>01 &middot; MedDay</figcaption>
-        </figure>
+        <div class="svc__map" data-reveal aria-label="Mapa de avanço do MedDay">
+          <div class="svc__map-rail"><span class="svc__map-index">01</span><span class="svc__map-axis">Método MedCEO</span></div>
+          <div class="svc__map-body">
+            <div class="svc__map-head"><span>Mapa de avanço</span><strong>MedDay / 01</strong></div>
+            <div class="svc__map-step"><span>Entrada</span><p>Uma dor específica</p></div>
+            <div class="svc__map-step"><span>Intervenção</span><p>Diagnóstico ao vivo em quatro horas</p></div>
+            <div class="svc__map-step"><span>Saída</span><p>Score da clínica e próximo passo</p></div>
+            <div class="svc__map-foot"><span>Critério</span><strong>Problema medido e nomeado</strong></div>
+          </div>
+        </div>
         <div data-reveal style="--d:1">
           <p class="svc__n">Serviço 01</p>
           <h2 id="t-medday">MedDay<span class="svc__func">Consciência e diagnóstico</span></h2>
@@ -904,10 +947,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </section>
     <section id="medmanager" class="svc svc--ivory" aria-labelledby="t-medmanager">
       <div class="env svc__in">
-        <figure class="svc__fig" data-reveal>
-          <img src="/blog/capas/DSC00192-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <figcaption>02 &middot; MedManager</figcaption>
-        </figure>
+        <div class="svc__map" data-reveal aria-label="Mapa de avanço do MedManager">
+          <div class="svc__map-rail"><span class="svc__map-index">02</span><span class="svc__map-axis">Método MedCEO</span></div>
+          <div class="svc__map-body">
+            <div class="svc__map-head"><span>Mapa de avanço</span><strong>MedManager / 02</strong></div>
+            <div class="svc__map-step"><span>Entrada</span><p>Conhecimento sem rotina de aplicação</p></div>
+            <div class="svc__map-step"><span>Formação</span><p>Trilha autoinstrucional com tutoria</p></div>
+            <div class="svc__map-step"><span>Saída</span><p>Projeto aplicado por disciplina</p></div>
+            <div class="svc__map-foot"><span>Critério</span><strong>Competência executiva demonstrada</strong></div>
+          </div>
+        </div>
         <div data-reveal style="--d:1">
           <p class="svc__n">Serviço 02</p>
           <h2 id="t-medmanager">MedManager<span class="svc__func">Conhecimento estruturado</span></h2>
@@ -921,10 +970,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </section>
     <section id="medscale" class="svc" aria-labelledby="t-medscale">
       <div class="env svc__in">
-        <figure class="svc__fig" data-reveal>
-          <img src="/blog/capas/DSC00199-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <figcaption>03 &middot; MedScale</figcaption>
-        </figure>
+        <div class="svc__map" data-reveal aria-label="Mapa de avanço do MedScale">
+          <div class="svc__map-rail"><span class="svc__map-index">03</span><span class="svc__map-axis">Método MedCEO</span></div>
+          <div class="svc__map-body">
+            <div class="svc__map-head"><span>Mapa de avanço</span><strong>MedScale / 03</strong></div>
+            <div class="svc__map-step"><span>Entrada</span><p>Operação ainda no improviso</p></div>
+            <div class="svc__map-step"><span>Execução</span><p>Fundamentos implantados em 24 semanas</p></div>
+            <div class="svc__map-step"><span>Saída</span><p>Máquina básica funcionando</p></div>
+            <div class="svc__map-foot"><span>Critério</span><strong>Número e responsável em cada etapa</strong></div>
+          </div>
+        </div>
         <div data-reveal style="--d:1">
           <p class="svc__n">Serviço 03</p>
           <h2 id="t-medscale">MedScale<span class="svc__func">Estruturação e tração</span></h2>
@@ -938,10 +993,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </section>
     <section id="consultoria" class="svc svc--ivory" aria-labelledby="t-consultoria">
       <div class="env svc__in">
-        <figure class="svc__fig" data-reveal>
-          <img src="/assets/medceo/office-web.webp" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <figcaption>04 &middot; Consultoria</figcaption>
-        </figure>
+        <div class="svc__map" data-reveal aria-label="Mapa de avanço da Consultoria">
+          <div class="svc__map-rail"><span class="svc__map-index">04</span><span class="svc__map-axis">Método MedCEO</span></div>
+          <div class="svc__map-body">
+            <div class="svc__map-head"><span>Mapa de avanço</span><strong>Consultoria / 04</strong></div>
+            <div class="svc__map-step"><span>Entrada</span><p>Um gargalo prioritário já conhecido</p></div>
+            <div class="svc__map-step"><span>Intervenção</span><p>Implantação guiada em quatro a seis semanas</p></div>
+            <div class="svc__map-step"><span>Saída</span><p>Entrega delimitada e mensurada</p></div>
+            <div class="svc__map-foot"><span>Critério</span><strong>Indicador combinado antes do início</strong></div>
+          </div>
+        </div>
         <div data-reveal style="--d:1">
           <p class="svc__n">Serviço 04</p>
           <h2 id="t-consultoria">Consultoria<span class="svc__func">Intervenção específica</span></h2>
@@ -955,10 +1016,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </section>
     <section id="medceo" class="svc" aria-labelledby="t-medceo">
       <div class="env svc__in">
-        <figure class="svc__fig" data-reveal>
-          <img src="/assets/medceo/hero-bg.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <figcaption>05 &middot; MedCEO</figcaption>
-        </figure>
+        <div class="svc__map" data-reveal aria-label="Mapa de avanço do MedCEO">
+          <div class="svc__map-rail"><span class="svc__map-index">05</span><span class="svc__map-axis">Método MedCEO</span></div>
+          <div class="svc__map-body">
+            <div class="svc__map-head"><span>Mapa de avanço</span><strong>MedCEO / 05</strong></div>
+            <div class="svc__map-step"><span>Entrada</span><p>O dono virou o gargalo da clínica</p></div>
+            <div class="svc__map-step"><span>Transformação</span><p>24 semanas de mentoria e MedLAB</p></div>
+            <div class="svc__map-step"><span>Saída</span><p>Sistemas, liderança e autonomia</p></div>
+            <div class="svc__map-foot"><span>Critério</span><strong>Empresa menos dependente do fundador</strong></div>
+          </div>
+        </div>
         <div data-reveal style="--d:1">
           <p class="svc__n">Serviço 05</p>
           <h2 id="t-medceo">MedCEO<span class="svc__func">Transformação e liberdade</span></h2>
@@ -972,10 +1039,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </section>
     <section id="alpha" class="svc svc--ivory" aria-labelledby="t-alpha">
       <div class="env svc__in">
-        <figure class="svc__fig" data-reveal>
-          <img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <figcaption>06 &middot; MedCEO Alpha</figcaption>
-        </figure>
+        <div class="svc__map" data-reveal aria-label="Mapa de avanço do MedCEO Alpha">
+          <div class="svc__map-rail"><span class="svc__map-index">06</span><span class="svc__map-axis">Método MedCEO</span></div>
+          <div class="svc__map-body">
+            <div class="svc__map-head"><span>Mapa de avanço</span><strong>MedCEO Alpha / 06</strong></div>
+            <div class="svc__map-step"><span>Entrada</span><p>Fundador em estágio maduro</p></div>
+            <div class="svc__map-step"><span>Profundidade</span><p>Doze meses entre pares</p></div>
+            <div class="svc__map-step"><span>Saída</span><p>Obra, relações e rede</p></div>
+            <div class="svc__map-foot"><span>Critério</span><strong>Maturidade e aderência cultural</strong></div>
+          </div>
+        </div>
         <div data-reveal style="--d:1">
           <p class="svc__n">Serviço 06</p>
           <h2 id="t-alpha">MedCEO Alpha<span class="svc__func">Profundidade, comunidade e legado</span></h2>
