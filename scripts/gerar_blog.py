@@ -392,6 +392,7 @@ for p in publicados:
     fm = p["fm"]
     capa = limpar_aspas(fm.get("imagem_capa", "DSC00192-2.jpg"))
     titulo = limpar_aspas(fm.get("titulo", ""))
+    seo_titulo = limpar_aspas(fm.get("seo_title", "")) or f"{titulo} | MedCEO"
     dek = limpar_aspas(fm.get("dek", ""))
     silo = limpar_aspas(fm.get("silo", "Blog MedCEO"))
     autor = limpar_aspas(fm.get("autor", "Dr. Luciano Alves Neves"))
@@ -442,7 +443,7 @@ for p in publicados:
 <p class="eyebrow">{html.escape(silo)}</p>
 <h1>{html.escape(titulo)}</h1>
 <p class="lede">{html.escape(dek)}</p>
-<p class="meta"><span>{html.escape(autor)}</span><time datetime="{p['data']}">{data_br(str(p['data']))}</time></p>
+<p class="meta"><span>{html.escape(autor)}</span><time datetime="{p['data']}">Publicado em {data_br(str(p['data']))}</time>{f'<span>Atualizado em {data_br(str(fm.get("data_atualizacao")))}</span>' if fm.get("data_atualizacao") and str(fm.get("data_atualizacao")) != str(p["data"]) else ''}</p>
 </div>
 <article class="wrap" data-section="corpo-do-post">
 <figure class="capa"><img src="/blog/capas/{capa}" alt="{html.escape(alt)}" width="{CAPA_W}" height="{CAPA_H}" fetchpriority="high" decoding="async">
@@ -468,7 +469,7 @@ for p in publicados:
         "description": desc,
         "image": [img_abs],
         "datePublished": str(p["data"]),
-        "dateModified": str(p["data"]),
+        "dateModified": str(fm.get("data_atualizacao") or p["data"]),
         "inLanguage": "pt-BR",
         "articleSection": silo,
         "author": {"@type": "Person", "name": autor,
@@ -487,13 +488,14 @@ for p in publicados:
     ld = "".join('<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + "</script>"
                  for d in ld_dados)
     ld += (f'<meta property="article:published_time" content="{p["data"]}">'
+           f'<meta property="article:modified_time" content="{fm.get("data_atualizacao") or p["data"]}">'
            f'<meta property="article:author" content="{html.escape(autor)}">'
            f'<meta property="article:section" content="{html.escape(silo)}">')
 
     destino = blog / p["slug"]
     destino.mkdir(parents=True, exist_ok=True)
     (destino / "index.html").write_text(
-        pagina(f"{titulo} | MedCEO", desc, art, url, "blog", ld,
+        pagina(seo_titulo, desc, art, url, "blog", ld,
                og_tipo="article", og_imagem=img_abs, barra=True), encoding="utf-8")
 
 # listagem
@@ -564,7 +566,10 @@ ultima = publicados[0]["data"] if publicados else HOJE
 # sitemap
 fixas = [(f"{SITE}/", None), (f"{SITE}/diagnostico", None), (f"{SITE}/webnar", None),
          (f"{SITE}/blog", ultima)]
-urls = fixas + [(f"{SITE}/blog/{p['slug']}", p["data"]) for p in publicados]
+urls = fixas + [
+    (f"{SITE}/blog/{p['slug']}", p["fm"].get("data_atualizacao") or p["data"])
+    for p in publicados
+]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u, mod in urls:
     sm += f"  <url><loc>{u}</loc>" + (f"<lastmod>{mod}</lastmod>" if mod else "") + "</url>\n"
