@@ -153,13 +153,25 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   transition:color .3s ease}
 .nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:var(--gold);
   transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
-.nav__links a:hover{color:var(--ivory)}
-.nav__links a:hover::after{transform:scaleX(1)}
+.nav__links a:hover,.nav__links a[aria-current="page"]{color:var(--ivory)}
+.nav__links a:hover::after,.nav__links a[aria-current="page"]::after{transform:scaleX(1)}
 .nav__cta{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 20px;
   border:1px solid rgba(195,161,78,.34);border-radius:999px;color:var(--gold-bright);
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.18em;
   text-transform:uppercase;white-space:nowrap;transition:background .4s ease,border-color .4s ease,color .4s ease}
 .nav__cta:hover{background:rgba(195,161,78,.08);border-color:rgba(195,161,78,.6);color:var(--gold-soft)}
+@media(max-width:1119px){
+  html{scroll-padding-top:118px}
+  .nav__in{gap:8px 18px;padding-bottom:8px}
+  .nav__links{order:3;display:flex;flex:1 0 100%;justify-content:flex-start;gap:22px;overflow-x:auto;
+    padding:2px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .nav__links::-webkit-scrollbar{display:none}
+  .nav__links a{flex:0 0 auto;min-height:44px;display:inline-flex;align-items:center;font-size:9px}
+}
+@media(max-width:430px){
+  .nav__brand img{height:23px}
+  .nav__cta{min-height:38px;padding-inline:14px;font-size:8.5px}
+}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;
@@ -413,6 +425,18 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .prova__legenda{display:flex;align-items:center;gap:12px;margin-top:22px;color:rgba(234,226,207,.5);
   font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.18em;text-transform:uppercase}
 .prova__legenda::before{content:"";flex:0 0 auto;width:24px;height:1px;background:rgba(195,161,78,.5)}
+.prova__intro{max-width:62ch;margin-top:22px;color:rgba(234,226,207,.68);font-size:15px;font-weight:300;
+  line-height:1.72;letter-spacing:.02em}
+.prova__method{max-width:680px;margin-top:clamp(24px,3.5vh,36px);border-block:1px solid rgba(195,161,78,.16)}
+.prova__step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px 18px;padding:clamp(13px,1.8vh,18px) 0}
+.prova__step+.prova__step{border-top:1px solid rgba(234,226,207,.08)}
+.prova__step>span{padding-top:2px;color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:9px;
+  font-weight:400;letter-spacing:.18em}
+.prova__step strong{display:block;color:var(--ivory);font-family:'Playfair Display',Georgia,serif;font-size:18px;
+  font-weight:400;letter-spacing:-.015em;line-height:1.2}
+.prova__step p{margin-top:5px;color:rgba(234,226,207,.58);font-size:12.5px;font-weight:300;line-height:1.6}
+.prova__outcome{max-width:650px;margin-top:clamp(20px,2.8vh,28px);padding-left:18px;border-left:1px solid var(--gold);
+  color:rgba(234,226,207,.76);font-size:13.5px;font-weight:300;line-height:1.68}
 
 /* ---------- alem do numero (chart) ---------- */
 .alem{overflow:hidden;isolation:isolate;border-top:1px solid rgba(195,161,78,.12);background:var(--bg2)}
@@ -641,12 +665,12 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 }
 
 /* ---- 10. prova: titulo e video na mesma regua --------------------------- */
-#evidencia .env{display:grid;gap:36px;align-items:center}
+#resultado .env{display:grid;gap:36px;align-items:center}
 @media(min-width:960px){
-  #evidencia .env{grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:60px}
-  #evidencia .prova__video{justify-self:end}
+  #resultado .env{grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:60px}
+  #resultado .prova__video{justify-self:end}
 }
-#evidencia .prova__frame{margin-inline:0}
+#resultado .prova__frame{margin-inline:0}
 
 /* ---- 11. quem conduz: dobra deixa de ser gigante ------------------------ */
 #quem{padding-block:clamp(64px,8vh,96px)}
@@ -815,7 +839,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 .posts__rodape{margin-top:40px}
 
 </style>
-<link rel="stylesheet" href="/site-layout.css?v=20260813" />
+<link rel="stylesheet" href="/site-layout.css?v=20260813b" />
 </head>
 <body>
 <div style="position:relative;min-height:100vh;background:#05070A">
@@ -833,14 +857,13 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
       </a>
 
       <div class="nav__links">
-        <a href="#problema">Problema</a>
-        <a href="#time">Pilares</a>
+        <a href="#topo" aria-current="page">Home</a>
+        <a href="#time">Mentores</a>
         <a href="#metodo">Método</a>
-        <a href="#time">Time</a>
-        <a href="#quem">Quem conduz</a>
+        <a href="#resultado">Resultado</a>
         <a href="/servicos">Serviços</a>
         <a href="/blog">Blog</a>
-        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener">Grupo de WhatsApp</a>
+        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener">Grupo</a>
       </div>
 
       <a href="/diagnostico" data-sheen="" class="nav__cta">Diagnóstico</a>
@@ -1083,19 +1106,37 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
     </section>
 
     <!-- ================= 06 · PROVA ================= -->
-    <section id="evidencia" class="sec prova">
+    <section id="resultado" class="sec prova" aria-labelledby="t-resultado">
       <div aria-hidden="true" class="prova__aura"></div>
       <div aria-hidden="true" class="prova__grain"></div>
 
       <div class="env">
         <div data-reveal="" style="max-width:760px">
-          <p class="eyebrow">05 &middot; Prova</p>
-          <h2 class="h2" style="max-width:17ch">Ele já tinha feito outras mentorias. Nenhuma mexeu no faturamento.</h2>
+          <p class="eyebrow">05 &middot; Resultado real</p>
+          <h2 class="h2" id="t-resultado" style="max-width:16ch">“Hoje eu atendo menos e faturo mais.”</h2>
+          <p class="prova__intro">Antes do MedCEO, o paciente era agendado, consultava e ia embora. Não havia processo comercial, gestão financeira ou rotina de liderança. A clínica atendia; o negócio ainda dependia do Dr. Luiz Henrique.</p>
+
+          <div class="prova__method" aria-label="Como o método MedCEO foi aplicado">
+            <div class="prova__step">
+              <span>01</span>
+              <div><strong>Diagnóstico, não fórmula</strong><p>Cada clínica tem uma dinâmica. O primeiro movimento foi encontrar o gargalo dele — gestão — em vez de entregar mais um script pronto.</p></div>
+            </div>
+            <div class="prova__step">
+              <span>02</span>
+              <div><strong>Uma prioridade por ciclo</strong><p>A cada encontro quinzenal, uma tarefa e um objetivo observável para a clínica executar com a equipe.</p></div>
+            </div>
+            <div class="prova__step">
+              <span>03</span>
+              <div><strong>Testar, medir, manter</strong><p>O que funcionava virava processo. O que não funcionava voltava para ajuste, com os números e a operação na mesa.</p></div>
+            </div>
+          </div>
+
+          <p class="prova__outcome"><strong>O que mudou:</strong> uma manhã por semana dedicada à gestão, equipe com metas, jornada do paciente desenhada e uma clínica que já não depende apenas do médico para rodar.</p>
         </div>
 
         <div class="prova__video">
           <div class="prova__frame" data-tilt="">
-            <iframe id="panda-6e8f2654-57ab-4069-950e-eb9bfe5d1018" src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=6e8f2654-57ab-4069-950e-eb9bfe5d1018" title="Depoimento do Dr. Luis sobre a mentoria MedCEO" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <iframe id="panda-6e8f2654-57ab-4069-950e-eb9bfe5d1018" src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=6e8f2654-57ab-4069-950e-eb9bfe5d1018" title="Depoimento do Dr. Luiz Henrique sobre a mentoria MedCEO" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <p class="prova__legenda">Depoimento gravado pelo próprio médico. Resultado individual, não é média nem promessa.</p>
         </div>
@@ -1106,7 +1147,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
     <section aria-label="O que muda além do faturamento" class="alem">
       <div class="alem__split">
         <figure class="alem__media">
-          <img src="/assets/medceo/dr-luis-consultorio-wide.jpg" alt="Dr. Luis no consultório, mentorado do MedCEO." width="2000" height="1333" loading="lazy" fetchpriority="low" decoding="async" data-parallax data-speed="0.08" />
+          <img src="/assets/medceo/dr-luis-consultorio-wide.jpg" alt="Dr. Luiz Henrique no consultório, mentorado do MedCEO." width="2000" height="1333" loading="lazy" fetchpriority="low" decoding="async" data-parallax data-speed="0.08" />
           <span aria-hidden="true" class="fade"></span>
         </figure>
 

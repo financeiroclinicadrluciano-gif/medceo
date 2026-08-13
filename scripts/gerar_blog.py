@@ -53,6 +53,13 @@ img{display:block;max-width:100%}
 @media (min-width:1120px){.navwide{display:flex}}
 .navwide a{color:rgba(234,226,207,.58);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding-block:8px;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
 .navwide a:hover,.navwide a[aria-current]{color:#EAE2CF;border-color:rgba(195,161,78,.5)}
+@media (max-width:1119px){
+  html{scroll-padding-top:118px}
+  .top nav.principal{gap:8px 18px;padding-bottom:8px}
+  .navwide{order:3;display:flex;flex:1 0 100%;justify-content:flex-start;gap:22px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .navwide::-webkit-scrollbar{display:none}
+  .navwide a{flex:0 0 auto;min-height:44px;display:inline-flex;align-items:center;font-size:9px}
+}
 .brand{display:inline-flex;flex:0 0 auto;align-items:center;gap:14px}
 .brand img{height:26px;width:auto;object-fit:contain;object-position:left}
 .brand small{color:rgba(217,190,126,.82);font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.28em;line-height:1.5;text-transform:uppercase}
@@ -269,8 +276,9 @@ def data_rfc(d):
     return f"{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][d.weekday()]}, {d.day:02d} {MESES_RFC[d.month-1]} {d.year} 09:00:00 -0300"
 
 
-LINKS_NAV = [("/#problema", "Problema"), ("/#time", "Pilares"), ("/#metodo", "Método"),
-             ("/#time", "Time"), ("/#quem", "Quem conduz"), ("/blog", "Blog"), ("/webnar", "Aulas")]
+LINKS_NAV = [("/#topo", "Home"), ("/#time", "Mentores"), ("/#metodo", "Método"),
+             ("/#resultado", "Resultado"), ("/servicos", "Serviços"), ("/blog", "Blog"),
+             ("https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0", "Grupo")]
 
 
 def topo(ativo=""):
@@ -278,10 +286,11 @@ def topo(ativo=""):
     como pílula. A home esconde os links no mobile — o blog fazia o contrário e
     empilhava 6 links de 10px com 29px de altura de toque."""
     itens = "".join(
-        f'<a href="{href}"{" aria-current=\"page\"" if rot.lower() == ativo else ""}>{rot}</a>'
+        f'<a href="{href}"{" aria-current=\"page\"" if rot.lower() == ativo else ""}'
+        f'{" target=\"_blank\" rel=\"noopener\"" if href.startswith("https://") else ""}>{rot}</a>'
         for href, rot in LINKS_NAV)
     return f"""<header class="top" data-section="topo"><nav class="principal" aria-label="Navegação principal">
-<a class="brand" href="/" aria-label="MedCEO — início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26"><span aria-hidden="true" style="width:1px;height:20px;background:rgba(195,161,78,.26)"></span><small>Gabinete do<br>diagnóstico</small></a>
+<a class="brand" href="/" aria-label="MedCEO — início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26"></a>
 <div class="navwide">{itens}</div>
 <a class="pilula" href="/diagnostico">Diagnóstico</a>
 </nav></header>"""

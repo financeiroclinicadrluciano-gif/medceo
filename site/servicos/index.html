@@ -154,13 +154,25 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   transition:color .3s ease}
 .nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:var(--gold);
   transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
-.nav__links a:hover{color:var(--ivory)}
-.nav__links a:hover::after{transform:scaleX(1)}
+.nav__links a:hover,.nav__links a[aria-current="page"]{color:var(--ivory)}
+.nav__links a:hover::after,.nav__links a[aria-current="page"]::after{transform:scaleX(1)}
 .nav__cta{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 20px;
   border:1px solid rgba(195,161,78,.34);border-radius:999px;color:var(--gold-bright);
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.18em;
   text-transform:uppercase;white-space:nowrap;transition:background .4s ease,border-color .4s ease,color .4s ease}
 .nav__cta:hover{background:rgba(195,161,78,.08);border-color:rgba(195,161,78,.6);color:var(--gold-soft)}
+@media(max-width:1119px){
+  html{scroll-padding-top:118px}
+  .nav__in{gap:8px 18px;padding-bottom:8px}
+  .nav__links{order:3;display:flex;flex:1 0 100%;justify-content:flex-start;gap:22px;overflow-x:auto;
+    padding:2px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .nav__links::-webkit-scrollbar{display:none}
+  .nav__links a{flex:0 0 auto;min-height:44px;display:inline-flex;align-items:center;font-size:9px}
+}
+@media(max-width:430px){
+  .nav__brand img{height:23px}
+  .nav__cta{min-height:38px;padding-inline:14px;font-size:8.5px}
+}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;
@@ -843,14 +855,13 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
       </a>
 
       <div class="nav__links">
-        <a href="#problema">Problema</a>
-        <a href="#time">Pilares</a>
-        <a href="#metodo">Método</a>
-        <a href="#time">Time</a>
-        <a href="#quem">Quem conduz</a>
-        <a href="/servicos">Serviços</a>
+        <a href="/#topo">Home</a>
+        <a href="/#time">Mentores</a>
+        <a href="/#metodo">Método</a>
+        <a href="/#resultado">Resultado</a>
+        <a href="/servicos" aria-current="page">Serviços</a>
         <a href="/blog">Blog</a>
-        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener">Grupo de WhatsApp</a>
+        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener">Grupo</a>
       </div>
 
       <a href="/diagnostico" data-sheen="" class="nav__cta">Diagnóstico</a>

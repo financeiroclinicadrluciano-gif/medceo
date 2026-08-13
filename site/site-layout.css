@@ -331,11 +331,11 @@ html.js:not(.motion-ready) .fcard li {
     }
   }
 
-  #evidencia .prova__video {
+  #resultado .prova__video {
     margin-top: 0;
   }
 
-  #evidencia .prova__frame {
+  #resultado .prova__frame {
     width: min(100%, 390px);
     max-height: min(74svh, 740px);
   }
@@ -676,9 +676,13 @@ html.js:not(.motion-ready) .fcard li {
   }
 
   .nav__in {
-    flex-wrap: nowrap;
-    min-height: var(--nav-height);
-    padding-block: 10px;
+    flex-wrap: wrap;
+    min-height: 0;
+    padding-block: 10px 6px;
+  }
+
+  .nav__links {
+    min-width: 0;
   }
 
   .nav__brand img {
