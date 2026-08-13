@@ -95,9 +95,9 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .btn--ghost:hover{border-color:rgba(234,226,207,.62);color:var(--ivory);background:transparent}
 .btn--wa{min-height:60px;border:0;background:linear-gradient(135deg,#25D366,#128C4B);color:#04140B;
   font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;letter-spacing:.02em;
-  box-shadow:0 14px 34px rgba(37,211,102,.28),0 30px 70px rgba(4,20,11,.5)}
+  box-shadow:0 14px 34px rgba(1,3,5,.36),0 30px 70px rgba(4,20,11,.5)}
 .btn--wa:hover{background:linear-gradient(135deg,#2EE078,#149B52);color:#04140B;
-  transform:translateY(-3px);box-shadow:0 20px 44px rgba(37,211,102,.4),0 40px 90px rgba(4,20,11,.55)}
+  transform:translateY(-3px);box-shadow:0 20px 44px rgba(1,3,5,.44),0 40px 90px rgba(4,20,11,.55)}
 /* Estado de pressao. Sem isto, no celular — onde `:hover` nao existe e o
    tap-highlight nativo esta desligado no reset — tocar em nav, card, FAQ,
    pilar ou rodape nao devolve nada, e a pessoa toca de novo. A producao ja
@@ -443,8 +443,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .chart__col .dot{width:7px;height:7px;border:1px solid rgba(234,226,207,.4);border-radius:50%;background:var(--bg2)}
 .chart__col:nth-child(2) .dot{border-color:rgba(195,161,78,.7)}
 .chart__col:nth-child(3) .dot{border-color:rgba(195,161,78,.85)}
-.chart__col:nth-child(4) .dot{width:9px;height:9px;border-color:var(--gold-soft);background:var(--gold);
-  box-shadow:0 0 14px rgba(195,161,78,.6)}
+.chart__col:nth-child(4) .dot{width:9px;height:9px;border-color:var(--gold-soft);background:var(--gold)}
 .chart__col .rotulo{color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;
   font-size:clamp(7px,.8vw,8.5px);font-weight:300;letter-spacing:.16em;line-height:1.5;text-transform:uppercase}
 .chart__col:nth-child(4) .rotulo{color:var(--gold-bright);font-weight:400}
@@ -669,15 +668,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 .final__niveis li:last-child{background:rgba(195,161,78,.1)}
 @media(min-width:960px){.final__in{align-items:center}}
 
-/* ---- pilares avancam com a rolagem ------------------------------------- */
-@media(min-width:1040px) and (prefers-reduced-motion:no-preference){
-  /* A dobra fica alta e SO o painel gruda: a introducao rola embora e o painel
-     do pilar fica preso. Grudar o `.env` inteiro cortava o topo, porque o
-     conteudo da dobra passa de 100vh. */
-  html.js #time{min-height:400vh}
-  html.js #time .atlas__panel{position:sticky;top:96px}
-}
-/* o trilho de botoes marca o pilar corrente enquanto a rolagem avanca */
+/* O trilho marca o pilar corrente; a troca acontece no proprio painel. */
 .pillrail button[aria-current="true"] strong{color:var(--ivory-bright)}
 .pillrail button[aria-current="true"] small{color:var(--gold)}
 
@@ -824,6 +815,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 .posts__rodape{margin-top:40px}
 
 </style>
+<link rel="stylesheet" href="/site-layout.css" />
 </head>
 <body>
 <div style="position:relative;min-height:100vh;background:#05070A">
@@ -831,7 +823,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
   <a href="#conteudo" class="skip">Pular para o conteúdo</a>
 
   <div aria-hidden="true" data-progress="" style="position:fixed;z-index:200;top:0;left:0;height:1px;width:0%;
-    background:linear-gradient(90deg,#8C6F2E,#D9BE7E);box-shadow:0 0 12px rgba(195,161,78,.5)"></div>
+    background:linear-gradient(90deg,#8C6F2E,#D9BE7E)"></div>
 
   <!-- ================= NAVBAR ================= -->
   <header data-nav="" class="nav">
@@ -866,7 +858,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
       <div aria-hidden="true" class="hero__aura"></div>
       <div aria-hidden="true" class="hero__grain"></div>
 
-      <p aria-hidden="true" class="hero__side">MedCEO · Curitiba · CRM/PR 45049</p>
+      <p aria-hidden="true" class="hero__side">MedCEO · Curitiba</p>
 
       <div class="env hero__in">
         <div style="min-width:0">
@@ -1056,7 +1048,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
           <div class="pillpanel" data-pill-panel>
             <figure class="pillpanel__media">
               <div class="moldura">
-                <img data-pill="image" alt="" width="1200" height="1600" loading="lazy" fetchpriority="low" decoding="async" />
+                <img data-pill="image" src="/assets/medceo/pilar-luciano.jpg" alt="Dr. Luciano Alves Neves, responsável pelo pilar de Mentalidade CEO no MedCEO." width="1200" height="1600" loading="lazy" fetchpriority="low" decoding="async" />
                 <span aria-hidden="true" class="vinheta"></span>
                 <span aria-hidden="true" class="num"><span data-pill="number">01</span></span>
               </div>
@@ -1171,13 +1163,13 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 
           <blockquote class="quote">
             Faturamento sem margem é vaidade empresarial. Se você não sabe quanto sobra, você não sabe se está crescendo.
-            <cite><strong>Dr. Luciano Alves Neves</strong><br />CRM/PR 45049 · Natuá MedSpa</cite>
+            <cite><strong>Dr. Luciano Alves Neves</strong><br />Natuá MedSpa</cite>
           </blockquote>
 
           <dl class="creds" aria-label="Credenciais publicadas">
             <div><dt>Médico atuante</dt><dd>atende na própria clínica, não só ensina</dd></div>
             <div><dt>Natuá MedSpa</dt><dd>clínica própria em Curitiba, onde o método nasceu</dd></div>
-            <div><dt>CRM/PR 45049</dt><dd>médico, CEO e fundador</dd></div>
+            <div><dt>17+ anos</dt><dd>experiência à frente da própria clínica</dd></div>
             <div><dt>DOC365</dt><dd>método criado dentro da própria operação</dd></div>
           </dl>
 
@@ -1380,7 +1372,6 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
     <div class="env footer__grid">
       <div class="footer__brand">
         <a href="#topo" aria-label="MedCEO — início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="108" height="24" /></a>
-        <p class="tag">Gabinete do diagnóstico</p>
         <p>Diagnóstico, direção e execução para médicos donos de clínica. Método criado dentro de uma operação real.</p>
       </div>
       <nav class="footer__col" aria-label="Seções">
@@ -1406,7 +1397,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 
     <div class="env footer__base">
       <small>© 2026 MedCEO · Conteúdo informativo. Nenhuma promessa de faturamento.</small>
-      <small>CRM/PR 45049 · Curitiba, PR</small>
+      <small>Curitiba, PR</small>
     </div>
   </footer>
 </div>

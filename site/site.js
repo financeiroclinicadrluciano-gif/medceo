@@ -68,11 +68,12 @@
       if (r) r.style.color = ativo ? "#EAE2CF" : "rgba(234,226,207,.5)";
     });
 
-    if (painel && !reduce) {
-      painel.style.animation = "none";
+    if (painel && !reduce && painel.hasAttribute("data-pillar-ready")) {
+      painel.classList.remove("pillar-enter");
       void painel.offsetWidth;
-      painel.style.animation = "mcRise .7s cubic-bezier(.16,1,.3,1) both";
+      painel.classList.add("pillar-enter");
     }
+    if (painel) painel.setAttribute("data-pillar-ready", "true");
   }
 
   document.querySelectorAll("[data-pillar-btn]").forEach(function (btn) {
@@ -204,6 +205,15 @@
       })(t0);
     }
 
+    if (!("IntersectionObserver" in window)) {
+      reveals.forEach(function (el) {
+        el.style.opacity = "1"; el.style.filter = "none"; el.style.transform = "none";
+      });
+      rulers.forEach(function (el) { el.style.transform = "scaleX(" + (el.dataset.w || 0) + ")"; });
+      counters.forEach(function (el, i) { el.textContent = alvos[i]; });
+      return;
+    }
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -221,13 +231,16 @@
 
     reveals.concat(rulers, counters).forEach(function (el) { io.observe(el); });
 
-    // se o observer nunca disparar, ou a animacao parar no meio, o valor final entra
+    // Rede de seguranca: nenhuma falha de observer pode deixar texto invisivel.
     setTimeout(function () {
+      reveals.forEach(function (el) {
+        el.style.opacity = "1"; el.style.filter = "none"; el.style.transform = "none";
+      });
       counters.forEach(function (el) {
         var alvo = (Number(el.dataset.count) || 0) + (el.dataset.suffix || "");
         if (el.textContent !== alvo) el.textContent = alvo;
       });
-    }, 2600);
+    }, 1800);
   })();
 
   /* ---------------- Tilt ---------------- */
@@ -279,11 +292,11 @@
 (function () {
   document.querySelectorAll("[data-reveal]").forEach(function (el) {
     if (!el.style.getPropertyValue("--d")) return;
-    var d = "calc(var(--d,0)*.09s)";
+    var d = "calc(var(--d,0)*.06s)";
     el.style.transition =
-      "opacity .8s cubic-bezier(.16,1,.3,1) " + d + "," +
-      "transform .8s cubic-bezier(.16,1,.3,1) " + d + "," +
-      "filter .8s cubic-bezier(.16,1,.3,1) " + d;
+      "opacity .56s cubic-bezier(.16,1,.3,1) " + d + "," +
+      "transform .56s cubic-bezier(.16,1,.3,1) " + d + "," +
+      "filter .56s cubic-bezier(.16,1,.3,1) " + d;
   });
 })();
 
@@ -349,6 +362,10 @@
 (function () {
   var seal = document.querySelector("[data-seal]");
   if (!seal) return;
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    seal.classList.add("ativo");
+    return;
+  }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) {
@@ -360,42 +377,44 @@
   io.observe(seal);
 })();
 
-/* Pilares por rolagem: a dobra e alta e o painel gruda; cada trecho avanca um
-   pilar. A troca acontece clicando no proprio botao, entao o estado, o aria e o
-   teclado continuam valendo. Sem a preferencia de menos movimento, nada disso
-   liga — a dobra volta ao normal e so os botoes operam. */
+/* Pilares em cadencia editorial. O painel troca sozinho apenas enquanto a dobra
+   esta visivel; hover, foco, aba oculta e preferencia de menos movimento pausam.
+   Clique e teclado continuam sendo a fonte do estado acessivel. */
 (function () {
   var sec = document.getElementById("time");
   if (!sec) return;
   var botoes = Array.prototype.slice.call(sec.querySelectorAll("[data-pillar-btn]"));
   if (botoes.length < 2) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
 
-  var mq = window.matchMedia("(min-width:1040px) and (prefers-reduced-motion:no-preference)");
-  var atual = -1, pendente = false;
+  var timer = 0;
+  var visivel = false;
+  var pausado = false;
 
-  function medir() {
-    pendente = false;
-    if (!mq.matches) return;
-    var r = sec.getBoundingClientRect();
-    var vh = window.innerHeight;
-    var total = r.height - vh;
-    if (total <= 0) return;
-    var p = Math.min(Math.max(-r.top / total, 0), 0.9999);
-    var i = Math.floor(p * botoes.length);
-    if (i !== atual) { atual = i; botoes[i].click(); }
+  function parar() {
+    if (timer) window.clearInterval(timer);
+    timer = 0;
   }
-  function onScroll() {
-    if (pendente) return;
-    pendente = true;
-    requestAnimationFrame(medir);
+  function iniciar() {
+    parar();
+    if (!visivel || pausado || document.hidden) return;
+    timer = window.setInterval(function () {
+      var ativo = botoes.findIndex(function (b) { return b.getAttribute("aria-current") === "true"; });
+      botoes[(ativo + 1 + botoes.length) % botoes.length].click();
+    }, 5200);
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll, { passive: true });
-  // clique manual continua mandando: reseta o indice para o proximo scroll nao brigar
-  botoes.forEach(function (b, i) {
-    b.addEventListener("click", function () { atual = i; });
-  });
-  medir();
+
+  var io = new IntersectionObserver(function (entries) {
+    visivel = entries[0] && entries[0].isIntersecting;
+    iniciar();
+  }, { threshold: 0.35 });
+  io.observe(sec);
+
+  sec.addEventListener("pointerenter", function () { pausado = true; parar(); });
+  sec.addEventListener("pointerleave", function () { pausado = false; iniciar(); });
+  sec.addEventListener("focusin", function () { pausado = true; parar(); });
+  sec.addEventListener("focusout", function () { pausado = false; iniciar(); });
+  document.addEventListener("visibilitychange", iniciar);
 })();
 
 /* Cascata dos cartoes do filtro: entram quando a dobra aparece, um depois do
@@ -413,4 +432,8 @@
     });
   }, { rootMargin: "0px 0px -12% 0px", threshold: 0.15 });
   cards.forEach(function (c) { io.observe(c); });
+  document.documentElement.classList.add("motion-ready");
+  window.setTimeout(function () {
+    cards.forEach(function (c) { c.classList.add("dentro"); });
+  }, 1800);
 })();
