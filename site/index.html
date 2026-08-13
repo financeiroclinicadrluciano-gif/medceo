@@ -693,15 +693,15 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 .deg:nth-child(6){height:362px}
 .deg__n{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;
   font-size:8.5px;letter-spacing:.2em;color:#6B5320}
-/* nome quebra dentro da coluna em vez de vazar: 'MedManager' e 'Consultoria'
-   sao mais largos que o degrau em telas de 1440. */
-.deg__nome{font-family:'Playfair Display',Georgia,serif;font-size:clamp(.82rem,.62rem+.42vw,1.05rem);
+/* nome quebra dentro da coluna em vez de vazar: 'Grupo do WhatsApp' e
+   'MedManager' sao mais largos que o degrau em telas de 1440. */
+.deg__nome{display:block;max-width:100%;font-family:'Playfair Display',Georgia,serif;font-size:clamp(.82rem,.62rem+.42vw,1.05rem);
   font-weight:500;line-height:1.16;color:var(--ink);
   overflow-wrap:anywhere;hyphens:auto}
 .deg__f{display:block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:8px;
   letter-spacing:.16em;text-transform:uppercase;color:#6B5320}
 .deg__d{margin-top:10px;padding-top:10px;border-top:1px solid rgba(107,83,32,.2);
-  font-size:11px;line-height:1.5;color:var(--ink-soft)}
+  min-width:0;font-size:11px;line-height:1.5;color:var(--ink-soft);overflow-wrap:anywhere}
 .deg__d b{display:block;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;
   letter-spacing:.14em;text-transform:uppercase;color:#6B5320;margin-bottom:3px}
 /* No celular a escada deita: vira lista, que e o que cabe num polegar. */
@@ -1213,9 +1213,8 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
           <p class="eyebrow" data-reveal>07 &middot; A esteira</p>
           <h2 class="h2" id="t-esteira" data-reveal style="--d:1">Cada degrau resolve um problema diferente</h2>
           <p class="lede" data-reveal style="--d:2">
-            Não é o mesmo conteúdo em três preços. Cada produto entra num estágio diferente da
-            clínica, com profundidade e duração próprias — e o diagnóstico é o que diz em qual
-            degrau você está.
+            Cada degrau atende a um estágio diferente da clínica, com profundidade e duração
+            próprias — do encontro gratuito à transformação acompanhada.
           </p>
           <p class="escada__nota" data-reveal style="--d:3">
             O caminho não se escolhe pelo preço. Ele se escolhe pelo estágio da empresa, pela
@@ -1225,23 +1224,23 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
         <ol class="escada2" aria-label="Esteira de produtos, do degrau de entrada ao mais profundo">
             <li class="deg" data-reveal style="--d:0">
               <span class="deg__n">01</span>
-              <span class="deg__nome">MedDay<span class="deg__f">Consciência</span></span>
-              <span class="deg__d"><b>4 horas</b>Score e convite ao diagnóstico</span>
+              <span class="deg__nome">Grupo do WhatsApp<span class="deg__f">Gratuito</span></span>
+              <span class="deg__d"><b>Toda semana</b>Encontro aberto da mentoria</span>
             </li>
             <li class="deg" data-reveal style="--d:1">
               <span class="deg__n">02</span>
-              <span class="deg__nome">MedManager<span class="deg__f">Conhecimento</span></span>
-              <span class="deg__d"><b>Autoinstrucional</b>Competência executiva</span>
+              <span class="deg__nome">MedDay<span class="deg__f">Consciência</span></span>
+              <span class="deg__d"><b>4 horas</b>Score e convite ao diagnóstico</span>
             </li>
             <li class="deg" data-reveal style="--d:2">
               <span class="deg__n">03</span>
-              <span class="deg__nome">MedScale<span class="deg__f">Estruturação</span></span>
-              <span class="deg__d"><b>24 semanas</b>Máquina básica funcionando</span>
+              <span class="deg__nome">MedManager<span class="deg__f">Conhecimento</span></span>
+              <span class="deg__d"><b>Autoinstrucional</b>Competência executiva</span>
             </li>
             <li class="deg" data-reveal style="--d:3">
               <span class="deg__n">04</span>
-              <span class="deg__nome">Consultoria<span class="deg__f">Intervenção</span></span>
-              <span class="deg__d"><b>4 a 6 semanas</b>Um gargalo resolvido</span>
+              <span class="deg__nome">MedScale<span class="deg__f">Estruturação</span></span>
+              <span class="deg__d"><b>24 semanas</b>Máquina básica funcionando</span>
             </li>
             <li class="deg" data-reveal style="--d:4">
               <span class="deg__n">05</span>
