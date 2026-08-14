@@ -10,7 +10,7 @@
 <meta property="og:site_name" content="MedCEO"><meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Paciente falta e a cadeira vazia cobra 3 custos que ninguém lança na planilha | MedCEO"><meta property="og:description" content="A taxa de no-show em clínica vira custo em 3 parcelas: hora de estrutura, receita perdida e fila não chamada. Veja a conta aberta, com tabela e a correção.">
 <meta property="og:type" content="article"><meta property="og:url" content="https://medceo.online/blog/custo-no-show-clinica">
-<meta property="og:image" content="https://medceo.online/blog/capas/DSC00208-2.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="675">
+<meta property="og:image" content="https://medceo.online/blog/capas/DSC00208-2.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="800">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Paciente falta e a cadeira vazia cobra 3 custos que ninguém lança na planilha | MedCEO"><meta name="twitter:description" content="A taxa de no-show em clínica vira custo em 3 parcelas: hora de estrutura, receita perdida e fila não chamada. Veja a conta aberta, com tabela e a correção.">
 <meta name="twitter:image" content="https://medceo.online/blog/capas/DSC00208-2.jpg">
@@ -74,8 +74,8 @@ h1{margin:20px 0 0;max-width:20ch;font-family:'Playfair Display',Georgia,serif;f
 .card time{color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
 /* artigo */
 article{padding-bottom:clamp(48px,6vh,72px)}
-.capa{margin:clamp(30px,4vh,46px) 0 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
-.capa img{width:100%;height:clamp(220px,42vh,460px);object-fit:cover;filter:saturate(.72) contrast(1.05)}
+.capa{max-width:840px;margin:clamp(30px,4vh,46px) auto 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
+.capa img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center;filter:saturate(.86) contrast(1.03)}
 .capa figcaption{padding:14px 20px;background:#080B0F;color:rgba(234,226,207,.62);font-size:13.5px;line-height:1.65}
 .prosa{max-width:68ch;margin-top:clamp(34px,5vh,52px);overflow-wrap:anywhere}
 .prosa p{margin:0 0 22px;color:rgba(234,226,207,.78);font-size:16.5px;line-height:1.78}
@@ -109,8 +109,26 @@ article{padding-bottom:clamp(48px,6vh,72px)}
 .cta{margin-top:clamp(48px,7vh,72px);padding:clamp(30px,4vw,46px);border:1px solid rgba(195,161,78,.22);border-radius:12px;background:radial-gradient(680px 320px at 18% 0%,rgba(195,161,78,.12),transparent 66%),#080B0F}
 .cta h2{margin:0 0 12px;max-width:24ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:300;letter-spacing:-.03em;line-height:1.14;color:#F6F3EC}
 .cta p{margin:0 0 22px;max-width:56ch;color:rgba(234,226,207,.68);font-size:14.5px}
+.cta{display:flex;flex-direction:column;align-items:flex-start}
+@media(min-width:620px){.cta{display:block}.cta .btn+.btn{margin-left:12px}}
+.btn--ghost{border-color:rgba(234,226,207,.28);background:transparent;color:rgba(234,226,207,.86)}
+.btn--ghost:hover{border-color:#D9BE7E;background:rgba(195,161,78,.08);color:#F6F3EC}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px 32px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg,rgba(217,190,126,.16),rgba(195,161,78,.06));color:#EFE0BB;font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;transition:border-color .5s,background .5s,transform .5s cubic-bezier(.16,1,.3,1)}
 .btn:hover{border-color:#D9BE7E;background:linear-gradient(180deg,rgba(217,190,126,.26),rgba(195,161,78,.1));transform:translateY(-2px);color:#EFE0BB}
+/* Assinatura do autor: quem escreveu, de onde ele fala e como falar com ele. */
+.autor{display:grid;gap:18px;margin-top:clamp(34px,4.5vh,52px);padding:clamp(22px,3vw,30px);
+  border:1px solid rgba(195,161,78,.2);border-radius:14px;background:rgba(10,13,18,.72)}
+@media(min-width:680px){.autor{grid-template-columns:104px minmax(0,1fr);align-items:center;gap:26px}}
+.autor__foto{overflow:hidden;width:104px;height:104px;border-radius:50%;border:1px solid rgba(195,161,78,.34);background:#04060a}
+.autor__foto img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.autor__nome{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:500;color:#F6F3EC}
+.autor__papel{margin-top:6px;color:rgba(234,226,207,.66);font-size:13.5px;line-height:1.6}
+.autor__links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:14px}
+.autor__links a{display:inline-flex;align-items:center;gap:8px;min-height:40px;
+  color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;border-bottom:1px solid rgba(195,161,78,.34)}
+.autor__links a:hover{color:#F6F3EC;border-bottom-color:#C3A14E}
+
 /* rodape — mesma estrutura da home */
 footer{position:relative;overflow:hidden;border-top:1px solid rgba(195,161,78,.14);background:#080B0F;padding:72px 0 28px}
 footer .grao{position:absolute;inset:0;opacity:.4;background-image:radial-gradient(rgba(195,161,78,.16) 1px,transparent 1px);background-size:30px 30px;-webkit-mask-image:radial-gradient(70% 60% at 20% 0%,#000,transparent);mask-image:radial-gradient(70% 60% at 20% 0%,#000,transparent);pointer-events:none}
@@ -142,7 +160,7 @@ footer .legal{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-con
 <p class="meta"><span>Dr. Luciano Alves Neves</span><time datetime="2026-08-12">Publicado em 12 de agosto de 2026</time></p>
 </div>
 <article class="wrap" data-section="corpo-do-post">
-<figure class="capa"><img src="/blog/capas/DSC00208-2.jpg" alt="Sala de atendimento vazia no horário de consulta. A cadeira parada cobra três custos que a planilha não registra." width="1200" height="675" fetchpriority="high" decoding="async">
+<figure class="capa"><img src="/blog/capas/DSC00208-2.jpg" alt="Sala de atendimento vazia no horário de consulta. A cadeira parada cobra três custos que a planilha não registra." width="1200" height="800" fetchpriority="high" decoding="async">
 <figcaption>Sala de atendimento vazia no horário de consulta. A cadeira parada cobra três custos que a planilha não registra.</figcaption></figure>
 <div class="prosa"><p>A taxa de no-show em clínica, que é a proporção de horários agendados e não cumpridos, custa em três parcelas separadas e nenhuma delas tem campo na planilha.</p>
 <p>Quando o paciente das 15h não aparece, a recepcionista espera dez minutos, tenta ligar, não completa a chamada e escreve "faltou" no sistema. O médico aproveita para responder mensagem e o assunto morre ali.</p>
@@ -189,10 +207,22 @@ footer .legal{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-con
 <p>O diagnóstico do MedCEO mostra em cerca de cinco minutos em qual estágio a operação está e qual das perdas está drenando mais agora, com a ordem de correção para a sua realidade. <a href="https://medceo.online/diagnostico">Faça o diagnóstico da sua clínica</a>.</p></div>
 <section class="bloco relacionados" data-section="leitura-relacionada"><h2>Continue por aqui</h2><ul><li><a href="/blog/margem-lucro-clinica-medica">por que o faturamento sobe e o caixa não acompanha</a></li><li><a href="/blog/valuation-clinica-saida-socio">o número que o comprador abre primeiro</a></li><li><a href="/blog/custo-hora-clinica">quanto vale uma hora da sua agenda</a></li><li><a href="/blog/agenda-cheia-prejuizo-clinica">a agenda cheia que esconde prejuízo</a></li></ul></section>
 <section class="bloco" data-section="fontes"><h2>Fontes</h2><ul><li>Pesquisa de mercado 8D, leitura por HTTP de 15 posts de gestão de clínicas dos três maiores blogs do nicho, 08/08/2026</li></ul></section>
+<aside class="autor" data-section="assinatura-do-autor">
+<div class="autor__foto"><img src="/assets/medceo/pilar-luciano.jpg" alt="Dr. Luciano Alves Neves" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<div>
+<p class="autor__nome">Dr. Luciano Alves Neves</p>
+<p class="autor__papel">Médico, CEO e fundador da Natuá MedSpa, em Curitiba. Há mais de 17 anos à frente da própria clínica, criou o método MedCEO dentro da operação — com paciente marcado, equipe contratada e decisão que não podia esperar a próxima reunião.</p>
+<p class="autor__links">
+<a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noopener">Instagram · @dr.lucianoalvesneves ↗</a>
+<a href="https://natuamedspa.com.br/" target="_blank" rel="noopener">Natuá MedSpa ↗</a>
+</p>
+</div>
+</aside>
 <section class="cta" data-section="cta-fim-do-post">
 <h2>Onde está o gargalo da sua clínica?</h2>
-<p>Vinte perguntas, cinco minutos. No fim você recebe o nível de maturidade, o gargalo prioritário e três próximos passos.</p>
+<p>Vinte perguntas, cinco minutos. No fim você recebe o nível de maturidade, o gargalo prioritário e três próximos passos. Prefere conversar? Fale direto com o time no WhatsApp.</p>
 <a class="btn" href="/diagnostico">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
+<a class="btn btn--ghost" href="https://wa.me/554184875688?text=Ol%C3%A1%2C+vim+pelo+blog+do+MedCEO+e+quero+falar+com+o+time." target="_blank" rel="noopener">Falar com a gente</a>
 </section>
 </article></main>
 <footer data-section="rodape">

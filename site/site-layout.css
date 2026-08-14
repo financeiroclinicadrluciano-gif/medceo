@@ -9,7 +9,7 @@
 :root {
   --nav-height: 71px;
   --fold-height: calc(100svh - var(--nav-height));
-  --section-pad: clamp(64px, 7svh, 96px);
+  --section-pad: clamp(88px, 10svh, 132px);
 }
 
 section {
@@ -83,7 +83,7 @@ html.js:not(.motion-ready) .fcard li {
    cabe na viewport, sem impor max-height nem cortar conteúdo. */
 @media (min-width: 960px) and (orientation: landscape) {
   :root {
-    --section-pad: clamp(46px, 5.6svh, 68px);
+    --section-pad: clamp(68px, 8svh, 104px);
   }
 
   .hero {
@@ -212,7 +212,7 @@ html.js:not(.motion-ready) .fcard li {
    da dobra. O conteúdo continua legível e com o mesmo ritmo editorial. */
 @media (min-width: 1180px) and (max-height: 820px) {
   :root {
-    --section-pad: 30px;
+    --section-pad: 52px;
   }
 
   .h2 {
@@ -243,7 +243,7 @@ html.js:not(.motion-ready) .fcard li {
   }
 
   #time {
-    padding-block: 16px;
+    padding-block: 40px;
   }
 
   #time .atlas__intro h2 {
@@ -278,7 +278,7 @@ html.js:not(.motion-ready) .fcard li {
   #quem .quem__lede { margin-top: 10px; font-size: 12.5px; line-height: 1.5; }
 
   #blog {
-    padding-block: 14px;
+    padding-block: 36px;
   }
 
   #blog .blogwrap {
@@ -309,12 +309,12 @@ html.js:not(.motion-ready) .fcard li {
 
   /* Tela baixa: a escada encolhe para a dobra caber inteira, e a nota perde
      respiro antes de a tipografia estrutural perder tamanho. */
-  .deg:nth-child(1) { height: 138px; }
-  .deg:nth-child(2) { height: 160px; }
-  .deg:nth-child(3) { height: 184px; }
-  .deg:nth-child(4) { height: 208px; }
-  .deg:nth-child(5) { height: 234px; }
-  .deg:nth-child(6) { height: 262px; }
+  .deg:nth-child(1) { height: 150px; }
+  .deg:nth-child(2) { height: 168px; }
+  .deg:nth-child(3) { height: 186px; }
+  .deg:nth-child(4) { height: 204px; }
+  .deg:nth-child(5) { height: 222px; }
+  .deg:nth-child(6) { height: 240px; }
 
   .deg {
     padding: 14px 14px 16px;
@@ -327,7 +327,7 @@ html.js:not(.motion-ready) .fcard li {
   }
 
   #esteira .env {
-    gap: 24px;
+    gap: 14px;
   }
 
   #esteira .escada__nota {
@@ -336,9 +336,6 @@ html.js:not(.motion-ready) .fcard li {
     line-height: 1.55;
   }
 
-  #esteira .escada__cta {
-    margin-top: 16px;
-  }
 }
 
 @media (min-width: 1600px) and (min-height: 821px) {
@@ -351,11 +348,11 @@ html.js:not(.motion-ready) .fcard li {
 /* Notebook 1440x900: reduz respiro interno, não tipografia estrutural. */
 @media (min-width: 960px) and (max-width: 1599px) and (min-height: 821px) and (max-height: 960px) {
   #time {
-    padding-block: 38px;
+    padding-block: 60px;
   }
 
   #blog {
-    padding-block: 20px;
+    padding-block: 44px;
   }
 
   #quem .h2,
@@ -435,7 +432,7 @@ html.js:not(.motion-ready) .fcard li {
 @media (max-width: 699px) {
   :root {
     --nav-height: 68px;
-    --section-pad: 58px;
+    --section-pad: 76px;
   }
 
   body {

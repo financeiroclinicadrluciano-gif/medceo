@@ -10,7 +10,7 @@
 <meta property="og:site_name" content="MedCEO"><meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Blog | MedCEO"><meta property="og:description" content="Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.">
 <meta property="og:type" content="website"><meta property="og:url" content="https://medceo.online/blog">
-<meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="675">
+<meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="800">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Blog | MedCEO"><meta name="twitter:description" content="Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.">
 <meta name="twitter:image" content="https://medceo.online/assets/medceo/hero-bg.jpg">
@@ -74,8 +74,8 @@ h1{margin:20px 0 0;max-width:20ch;font-family:'Playfair Display',Georgia,serif;f
 .card time{color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
 /* artigo */
 article{padding-bottom:clamp(48px,6vh,72px)}
-.capa{margin:clamp(30px,4vh,46px) 0 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
-.capa img{width:100%;height:clamp(220px,42vh,460px);object-fit:cover;filter:saturate(.72) contrast(1.05)}
+.capa{max-width:840px;margin:clamp(30px,4vh,46px) auto 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
+.capa img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center;filter:saturate(.86) contrast(1.03)}
 .capa figcaption{padding:14px 20px;background:#080B0F;color:rgba(234,226,207,.62);font-size:13.5px;line-height:1.65}
 .prosa{max-width:68ch;margin-top:clamp(34px,5vh,52px);overflow-wrap:anywhere}
 .prosa p{margin:0 0 22px;color:rgba(234,226,207,.78);font-size:16.5px;line-height:1.78}
@@ -109,8 +109,26 @@ article{padding-bottom:clamp(48px,6vh,72px)}
 .cta{margin-top:clamp(48px,7vh,72px);padding:clamp(30px,4vw,46px);border:1px solid rgba(195,161,78,.22);border-radius:12px;background:radial-gradient(680px 320px at 18% 0%,rgba(195,161,78,.12),transparent 66%),#080B0F}
 .cta h2{margin:0 0 12px;max-width:24ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:300;letter-spacing:-.03em;line-height:1.14;color:#F6F3EC}
 .cta p{margin:0 0 22px;max-width:56ch;color:rgba(234,226,207,.68);font-size:14.5px}
+.cta{display:flex;flex-direction:column;align-items:flex-start}
+@media(min-width:620px){.cta{display:block}.cta .btn+.btn{margin-left:12px}}
+.btn--ghost{border-color:rgba(234,226,207,.28);background:transparent;color:rgba(234,226,207,.86)}
+.btn--ghost:hover{border-color:#D9BE7E;background:rgba(195,161,78,.08);color:#F6F3EC}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px 32px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg,rgba(217,190,126,.16),rgba(195,161,78,.06));color:#EFE0BB;font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;transition:border-color .5s,background .5s,transform .5s cubic-bezier(.16,1,.3,1)}
 .btn:hover{border-color:#D9BE7E;background:linear-gradient(180deg,rgba(217,190,126,.26),rgba(195,161,78,.1));transform:translateY(-2px);color:#EFE0BB}
+/* Assinatura do autor: quem escreveu, de onde ele fala e como falar com ele. */
+.autor{display:grid;gap:18px;margin-top:clamp(34px,4.5vh,52px);padding:clamp(22px,3vw,30px);
+  border:1px solid rgba(195,161,78,.2);border-radius:14px;background:rgba(10,13,18,.72)}
+@media(min-width:680px){.autor{grid-template-columns:104px minmax(0,1fr);align-items:center;gap:26px}}
+.autor__foto{overflow:hidden;width:104px;height:104px;border-radius:50%;border:1px solid rgba(195,161,78,.34);background:#04060a}
+.autor__foto img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.autor__nome{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:500;color:#F6F3EC}
+.autor__papel{margin-top:6px;color:rgba(234,226,207,.66);font-size:13.5px;line-height:1.6}
+.autor__links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:14px}
+.autor__links a{display:inline-flex;align-items:center;gap:8px;min-height:40px;
+  color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;border-bottom:1px solid rgba(195,161,78,.34)}
+.autor__links a:hover{color:#F6F3EC;border-bottom-color:#C3A14E}
+
 /* rodape — mesma estrutura da home */
 footer{position:relative;overflow:hidden;border-top:1px solid rgba(195,161,78,.14);background:#080B0F;padding:72px 0 28px}
 footer .grao{position:absolute;inset:0;opacity:.4;background-image:radial-gradient(rgba(195,161,78,.16) 1px,transparent 1px);background-size:30px 30px;-webkit-mask-image:radial-gradient(70% 60% at 20% 0%,#000,transparent);mask-image:radial-gradient(70% 60% at 20% 0%,#000,transparent);pointer-events:none}
@@ -140,52 +158,52 @@ footer .legal{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-con
 <p class="lede">Margem, comercial, operação e escala — escrito por quem toca uma clínica de verdade, não por quem só estuda o assunto.</p>
 </div>
 <div class="wrap"><div class="posts"><a class="card" href="/blog/agenda-cheia-prejuizo-clinica">
-<img src="/blog/capas/DSC00199-2.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/DSC00199-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">Maturidade e dependência do dono</span>
 <h2>Agenda cheia esconde prejuízo em 3 sinais que aparecem antes do caixa</h2>
 <p>Os três sinais são hora clínica desconhecida, mix de serviço sem margem e condição de pagamento decidida no balcão. Eles aparecem semanas antes do…</p>
 <time datetime="2026-08-13">13 de agosto de 2026</time></div></a><a class="card" href="/blog/clinica-dependente-do-dono">
-<img src="/blog/capas/IMG_0223.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/IMG_0223.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">Maturidade e dependência do dono</span>
 <h2>Clínica dependente do dono trava em 4 pontos quando ele sai da rotina</h2>
 <p>Os quatro pontos são decisão de exceção, preço, fila de agenda e cobrança, e todos voltam para a mesma mesa em menos de uma semana. A ausência não…</p>
 <time datetime="2026-08-13">13 de agosto de 2026</time></div></a><a class="card" href="/blog/custo-hora-clinica">
-<img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">O dinheiro da clínica</span>
 <h2>Médico calcula o preço da consulta sem saber quanto custa a própria hora</h2>
 <p>A conta tem três variáveis e cabe em dez minutos: faturamento, horas de porta aberta e custo fixo do mês. Sem ela, toda tabela de preço nasce de…</p>
 <time datetime="2026-08-12">12 de agosto de 2026</time></div></a><a class="card" href="/blog/custo-no-show-clinica">
-<img src="/blog/capas/DSC00208-2.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/DSC00208-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">O dinheiro da clínica</span>
 <h2>Paciente falta e a cadeira vazia cobra 3 custos que ninguém lança na planilha</h2>
 <p>A ausência não tem campo contábil, então some do relatório no mesmo dia em que acontece. Cair de 12% para 8% devolve horas produtivas sem contratar…</p>
 <time datetime="2026-08-12">12 de agosto de 2026</time></div></a><a class="card" href="/blog/diagnostico-gestao-clinica">
-<img src="/blog/capas/IMG_0213.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/IMG_0213.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">Maturidade e dependência do dono</span>
 <h2>Clínica sem diagnóstico corrige o sintoma errado e repete o gargalo por anos</h2>
 <p>O post saiu em 21/07/2026 com quatro níveis nomeados, cinco dimensões de avaliação e um quiz no fim. Três semanas depois, nenhum concorrente do setor…</p>
 <time datetime="2026-08-11">11 de agosto de 2026</time></div></a><a class="card" href="/blog/indicadores-clinica-faixa-referencia">
-<img src="/blog/capas/IMG_0212.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/IMG_0212.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">Maturidade e dependência do dono</span>
 <h2>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h2>
 <p>O post mais lido do nicho lista dez indicadores em 903 palavras, cerca de 60 por indicador, sem uma única fórmula ou tabela. Sem faixa de referência…</p>
 <time datetime="2026-08-11">11 de agosto de 2026</time></div></a><a class="card" href="/blog/parcelamento-clinica-margem">
-<img src="/blog/capas/DSC00219.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/DSC00219.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">O dinheiro da clínica</span>
 <h2>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h2>
 <p>A espera média de um pagamento em 12 vezes é de 6,5 meses, e é ela que multiplica a taxa, não o número de parcelas. Por isso 12 vezes não custa o…</p>
 <time datetime="2026-08-10">10 de agosto de 2026</time></div></a><a class="card" href="/blog/valuation-clinica-saida-socio">
-<img src="/blog/capas/IMG_7685.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/IMG_7685.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">O dinheiro da clínica</span>
 <h2>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h2>
 <p>A Sênior Consulting publicou dois textos sobre valor de clínica em julho de 2026 e assinou os dois como &quot;Admin&quot;. O tema decide patrimônio de família…</p>
 <time datetime="2026-08-10">10 de agosto de 2026</time></div></a><a class="card" href="/blog/margem-lucro-clinica-medica">
-<img src="/blog/capas/DSC00192-2.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/DSC00192-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">O dinheiro da clínica</span>
 <h2>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h2>
 <p>Faturamento é uma linha de entrada e não informa quanto custou produzir aquele número. Quatro perdas se acumulam entre a receita bruta e o que sobra…</p>
 <time datetime="2026-08-09">9 de agosto de 2026</time></div></a><a class="card" href="/blog/maturidade-empresarial-medica-5-estagios">
-<img src="/blog/capas/IMG_7115.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async">
+<img src="/blog/capas/IMG_7115.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async">
 <div class="body"><span class="silo">Gestão de clínica médica</span>
 <h2>Gestão de clínica médica: guia completo para sair do improviso</h2>
 <p>Agenda cheia não é sinônimo de empresa saudável. Este guia mostra como transformar números, processos, pessoas e decisões em uma clínica menos…</p>

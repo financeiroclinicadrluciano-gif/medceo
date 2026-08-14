@@ -316,7 +316,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
 /* ---------- atlas (pilares, um por dobra) ---------- */
 .atlas{position:relative;background:linear-gradient(180deg,#05070A,#080B0F 46%,#05070A)}
-.atlas__abre{padding-block:var(--sec) 0}
+.atlas__abre{padding-block:var(--section-pad,var(--sec)) 0}
 .atlas__head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;
   padding-bottom:20px;border-bottom:1px solid var(--line);color:var(--gold);
   font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.28em;text-transform:uppercase}
@@ -693,22 +693,34 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 /* ---- esteira: a escada ocupa a largura toda, abaixo do texto -----------
      Ela dividia a linha com o texto e sobravam ~80px por degrau: o nome
      quebrava no meio da palavra ("Whats-App") e a descricao virava sopa. */
-#esteira .env{display:grid;gap:clamp(34px,4.5vh,52px)}
+#esteira .env{display:grid;gap:clamp(18px,2.4vh,30px)}
 #esteira .escada__topo{max-width:780px}
 .escada2{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:10px}
-.deg{min-width:0;display:flex;flex-direction:column;justify-content:flex-end;
+.deg{position:relative;overflow:hidden;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;
   padding:18px 16px 20px;
   background:linear-gradient(180deg,rgba(195,161,78,.16),rgba(195,161,78,.05));
   border:1px solid rgba(107,83,32,.22);border-bottom:2px solid var(--gold);
   transition:background .4s ease,transform .4s cubic-bezier(.16,1,.3,1)}
 .deg:hover{background:linear-gradient(180deg,rgba(195,161,78,.3),rgba(195,161,78,.1));transform:translateY(-5px)}
 .deg:active{transform:translateY(-1px)}
-.deg:nth-child(1){height:184px}
-.deg:nth-child(2){height:216px}
+/* Animacao recorrente: um marcador de luz sobe a escada degrau por degrau, e
+   um brilho atravessa cada degrau logo atras dele. Roda sozinha, em loop. */
+.deg::before{content:"";position:absolute;z-index:2;right:0;bottom:-2px;left:0;height:2px;
+  background:linear-gradient(90deg,var(--gold-bright),var(--gold));transform:scaleX(0);transform-origin:left;
+  animation:degSubida 6.4s cubic-bezier(.4,0,.2,1) infinite;animation-delay:calc(var(--d,0) * .46s)}
+.deg::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:linear-gradient(104deg,transparent 40%,rgba(255,255,255,.62) 50%,transparent 60%);
+  background-size:280% 100%;background-position:190% 0;
+  animation:degBrilho 6.4s cubic-bezier(.4,0,.2,1) infinite;animation-delay:calc(var(--d,0) * .46s)}
+@keyframes degSubida{0%{transform:scaleX(0)}9%{transform:scaleX(1)}44%{transform:scaleX(1)}56%,100%{transform:scaleX(0)}}
+@keyframes degBrilho{0%{background-position:190% 0}34%,100%{background-position:-90% 0}}
+@media(prefers-reduced-motion:reduce){.deg::before,.deg::after{animation:none}.deg::before{transform:scaleX(1)}}
+.deg:nth-child(1){height:196px}
+.deg:nth-child(2){height:222px}
 .deg:nth-child(3){height:248px}
-.deg:nth-child(4){height:282px}
-.deg:nth-child(5){height:316px}
-.deg:nth-child(6){height:352px}
+.deg:nth-child(4){height:276px}
+.deg:nth-child(5){height:304px}
+.deg:nth-child(6){height:332px}
 .deg__n{display:block;margin-bottom:auto;font-family:'JetBrains Mono',monospace;
   font-size:8.5px;letter-spacing:.2em;color:#6B5320}
 .deg__nome{display:block;font-family:'Playfair Display',Georgia,serif;
@@ -722,7 +734,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
   letter-spacing:.14em;text-transform:uppercase;color:#6B5320;margin-bottom:4px}
 .escada__nota{max-width:70ch;margin-top:22px;padding-left:18px;border-left:1px solid var(--gold);
   color:var(--ink-soft);font-size:14px;font-weight:300;line-height:1.68}
-.escada__cta{margin-top:24px}
+
 /* Abaixo de 1040px a escada deita: vira lista, que e o que cabe num polegar. */
 @media(max-width:1039px){
   .escada2{grid-template-columns:1fr;gap:1px;background:rgba(107,83,32,.18)}
@@ -1273,9 +1285,6 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
             urgência, pela capacidade de execução e pelo quanto a clínica ainda depende de você.
             Fora da escada existem ainda as consultorias por pilar — Marketing, Comercial, Gestão
             e Mentalidade CEO —, contratadas uma a uma.
-          </p>
-          <p class="escada__cta" data-reveal style="--d:4">
-            <a class="btn btn--ghost" href="/servicos">Ver cada serviço em detalhe <span aria-hidden="true">&rarr;</span></a>
           </p>
         </div>
         <ol class="escada2" aria-label="Esteira de produtos, do degrau de entrada ao mais profundo">
