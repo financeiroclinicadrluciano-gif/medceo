@@ -399,9 +399,9 @@ def montar_lateral(atual, publicados, por_slug):
 <p class="nome">Dr. Luciano Alves Neves</p>
 <p class="papel">Médico · CEO · Fundador da Natuá</p>
 <p class="bio">Mais de <b>17 anos</b> à frente da própria clínica, em Curitiba. Cada processo do MedCEO foi testado primeiro na operação dele, com paciente marcado e equipe contratada.</p>
-<a class="lat__botao" href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noopener">
+<a class="lat__botao" href="https://www.instagram.com/medico_ceo/" target="_blank" rel="noopener">
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>
-Seguir no Instagram</a>
+Seguir @medico_ceo</a>
 </section>
 <section class="lat">
 <p class="lat__titulo">Posts recentes</p>
@@ -483,6 +483,7 @@ RODAPE = """<footer data-section="rodape">
     <span class="rotulo">Contato</span>
     <a href="https://wa.me/5541984875688?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20mentoria%21" target="_blank" rel="noreferrer">WhatsApp do time</a>
     <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">Natuá MedSpa</a>
+    <a href="https://www.instagram.com/medico_ceo/" target="_blank" rel="noreferrer">Instagram do MedCEO</a>
     <a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noreferrer">Instagram do Dr. Luciano</a>
   </div>
 </div>
@@ -689,6 +690,7 @@ for p in publicados:
         "author": {"@type": "Person", "name": autor,
                    "url": "https://www.instagram.com/dr.lucianoalvesneves/"},
         "publisher": {"@type": "Organization", "name": "MedCEO", "url": SITE,
+                      "sameAs": ["https://www.instagram.com/medico_ceo/"],
                       "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/medceo/logo.png"}},
         "mainEntityOfPage": {"@type": "WebPage", "@id": url},
     }, {
