@@ -25,7 +25,7 @@ section {
 .h2,
 .hero__title,
 .atlas__intro h2,
-.pillpanel__info h3,
+.pro__role,
 .wa-sec__in h2,
 .final__text h2 {
   text-wrap: balance;
@@ -34,15 +34,13 @@ section {
 .lede,
 .hero__sub,
 .quem__lede,
-.pillpanel__info .thesis,
+.pro__thesis,
 .fcard li,
-.tstep p,
 .bdest p {
   text-wrap: pretty;
 }
 
 /* Microcopy crítica: os tons originais ficavam abaixo de 4.5:1 no Lighthouse. */
-.prova__legenda,
 .chart-label,
 .chart__nota {
   color: rgba(234, 226, 207, .56);
@@ -50,46 +48,6 @@ section {
 
 .bdest__img {
   display: block;
-}
-
-/* O antigo scrub criava 400vh e quatro telas quase vazias. A arquitetura do
-   método volta a ser uma dobra real; a troca dos profissionais fica no painel. */
-html.js #time,
-html.motion-ready #time {
-  min-height: 0;
-}
-
-html.js #time .atlas__panel,
-html.motion-ready #time .atlas__panel {
-  position: relative;
-  top: auto;
-}
-
-.pillpanel__media .moldura {
-  aspect-ratio: 16 / 10;
-}
-
-.pillpanel__media img {
-  object-position: center 22%;
-}
-
-.pillpanel {
-  transition: opacity 180ms ease, transform 360ms var(--ease);
-}
-
-.pillpanel.pillar-enter {
-  animation: pillar-enter 480ms var(--ease) both;
-}
-
-@keyframes pillar-enter {
-  from {
-    opacity: .28;
-    transform: translate3d(18px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* Conteúdo nunca depende de animação para existir. A classe só é instalada
@@ -180,72 +138,9 @@ html.js:not(.motion-ready) .fcard li {
     font-size: clamp(12.5px, 1vw, 14px);
   }
 
-  .timeline {
-    margin-top: clamp(34px, 4.5svh, 50px);
-  }
-
-  .tstep {
-    padding-block: clamp(18px, 2.3svh, 26px);
-  }
-
-  #metodo .env {
-    display: grid;
-    grid-template-columns: minmax(300px, .68fr) minmax(0, 1.32fr);
-    gap: clamp(56px, 7vw, 108px);
-    align-items: center;
-  }
-
-  #metodo .timeline {
-    margin-top: 0;
-  }
-
-  #metodo .tstep {
-    grid-template-columns: 44px minmax(0, 1fr) auto;
-    gap: 16px 24px;
-    padding-block: clamp(15px, 1.8svh, 19px);
-  }
-
-  #metodo .tstep__node {
-    width: 44px;
-    height: 44px;
-    margin-left: -34px;
-  }
-
-  #metodo .tstep h3 {
-    margin-top: 7px;
-    font-size: 21px;
-  }
-
-  #metodo .tstep p {
-    margin-top: 7px;
-    font-size: 13px;
-    line-height: 1.55;
-  }
-
   .atlas__intro {
     grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
     margin-top: clamp(28px, 3.6svh, 40px);
-  }
-
-  .atlas__panel {
-    margin-top: clamp(30px, 4svh, 44px);
-  }
-
-  .pillpanel {
-    grid-template-columns: minmax(320px, .95fr) minmax(0, 1.05fr);
-    gap: clamp(40px, 5vw, 68px);
-  }
-
-  .pillpanel__media .moldura {
-    max-height: min(39svh, 410px);
-  }
-
-  .pillpanel__info .desenv {
-    margin-top: clamp(22px, 3svh, 32px);
-  }
-
-  .pillpanel__info [data-topics] li {
-    padding-block: clamp(9px, 1.35svh, 13px);
   }
 
   .pillrail-wrap {
@@ -258,66 +153,8 @@ html.js:not(.motion-ready) .fcard li {
   }
 
   @media (min-width: 1200px) {
-    #time .env {
-      display: grid;
-      grid-template-columns: minmax(330px, .72fr) minmax(620px, 1.28fr);
-      grid-template-rows: auto auto;
-      column-gap: clamp(58px, 6vw, 96px);
-      align-items: center;
-    }
-
-    #time .atlas__head {
-      grid-column: 1 / -1;
-    }
-
-    #time .atlas__intro {
-      display: block;
-      grid-column: 1;
-      grid-row: 2;
-      margin-top: 0;
-    }
-
     #time .atlas__intro .bloco {
       margin-top: clamp(28px, 3.6svh, 38px);
-    }
-
-    #time .atlas__panel {
-      grid-column: 2;
-      grid-row: 2;
-      margin-top: clamp(28px, 3.6svh, 38px);
-    }
-
-    #time .pillpanel {
-      grid-template-columns: minmax(280px, .92fr) minmax(0, 1.08fr);
-      gap: clamp(32px, 3.4vw, 52px);
-    }
-
-    #time .pillpanel__media .moldura {
-      max-height: 300px;
-    }
-
-    #time .pillpanel__media figcaption {
-      margin-top: 12px;
-    }
-
-    #time .pillpanel__info .thesis {
-      margin-top: 14px;
-      font-size: 13.5px;
-      line-height: 1.58;
-    }
-
-    #time .pillpanel__info .desenv {
-      margin-top: 18px;
-    }
-
-    #time .pillpanel__info [data-topics] {
-      margin-top: 10px;
-    }
-
-    #time .pillpanel__info [data-topics] li {
-      padding-block: 7px !important;
-      font-size: 12.5px !important;
-      line-height: 1.45 !important;
     }
 
     #time .pillrail-wrap {
@@ -331,13 +168,11 @@ html.js:not(.motion-ready) .fcard li {
     }
   }
 
-  #resultado .prova__video {
-    margin-top: 0;
-  }
-
-  #resultado .prova__frame {
-    width: min(100%, 390px);
-    max-height: min(74svh, 740px);
+  /* A dobra dos profissionais nao e mais uma unidade de leitura unica: o
+     palco preso ja ocupa a viewport inteira e o cartao de abertura vem antes. */
+  #time {
+    display: block;
+    min-height: 0;
   }
 
   #quem {
@@ -347,11 +182,6 @@ html.js:not(.motion-ready) .fcard li {
 
   #quem .quem__bg {
     max-height: none;
-  }
-
-  #esteira .env {
-    grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
-    align-items: center;
   }
 
   #faq .faq {
@@ -367,19 +197,14 @@ html.js:not(.motion-ready) .fcard li {
     margin-top: clamp(32px, 4svh, 46px);
   }
 
-  #blog .bdest__img {
-    aspect-ratio: 16 / 8.4;
-  }
-
   .final__in {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) 180px minmax(340px, .8fr);
+    grid-template-columns: minmax(0, 1.05fr) minmax(380px, .82fr);
     gap: clamp(28px, 3.8vw, 58px);
   }
 
-  .seal {
-    width: 172px;
-    height: 172px;
+  .niveis {
+    align-self: center;
   }
 }
 
@@ -406,14 +231,6 @@ html.js:not(.motion-ready) .fcard li {
 
   .atlas__intro {
     margin-top: 16px;
-  }
-
-  .atlas__panel {
-    margin-top: 14px;
-  }
-
-  .pillpanel__media .moldura {
-    max-height: 220px;
   }
 
   .pillrail-wrap {
@@ -443,33 +260,6 @@ html.js:not(.motion-ready) .fcard li {
     line-height: 1.5;
   }
 
-  #time .pillpanel__info h3 {
-    margin-top: 8px;
-  }
-
-  #time .pillpanel__info .thesis {
-    margin-top: 8px;
-    line-height: 1.45;
-  }
-
-  #time .pillpanel__info .desenv {
-    margin-top: 10px;
-  }
-
-  #time .pillpanel__info [data-topics] {
-    margin-top: 5px;
-  }
-
-  #time .pillpanel__info [data-topics] li {
-    padding-block: 4px !important;
-    line-height: 1.35 !important;
-  }
-
-  #quem .quote {
-    margin-top: 12px;
-    padding-block: 16px 14px;
-  }
-
   #quem .creds {
     margin-top: 10px;
   }
@@ -478,25 +268,14 @@ html.js:not(.motion-ready) .fcard li {
     margin-top: 2px;
   }
 
+  /* As credenciais ficam ABAIXO da descricao, nunca ao lado: elas leem como
+     rodape da apresentacao do Dr. Luciano, nao como uma segunda coluna. */
   #quem .quem__in {
-    width: min(100%, 860px);
-    display: grid;
-    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-    grid-template-areas:
-      "eyebrow quote"
-      "title quote"
-      "lede creds"
-      "lede links";
-    gap: 8px 30px;
-    align-items: start;
+    width: min(100%, 760px);
   }
 
-  #quem .eyebrow { grid-area: eyebrow; }
-  #quem .h2 { grid-area: title; margin-top: 10px !important; font-size: clamp(2rem, 3.6vw, 2.8rem) !important; }
-  #quem .quem__lede { grid-area: lede; margin-top: 4px; font-size: 12.5px; line-height: 1.5; }
-  #quem .quote { grid-area: quote; margin-top: 0; }
-  #quem .creds { grid-area: creds; }
-  #quem .quem__links { grid-area: links; }
+  #quem .h2 { margin-top: 10px !important; font-size: clamp(2rem, 3.6vw, 2.8rem) !important; }
+  #quem .quem__lede { margin-top: 10px; font-size: 12.5px; line-height: 1.5; }
 
   #blog {
     padding-block: 14px;
@@ -506,32 +285,59 @@ html.js:not(.motion-ready) .fcard li {
     margin-top: 14px;
   }
 
-  #blog .bdest__img {
-    aspect-ratio: 16 / 5;
-  }
-
   #blog .bdest__txt {
-    padding-block: 14px 16px;
+    padding-block: 16px;
   }
 
-  #blog .bitem {
-    grid-template-columns: 58px minmax(0, 1fr);
-    padding-block: 5px;
+  #blog .bdest h3 {
+    margin-top: 10px;
+  }
+
+  #blog .bdest p {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  #blog .bitem > span:last-child {
+    padding: 12px 14px 15px;
   }
 
   #blog .posts__rodape {
-    margin-top: 8px;
+    margin-top: 14px;
   }
 
-  .deg:nth-child(1) { height: 132px; }
-  .deg:nth-child(2) { height: 162px; }
-  .deg:nth-child(3) { height: 192px; }
-  .deg:nth-child(4) { height: 222px; }
-  .deg:nth-child(5) { height: 252px; }
-  .deg:nth-child(6) { height: 282px; }
+  /* Tela baixa: a escada encolhe para a dobra caber inteira, e a nota perde
+     respiro antes de a tipografia estrutural perder tamanho. */
+  .deg:nth-child(1) { height: 138px; }
+  .deg:nth-child(2) { height: 160px; }
+  .deg:nth-child(3) { height: 184px; }
+  .deg:nth-child(4) { height: 208px; }
+  .deg:nth-child(5) { height: 234px; }
+  .deg:nth-child(6) { height: 262px; }
 
-  .escada2 {
-    min-height: 282px;
+  .deg {
+    padding: 14px 14px 16px;
+  }
+
+  .deg__d {
+    margin-top: 8px;
+    padding-top: 8px;
+    font-size: 11px;
+  }
+
+  #esteira .env {
+    gap: 24px;
+  }
+
+  #esteira .escada__nota {
+    margin-top: 14px;
+    font-size: 12.5px;
+    line-height: 1.55;
+  }
+
+  #esteira .escada__cta {
+    margin-top: 16px;
   }
 }
 
@@ -561,17 +367,6 @@ html.js:not(.motion-ready) .fcard li {
     margin-top: 12px;
     font-size: 13.5px;
     line-height: 1.5;
-  }
-
-  #quem .quote {
-    margin-top: 16px;
-    padding: 20px 24px 17px;
-    font-size: 17px;
-    line-height: 1.4;
-  }
-
-  #quem .quote cite {
-    margin-top: 12px;
   }
 
   #quem .creds {
@@ -607,10 +402,6 @@ html.js:not(.motion-ready) .fcard li {
     line-height: 1.55;
   }
 
-  #blog .bdest__img {
-    aspect-ratio: 16 / 6;
-  }
-
   #blog .bdest__txt {
     padding: 18px 20px 20px;
   }
@@ -622,16 +413,9 @@ html.js:not(.motion-ready) .fcard li {
     -webkit-line-clamp: 1;
   }
 
-  #blog .bitem {
-    grid-template-columns: 62px minmax(0, 1fr);
-    gap: 12px;
-    padding: 7px 10px;
-  }
-
   #blog .bitem h4 {
-    margin-top: 4px;
-    font-size: 13.5px;
-    line-height: 1.34;
+    font-size: 14.5px;
+    line-height: 1.3;
   }
 
   #blog .posts__rodape {
@@ -643,18 +427,6 @@ html.js:not(.motion-ready) .fcard li {
 @media (min-width: 700px) and (max-width: 1039px) {
   .filtro__in {
     grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr);
-  }
-
-  .atlas__panel {
-    margin-top: 52px;
-  }
-
-  .pillpanel {
-    grid-template-columns: minmax(280px, .88fr) minmax(0, 1.12fr);
-  }
-
-  .pillpanel__media .moldura {
-    max-height: 440px;
   }
 }
 
@@ -707,8 +479,8 @@ html.js:not(.motion-ready) .fcard li {
   }
 
   .hero__title {
-    max-width: 12ch;
-    font-size: clamp(2.2rem, 10.5vw, 3rem);
+    max-width: 18ch;
+    font-size: clamp(1.85rem, 8.2vw, 2.5rem);
   }
 
   .hero__sub {
@@ -731,8 +503,7 @@ html.js:not(.motion-ready) .fcard li {
   }
 
   .hero__frame,
-  .prova__frame,
-  .quote,
+  .alem__frame,
   .creds,
   .fcard {
     border-radius: 8px;
@@ -761,7 +532,6 @@ html.js:not(.motion-ready) .fcard li {
   }
 
   .sintomas,
-  .timeline,
   .blogwrap {
     margin-top: 40px;
   }
@@ -788,16 +558,6 @@ html.js:not(.motion-ready) .fcard li {
     gap: 13px;
   }
 
-  .timeline__track,
-  .timeline__draw {
-    display: none;
-  }
-
-  .tstep {
-    gap: 14px;
-    padding-block: 24px;
-  }
-
   .atlas__head {
     font-size: 8.5px;
     letter-spacing: .2em;
@@ -808,72 +568,11 @@ html.js:not(.motion-ready) .fcard li {
     margin-top: 34px;
   }
 
-  .atlas__panel {
-    margin-top: 42px;
-  }
-
-  .pillpanel {
-    gap: 32px;
-  }
-
-  .pillpanel__media .moldura {
-    aspect-ratio: 16 / 10;
-  }
-
-  .pillpanel__media figcaption {
-    margin-top: 14px;
-  }
-
-  .pillpanel__info .desenv {
-    margin-top: 28px;
-  }
-
-  .pillpanel__info [data-topics] li {
-    grid-template-columns: 24px minmax(0, 1fr) !important;
-    gap: 10px !important;
-    padding-block: 12px !important;
-  }
-
-  .pillrail-wrap {
-    margin-top: 34px;
-  }
-
-  .pillrail {
-    display: flex;
-    gap: 1px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    overscroll-behavior-inline: contain;
-  }
-
-  .pillrail li {
-    flex: 0 0 min(48vw, 172px);
-    scroll-snap-align: start;
-  }
-
-  .pillrail button {
-    min-height: 64px;
-    padding: 12px;
-  }
+  /* O trilho horizontal rolavel virou regua de seis toques: com o palco preso,
+     um carrossel dentro de outro carrossel confunde mais do que ajuda. */
 
   #evidencia .env {
     gap: 36px;
-  }
-
-  .prova__video {
-    margin-top: 0;
-  }
-
-  .prova__frame {
-    width: min(100%, 350px);
-  }
-
-  .prova__legenda {
-    align-items: flex-start;
-    font-size: 8px;
-    line-height: 1.65;
   }
 
   .alem__media {
@@ -898,10 +597,6 @@ html.js:not(.motion-ready) .fcard li {
 
   #quem .quem__veil {
     background: linear-gradient(180deg, rgba(5,7,10,.56), rgba(5,7,10,.94) 36%, #05070A 100%);
-  }
-
-  .quote {
-    padding: 30px 24px 24px;
   }
 
   .creds {
@@ -958,41 +653,14 @@ html.js:not(.motion-ready) .fcard li {
     padding: 22px 20px 24px;
   }
 
-  .bitem {
-    padding: 13px;
-  }
-
   .final__in {
     display: grid;
     gap: 24px;
   }
 
-  .seal {
-    width: 120px;
-    height: 120px;
-    margin-block: 2px;
-  }
-
-  .seal__inner {
-    gap: 4px;
-    padding: 16px;
-  }
-
-  .seal__inner span {
-    font-size: 6.5px;
-  }
-
-  .seal__inner b {
-    font-size: 18px;
-  }
-
-  .seal__inner i {
-    font-size: 8px;
-  }
-
-  .final__niveis li {
-    min-height: 70px;
-    padding: 12px 14px;
+  .niveis li {
+    min-height: 68px;
+    padding: 13px 16px;
   }
 
   .footer {
@@ -1020,13 +688,3 @@ html.js:not(.motion-ready) .fcard li {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pillpanel,
-  .pillpanel.pillar-enter,
-  html.motion-ready .fcard,
-  html.motion-ready .fcard li {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}

@@ -277,8 +277,7 @@ def data_rfc(d):
     return f"{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][d.weekday()]}, {d.day:02d} {MESES_RFC[d.month-1]} {d.year} 09:00:00 -0300"
 
 
-LINKS_NAV = [("/#topo", "Home"), ("/#time", "Mentores"), ("/#metodo", "Método"),
-             ("/#resultado", "Resultado"), ("/servicos", "Serviços"), ("/blog", "Blog"),
+LINKS_NAV = [("/#topo", "Home"), ("/#time", "Mentores"), ("/#resultado", "Resultado"), ("/servicos", "Serviços"), ("/blog", "Blog"),
              ("/webnar", "Grupo")]
 
 
@@ -309,7 +308,7 @@ RODAPE = """<footer data-section="rodape">
   </div>
   <nav aria-label="Seções">
     <span class="rotulo">Navegar</span>
-    <a href="/#problema">O problema</a><a href="/#time">Pilares</a><a href="/#metodo">Método</a><a href="/#quem">Quem conduz</a><a href="/#faq">FAQ</a>
+    <a href="/#problema">O problema</a><a href="/#time">Pilares</a><a href="/#quem">Quem conduz</a><a href="/#faq">FAQ</a>
   </nav>
   <nav aria-label="Páginas">
     <span class="rotulo">Páginas</span>

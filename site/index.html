@@ -113,7 +113,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
    grudadas depois do toque. */
 @media(hover:none){
   .btn:hover,.btn--ghost:hover,.btn--wa:hover{transform:none}
-  .sintoma:hover,.fcard:hover,.quote:hover,.convite__pills li:hover{transform:none}
+  .sintoma:hover,.fcard:hover,.convite__pills li:hover{transform:none}
   .tstep:hover .tstep__node,.pillrail button:hover,.nav__cta:hover{transform:none}
 }
 
@@ -201,8 +201,8 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;
   text-transform:uppercase;animation:rise .9s var(--ease) .05s both}
 .hero__eyebrow::before{content:"";flex:0 0 auto;width:32px;height:1px;background:rgba(195,161,78,.7)}
-.hero__title{max-width:15ch;color:var(--ivory-bright);font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(2.5rem,1.2rem + 3.4vw,4.6rem);font-weight:300;letter-spacing:-.04em;line-height:1.02;text-wrap:balance}
+.hero__title{max-width:22ch;color:var(--ivory-bright);font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(2.2rem,1rem + 2.9vw,3.9rem);font-weight:300;letter-spacing:-.04em;line-height:1.04;text-wrap:balance}
 .hero__title .linha{display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em}
 .hero__title .linha em{font-style:italic;color:var(--gold-bright)}
 .hero__sub{max-width:46ch;margin-top:30px;color:var(--ivory-dim);font-size:15px;font-weight:300;
@@ -314,94 +314,81 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .fcard--yes li::before{width:5px;height:5px;border:1px solid var(--gold);transform:rotate(45deg)}
 .fcard--no li::before{width:12px;height:1px;background:rgba(234,226,207,.22);margin-top:.85em}
 
-/* ---------- metodo (timeline com scrub) ---------- */
-.timeline{position:relative;margin-top:72px;padding-left:clamp(28px,5vw,72px)}
-.timeline__track{position:absolute;top:10px;bottom:10px;left:25px;width:1px;background:rgba(107,83,32,.22)}
-.timeline__draw{position:absolute;top:10px;bottom:10px;left:25px;width:1px;background:linear-gradient(180deg,var(--gold-deep),var(--gold-bright));
-  transform:scaleY(1);transform-origin:top;transition:transform .1s linear;will-change:transform}
-.js .timeline__draw{transform:scaleY(0)}
-.tstep{position:relative;display:grid;grid-template-columns:clamp(28px,4vw,52px) minmax(0,1fr) auto;
-  gap:20px 30px;align-items:start;padding:30px 0}
-.tstep+.tstep{border-top:1px solid rgba(23,20,13,.14)}
-.tstep:last-child{border-bottom:1px solid rgba(23,20,13,.14)}
-.tstep__node{position:relative;z-index:2;display:grid;place-items:center;width:52px;height:52px;margin-left:clamp(-38px,-2vw,-28px);
-  border:1px solid rgba(107,83,32,.42);border-radius:50%;background:#EAE2CF;color:#6B5320;
-  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.08em;
-  transition:background .4s ease,border-color .4s ease,color .4s ease}
-.tstep:hover .tstep__node{background:var(--gold);border-color:var(--gold);color:var(--ink)}
-.tstep__kicker{color:#6B5320;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;
-  letter-spacing:.24em;text-transform:uppercase}
-.tstep h3{margin-top:10px;font-family:'Playfair Display',serif;font-size:23px;font-weight:400;letter-spacing:-.02em}
-.tstep p{max-width:62ch;margin-top:10px;color:var(--ink-soft);font-size:14px;font-weight:300;line-height:1.7;letter-spacing:.015em}
-.tstep__selo{align-self:center;padding:6px 14px;border:1px solid rgba(107,83,32,.4);border-radius:999px;color:#6B5320;
-  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;letter-spacing:.14em;
-  text-transform:uppercase;white-space:nowrap}
-@media(max-width:760px){
-  .tstep{grid-template-columns:1fr;padding-left:0}
-  .tstep__selo{justify-self:start}
-  .tstep__node{margin-left:0;width:44px;height:44px;font-size:9.5px}
-  .timeline{padding-left:0}
-  .timeline__track,.timeline__draw{left:21px}
-}
-
-/* ---------- atlas (pilares) ---------- */
+/* ---------- atlas (pilares, um por dobra) ---------- */
 .atlas{position:relative;background:linear-gradient(180deg,#05070A,#080B0F 46%,#05070A)}
+.atlas__abre{padding-block:var(--sec) 0}
 .atlas__head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;
-  padding-bottom:22px;border-bottom:1px solid var(--line);color:var(--gold);
-  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase}
+  padding-bottom:20px;border-bottom:1px solid var(--line);color:var(--gold);
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.28em;text-transform:uppercase}
 .atlas__head span:last-child{color:rgba(234,226,207,.62)}
 .atlas__intro{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));
-  gap:clamp(28px,4vw,64px);align-items:end;margin-top:52px}
+  gap:clamp(24px,3vw,56px);margin-top:clamp(30px,4vh,48px)}
 .atlas__intro h2{max-width:20ch;min-width:0;font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(2rem,3.6vw,3rem);font-weight:300;letter-spacing:-.03em;line-height:1.05;text-wrap:balance}
+  font-size:clamp(2rem,1.2rem + 2vw,3.2rem);font-weight:300;letter-spacing:-.035em;line-height:1.06;color:var(--ivory-bright)}
 .atlas__intro h2 em{color:var(--gold-bright);font-style:italic}
 .atlas__intro .bloco strong{display:block;color:var(--gold-soft);font-size:14.5px;font-weight:500;letter-spacing:.01em}
-.atlas__intro .bloco p{max-width:48ch;margin-top:12px;color:rgba(234,226,207,.58);font-size:14.5px;font-weight:300;
-  line-height:1.7;letter-spacing:.02em}
-.atlas__panel{margin-top:72px}
-.atlas__status{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 20px;
-  margin-bottom:20px;color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;
-  letter-spacing:.26em;text-transform:uppercase}
-.atlas__status b{color:var(--gold);font-weight:400}
-.pillpanel{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
-  gap:clamp(28px,4vw,72px);align-items:center}
-.pillpanel__media{position:relative;min-width:0}
-.pillpanel__media .moldura{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);border-radius:12px;background:#030405}
-.pillpanel__media img{width:100%;height:100%;object-fit:cover;filter:contrast(1.04) saturate(1.02);
-  transition:opacity .5s ease,transform 8s var(--ease)}
-.pillpanel__media .vinheta{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,5,.03) 0%,rgba(3,4,5,.3) 60%,rgba(3,4,5,.88) 100%)}
-.pillpanel__media .num{position:absolute;top:22px;right:24px;color:rgba(234,226,207,.24);
-  font-family:'Playfair Display',serif;font-size:clamp(44px,4.6vw,66px);font-weight:300;letter-spacing:-.05em;line-height:1}
-.pillpanel__media figcaption{display:flex;align-items:center;gap:12px;margin-top:18px;color:var(--gold-bright);
-  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;letter-spacing:.24em;text-transform:uppercase}
-.pillpanel__media figcaption::before{content:"";flex:0 0 auto;width:24px;height:1px;background:rgba(195,161,78,.7)}
-.pillpanel__info{min-width:0;animation:rise .7s var(--ease) both}
-.pillpanel__info .kicker{color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;font-size:9.5px;
+.atlas__intro .bloco p{max-width:52ch;margin-top:12px;color:rgba(234,226,207,.58);font-size:14.5px;font-weight:300;
+  line-height:1.72;letter-spacing:.015em}
+
+/* O palco fica preso enquanto o container atrás dele rola: cada passo de
+   rolagem troca o profissional. A altura vem do numero de passos, nao de um
+   valor magico — mudar a quantidade de pilares nao exige mexer no CSS. */
+.atlas__seq{position:relative}
+html.js .atlas__seq{height:calc(var(--fold-height,100svh) + (var(--pro-passos,6) - 1) * var(--pro-passo,80svh))}
+.atlas__sticky{position:relative}
+html.js .atlas__sticky{position:sticky;top:var(--nav-height,71px);display:flex;align-items:center;
+  height:calc(100svh - var(--nav-height,71px));overflow:hidden}
+.atlas__stage{width:100%;padding-block:clamp(18px,3vh,40px)}
+.atlas__slides{position:relative;display:grid}
+.pro{display:grid;gap:clamp(26px,4vw,64px);align-items:center;min-width:0}
+html.js .pro{grid-area:1/1/2/2}
+html.js .pro:not([data-ativo]){opacity:0;visibility:hidden;transform:translate3d(0,30px,0) scale(.985);
+  transition:opacity .45s var(--ease),transform .6s var(--ease),visibility 0s .5s}
+html.js .pro[data-ativo]{opacity:1;visibility:visible;transform:none;
+  transition:opacity .55s var(--ease),transform .7s var(--ease),visibility 0s}
+html:not(.js) .atlas__slides{gap:clamp(48px,7vh,88px);padding-block:clamp(36px,5vh,64px)}
+
+.pro__media{position:relative;margin:0;min-width:0}
+.pro__moldura{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);border-radius:14px;background:#030405}
+.pro__media img{width:100%;height:100%;object-fit:cover;filter:contrast(1.04) saturate(1.02)}
+.pro__vinheta{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,5,.02) 0%,rgba(3,4,5,.28) 58%,rgba(3,4,5,.86) 100%)}
+.pro__num{position:absolute;top:20px;right:22px;color:rgba(234,226,207,.24);
+  font-family:'Playfair Display',Georgia,serif;font-size:clamp(44px,5vw,76px);font-weight:300;letter-spacing:-.05em;line-height:1}
+.pro__media figcaption{display:flex;align-items:center;gap:12px;margin-top:16px;color:var(--gold-bright);
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.24em;text-transform:uppercase}
+.pro__media figcaption::before{content:"";flex:0 0 auto;width:24px;height:1px;background:rgba(195,161,78,.7)}
+
+.pro__info{min-width:0}
+.pro__kicker{color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;font-size:9.5px;
   font-weight:300;letter-spacing:.26em;text-transform:uppercase}
-.pillpanel__info h3{margin-top:16px;font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(1.6rem,2.6vw,2.2rem);font-weight:300;letter-spacing:-.035em;line-height:1.02}
-.pillpanel__info .thesis{max-width:44ch;margin-top:20px;color:rgba(234,226,207,.68);font-size:15px;font-weight:300;
+.pro__role{margin-top:14px;font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(2rem,1.3rem + 1.9vw,3.2rem);font-weight:300;letter-spacing:-.035em;line-height:1.02;color:var(--ivory-bright)}
+.pro__thesis{max-width:50ch;margin-top:18px;color:rgba(234,226,207,.68);font-size:15px;font-weight:300;
   line-height:1.7;letter-spacing:.02em}
-.pillpanel__info .desenv{margin-top:40px;color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:9.5px;
-  font-weight:400;letter-spacing:.28em;text-transform:uppercase}
-.pillpanel__info [data-topics]{display:grid;gap:0;max-width:44ch;margin-top:16px;padding:0;list-style:none;
+.pro__desenv{margin-top:clamp(22px,3.4vh,38px);color:var(--gold);font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;font-weight:300;letter-spacing:.26em;text-transform:uppercase}
+/* Duas colunas a partir do notebook: a lista em coluna unica dentro de um
+   painel estreito quebrava "Mentalidade de dono" palavra por palavra. */
+.pro__topics{display:grid;gap:0 clamp(18px,2.4vw,40px);margin-top:12px;padding:0;list-style:none;
   border-top:1px solid rgba(234,226,207,.09)}
-.pillpanel__info [data-topics] li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:14px;align-items:baseline;
-  padding:14px 0;border-bottom:1px solid rgba(234,226,207,.09);color:rgba(234,226,207,.74);font-size:14px;
-  font-weight:300;line-height:1.6;letter-spacing:.015em}
-.pillpanel__info [data-topics] li::before{content:"";width:4px;height:4px;border-radius:50%;background:rgba(195,161,78,.6);
-  align-self:center;justify-self:start}
-.pillrail-wrap{margin-top:58px}
+.pro__topics li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:baseline;
+  padding:12px 0;border-bottom:1px solid rgba(234,226,207,.09);color:rgba(234,226,207,.76);
+  font-size:14px;font-weight:300;line-height:1.55;letter-spacing:.015em;overflow-wrap:normal;hyphens:none}
+.pro__topics li span{color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;
+  font-weight:300;letter-spacing:.16em}
+
+.pillrail-wrap{margin-top:clamp(20px,3vh,38px)}
 .pillrail-progress{position:relative;height:1px;background:rgba(234,226,207,.08)}
 .pillrail-progress span{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright));
-  width:16.6%;transition:width .55s var(--ease)}
+  transition:width .5s var(--ease)}
 .pillrail{display:grid;gap:2px;margin:0;padding:0;list-style:none;grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(min-width:700px){.pillrail{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:640px){.pillrail{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(min-width:1000px){.pillrail{grid-template-columns:repeat(6,minmax(0,1fr))}}
-.pillrail button{display:grid;gap:8px;width:100%;min-height:76px;padding:18px 12px 18px 14px;border:0;
+.pillrail button{display:grid;gap:6px;width:100%;min-height:62px;padding:14px 12px 14px 14px;border:0;
   border-left:1px solid transparent;background:transparent;text-align:left;cursor:pointer;
   transition:background .35s ease,border-color .35s ease}
 .pillrail button:hover{background:rgba(195,161,78,.06);border-left-color:rgba(195,161,78,.34)}
+.pillrail button:active{background:rgba(195,161,78,.12)}
 .pillrail button[aria-current="true"]{border-left-color:var(--gold);background:rgba(195,161,78,.05)}
 .pillrail button small{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.24em;
   color:rgba(234,226,207,.36);transition:color .35s ease}
@@ -409,34 +396,44 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   color:rgba(234,226,207,.5);transition:color .35s ease}
 .pillrail button[aria-current="true"] small{color:var(--gold)}
 .pillrail button[aria-current="true"] strong{color:var(--ivory)}
+.atlas__live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
-/* ---------- prova (video vertical) ---------- */
-.prova{position:relative;overflow:hidden;isolation:isolate;border-top:1px solid var(--line)}
-.prova__aura{position:absolute;z-index:-2;top:-10%;right:-6%;width:min(680px,64vw);aspect-ratio:1.6;
-  background:radial-gradient(58% 52% at 52% 48%,rgba(195,161,78,.12),transparent 70%);filter:blur(52px);pointer-events:none}
-.prova__grain{position:absolute;z-index:-1;inset:0;opacity:.24;mix-blend-mode:overlay;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='pv'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23pv)' opacity='0.5'/%3E%3C/svg%3E")}
-.prova__video{display:grid;justify-items:center;margin-top:clamp(44px,6vh,68px)}
-.prova__frame{position:relative;overflow:hidden;width:min(100%,404px);aspect-ratio:9/16;border-radius:16px;background:#000;
-  box-shadow:0 22px 48px rgba(1,3,5,.56),0 56px 116px rgba(1,3,5,.44),0 110px 190px rgba(1,3,5,.28);
-  transform-style:preserve-3d;transition:transform .5s var(--ease)}
-.prova__frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(195,161,78,.3);border-radius:16px;pointer-events:none}
-.prova__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.prova__legenda{display:flex;align-items:center;gap:12px;margin-top:22px;color:rgba(234,226,207,.5);
-  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.18em;text-transform:uppercase}
-.prova__legenda::before{content:"";flex:0 0 auto;width:24px;height:1px;background:rgba(195,161,78,.5)}
-.prova__intro{max-width:62ch;margin-top:22px;color:rgba(234,226,207,.68);font-size:15px;font-weight:300;
-  line-height:1.72;letter-spacing:.02em}
-.prova__method{max-width:680px;margin-top:clamp(24px,3.5vh,36px);border-block:1px solid rgba(195,161,78,.16)}
-.prova__step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px 18px;padding:clamp(13px,1.8vh,18px) 0}
-.prova__step+.prova__step{border-top:1px solid rgba(234,226,207,.08)}
-.prova__step>span{padding-top:2px;color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:9px;
-  font-weight:400;letter-spacing:.18em}
-.prova__step strong{display:block;color:var(--ivory);font-family:'Playfair Display',Georgia,serif;font-size:18px;
-  font-weight:400;letter-spacing:-.015em;line-height:1.2}
-.prova__step p{margin-top:5px;color:rgba(234,226,207,.58);font-size:12.5px;font-weight:300;line-height:1.6}
-.prova__outcome{max-width:650px;margin-top:clamp(20px,2.8vh,28px);padding-left:18px;border-left:1px solid var(--gold);
-  color:rgba(234,226,207,.76);font-size:13.5px;font-weight:300;line-height:1.68}
+@media(min-width:900px){
+  .pro{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}
+  .pro__moldura{max-height:min(56svh,540px)}
+  .pro__topics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(min-width:900px) and (max-height:860px){
+  .pro__moldura{max-height:min(46svh,420px)}
+  .pro__thesis{margin-top:14px;font-size:14px;line-height:1.58}
+  .pro__topics li{padding:9px 0;font-size:13px;line-height:1.45}
+}
+/* Celular: o palco preso tem ~530px uteis. Cada peca do slide encolhe para o
+   profissional caber inteiro na dobra — se sobrar altura, sobra corte. */
+@media(max-width:699px){
+  .atlas__stage{padding-block:10px}
+  .pro{gap:14px;align-content:center}
+  /* Altura fixa em vez de proporcao: com max-height a moldura encolhia a
+     largura junto e a foto virava um selo no canto esquerdo. */
+  .pro__moldura{aspect-ratio:auto;height:26svh;min-height:150px}
+  .pro__media figcaption{margin-top:10px;font-size:8.5px;letter-spacing:.2em}
+  .pro__kicker{font-size:8.5px;letter-spacing:.22em}
+  .pro__role{margin-top:8px;font-size:clamp(1.6rem,7vw,2rem)}
+  .pro__thesis{margin-top:10px;font-size:13px;line-height:1.5}
+  .pro__desenv{margin-top:14px;font-size:8.5px}
+  .pro__topics{margin-top:6px}
+  .pro__topics li{grid-template-columns:24px minmax(0,1fr);gap:10px;padding:7px 0;
+    font-size:12.5px;line-height:1.4}
+  .pillrail-wrap{margin-top:14px}
+  /* Vira uma regua de seis toques: o nome do pilar ja esta no titulo do slide. */
+  .pillrail{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .pillrail button{min-height:40px;padding:10px 4px;justify-items:center}
+  .pillrail button strong{display:none}
+  .pillrail button small{font-size:9.5px;letter-spacing:.14em}
+}
+@media(prefers-reduced-motion:reduce){
+  html.js .pro:not([data-ativo]),html.js .pro[data-ativo]{transition:none}
+}
 
 /* ---------- alem do numero (chart) ---------- */
 .alem{overflow:hidden;isolation:isolate;border-top:1px solid rgba(195,161,78,.12);background:var(--bg2)}
@@ -447,6 +444,22 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   filter:saturate(.66) contrast(1.08);will-change:transform}
 .alem__media .fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,15,.15) 0%,rgba(8,11,15,.75) 72%,#080B0F 100%)}
 @media(min-width:900px){.alem__media .fade{background:linear-gradient(90deg,rgba(8,11,15,.1) 0%,rgba(8,11,15,.5) 62%,#080B0F 100%)}}
+/* O depoimento e vertical: a foto vira ambiente de fundo e o video ocupa o centro. */
+.alem__media--video{display:grid;justify-items:center;align-content:center;gap:20px;
+  padding:clamp(38px,6vh,72px) clamp(20px,4vw,48px)}
+.alem__media--video .alem__fundo{opacity:.3;filter:saturate(.4) contrast(1.05) blur(2px)}
+.alem__media--video .fade{background:linear-gradient(180deg,rgba(8,11,15,.72) 0%,rgba(8,11,15,.86) 60%,#080B0F 100%)}
+@media(min-width:900px){.alem__media--video .fade{background:linear-gradient(90deg,rgba(8,11,15,.7) 0%,rgba(8,11,15,.82) 62%,#080B0F 100%)}}
+.alem__frame{position:relative;z-index:2;overflow:hidden;width:min(100%,342px);aspect-ratio:9/16;
+  max-height:min(66svh,620px);border-radius:16px;background:#000;
+  box-shadow:0 22px 48px rgba(1,3,5,.56),0 56px 116px rgba(1,3,5,.44);
+  transform-style:preserve-3d;transition:transform .5s var(--ease)}
+.alem__frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(195,161,78,.3);border-radius:16px;pointer-events:none}
+.alem__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.alem__media--video figcaption{position:relative;z-index:2;display:flex;align-items:center;gap:12px;
+  color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;
+  letter-spacing:.18em;text-transform:uppercase;text-align:center}
+.alem__media--video figcaption::before{content:"";flex:0 0 auto;width:24px;height:1px;background:rgba(195,161,78,.5)}
 .alem__text{display:grid;align-content:center;gap:clamp(16px,2.2vh,24px);
   padding:var(--sec) max(28px,calc((100vw - var(--max))/2 + 28px)) var(--sec) clamp(28px,5vw,72px)}
 .chart-label{color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;
@@ -483,20 +496,9 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   linear-gradient(180deg,rgba(5,7,10,.72) 0%,rgba(5,7,10,.1) 34%,rgba(5,7,10,.96) 100%)}
 .quem__grain{position:absolute;z-index:-1;inset:0;opacity:.26;mix-blend-mode:overlay;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g2)' opacity='0.5'/%3E%3C/svg%3E")}
-.quem__in{width:min(100%,620px)}
+.quem__in{width:min(100%,660px)}
 .quem__lede{max-width:50ch;margin-top:22px;color:rgba(234,226,207,.66);font-size:15px;font-weight:300;
   line-height:1.7;letter-spacing:.02em}
-.quote{position:relative;max-width:560px;margin-top:34px;padding:34px 32px 28px;border:1px solid rgba(195,161,78,.22);
-  border-left:2px solid var(--gold);border-radius:12px;background:rgba(14,26,36,.36);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--ivory);
-  font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.2vw,1.35rem);font-style:italic;font-weight:300;
-  line-height:1.48;letter-spacing:-.01em;transition:border-color .4s ease,transform .4s var(--ease)}
-.quote:hover{border-color:rgba(195,161,78,.5);transform:translateY(-2px)}
-.quote::before{content:"“";position:absolute;top:-20px;left:20px;color:rgba(195,161,78,.3);
-  font-family:'Playfair Display',serif;font-size:86px;font-weight:400;line-height:1}
-.quote cite{display:block;margin-top:20px;color:rgba(234,226,207,.66);font-family:'JetBrains Mono',monospace;
-  font-size:9.5px;font-style:normal;font-weight:300;letter-spacing:.14em;line-height:1.7;text-transform:uppercase}
-.quote cite strong{color:var(--gold-bright);font-weight:400}
 .creds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:30px;
   border:1px solid rgba(195,161,78,.18);border-radius:12px;background:rgba(195,161,78,.18);overflow:hidden;
   box-shadow:0 24px 60px rgba(0,0,0,.4)}
@@ -592,20 +594,35 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 .final__text .btn{margin-top:36px}
 .final__text .micro{margin-top:18px;color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;
   font-size:9.5px;font-weight:300;letter-spacing:.18em;text-transform:uppercase}
-.seal{position:relative;flex:0 0 auto;width:200px;height:200px;margin-inline:auto}
-.seal svg{position:absolute;inset:0;transform:rotate(-90deg)}
-.seal svg circle{fill:none;stroke:var(--gold);stroke-width:1;stroke-dasharray:540;stroke-dashoffset:0;
-  transition:stroke-dashoffset 1.6s var(--ease) .2s}
-.js .seal svg circle{stroke-dashoffset:540}
-.js .seal.ativo svg circle{stroke-dashoffset:0}
-.seal__inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:8px;text-align:center;padding:26px}
-.seal__inner span{color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:300;
-  letter-spacing:.28em;text-transform:uppercase}
-.seal__inner b{color:var(--gold-soft);font-family:'Playfair Display',serif;font-size:22px;font-weight:300;
-  letter-spacing:-.01em}
-.seal__inner i{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:300;
-  letter-spacing:.2em;font-style:normal}
+/* O selo circular era o ponto fraco da dobra: um carimbo solto no meio de
+   duas colunas. Vira um painel de niveis com regua de progresso a esquerda. */
+.niveis{position:relative;flex:1 1 380px;min-width:0;border:1px solid rgba(195,161,78,.22);
+  background:linear-gradient(180deg,rgba(8,11,15,.86),rgba(5,7,10,.94));
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.niveis__topo{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:18px 22px;border-bottom:1px solid rgba(195,161,78,.18)}
+.niveis__topo span{color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  font-weight:300;letter-spacing:.26em;text-transform:uppercase}
+.niveis__topo b{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  font-weight:400;letter-spacing:.2em;text-transform:uppercase}
+.niveis ol{display:grid;margin:0;padding:0;list-style:none}
+.niveis li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;
+  align-items:center;padding:14px 22px;transition:background .35s ease}
+.niveis li+li{border-top:1px solid rgba(234,226,207,.07)}
+.niveis li:hover{background:rgba(195,161,78,.05)}
+.niveis li>b{position:relative;display:flex;align-items:center;gap:10px;
+  color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;letter-spacing:.18em}
+.niveis li>b::after{content:"";width:7px;height:7px;border:1px solid rgba(195,161,78,.55);border-radius:50%}
+.niveis strong{display:block;font-family:'Playfair Display',Georgia,serif;font-size:16px;
+  font-weight:500;letter-spacing:-.01em;color:var(--ivory-bright)}
+.niveis small{display:block;margin-top:3px;font-size:12px;font-weight:300;line-height:1.5;
+  color:rgba(234,226,207,.6)}
+.niveis li:last-child{background:rgba(195,161,78,.09)}
+.niveis li:last-child>b::after{background:var(--gold);border-color:var(--gold)}
+.niveis li:last-child strong{color:var(--gold-soft)}
+.niveis__pe{padding:14px 22px;border-top:1px solid rgba(195,161,78,.18);
+  color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase}
 
 /* ---------- footer ---------- */
 .footer{position:relative;overflow:hidden;border-top:1px solid var(--line);background:var(--bg2);padding:72px 0 28px}
@@ -664,110 +681,99 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
   html.js .fcard,html.js .fcard li{opacity:1!important;transform:none!important}
 }
 
-/* ---- 10. prova: titulo e video na mesma regua --------------------------- */
-#resultado .env{display:grid;gap:36px;align-items:center}
-@media(min-width:960px){
-  #resultado .env{grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:60px}
-  #resultado .prova__video{justify-self:end}
-}
-#resultado .prova__frame{margin-inline:0}
-
 /* ---- 11. quem conduz: dobra deixa de ser gigante ------------------------ */
 #quem{padding-block:clamp(64px,8vh,96px)}
 #quem .quem__in{align-items:center}
 @media(min-width:960px){#quem .quem__in{min-height:0}}
 #quem .quem__bg{max-height:640px}
 
-/* ---- 16. CTA final: painel de niveis a direita -------------------------- */
-.final__niveis{display:grid;gap:1px;background:rgba(234,226,207,.12);
-  border:1px solid rgba(195,161,78,.22);align-self:center}
-.final__niveis li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:14px;align-items:center;
-  background:rgba(5,7,10,.72);padding:14px 18px}
-.final__niveis b{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;
-  letter-spacing:.18em;color:var(--gold)}
-.final__niveis span{font-family:'Playfair Display',Georgia,serif;font-size:15.5px;
-  font-weight:500;color:var(--ivory-bright)}
-.final__niveis small{display:block;margin-top:3px;font-family:'Poppins',sans-serif;font-size:12px;
-  font-weight:300;line-height:1.5;color:rgba(234,226,207,.6)}
-.final__niveis li:last-child{background:rgba(195,161,78,.1)}
+/* ---- 16. CTA final: texto a esquerda, painel de niveis a direita ------- */
 @media(min-width:960px){.final__in{align-items:center}}
 
-/* O trilho marca o pilar corrente; a troca acontece no proprio painel. */
-.pillrail button[aria-current="true"] strong{color:var(--ivory-bright)}
-.pillrail button[aria-current="true"] small{color:var(--gold)}
-
-/* ---- esteira: escada de verdade, texto a esquerda ----------------------- */
-#esteira .env{display:grid;gap:44px}
-@media(min-width:1040px){
-  #esteira .env{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:64px;align-items:center}
-}
-.escada2{display:flex;align-items:flex-end;gap:10px;min-height:340px}
-.deg{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;
-  justify-content:flex-end;padding:16px 14px 18px;
+/* ---- esteira: a escada ocupa a largura toda, abaixo do texto -----------
+     Ela dividia a linha com o texto e sobravam ~80px por degrau: o nome
+     quebrava no meio da palavra ("Whats-App") e a descricao virava sopa. */
+#esteira .env{display:grid;gap:clamp(34px,4.5vh,52px)}
+#esteira .escada__topo{max-width:780px}
+.escada2{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:10px}
+.deg{min-width:0;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:18px 16px 20px;
   background:linear-gradient(180deg,rgba(195,161,78,.16),rgba(195,161,78,.05));
   border:1px solid rgba(107,83,32,.22);border-bottom:2px solid var(--gold);
   transition:background .4s ease,transform .4s cubic-bezier(.16,1,.3,1)}
 .deg:hover{background:linear-gradient(180deg,rgba(195,161,78,.3),rgba(195,161,78,.1));transform:translateY(-5px)}
 .deg:active{transform:translateY(-1px)}
-.deg:nth-child(1){height:150px}
-.deg:nth-child(2){height:190px}
-.deg:nth-child(3){height:232px}
-.deg:nth-child(4){height:274px}
-.deg:nth-child(5){height:318px}
-.deg:nth-child(6){height:362px}
-.deg__n{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;
+.deg:nth-child(1){height:184px}
+.deg:nth-child(2){height:216px}
+.deg:nth-child(3){height:248px}
+.deg:nth-child(4){height:282px}
+.deg:nth-child(5){height:316px}
+.deg:nth-child(6){height:352px}
+.deg__n{display:block;margin-bottom:auto;font-family:'JetBrains Mono',monospace;
   font-size:8.5px;letter-spacing:.2em;color:#6B5320}
-/* nome quebra dentro da coluna em vez de vazar: 'Grupo do WhatsApp' e
-   'MedManager' sao mais largos que o degrau em telas de 1440. */
-.deg__nome{display:block;max-width:100%;font-family:'Playfair Display',Georgia,serif;font-size:clamp(.82rem,.62rem+.42vw,1.05rem);
-  font-weight:500;line-height:1.16;color:var(--ink);
-  overflow-wrap:anywhere;hyphens:auto}
-.deg__f{display:block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:8px;
+.deg__nome{display:block;font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(.95rem,.72rem+.5vw,1.24rem);font-weight:500;line-height:1.14;color:var(--ink);
+  overflow-wrap:normal;hyphens:none}
+.deg__f{display:block;margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:8px;
   letter-spacing:.16em;text-transform:uppercase;color:#6B5320}
-.deg__d{margin-top:10px;padding-top:10px;border-top:1px solid rgba(107,83,32,.2);
-  min-width:0;font-size:11px;line-height:1.5;color:var(--ink-soft);overflow-wrap:anywhere}
+.deg__d{margin-top:12px;padding-top:11px;border-top:1px solid rgba(107,83,32,.2);
+  min-width:0;font-size:11.5px;line-height:1.5;color:var(--ink-soft);overflow-wrap:normal;hyphens:none}
 .deg__d b{display:block;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;
-  letter-spacing:.14em;text-transform:uppercase;color:#6B5320;margin-bottom:3px}
-/* No celular a escada deita: vira lista, que e o que cabe num polegar. */
+  letter-spacing:.14em;text-transform:uppercase;color:#6B5320;margin-bottom:4px}
+.escada__nota{max-width:70ch;margin-top:22px;padding-left:18px;border-left:1px solid var(--gold);
+  color:var(--ink-soft);font-size:14px;font-weight:300;line-height:1.68}
+.escada__cta{margin-top:24px}
+/* Abaixo de 1040px a escada deita: vira lista, que e o que cabe num polegar. */
 @media(max-width:1039px){
-  .escada2{flex-direction:column;align-items:stretch;gap:1px;min-height:0;background:rgba(107,83,32,.18)}
+  .escada2{grid-template-columns:1fr;gap:1px;background:rgba(107,83,32,.18)}
   .deg{height:auto!important;padding:18px 20px;border:0;border-left:2px solid var(--gold)}
-  .deg__n{position:static;margin-bottom:8px}
+  .deg__n{margin-bottom:8px}
   .deg__d{font-size:12.5px}
 }
 
-/* ---- blog: um destaque com capa grande + lista com miniatura ------------- */
-.blogwrap{display:grid;gap:34px;margin-top:52px}
-@media(min-width:1020px){.blogwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:44px;align-items:start}}
-.bdest{display:block;position:relative;isolation:isolate;overflow:hidden;
-  border:1px solid rgba(234,226,207,.12);background:var(--bg)}
-.bdest__img{position:relative;aspect-ratio:16/10;overflow:hidden}
-.bdest__img img{width:100%;height:100%;object-fit:cover;
+/* ---- blog: destaque deitado + quatro cartoes iguais --------------------- */
+.blogwrap{display:grid;gap:clamp(22px,3vh,34px);margin-top:clamp(32px,4vh,50px)}
+.bdest{display:grid;position:relative;isolation:isolate;overflow:hidden;
+  border:1px solid rgba(234,226,207,.12);background:var(--bg);
+  transition:border-color .4s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.bdest:hover{border-color:rgba(195,161,78,.42);transform:translateY(-3px)}
+@media(min-width:820px){.bdest{grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);align-items:stretch}}
+.bdest__img{position:relative;overflow:hidden;aspect-ratio:16/10}
+@media(min-width:820px){.bdest__img{aspect-ratio:auto;min-height:100%}}
+.bdest__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   transition:transform .9s cubic-bezier(.16,1,.3,1)}
 .bdest:hover .bdest__img img{transform:scale(1.045)}
 .bdest__img::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 40%,rgba(5,7,10,.82))}
-.bdest__txt{padding:26px 28px 30px}
+  background:linear-gradient(180deg,transparent 46%,rgba(5,7,10,.72))}
+@media(min-width:820px){.bdest__img::after{background:linear-gradient(90deg,transparent 52%,rgba(5,7,10,.6))}}
+.bdest__txt{display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,3vw,38px)}
 .bdest time{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.24em;
   text-transform:uppercase;color:var(--gold)}
-.bdest h3{margin:12px 0 0;font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(1.3rem,1.05rem+1vw,1.7rem);font-weight:500;line-height:1.24;color:var(--ivory-bright)}
-.bdest p{margin-top:12px;font-size:14px;line-height:1.7;color:rgba(234,226,207,.66)}
+.bdest h3{margin:14px 0 0;font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(1.35rem,1.05rem+1.1vw,1.95rem);font-weight:500;line-height:1.2;color:var(--ivory-bright)}
+.bdest p{margin-top:14px;font-size:14px;line-height:1.7;color:rgba(234,226,207,.66)}
+.bdest__ler{margin-top:20px;color:var(--gold-soft);font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.22em;text-transform:uppercase}
 .bdest__tag{position:absolute;z-index:2;top:16px;left:16px;
   font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;
   color:#05070A;background:var(--gold);padding:6px 11px}
-.blist{display:grid;gap:1px;background:rgba(234,226,207,.1)}
-.bitem{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:center;
-  background:var(--bg);padding:16px 18px;transition:background .3s ease}
-.bitem:hover{background:rgba(195,161,78,.06)}
-.bitem:active{background:rgba(195,161,78,.11)}
-.bitem__img{aspect-ratio:1;overflow:hidden;background:rgba(234,226,207,.05)}
-.bitem__img img{width:100%;height:100%;object-fit:cover}
+/* Quatro cartoes iguais no lugar da lista com miniatura de 96px: o titulo
+   tinha mais peso editorial do que o espaco que recebia. */
+.blist{display:grid;gap:clamp(14px,1.6vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(100%,232px),1fr))}
+.bitem{display:grid;grid-template-rows:auto 1fr;min-width:0;overflow:hidden;
+  border:1px solid rgba(234,226,207,.1);background:var(--bg);
+  transition:border-color .35s ease,transform .45s cubic-bezier(.16,1,.3,1)}
+.bitem:hover{border-color:rgba(195,161,78,.38);transform:translateY(-3px)}
+.bitem:active{transform:translateY(-1px)}
+.bitem__img{position:relative;overflow:hidden;aspect-ratio:16/10;max-height:clamp(112px,17svh,190px);background:rgba(234,226,207,.05)}
+.bitem__img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.bitem:hover .bitem__img img{transform:scale(1.05)}
+.bitem>span:last-child{padding:16px 18px 20px}
 .bitem time{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(217,190,126,.8)}
-.bitem h4{margin:7px 0 0;font-family:'Playfair Display',Georgia,serif;font-size:15.5px;
-  font-weight:500;line-height:1.34;color:var(--ivory-bright)}
-@media(max-width:520px){.bitem{grid-template-columns:74px minmax(0,1fr);gap:14px}}
+  text-transform:uppercase;color:rgba(217,190,126,.85)}
+.bitem h4{margin:8px 0 0;font-family:'Playfair Display',Georgia,serif;font-size:16px;
+  font-weight:500;line-height:1.3;color:var(--ivory-bright)}
+.posts__rodape{margin-top:clamp(24px,3vh,36px)}
 
 /* ---- FAQ centrado ------------------------------------------------------- */
 #faq .env{text-align:center}
@@ -859,7 +865,6 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
       <div class="nav__links">
         <a href="/#topo" aria-current="page">Home</a>
         <a href="/#time">Mentores</a>
-        <a href="/#metodo">Método</a>
         <a href="/#resultado">Resultado</a>
         <a href="/servicos">Serviços</a>
         <a href="/blog">Blog</a>
@@ -887,8 +892,9 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
         <div style="min-width:0">
 
           <h1 id="hero-title" class="hero__title">
-            <span class="linha"><span class="w" style="--i:0">Mentoria</span> <span class="w" style="--i:1">exclusiva</span></span>
-            <span class="linha"><span class="w" style="--i:2">para</span> <em><span class="w" style="--i:3">médicos</span></em></span>
+            <span class="linha"><span class="w" style="--i:0">Conheça</span> <span class="w" style="--i:1">a</span> <span class="w" style="--i:2">mentoria</span></span>
+            <span class="linha"><span class="w" style="--i:3">exclusiva</span> <span class="w" style="--i:4">para</span> <span class="w" style="--i:5">médicos</span></span>
+            <span class="linha"><em><span class="w" style="--i:6">e</span> <span class="w" style="--i:7">donos</span> <span class="w" style="--i:8">de</span> <span class="w" style="--i:9">clínica</span></em></span>
           </h1>
 
           <p class="hero__sub">Mais de 17 anos rodando a própria clínica, compilados em encontros semanais com toda a minha equipe. Você aprende a faturar sem a clínica depender de você, a ter tempo para si e para a sua família, e a profissionalizar a operação em quatro frentes: <b>Mentalidade, Marketing, Comercial e Gestão</b>.</p>
@@ -939,8 +945,8 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
     <section id="problema" class="sec sec--ivory">
       <div class="env">
         <div data-reveal="" style="max-width:720px">
-          <p class="eyebrow">01 &middot; O problema</p>
-          <h2 class="h2">A clínica cresceu. A sua semana também.</h2>
+          <p class="eyebrow">O problema</p>
+          <h2 class="h2">Sua clínica cresce, mas existem 4 perigos ocultos:</h2>
           <p class="lede">Sábado de manhã, o celular acende: a recepção não sabe responder um preço e devolve a pergunta para você. Faturar mais não devolveu nenhuma hora do seu dia, porque a operação inteira continua passando por dentro de uma pessoa só. Os quatro sintomas abaixo têm o mesmo diagnóstico atrás.</p>
         </div>
 
@@ -979,7 +985,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 
       <div class="env filtro__in">
         <div data-reveal="" style="min-width:0">
-          <p class="eyebrow">02 &middot; Filtro</p>
+          <p class="eyebrow">Filtro</p>
           <h2 class="h2" style="font-size:clamp(2rem,3.6vw,3rem)">Não é para qualquer médico. É para quem já tem clínica.</h2>
           <p class="lede" style="max-width:46ch">O diagnóstico lê o que já existe: pacientes atendidos, equipe contratada, faturamento entrando e decisões tomadas. Ele não projeta um futuro bonito. Ele mostra onde a sua operação de hoje trava.</p>
           <p class="mono mono-apoio">Responda como é, não como gostaria que fosse. É o único jeito de o resultado servir.</p>
@@ -1009,146 +1015,156 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
       </div>
     </section>
 
-    <!-- ================= 04 · MÉTODO ================= -->
-    <section id="metodo" class="sec sec--ivory">
-      <div class="env">
-        <div data-reveal="" style="max-width:720px">
-          <p class="eyebrow">03 &middot; O método</p>
-          <h2 class="h2">Antes do plano, o retrato honesto.</h2>
-          <p class="lede">Não vendemos fórmula mágica. Conduzimos um diagnóstico estruturado e construímos o plano de evolução com você: do custo oculto ao próximo passo.</p>
-        </div>
-
-        <div class="timeline" data-timeline="">
-          <div aria-hidden="true" class="timeline__track"></div>
-          <div aria-hidden="true" class="timeline__draw" data-draw></div>
-
-          <div class="tstep" data-reveal="" style="--d:0">
-            <span aria-hidden="true" class="tstep__node">01</span>
-            <div><p class="tstep__kicker">Cena real</p><h3>Você no espelho</h3><p>Como você opera hoje: agenda, equipe, margem, conversão e o que acontece quando você se ausenta.</p></div>
-            <span class="tstep__selo">Retrato honesto</span>
-          </div>
-          <div class="tstep" data-reveal="" style="--d:1">
-            <span aria-hidden="true" class="tstep__node">02</span>
-            <div><p class="tstep__kicker">Diagnóstico</p><h3>Onde está o custo oculto</h3><p>Cada pilar é medido e recebe um nível. O diagnóstico revela onde o dinheiro e o tempo vazam.</p></div>
-            <span class="tstep__selo">Gargalo nomeado</span>
-          </div>
-          <div class="tstep" data-reveal="" style="--d:2">
-            <span aria-hidden="true" class="tstep__node">03</span>
-            <div><p class="tstep__kicker">Plano</p><h3>Estrutura antes da escala</h3><p>Prioridades por impacto e esforço: processo, indicador, comercial, equipe, na ordem certa.</p></div>
-            <span class="tstep__selo">Prioridade da semana</span>
-          </div>
-          <div class="tstep" data-reveal="" style="--d:3">
-            <span aria-hidden="true" class="tstep__node">04</span>
-            <div><p class="tstep__kicker">Execução</p><h3>Acompanhamento com critério</h3><p>Revisões de rotina e métricas vivas. O plano muda quando a realidade muda, não quando o discurso muda.</p></div>
-            <span class="tstep__selo">Execução acompanhada</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-        <!-- ================= 05 · ATLAS DO TIME ================= -->
-    <section id="time" class="sec atlas">
-      <div class="env">
+        <!-- ================= 04 · ATLAS DO TIME =================
+             Um profissional por dobra. A troca acontece pela rolagem: o palco
+             fica preso na viewport enquanto o container de trás avança, e cada
+             passo de rolagem promove o próximo pilar. Sem JavaScript, os seis
+             aparecem empilhados: o conteúdo nunca depende da animação. -->
+    <section id="time" class="atlas" aria-labelledby="t-atlas">
+      <div class="env atlas__abre">
         <div class="atlas__head" data-reveal="">
-          <span aria-hidden="true">04 · Arquitetura do método</span>
+          <span aria-hidden="true">Arquitetura do método</span>
           <span>06 inteligências integradas</span>
         </div>
 
         <div class="atlas__intro" data-reveal="" style="--d:1">
-          <h2>Você não precisa virar <em>seis profissionais.</em></h2>
+          <h2 id="t-atlas">Você não precisa virar <em>seis profissionais.</em></h2>
           <div class="bloco">
             <strong>Mentalidade CEO é a base.</strong>
             <p>Os outros cinco pilares transformam direção em visibilidade, venda, cultura, execução e conteúdo. Cada frente tem um responsável que faz aquilo todo dia dentro de uma clínica de verdade. Você aprende a dirigir as seis, não a executar as seis.</p>
           </div>
         </div>
-
-        <div class="atlas__panel" data-reveal="" style="--d:2">
-          <div class="atlas__status">
-            <span>Pilar em foco</span>
-            <span><b data-pill="counter">01 / 06</b></span>
-          </div>
-
-          <div class="pillpanel" data-pill-panel>
-            <figure class="pillpanel__media">
-              <div class="moldura">
-                <img data-pill="image" src="/assets/medceo/pilar-luciano.jpg" alt="Dr. Luciano Alves Neves, responsável pelo pilar de Mentalidade CEO no MedCEO." width="1200" height="1600" loading="lazy" fetchpriority="low" decoding="async" />
-                <span aria-hidden="true" class="vinheta"></span>
-                <span aria-hidden="true" class="num"><span data-pill="number">01</span></span>
-              </div>
-              <figcaption>Com <span data-pill="name"></span></figcaption>
-            </figure>
-
-            <div class="pillpanel__info">
-              <p class="kicker"><span data-pill="kicker"></span></p>
-              <h3><span data-pill="role"></span></h3>
-              <p class="thesis"><span data-pill="thesis"></span></p>
-
-              <p class="desenv">O que você desenvolve</p>
-              <ul data-topics></ul>
-            </div>
-          </div>
-
-          <nav class="pillrail-wrap" aria-label="Navegar pelos pilares do método">
-            <div aria-hidden="true" class="pillrail-progress"><span data-pill-progress></span></div>
-            <ol class="pillrail">
-              <li><button type="button" data-pillar-btn="0"><small data-pill-num>01</small><strong data-pill-role>Mentalidade CEO</strong></button></li>
-              <li><button type="button" data-pillar-btn="1"><small data-pill-num>02</small><strong data-pill-role>Margem</strong></button></li>
-              <li><button type="button" data-pillar-btn="2"><small data-pill-num>03</small><strong data-pill-role>Comercial</strong></button></li>
-              <li><button type="button" data-pillar-btn="3"><small data-pill-num>04</small><strong data-pill-role>Operação</strong></button></li>
-              <li><button type="button" data-pillar-btn="4"><small data-pill-num>05</small><strong data-pill-role>Projetos</strong></button></li>
-              <li><button type="button" data-pillar-btn="5"><small data-pill-num>06</small><strong data-pill-role>Filmmaker</strong></button></li>
-            </ol>
-          </nav>
-
-          <p aria-live="polite" aria-atomic="true" class="mono" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"><span data-pill="live"></span></p>
-        </div>
       </div>
-    </section>
 
-    <!-- ================= 06 · PROVA ================= -->
-    <section id="resultado" class="sec prova" aria-labelledby="t-resultado">
-      <div aria-hidden="true" class="prova__aura"></div>
-      <div aria-hidden="true" class="prova__grain"></div>
+      <div class="atlas__seq" data-atlas-seq="">
+        <div class="atlas__sticky">
+          <div class="env atlas__stage">
+            <div class="atlas__slides">
+          <article class="pro" data-pro="0" data-ativo="" aria-labelledby="pro-t-0">
+            <figure class="pro__media">
+              <div class="pro__moldura">
+                <img src="/assets/medceo/pilar-luciano.jpg" alt="Dr. Luciano Alves Neves, responsável pelo pilar de Mentalidade CEO no MedCEO." width="1200" height="1600" loading="eager" decoding="async" style="object-position:center 24%" />
+                <span aria-hidden="true" class="pro__vinheta"></span>
+                <span aria-hidden="true" class="pro__num">01</span>
+              </div>
+              <figcaption>Com Dr. Luciano</figcaption>
+            </figure>
+            <div class="pro__info">
+              <p class="pro__kicker">A base de todo o método</p>
+              <h3 class="pro__role" id="pro-t-0">Mentalidade CEO</h3>
+              <p class="pro__thesis">De médico indispensável a CEO capaz de liderar, decidir e desenhar um negócio que cresce sem ele no centro de tudo.</p>
+              <p class="pro__desenv">O que você desenvolve</p>
+              <ul class="pro__topics"><li><span aria-hidden="true">01</span>Liderança</li><li><span aria-hidden="true">02</span>Mentalidade de dono</li><li><span aria-hidden="true">03</span>Tomada de decisões</li><li><span aria-hidden="true">04</span>Modelos de negócio</li></ul>
+            </div>
+          </article>
+          <article class="pro" data-pro="1" aria-labelledby="pro-t-1">
+            <figure class="pro__media">
+              <div class="pro__moldura">
+                <img src="/assets/medceo/pilar-gustavo.jpg" alt="Gustavo, responsável pelo pilar de Marketing do MedCEO, em retrato de estúdio com fundo escuro." width="1200" height="1600" loading="lazy" decoding="async" style="object-position:center 18%" />
+                <span aria-hidden="true" class="pro__vinheta"></span>
+                <span aria-hidden="true" class="pro__num">02</span>
+              </div>
+              <figcaption>Com Gustavo</figcaption>
+            </figure>
+            <div class="pro__info">
+              <p class="pro__kicker">Pilar de desenvolvimento</p>
+              <h3 class="pro__role" id="pro-t-1">Marketing</h3>
+              <p class="pro__thesis">Transformar visibilidade em demanda mensurável — e demanda em receita previsível, com número na mesa.</p>
+              <p class="pro__desenv">O que você desenvolve</p>
+              <ul class="pro__topics"><li><span aria-hidden="true">01</span>Visibilidade</li><li><span aria-hidden="true">02</span>Análise de dados e indicadores</li><li><span aria-hidden="true">03</span>IA para copy, sites e análise</li><li><span aria-hidden="true">04</span>Receita previsível</li><li><span aria-hidden="true">05</span>Tráfego pago</li></ul>
+            </div>
+          </article>
+          <article class="pro" data-pro="2" aria-labelledby="pro-t-2">
+            <figure class="pro__media">
+              <div class="pro__moldura">
+                <img src="/assets/medceo/pilar-marcos.jpg" alt="Retrato representando o pilar Comercial do MedCEO." width="1200" height="1600" loading="lazy" decoding="async" style="object-position:center 22%" />
+                <span aria-hidden="true" class="pro__vinheta"></span>
+                <span aria-hidden="true" class="pro__num">03</span>
+              </div>
+              <figcaption>Com Marcos</figcaption>
+            </figure>
+            <div class="pro__info">
+              <p class="pro__kicker">Pilar de desenvolvimento</p>
+              <h3 class="pro__role" id="pro-t-2">Comercial</h3>
+              <p class="pro__thesis">Tirar a venda do improviso e criar um processo comercial replicável — do primeiro contato ao fechamento.</p>
+              <p class="pro__desenv">O que você desenvolve</p>
+              <ul class="pro__topics"><li><span aria-hidden="true">01</span>Scripts comerciais para clínicas</li><li><span aria-hidden="true">02</span>Análise de dados e indicadores</li><li><span aria-hidden="true">03</span>Técnicas de venda</li></ul>
+            </div>
+          </article>
+          <article class="pro" data-pro="3" aria-labelledby="pro-t-3">
+            <figure class="pro__media">
+              <div class="pro__moldura">
+                <img src="/assets/medceo/pilar-alessandra.jpg" alt="Alessandra, responsável pelo pilar de Gestão do MedCEO, em retrato de estúdio com fundo escuro." width="1200" height="1600" loading="lazy" decoding="async" style="object-position:center 16%" />
+                <span aria-hidden="true" class="pro__vinheta"></span>
+                <span aria-hidden="true" class="pro__num">04</span>
+              </div>
+              <figcaption>Com Alessandra</figcaption>
+            </figure>
+            <div class="pro__info">
+              <p class="pro__kicker">Pilar de desenvolvimento</p>
+              <h3 class="pro__role" id="pro-t-3">Gestão</h3>
+              <p class="pro__thesis">Construir cultura, elevar performance e reter gente boa sem centralizar todas as decisões no dono.</p>
+              <p class="pro__desenv">O que você desenvolve</p>
+              <ul class="pro__topics"><li><span aria-hidden="true">01</span>Cultura</li><li><span aria-hidden="true">02</span>Gestão de pessoas</li><li><span aria-hidden="true">03</span>Perfil comportamental</li><li><span aria-hidden="true">04</span>Retenção de bons profissionais</li></ul>
+            </div>
+          </article>
+          <article class="pro" data-pro="4" aria-labelledby="pro-t-4">
+            <figure class="pro__media">
+              <div class="pro__moldura">
+                <img src="/assets/medceo/pilar-michele.jpg" alt="Michele, responsável pelo pilar de Projetos do MedCEO, em retrato de estúdio com fundo escuro." width="1200" height="1600" loading="lazy" decoding="async" style="object-position:center 17%" />
+                <span aria-hidden="true" class="pro__vinheta"></span>
+                <span aria-hidden="true" class="pro__num">05</span>
+              </div>
+              <figcaption>Com Michele</figcaption>
+            </figure>
+            <div class="pro__info">
+              <p class="pro__kicker">Pilar de desenvolvimento</p>
+              <h3 class="pro__role" id="pro-t-4">Projetos</h3>
+              <p class="pro__thesis">Fazer a IA sair do discurso e virar execução: projetos com dono, prazo e critério de sucesso.</p>
+              <p class="pro__desenv">O que você desenvolve</p>
+              <ul class="pro__topics"><li><span aria-hidden="true">01</span>IA para clínicas</li><li><span aria-hidden="true">02</span>IA aplicada à gestão e análise</li><li><span aria-hidden="true">03</span>Gestão de projetos</li></ul>
+            </div>
+          </article>
+          <article class="pro" data-pro="5" aria-labelledby="pro-t-5">
+            <figure class="pro__media">
+              <div class="pro__moldura">
+                <img src="/assets/medceo/pilar-amanda.jpg" alt="Amanda, responsável pelo pilar de conteúdo e filmmaking do MedCEO, em retrato de estúdio com fundo escuro." width="1200" height="1600" loading="lazy" decoding="async" style="object-position:center 14%" />
+                <span aria-hidden="true" class="pro__vinheta"></span>
+                <span aria-hidden="true" class="pro__num">06</span>
+              </div>
+              <figcaption>Com Amanda</figcaption>
+            </figure>
+            <div class="pro__info">
+              <p class="pro__kicker">Pilar de desenvolvimento</p>
+              <h3 class="pro__role" id="pro-t-5">Filmmaker</h3>
+              <p class="pro__thesis">Transformar conhecimento médico em conteúdo que prende atenção e sustenta posicionamento.</p>
+              <p class="pro__desenv">O que você desenvolve</p>
+              <ul class="pro__topics"><li><span aria-hidden="true">01</span>Gravação: equipamentos e técnicas</li><li><span aria-hidden="true">02</span>Criação de roteiros</li><li><span aria-hidden="true">03</span>Edição de vídeo</li></ul>
+            </div>
+          </article>
+            </div>
 
-      <div class="env">
-        <div data-reveal="" style="max-width:760px">
-          <p class="eyebrow">05 &middot; Resultado real</p>
-          <h2 class="h2" id="t-resultado" style="max-width:16ch">“Hoje eu atendo menos e faturo mais.”</h2>
-          <p class="prova__intro">Antes do MedCEO, o paciente era agendado, consultava e ia embora. Não havia processo comercial, gestão financeira ou rotina de liderança. A clínica atendia; o negócio ainda dependia do Dr. Luiz Henrique.</p>
+            <nav class="pillrail-wrap" aria-label="Navegar pelos pilares do método">
+              <div aria-hidden="true" class="pillrail-progress"><span data-pill-progress=""></span></div>
+              <ol class="pillrail"><li><button type="button" data-pillar-btn="0" aria-current="true"><small>01</small><strong>Mentalidade CEO</strong></button></li><li><button type="button" data-pillar-btn="1" aria-current="false"><small>02</small><strong>Marketing</strong></button></li><li><button type="button" data-pillar-btn="2" aria-current="false"><small>03</small><strong>Comercial</strong></button></li><li><button type="button" data-pillar-btn="3" aria-current="false"><small>04</small><strong>Gestão</strong></button></li><li><button type="button" data-pillar-btn="4" aria-current="false"><small>05</small><strong>Projetos</strong></button></li><li><button type="button" data-pillar-btn="5" aria-current="false"><small>06</small><strong>Filmmaker</strong></button></li></ol>
+            </nav>
 
-          <div class="prova__method" aria-label="Como o método MedCEO foi aplicado">
-            <div class="prova__step">
-              <span>01</span>
-              <div><strong>Diagnóstico, não fórmula</strong><p>Cada clínica tem uma dinâmica. O primeiro movimento foi encontrar o gargalo dele — gestão — em vez de entregar mais um script pronto.</p></div>
-            </div>
-            <div class="prova__step">
-              <span>02</span>
-              <div><strong>Uma prioridade por ciclo</strong><p>A cada encontro quinzenal, uma tarefa e um objetivo observável para a clínica executar com a equipe.</p></div>
-            </div>
-            <div class="prova__step">
-              <span>03</span>
-              <div><strong>Testar, medir, manter</strong><p>O que funcionava virava processo. O que não funcionava voltava para ajuste, com os números e a operação na mesa.</p></div>
-            </div>
+            <p aria-live="polite" aria-atomic="true" class="atlas__live"><span data-pill="live"></span></p>
           </div>
-
-          <p class="prova__outcome"><strong>O que mudou:</strong> uma manhã por semana dedicada à gestão, equipe com metas, jornada do paciente desenhada e uma clínica que já não depende apenas do médico para rodar.</p>
-        </div>
-
-        <div class="prova__video">
-          <div class="prova__frame" data-tilt="">
-            <iframe id="panda-6e8f2654-57ab-4069-950e-eb9bfe5d1018" src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=6e8f2654-57ab-4069-950e-eb9bfe5d1018" title="Depoimento do Dr. Luiz Henrique sobre a mentoria MedCEO" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-          </div>
-          <p class="prova__legenda">Depoimento gravado pelo próprio médico. Resultado individual, não é média nem promessa.</p>
         </div>
       </div>
     </section>
 
     <!-- ================= 07 · ALÉM DO FATURAMENTO ================= -->
-    <section aria-label="O que muda além do faturamento" class="alem">
+    <section id="resultado" aria-label="O que muda além do faturamento" class="alem">
       <div class="alem__split">
-        <figure class="alem__media">
-          <img src="/assets/medceo/dr-luis-consultorio-wide.jpg" alt="Dr. Luiz Henrique no consultório, mentorado do MedCEO." width="2000" height="1333" loading="lazy" fetchpriority="low" decoding="async" data-parallax data-speed="0.08" />
+        <figure class="alem__media alem__media--video">
+          <img aria-hidden="true" class="alem__fundo" src="/assets/medceo/dr-luis-consultorio-wide.jpg" alt="" width="2000" height="1333" loading="lazy" fetchpriority="low" decoding="async" />
           <span aria-hidden="true" class="fade"></span>
+          <div class="alem__frame" data-tilt="">
+            <iframe id="panda-6e8f2654-57ab-4069-950e-eb9bfe5d1018" src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=6e8f2654-57ab-4069-950e-eb9bfe5d1018" title="Depoimento do Dr. Luiz Henrique sobre a mentoria MedCEO" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture" allowfullscreen="true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <figcaption>Depoimento gravado pelo Dr. Luiz Henrique</figcaption>
         </figure>
 
         <div class="alem__text">
@@ -1198,14 +1214,9 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 
       <div class="env">
         <div class="quem__in" data-reveal="">
-          <p class="eyebrow">06 &middot; Quem conduz</p>
+          <p class="eyebrow">Quem conduz</p>
           <h2 class="h2" style="max-width:14ch;font-size:clamp(2.2rem,4.5vw,3.6rem);margin-top:22px">O método nasceu dentro de uma clínica que atende.</h2>
           <p class="quem__lede">Dr. Luciano Alves Neves é médico, CEO e fundador da Natuá MedSpa, em Curitiba. Cada processo do MedCEO foi testado primeiro na operação dele, com paciente marcado, equipe contratada e decisão que não podia esperar a próxima reunião.</p>
-
-          <blockquote class="quote">
-            Faturamento sem margem é vaidade empresarial. Se você não sabe quanto sobra, você não sabe se está crescendo.
-            <cite><strong>Dr. Luciano Alves Neves</strong><br />Natuá MedSpa</cite>
-          </blockquote>
 
           <dl class="creds" aria-label="Credenciais publicadas">
             <div><dt>Médico atuante</dt><dd>atende na própria clínica, não só ensina</dd></div>
@@ -1250,8 +1261,8 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
          Sem preço: o documento não traz valores. -->
     <section id="esteira" class="sec sec--ivory" aria-labelledby="t-esteira">
       <div class="env">
-        <div>
-          <p class="eyebrow" data-reveal>07 &middot; A esteira</p>
+        <div class="escada__topo">
+          <p class="eyebrow" data-reveal>A esteira</p>
           <h2 class="h2" id="t-esteira" data-reveal style="--d:1">Cada degrau resolve um problema diferente</h2>
           <p class="lede" data-reveal style="--d:2">
             Cada degrau atende a um estágio diferente da clínica, com profundidade e duração
@@ -1260,43 +1271,45 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
           <p class="escada__nota" data-reveal style="--d:3">
             O caminho não se escolhe pelo preço. Ele se escolhe pelo estágio da empresa, pela
             urgência, pela capacidade de execução e pelo quanto a clínica ainda depende de você.
+            Fora da escada existem ainda as consultorias por pilar — Marketing, Comercial, Gestão
+            e Mentalidade CEO —, contratadas uma a uma.
+          </p>
+          <p class="escada__cta" data-reveal style="--d:4">
+            <a class="btn btn--ghost" href="/servicos">Ver cada serviço em detalhe <span aria-hidden="true">&rarr;</span></a>
           </p>
         </div>
         <ol class="escada2" aria-label="Esteira de produtos, do degrau de entrada ao mais profundo">
             <li class="deg" data-reveal style="--d:0">
               <span class="deg__n">01</span>
-              <span class="deg__nome">Grupo do WhatsApp<span class="deg__f">Gratuito</span></span>
+              <span class="deg__nome">Aulas semanais<span class="deg__f">Gratuito</span></span>
               <span class="deg__d"><b>Toda semana</b>Encontro aberto da mentoria</span>
             </li>
             <li class="deg" data-reveal style="--d:1">
               <span class="deg__n">02</span>
-              <span class="deg__nome">MedDay<span class="deg__f">Consciência</span></span>
-              <span class="deg__d"><b>4 horas</b>Score e convite ao diagnóstico</span>
+              <span class="deg__nome">MedManager<span class="deg__f">Formação</span></span>
+              <span class="deg__d"><b>Curso completo</b>Aulas de todos os pilares</span>
             </li>
             <li class="deg" data-reveal style="--d:2">
               <span class="deg__n">03</span>
-              <span class="deg__nome">MedManager<span class="deg__f">Conhecimento</span></span>
-              <span class="deg__d"><b>Autoinstrucional</b>Competência executiva</span>
+              <span class="deg__nome">MedScale<span class="deg__f">Estruturação</span></span>
+              <span class="deg__d"><b>6 meses</b>Máquina básica funcionando</span>
             </li>
             <li class="deg" data-reveal style="--d:3">
               <span class="deg__n">04</span>
-              <span class="deg__nome">MedScale<span class="deg__f">Estruturação</span></span>
-              <span class="deg__d"><b>24 semanas</b>Máquina básica funcionando</span>
+              <span class="deg__nome">MedCEO<span class="deg__f">Transformação</span></span>
+              <span class="deg__d"><b>12 meses</b>Empresa que não depende de você</span>
             </li>
             <li class="deg" data-reveal style="--d:4">
               <span class="deg__n">05</span>
-              <span class="deg__nome">MedCEO<span class="deg__f">Transformação</span></span>
-              <span class="deg__d"><b>24 semanas + MedLAB</b>Empresa que não depende de você</span>
+              <span class="deg__nome">MedLab<span class="deg__f">Presencial</span></span>
+              <span class="deg__d"><b>3 dias</b>Imersão com a operação na mesa</span>
             </li>
             <li class="deg" data-reveal style="--d:5">
               <span class="deg__n">06</span>
-              <span class="deg__nome">MedCEO Alpha<span class="deg__f">Legado</span></span>
-              <span class="deg__d"><b>12 meses</b>Fundador, obra e rede de pares</span>
+              <span class="deg__nome">Mentoria Individual<span class="deg__f">Ultra premium</span></span>
+              <span class="deg__d"><b>Individual</b>Condução direta do Dr. Luciano</span>
             </li>
         </ol>
-        <p style="grid-column:1/-1;margin-top:8px">
-          <a class="btn btn--ghost" href="/servicos">Ver cada serviço em detalhe <span aria-hidden="true">&rarr;</span></a>
-        </p>
       </div>
     </section>
 
@@ -1326,7 +1339,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
          gerador escreveu, para a home nunca divergir do que está no ar. -->
     <section id="blog" class="sec sec--dark" aria-labelledby="t-blog">
       <div class="env">
-        <p class="eyebrow" data-reveal>08 &middot; Leitura</p>
+        <p class="eyebrow" data-reveal>Leitura</p>
         <h2 class="h2" id="t-blog" data-reveal style="--d:1">Conheça nosso blog</h2>
         <p class="lede" data-reveal style="--d:2">
           Margem, no-show, dependência do dono, valuation. Os números que decidem a sua clínica, destrinchados com a conta à mostra — sem promessa e sem atalho.
@@ -1338,7 +1351,8 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
             <span class="bdest__txt">
               <time datetime="2026-08-11">11 ago 2026</time>
               <h3>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h3>
-              <p>Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor inteiro não respo…</p>
+              <p>Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor inteiro não respondeu.</p>
+              <span class="bdest__ler">Ler o artigo &rarr;</span>
             </span>
           </a>
           <div class="blist" data-reveal style="--d:2">
@@ -1392,15 +1406,20 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
           <p class="micro">Gratuito · resultado imediato · cerca de 5 minutos</p>
         </div>
 
-        <div class="seal" data-reveal="" style="--d:1" data-seal="">
-          <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="86"></circle><circle cx="100" cy="100" r="78" style="stroke:rgba(195,161,78,.18);stroke-width:.5"></circle></svg>
-          <div class="seal__inner">
+        <div class="niveis" data-reveal="" style="--d:1">
+          <div class="niveis__topo">
             <span>Nível de maturidade</span>
-            <b>Médico CEO</b>
-            <i>5 níveis</i>
+            <b>5 níveis</b>
           </div>
+          <ol>
+            <li><b>01</b><span><strong>Sobrevivência</strong><small>A clínica depende de você para tudo.</small></span></li>
+            <li><b>02</b><span><strong>Organização</strong><small>Existe processo, mas ele mora na sua cabeça.</small></span></li>
+            <li><b>03</b><span><strong>Delegação</strong><small>A equipe executa; você ainda decide tudo.</small></span></li>
+            <li><b>04</b><span><strong>Previsibilidade</strong><small>Número entra sem susto e a margem é conhecida.</small></span></li>
+            <li><b>05</b><span><strong>Médico CEO</strong><small>A empresa cresce sem você no centro.</small></span></li>
+          </ol>
+          <p class="niveis__pe">O diagnóstico diz em qual deles a sua clínica está hoje</p>
         </div>
-        <ol class="final__niveis" aria-label="Os cinco níveis de maturidade"><li><b>01</b><span>Sobrevivência<small>A clínica depende de você para tudo.</small></span></li><li><b>02</b><span>Organização<small>Existe processo, mas ele mora na sua cabeça.</small></span></li><li><b>03</b><span>Delegação<small>A equipe executa; você ainda decide tudo.</small></span></li><li><b>04</b><span>Previsibilidade<small>Número entra sem susto e a margem é conhecida.</small></span></li><li><b>05</b><span>Médico CEO<small>A empresa cresce sem você no centro.</small></span></li></ol>
       </div>
     </section>
   </main>
@@ -1418,7 +1437,6 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
         <span>Navegar</span>
         <a href="/#problema">O problema</a>
         <a href="/#time">Pilares</a>
-        <a href="/#metodo">Método</a>
         <a href="/#time">Time</a>
         <a href="/#faq">FAQ</a>
       </nav>
@@ -1441,7 +1459,6 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
     </div>
   </footer>
 </div>
-<script>window.__MC_PILLARS__=[{"number": "01", "name": "Dr. Luciano", "role": "Mentalidade CEO", "kicker": "A base de todo o método", "thesis": "De médico indispensável a CEO capaz de liderar, decidir e desenhar um negócio que cresce sem ele no centro de tudo.", "image": "/assets/medceo/pilar-luciano.jpg", "position": "center 24%", "alt": "Dr. Luciano Alves Neves, responsável pelo pilar de Mentalidade CEO no MedCEO.", "topics": ["Liderança", "Mentalidade de dono", "Tomada de decisões", "Modelos de negócio"]}, {"number": "02", "name": "Gustavo", "role": "Marketing", "kicker": "Pilar de desenvolvimento", "thesis": "Transformar visibilidade em demanda mensurável — e demanda em receita previsível, com número na mesa.", "image": "/assets/medceo/pilar-gustavo.jpg", "position": "center 18%", "alt": "Gustavo, responsável pelo pilar de Marketing do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["Visibilidade", "Análise de dados e indicadores", "IA para copy, sites e análise", "Receita previsível", "Tráfego pago"]}, {"number": "03", "name": "Marcos", "role": "Comercial", "kicker": "Pilar de desenvolvimento", "thesis": "Tirar a venda do improviso e criar um processo comercial replicável — do primeiro contato ao fechamento.", "image": "/assets/medceo/pilar-marcos.jpg", "position": "center 22%", "alt": "Retrato representando o pilar Comercial do MedCEO.", "topics": ["Scripts comerciais para clínicas", "Análise de dados e indicadores", "Técnicas de venda"]}, {"number": "04", "name": "Alessandra", "role": "Gestão", "kicker": "Pilar de desenvolvimento", "thesis": "Construir cultura, elevar performance e reter gente boa sem centralizar todas as decisões no dono.", "image": "/assets/medceo/pilar-alessandra.jpg", "position": "center 16%", "alt": "Alessandra, responsável pelo pilar de Gestão do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["Cultura", "Gestão de pessoas", "Perfil comportamental", "Retenção de bons profissionais"]}, {"number": "05", "name": "Michele", "role": "Projetos", "kicker": "Pilar de desenvolvimento", "thesis": "Fazer a IA sair do discurso e virar execução: projetos com dono, prazo e critério de sucesso.", "image": "/assets/medceo/pilar-michele.jpg", "position": "center 17%", "alt": "Michele, responsável pelo pilar de Projetos do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["IA para clínicas", "IA aplicada à gestão e análise", "Gestão de projetos"]}, {"number": "06", "name": "Amanda", "role": "Filmmaker", "kicker": "Pilar de desenvolvimento", "thesis": "Transformar conhecimento médico em conteúdo que prende atenção e sustenta posicionamento.", "image": "/assets/medceo/pilar-amanda.jpg", "position": "center 14%", "alt": "Amanda, responsável pelo pilar de conteúdo e filmmaking do MedCEO, em retrato de estúdio com fundo escuro.", "topics": ["Gravação: equipamentos e técnicas", "Criação de roteiros", "Edição de vídeo"]}];</script>
 <script src="/site.js?v=20260813" defer></script>
 <script src="/tracking.js" defer></script>
 </body>

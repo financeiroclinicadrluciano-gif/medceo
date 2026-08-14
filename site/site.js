@@ -5,83 +5,83 @@
   "use strict";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------------- Pilares ---------------- */
-  var PILLARS = window.__MC_PILLARS__ || [];
-  var atual = 0;
+  /* ---------------- Pilares: um por dobra, trocados pela rolagem ----------
+     O palco fica preso na viewport enquanto o container atras dele avanca.
+     A posicao da rolagem dentro desse container decide qual profissional
+     aparece. Sem JS os seis ficam empilhados: o conteudo nao depende disto. */
+  (function () {
+    var seq = document.querySelector("[data-atlas-seq]");
+    if (!seq) return;
+    var sticky = seq.querySelector(".atlas__sticky");
+    var slides = Array.prototype.slice.call(seq.querySelectorAll(".pro"));
+    var botoes = Array.prototype.slice.call(seq.querySelectorAll("[data-pillar-btn]"));
+    var barra = seq.querySelector("[data-pill-progress]");
+    var live = seq.querySelector('[data-pill="live"]');
+    if (!sticky || slides.length < 2) return;
 
-  function pintarPilar(i) {
-    var p = PILLARS[i];
-    if (!p) return;
-    atual = i;
-    var painel = document.querySelector("[data-pill-panel]");
+    var raiz = document.documentElement;
+    raiz.style.setProperty("--pro-passos", String(slides.length));
 
-    function set(nome, valor) {
-      document.querySelectorAll('[data-pill="' + nome + '"]').forEach(function (el) {
-        el.textContent = valor;
+    /* A navbar de mobile quebra em duas linhas: medir e melhor que chutar,
+       senao o palco fica alto demais e o rodape do cartao some. */
+    function medirNav() {
+      var nav = document.querySelector("[data-nav]");
+      if (nav) raiz.style.setProperty("--nav-height", Math.round(nav.offsetHeight) + "px");
+    }
+
+    var atual = -1;
+    function pintar(i) {
+      if (i === atual) return;
+      atual = i;
+      slides.forEach(function (s, n) {
+        if (n === i) s.setAttribute("data-ativo", "");
+        else s.removeAttribute("data-ativo");
       });
-    }
-    set("number", p.number);
-    set("name", p.name);
-    set("kicker", p.kicker);
-    set("role", p.role);
-    set("thesis", p.thesis);
-    set("counter", p.number + " / " + String(PILLARS.length).padStart(2, "0"));
-    set("live", "Pilar em destaque: " + p.role + ", com " + p.name + ".");
-
-    var img = document.querySelector('img[data-pill="image"]');
-    if (img) {
-      img.setAttribute("src", p.image);
-      img.setAttribute("alt", p.alt || "");
-      if (p.position) img.style.objectPosition = p.position;
-    }
-
-    var ul = document.querySelector("[data-topics]");
-    if (ul) {
-      ul.innerHTML = "";
-      (p.topics || []).forEach(function (t, n) {
-        var li = document.createElement("li");
-        li.setAttribute("style",
-          "display:grid;grid-template-columns:32px minmax(0,1fr);gap:14px;align-items:baseline;" +
-          "padding:14px 0;border-bottom:1px solid rgba(234,226,207,.09);color:rgba(234,226,207,.74);" +
-          "font-size:14px;font-weight:300;line-height:1.6;letter-spacing:.015em");
-        var num = document.createElement("span");
-        num.setAttribute("aria-hidden", "true");
-        num.setAttribute("style",
-          "color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;" +
-          "font-weight:300;letter-spacing:.16em");
-        num.textContent = String(n + 1).padStart(2, "0");
-        var txt = document.createElement("span");
-        txt.textContent = t;
-        li.appendChild(num); li.appendChild(txt); ul.appendChild(li);
+      botoes.forEach(function (b, n) {
+        b.setAttribute("aria-current", n === i ? "true" : "false");
       });
+      if (barra) barra.style.width = Math.round(((i + 1) / slides.length) * 100) + "%";
+      if (live) {
+        var papel = slides[i].querySelector(".pro__role");
+        var nome = slides[i].querySelector("figcaption");
+        live.textContent = "Pilar em destaque: " + (papel ? papel.textContent : "") +
+          (nome ? ", " + nome.textContent.toLowerCase() + "." : ".");
+      }
     }
 
-    var barra = document.querySelector("[data-pill-progress]");
-    if (barra) barra.style.width = Math.round(((i + 1) / PILLARS.length) * 100) + "%";
+    function trilho() {
+      return Math.max(0, seq.offsetHeight - sticky.offsetHeight);
+    }
 
-    document.querySelectorAll("[data-pillar-btn]").forEach(function (btn) {
-      var ativo = Number(btn.getAttribute("data-pillar-btn")) === i;
-      btn.setAttribute("aria-current", ativo ? "true" : "false");
-      var n = btn.querySelector("[data-pill-num]");
-      var r = btn.querySelector("[data-pill-role]");
-      if (n) n.style.color = ativo ? "#C3A14E" : "rgba(234,226,207,.36)";
-      if (r) r.style.color = ativo ? "#EAE2CF" : "rgba(234,226,207,.5)";
+    var agendado = false;
+    function medir() {
+      agendado = false;
+      var total = trilho();
+      if (total <= 0) { pintar(0); return; }
+      var p = Math.min(Math.max(-seq.getBoundingClientRect().top / total, 0), 1);
+      pintar(Math.round(p * (slides.length - 1)));
+    }
+    function aoRolar() {
+      if (agendado) return;
+      agendado = true;
+      window.requestAnimationFrame(medir);
+    }
+
+    botoes.forEach(function (b, n) {
+      b.addEventListener("click", function () {
+        var total = trilho();
+        var alvo = seq.getBoundingClientRect().top + window.pageYOffset +
+          total * (n / (slides.length - 1));
+        window.scrollTo({ top: Math.round(alvo), behavior: reduce ? "auto" : "smooth" });
+      });
     });
 
-    if (painel && !reduce && painel.hasAttribute("data-pillar-ready")) {
-      painel.classList.remove("pillar-enter");
-      void painel.offsetWidth;
-      painel.classList.add("pillar-enter");
-    }
-    if (painel) painel.setAttribute("data-pillar-ready", "true");
-  }
-
-  document.querySelectorAll("[data-pillar-btn]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      pintarPilar(Number(btn.getAttribute("data-pillar-btn")));
-    });
-  });
-  if (PILLARS.length) pintarPilar(0);
+    window.addEventListener("scroll", aoRolar, { passive: true });
+    window.addEventListener("resize", function () { medirNav(); aoRolar(); });
+    medirNav();
+    pintar(0);
+    medir();
+  })();
 
   /* ---------------- Comparador arrastavel ---------------- */
   (function () {
@@ -358,64 +358,6 @@
   update();
 })();
 
-/* Selo de maturidade: desenha o anel quando entra no viewport. */
-(function () {
-  var seal = document.querySelector("[data-seal]");
-  if (!seal) return;
-  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    seal.classList.add("ativo");
-    return;
-  }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        seal.classList.add("ativo");
-        io.unobserve(seal);
-      }
-    });
-  }, { threshold: 0.35 });
-  io.observe(seal);
-})();
-
-/* Pilares em cadencia editorial. O painel troca sozinho apenas enquanto a dobra
-   esta visivel; hover, foco, aba oculta e preferencia de menos movimento pausam.
-   Clique e teclado continuam sendo a fonte do estado acessivel. */
-(function () {
-  var sec = document.getElementById("time");
-  if (!sec) return;
-  var botoes = Array.prototype.slice.call(sec.querySelectorAll("[data-pillar-btn]"));
-  if (botoes.length < 2) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-
-  var timer = 0;
-  var visivel = false;
-  var pausado = false;
-
-  function parar() {
-    if (timer) window.clearInterval(timer);
-    timer = 0;
-  }
-  function iniciar() {
-    parar();
-    if (!visivel || pausado || document.hidden) return;
-    timer = window.setInterval(function () {
-      var ativo = botoes.findIndex(function (b) { return b.getAttribute("aria-current") === "true"; });
-      botoes[(ativo + 1 + botoes.length) % botoes.length].click();
-    }, 5200);
-  }
-
-  var io = new IntersectionObserver(function (entries) {
-    visivel = entries[0] && entries[0].isIntersecting;
-    iniciar();
-  }, { threshold: 0.35 });
-  io.observe(sec);
-
-  sec.addEventListener("pointerenter", function () { pausado = true; parar(); });
-  sec.addEventListener("pointerleave", function () { pausado = false; iniciar(); });
-  sec.addEventListener("focusin", function () { pausado = true; parar(); });
-  sec.addEventListener("focusout", function () { pausado = false; iniciar(); });
-  document.addEventListener("visibilitychange", iniciar);
-})();
 
 /* Cascata dos cartoes do filtro: entram quando a dobra aparece, um depois do
    outro, e os itens de cada lista atras. Quem pede menos movimento ja tem tudo
