@@ -46,25 +46,20 @@
 .dc-77e7c021[aria-disabled="true"] { opacity:.38;cursor:not-allowed;transform:none;pointer-events:none }
 .dc-d3146d72:hover { background:rgba(195,161,78,.08);border-color:rgba(195,161,78,.6);color:#EFE0BB }
 .dc-f2f3847f:hover { color:#EAE2CF }
-.audience-gate{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;max-width:34rem;
-  margin-top:clamp(10px,1.6vh,18px);padding:18px 20px;border:1px solid rgba(195,161,78,.32);
-  background:rgba(5,7,10,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.audience-gate__mark{display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(217,190,126,.5);
-  color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase}
-.audience-gate__title{color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:1.08rem;font-weight:400;line-height:1.25}
-.audience-gate__copy{margin-top:5px;color:rgba(234,226,207,.62);font-size:12.5px;line-height:1.6}
-.audience-gate__confirm{display:flex;align-items:flex-start;gap:10px;margin-top:12px;color:#EAE2CF;
-  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;line-height:1.55;text-transform:uppercase;cursor:pointer}
-.audience-gate__confirm input{flex:0 0 auto;width:16px;height:16px;margin-top:0;accent-color:#C3A14E;cursor:pointer}
-.audience-gate__status{min-height:1.4em;margin-top:7px;color:#D9BE7E;font-family:'JetBrains Mono',monospace;
-  font-size:8px;letter-spacing:.12em;line-height:1.5;text-transform:uppercase}
-@media(max-width:480px){.audience-gate{grid-template-columns:1fr}.audience-gate__mark{width:40px;height:40px}}
+
+
+
+
+
+
+
+
 @media(min-width:900px) and (min-height:800px){
   .group-hero{padding-block:54px!important}
   .group-hero__content{gap:9px!important}
   .group-hero__content>a:first-child{margin-bottom:8px!important}
-  .audience-gate{margin-top:4px;padding-block:14px}
-  .audience-gate__confirm{margin-top:8px}
+  
+  
 }
 </style>
 </head>
@@ -105,21 +100,8 @@
         <li style="display:flex;gap:14px;color:rgba(234,226,207,.74);font-size:min(14px, 2.1vh);font-weight:300;line-height:1.6;letter-spacing:.015em"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.62em;width:5px;height:5px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:400">Sala com outros médicos donos de clínica</strong>, mesma dor, mesmo vocabulário.</span></li>
       </ul>
 
-      <div class="audience-gate" data-audience-gate style="animation:wbRise .9s cubic-bezier(.16,1,.3,1) .82s both">
-        <span class="audience-gate__mark" aria-hidden="true">CRM</span>
-        <div>
-          <p class="audience-gate__title">Este grupo é exclusivo para médicos.</p>
-          <p class="audience-gate__copy">Não é destinado a estudantes, gestores, fornecedores ou outros profissionais. O acesso é liberado somente após a confirmação abaixo.</p>
-          <label class="audience-gate__confirm">
-            <input type="checkbox" data-doctor-confirm />
-            <span>Confirmo que sou médico(a)</span>
-          </label>
-          <p class="audience-gate__status" data-gate-status aria-live="polite">Confirme para liberar o acesso.</p>
-        </div>
-      </div>
-
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:clamp(12px,2vh,24px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .88s both">
-        <a data-group-access data-group-url="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" aria-disabled="true" tabindex="-1" target="_blank" rel="noopener noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px clamp(26px,3vw,38px);border:1px solid rgba(217,190,126,.5);border-radius:3px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease" class="dc-77e7c021">Sou médico e quero entrar <span aria-hidden="true">↗</span></a>
+        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px clamp(26px,3vw,38px);border:1px solid transparent;border-radius:999px;background:linear-gradient(180deg,#2FD46A,#17A94B);color:#07230F;font-weight:600;box-shadow:0 16px 38px rgba(23,169,75,.34),0 2px 0 rgba(255,255,255,.3) inset;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease" class="dc-77e7c021">Sou médico e quero entrar <span aria-hidden="true">↗</span></a>
         <p style="color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Entrada gratuita</p>
       </div>
     </div>

@@ -771,13 +771,13 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
   color:#05070A;background:var(--gold);padding:6px 11px}
 /* Quatro cartoes iguais no lugar da lista com miniatura de 96px: o titulo
    tinha mais peso editorial do que o espaco que recebia. */
-.blist{display:grid;gap:clamp(14px,1.6vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(100%,232px),1fr))}
+.blist{display:grid;gap:clamp(14px,1.4vw,20px);grid-template-columns:repeat(auto-fit,minmax(min(100%,196px),1fr))}@media(min-width:1100px){.blist{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .bitem{display:grid;grid-template-rows:auto 1fr;min-width:0;overflow:hidden;
   border:1px solid rgba(234,226,207,.1);background:var(--bg);
   transition:border-color .35s ease,transform .45s cubic-bezier(.16,1,.3,1)}
 .bitem:hover{border-color:rgba(195,161,78,.38);transform:translateY(-3px)}
 .bitem:active{transform:translateY(-1px)}
-.bitem__img{position:relative;overflow:hidden;aspect-ratio:16/10;max-height:clamp(112px,17svh,190px);background:rgba(234,226,207,.05)}
+.bitem__img{position:relative;overflow:hidden;aspect-ratio:3/2;background:rgba(234,226,207,.05)}.bitem__img img{object-position:center 26%}
 .bitem__img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
 .bitem:hover .bitem__img img{transform:scale(1.05)}
 .bitem>span:last-child{padding:16px 18px 20px}
@@ -1339,50 +1339,29 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
         <p class="lede" data-reveal style="--d:2">
           Margem, no-show, dependência do dono, valuation. Os números que decidem a sua clínica, destrinchados com a conta à mostra, sem promessa e sem atalho.
         </p>
-        <div class="blogwrap">
-          <a class="bdest" href="/blog/diagnostico-gestao-clinica" data-reveal style="--d:1">
-            <span class="bdest__tag">Mais recente</span>
-            <span class="bdest__img"><img src="/blog/capas/DSC00192-2.jpg" alt="" width="900" height="600" loading="lazy" decoding="async"></span>
-            <span class="bdest__txt">
-              <time datetime="2026-08-11">11 ago 2026</time>
-              <h3>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h3>
-              <p>Um diagnóstico de gestão para clínica médica que devolve rótulo não muda nada. Veja o que separa quiz de diagnóstico e o que o setor inteiro não respondeu.</p>
-              <span class="bdest__ler">Ler o artigo &rarr;</span>
-            </span>
-          </a>
-          <div class="blist" data-reveal style="--d:2">
+                <div class="blogwrap">
+          <div class="blist" data-reveal style="--d:1">
+            <a class="bitem" href="/blog/diagnostico-gestao-clinica">
+              <span class="bitem__img"><img src="/blog/capas/DSC00192-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h4></span>
+            </a>
             <a class="bitem" href="/blog/indicadores-clinica-faixa-referencia">
-              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-11">11 ago 2026</time>
-                <h4>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h4>
-              </span>
+              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h4></span>
             </a>
             <a class="bitem" href="/blog/parcelamento-clinica-margem">
-              <span class="bitem__img"><img src="/blog/capas/IMG_0223.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-10">10 ago 2026</time>
-                <h4>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h4>
-              </span>
+              <span class="bitem__img"><img src="/blog/capas/IMG_0223.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h4></span>
             </a>
             <a class="bitem" href="/blog/valuation-clinica-saida-socio">
-              <span class="bitem__img"><img src="/blog/capas/DSC00208-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-10">10 ago 2026</time>
-                <h4>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h4>
-              </span>
+              <span class="bitem__img"><img src="/blog/capas/DSC00208-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h4></span>
             </a>
             <a class="bitem" href="/blog/margem-lucro-clinica-medica">
-              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
-              <span>
-                <time datetime="2026-08-09">9 ago 2026</time>
-                <h4>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h4>
-              </span>
+              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h4></span>
             </a>
           </div>
-        </div>
-        <div class="posts__rodape" data-reveal>
-          <a class="btn btn--ghost" href="/blog">Ver todos os artigos</a>
         </div>
       </div>
     </section>
