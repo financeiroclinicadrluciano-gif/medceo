@@ -1,12 +1,13 @@
 ---
-titulo: Sócio quer sair e o valor da clínica muda conforme quem produz a receita
+titulo: "Se você parar de atender amanhã, quanto vale a sua clínica?"
+seo_title: "Valuation de clínica médica e saída de sócio: como preparar | MedCEO"
 slug: valuation-clinica-saida-socio
 marca: medceo
 tipo: satelite
 silo: O dinheiro da clínica
 keyword: valuation de clínica médica
 meta_description: "Valuation de clínica médica não é múltiplo de faturamento. Veja como a receita ligada ao sócio que sai derruba o preço, com tabela e as contas à mostra."
-dek: A Sênior Consulting publicou dois textos sobre valor de clínica em julho de 2026 e assinou os dois como "Admin". O tema decide patrimônio de família, e quem escreve sobre ele precisa ter nome, credencial e conta aberta.
+dek: Duas clínicas com o mesmo faturamento podem valer valores muito diferentes. O que separa uma da outra é quanto da receita continua existindo depois que uma pessoa específica para de atender.
 data: 2026-08-10
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1450
@@ -21,9 +22,7 @@ links_internos:
     ancora: a receita parcelada que o comprador desconta
 elemento_notavel: argumentação
 fontes:
-  - Sênior Consulting, "Pró-Labore dos Sócios Deve Entrar no Cálculo do Valuation", autoria "Admin", publicado em 29/07/2026, 2.423 palavras, lido por HTTP em 08/08/2026
-  - Sênior Consulting, "O Maior Erro Que Médicos Cometem ao Comprar a Parte de um Sócio", publicado em 22/07/2026, 2.727 palavras, lido por HTTP em 08/08/2026
-  - PESQUISA-MERCADO-MENTORIA-MEDICA-2026-08-08, leitura de 15 posts concorrentes por HTTP em 08/08/2026
+  - Lei Complementar nº 155, de 27 de outubro de 2016, que institui o Fator R como critério de enquadramento no Simples Nacional
 ---
 
 O valuation de clínica médica, que é o cálculo do valor de um negócio transferível a outro dono, muda conforme a receita venha da estrutura ou da pessoa.
@@ -66,9 +65,7 @@ Em muitas clínicas o sócio tira pró-labore baixo e complementa com distribui�
 
 Quem compra faz o ajuste na primeira leitura. Ele substitui o pró-labore de conveniência por uma remuneração de mercado para a função que aquele sócio exercia, e o lucro cai. O preço acompanha a queda, e a conversa recomeça em outro patamar.
 
-A Sênior Consulting publicou em 29/07/2026 um texto de 2.423 palavras dedicado a essa correção, com três tabelas, e abriu assim: a resposta curta é sim, o pró-labore entra, mas não do jeito automático que muita gente imagina.
-
-O detalhe que enfraquece o texto é a assinatura. O post sobre valor de clínica está assinado como "Admin". Em um assunto que decide patrimônio de família, autoria sem nome e sem credencial é uma escolha que custa mais do que parece.
+O ajuste não é opinião do comprador, é padrão de qualquer avaliação séria: o lucro que interessa é o que sobra depois de remunerar todas as funções a preço de mercado, inclusive a sua. Chegar na mesa com essa correção já feita evita a única surpresa que sempre derruba o preço na última hora.
 
 ## Due diligence abre primeiro os números que a clínica nunca abriu
 
@@ -88,11 +85,15 @@ Quando a receita ligada à pessoa é grande, a forma de pagamento é o instrumen
 
 Vale escrever antes o que ninguém quer discutir depois: cláusula de não concorrência com raio e prazo definidos, prazo de transição remunerada, e quem responde por passivo anterior à data de corte. Contrato social genérico raramente cobre isso sozinho.
 
-## Quem assina o cálculo importa tanto quanto o cálculo
+## A mesma clínica, duas contas, e a diferença que ninguém tinha visto
 
-Nos quinze posts do setor lidos por HTTP em 08/08/2026, os dois melhores textos sobre valor de clínica não têm autor identificado. O mercado inteiro escreve sobre o dinheiro do médico sem colocar nome e credencial na conta.
+Os números abaixo são um exemplo para mostrar a mecânica, não uma média de mercado. Troque cada linha pelos seus e refaça a conta: o que importa é a ordem das operações, não os valores.
 
-Isso importa porque valuation não é fórmula fechada, é uma sequência de escolhas defensáveis. Múltiplo escolhido, ajuste de pró-labore, tratamento da receita de pessoa e desconto de recebível são decisões, e decisão sem autor não pode ser questionada.
+Uma clínica fatura 200 mil por mês e apura 40 mil de lucro, o que dá 20% de margem. O sócio que quer sair tira 8 mil de pró-labore, e a função que ele exerce custaria 25 mil no mercado. O ajuste tira 17 mil do lucro, que cai para 23 mil, e a margem real vai a 11,5%.
+
+Agora a segunda correção, que é a que decide. Da receita de 200 mil, 70 mil vêm de pacientes que perguntam pelo nome dele. Essa parte caminha até a porta junto com quem sai, então o lucro que o comprador vai realmente herdar não é 23 mil, é o que sobra sobre os 130 mil que ficam.
+
+É por isso que múltiplo aplicado sobre faturamento erra tanto. As duas correções aconteceram antes de qualquer múltiplo entrar na conversa, e sozinhas já mudaram o número de partida mais do que qualquer negociação de múltiplo mudaria depois.
 
 ## Perguntas frequentes
 

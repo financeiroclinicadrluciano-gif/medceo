@@ -596,31 +596,46 @@ html:not(.js) .atlas__slides{gap:clamp(48px,7vh,88px);padding-block:clamp(36px,5
   font-size:9.5px;font-weight:300;letter-spacing:.18em;text-transform:uppercase}
 /* O selo circular era o ponto fraco da dobra: um carimbo solto no meio de
    duas colunas. Vira um painel de niveis com regua de progresso a esquerda. */
-.niveis{position:relative;flex:1 1 380px;min-width:0;border:1px solid rgba(195,161,78,.22);
-  background:linear-gradient(180deg,rgba(8,11,15,.86),rgba(5,7,10,.94));
+.niveis{position:relative;flex:1 1 380px;min-width:0;overflow:hidden;
+  border:1px solid rgba(195,161,78,.22);border-radius:14px;
+  background:linear-gradient(180deg,rgba(10,14,20,.9),rgba(5,7,10,.96));
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .niveis__topo{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-  padding:18px 22px;border-bottom:1px solid rgba(195,161,78,.18)}
+  padding:18px 24px 16px}
 .niveis__topo span{color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:8.5px;
   font-weight:300;letter-spacing:.26em;text-transform:uppercase}
 .niveis__topo b{color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:8.5px;
   font-weight:400;letter-spacing:.2em;text-transform:uppercase}
-.niveis ol{display:grid;margin:0;padding:0;list-style:none}
-.niveis li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;
-  align-items:center;padding:14px 22px;transition:background .35s ease}
-.niveis li+li{border-top:1px solid rgba(234,226,207,.07)}
-.niveis li:hover{background:rgba(195,161,78,.05)}
-.niveis li>b{position:relative;display:flex;align-items:center;gap:10px;
-  color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;letter-spacing:.18em}
-.niveis li>b::after{content:"";width:7px;height:7px;border:1px solid rgba(195,161,78,.55);border-radius:50%}
+/* A escada: um trilho vertical liga os cinco marcadores e o olho le
+   progressao em vez de linhas soltas. */
+.niveis ol{position:relative;display:grid;gap:2px;margin:0;padding:4px 24px 8px;list-style:none}
+.niveis ol::before{content:"";position:absolute;left:37px;top:22px;bottom:26px;width:1px;
+  background:linear-gradient(180deg,rgba(195,161,78,.18),rgba(195,161,78,.75))}
+.niveis li{position:relative;display:grid;grid-template-columns:28px minmax(0,1fr);gap:16px;
+  align-items:start;padding:11px 12px 11px 0;border-radius:10px;
+  transition:background .35s ease,transform .35s cubic-bezier(.16,1,.3,1)}
+.niveis li:hover{background:rgba(195,161,78,.06);transform:translateX(2px)}
+/* Marcador redondo com o numero dentro, sentado sobre o trilho. */
+.niveis li>b{position:relative;z-index:1;display:grid;place-items:center;
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(195,161,78,.4);background:#080B0F;
+  color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;letter-spacing:0}
+.niveis li>span{padding-top:3px}
 .niveis strong{display:block;font-family:'Playfair Display',Georgia,serif;font-size:16px;
   font-weight:500;letter-spacing:-.01em;color:var(--ivory-bright)}
 .niveis small{display:block;margin-top:3px;font-size:12px;font-weight:300;line-height:1.5;
   color:rgba(234,226,207,.6)}
-.niveis li:last-child{background:rgba(195,161,78,.09)}
-.niveis li:last-child>b::after{background:var(--gold);border-color:var(--gold)}
+/* Progressao: o dourado ganha corpo degrau a degrau, em vez de um bloco
+   solido so no ultimo. */
+.niveis li:nth-child(2)>b{border-color:rgba(195,161,78,.5)}
+.niveis li:nth-child(3)>b{border-color:rgba(195,161,78,.62);color:var(--gold-soft)}
+.niveis li:nth-child(4)>b{border-color:rgba(195,161,78,.78);color:var(--gold-soft);
+  box-shadow:0 0 0 3px rgba(195,161,78,.07)}
+.niveis li:last-child>b{border-color:transparent;background:linear-gradient(180deg,#E8CE8E,#C3A14E);
+  color:#120E06;font-weight:500;box-shadow:0 0 0 4px rgba(195,161,78,.12)}
 .niveis li:last-child strong{color:var(--gold-soft)}
-.niveis__pe{padding:14px 22px;border-top:1px solid rgba(195,161,78,.18);
+.niveis li:last-child{background:linear-gradient(90deg,rgba(195,161,78,.1),transparent 82%)}
+.niveis__pe{margin:6px 24px 0;padding:14px 0 18px;border-top:1px solid rgba(195,161,78,.16);
   color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:8.5px;
   font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase}
 
@@ -769,8 +784,10 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 .bdest__tag{position:absolute;z-index:2;top:16px;left:16px;
   font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;
   color:#05070A;background:var(--gold);padding:6px 11px}
-/* Quatro cartoes iguais no lugar da lista com miniatura de 96px: o titulo
-   tinha mais peso editorial do que o espaco que recebia. */
+/* Cinco cartoes iguais no lugar da lista com miniatura de 96px: o titulo
+   tinha mais peso editorial do que o espaco que recebia. A caixa da capa usa
+   3/2, a mesma proporcao do arquivo, para que object-fit nao tenha o que
+   recortar: era o recorte que cortava o rosto na versao anterior. */
 .blist{display:grid;gap:clamp(14px,1.4vw,20px);grid-template-columns:repeat(auto-fit,minmax(min(100%,196px),1fr))}@media(min-width:1100px){.blist{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .bitem{display:grid;grid-template-rows:auto 1fr;min-width:0;overflow:hidden;
   border:1px solid rgba(234,226,207,.1);background:var(--bg);
@@ -1341,28 +1358,29 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
         </p>
                 <div class="blogwrap">
           <div class="blist" data-reveal style="--d:1">
-            <a class="bitem" href="/blog/diagnostico-gestao-clinica">
-              <span class="bitem__img"><img src="/blog/capas/DSC00192-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
-              <span><h4>Seven Gestão publica modelo de 4 níveis e ninguém no mercado responde</h4></span>
+            <a class="bitem" href="/blog/maturidade-empresarial-medica-5-estagios">
+              <span class="bitem__img"><img src="/blog/capas/IMG_7115.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Toda clínica passa por 5 estágios e quase nenhuma sai do segundo</h4></span>
             </a>
-            <a class="bitem" href="/blog/indicadores-clinica-faixa-referencia">
-              <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
-              <span><h4>Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma</h4></span>
-            </a>
-            <a class="bitem" href="/blog/parcelamento-clinica-margem">
+            <a class="bitem" href="/blog/clinica-dependente-do-dono">
               <span class="bitem__img"><img src="/blog/capas/IMG_0223.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
-              <span><h4>Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela</h4></span>
+              <span><h4>Tire uma semana de férias e descubra em 4 pontos quem sustenta a clínica</h4></span>
             </a>
-            <a class="bitem" href="/blog/valuation-clinica-saida-socio">
-              <span class="bitem__img"><img src="/blog/capas/DSC00208-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
-              <span><h4>Sócio quer sair e o valor da clínica muda conforme quem produz a receita</h4></span>
+            <a class="bitem" href="/blog/agenda-cheia-prejuizo-clinica">
+              <span class="bitem__img"><img src="/blog/capas/DSC00199-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Sua agenda está cheia e a sobra caiu: os 3 sinais que vêm antes</h4></span>
             </a>
             <a class="bitem" href="/blog/margem-lucro-clinica-medica">
+              <span class="bitem__img"><img src="/blog/capas/DSC00192-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+              <span><h4>Faturou o dobro e sobrou menos: os 4 pontos onde a margem vaza</h4></span>
+            </a>
+            <a class="bitem" href="/blog/custo-hora-clinica">
               <span class="bitem__img"><img src="/blog/capas/DSC00213-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
-              <span><h4>Clínica cresce em faturamento e perde margem em 4 pontos da própria operação</h4></span>
+              <span><h4>Você precifica a consulta sem saber quanto custa uma hora de porta aberta</h4></span>
             </a>
           </div>
         </div>
+
       </div>
     </section>
 

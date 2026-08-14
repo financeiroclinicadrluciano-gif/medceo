@@ -1,5 +1,6 @@
 ---
-titulo: Clínica mede ocupação, no-show e margem sem ter faixa de referência nenhuma
+titulo: "Você mede ocupação e no-show, mas sabe dizer se o número está bom?"
+seo_title: "Indicadores de clínica médica: fórmulas e faixas de referência | MedCEO"
 slug: indicadores-clinica-faixa-referencia
 marca: medceo
 tipo: satelite
@@ -20,7 +21,7 @@ links_internos:
   - slug: clinica-dependente-do-dono
     ancora: o indicador que ninguém coloca na planilha, você
 elemento_notavel: valor prático
-fontes: iClinic, "10 indicadores de desempenho (KPIs) essenciais para clínicas e consultórios", autor Lucas Moreira, publicado e atualizado em 10/12/2025 (903 palavras, 13 H2, zero tabela, leitura direta do HTML em 08/08/2026); régua de maturidade empresarial médica do método DOC365, MedCEO, 2026
+fontes: régua de maturidade empresarial médica do método DOC365, MedCEO, 2026; levantamento interno de 15 conteúdos públicos sobre gestão de clínica lidos por HTTP em 08/08/2026, sem faixa de referência de mercado publicada com metodologia aberta
 ---
 
 Clínica mede ocupação, no-show e margem sem faixa de referência, que é o intervalo do que se considera bom para aquele tipo de operação, e por isso o número não muda decisão.

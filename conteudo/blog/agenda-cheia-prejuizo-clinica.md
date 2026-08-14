@@ -1,5 +1,6 @@
 ---
-titulo: Agenda cheia esconde prejuízo em 3 sinais que aparecem antes do caixa
+titulo: "Sua agenda está cheia e a sobra caiu: os 3 sinais que vêm antes"
+seo_title: "Agenda cheia e prejuízo na clínica: 3 sinais antes do caixa apertar | MedCEO"
 slug: agenda-cheia-prejuizo-clinica
 marca: medceo
 tipo: satelite
@@ -22,7 +23,7 @@ links_internos:
   - slug: custo-no-show-clinica
     ancora: a conta da cadeira vazia
 elemento_notavel: identificação
-fontes: Sênior Consulting, "Será Que Você Cobra o Preço Certo Pelos Tratamentos na Sua Clínica?", 17/07/2026 (1.617 palavras, leitura direta do HTML em 08/08/2026); iClinic, "Aprenda a aumentar o faturamento do seu consultório ou clínica médica!", atualizado em 16/09/2025 (5.159 palavras, zero tabela); régua de maturidade empresarial médica do método DOC365, MedCEO, 2026
+fontes: régua de maturidade empresarial médica do método DOC365, MedCEO, 2026; levantamento interno de 15 conteúdos públicos sobre gestão de clínica lidos por HTTP em 08/08/2026, sem faixa de referência de mercado publicada com metodologia aberta
 ---
 
 A agenda cheia esconde prejuízo em três sinais operacionais, que são pistas visíveis na rotina antes de qualquer número fechar, e todos os três aparecem semanas antes do caixa apertar.
@@ -31,7 +32,7 @@ Quando o mês fecha com o melhor faturamento do ano e o dono precisa adiar o pr�
 
 A conversa nunca volta. Na semana seguinte a agenda enche de novo, a equipe comemora de novo e o dono cobre a diferença de novo, sem contar para ninguém.
 
-Vale notar que a frase existe publicada e sem dono. "Agenda cheia pode esconder prejuízo" é um H2 solto dentro de um post de precificação da Sênior Consulting de 17/07/2026, sem uma única conta ao lado. A tese está no ar e ninguém a defendeu com número.
+A frase circula há anos como aviso e quase nunca vem com a conta ao lado, o que a torna fácil de concordar e impossível de usar. Concordar não muda nada. O que muda é abrir os três números da seção seguinte e descobrir em qual deles a sua clínica está perdendo.
 
 ## O faturamento é uma linha de entrada, não um resultado
 

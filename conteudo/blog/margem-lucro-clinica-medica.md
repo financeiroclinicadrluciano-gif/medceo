@@ -1,5 +1,6 @@
 ---
-titulo: Clínica cresce em faturamento e perde margem em 4 pontos da própria operação
+titulo: "Faturou o dobro e sobrou menos: os 4 pontos onde a margem vaza"
+seo_title: "Margem de lucro em clínica médica: as 4 perdas e como medir | MedCEO"
 slug: margem-lucro-clinica-medica
 marca: medceo
 tipo: pilar

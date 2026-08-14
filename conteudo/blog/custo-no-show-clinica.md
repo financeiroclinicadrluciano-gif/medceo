@@ -1,5 +1,6 @@
 ---
-titulo: Paciente falta e a cadeira vazia cobra 3 custos que ninguém lança na planilha
+titulo: "A cadeira vazia cobra 3 vezes, e nenhuma delas entra na sua planilha"
+seo_title: "Taxa de no-show em clínica: como calcular o custo real da falta | MedCEO"
 slug: custo-no-show-clinica
 marca: medceo
 tipo: satelite

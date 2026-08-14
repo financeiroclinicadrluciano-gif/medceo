@@ -1,5 +1,6 @@
 ---
-titulo: Clínica dependente do dono trava em 4 pontos quando ele sai da rotina
+titulo: "Tire uma semana de férias e descubra em 4 pontos quem sustenta a clínica"
+seo_title: "Clínica dependente do dono: os 4 pontos que travam sem você | MedCEO"
 slug: clinica-dependente-do-dono
 marca: medceo
 tipo: satelite
@@ -20,7 +21,7 @@ links_internos:
   - slug: indicadores-clinica-faixa-referencia
     ancora: medir dependência com número, não com sensação
 elemento_notavel: identificação
-fontes: Sênior Consulting, "Do Caos à Ordem: Estratégias para Mapear Processos e Aumentar a Autonomia Em Clínicas", 18/07/2026 (1.016 palavras, leitura direta do HTML em 08/08/2026); régua de maturidade empresarial médica do método DOC365, MedCEO, 2026
+fontes: régua de maturidade empresarial médica do método DOC365, MedCEO, 2026; levantamento interno de 15 conteúdos públicos sobre gestão de clínica lidos por HTTP em 08/08/2026, sem faixa de referência de mercado publicada com metodologia aberta
 ---
 
 A dependência do dono, que é a parcela de decisões e de receita que só acontece com o médico presente, aparece em quatro pontos quando ele sai da rotina.
@@ -37,7 +38,7 @@ Com o dono na sala, tudo funciona. Ele resolve a exceção no corredor, aprova o
 
 O teste real não é perguntar à equipe se ela dá conta. É olhar o que aconteceu nos últimos quinze dias em que você ficou fora, com o extrato aberto do lado, e comparar com uma quinzena comum.
 
-A Sênior Consulting abre um post de 18/07/2026 exatamente nesse ponto, dizendo que a rotina depende diretamente da presença do dono, e depois entrega cinco passos genéricos de mapeamento de processo. Em 1.016 palavras, nenhuma menção a prontuário, glosa, escala ou fila.
+Mapear processo em tese não resolve, porque a dependência não mora no organograma. Ela mora em quatro lugares específicos da rotina de uma clínica, prontuário, glosa, escala e fila de espera, e é por isso que os quatro pontos a seguir são nomeados um a um em vez de virarem um passo a passo genérico.
 
 O sintoma está certo e a correção é rasa. A dependência não se resolve com fluxograma bonito, ela se resolve tirando decisão específica da sua mesa, uma por vez, com nome de responsável ao lado.
 

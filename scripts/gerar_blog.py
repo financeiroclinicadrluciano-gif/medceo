@@ -85,7 +85,7 @@ h1{margin:20px 0 0;max-width:20ch;font-family:'Playfair Display',Georgia,serif;f
 .posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:clamp(20px,2.6vw,30px);padding-bottom:clamp(48px,6vh,72px)}
 .card{display:grid;grid-template-rows:auto 1fr;overflow:hidden;border:1px solid rgba(195,161,78,.16);border-radius:12px;background:#080B0F;transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .45s ease,box-shadow .45s ease}
 .card:hover{transform:translateY(-4px);border-color:rgba(195,161,78,.4);box-shadow:0 18px 40px rgba(1,3,5,.5)}
-.card img{width:100%;height:196px;object-fit:cover;object-position:center 26%;filter:saturate(.72) contrast(1.05)}
+.card img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;filter:saturate(.72) contrast(1.05)}
 .card .body{display:grid;align-content:start;gap:12px;padding:26px 26px 30px}
 .card .silo{color:rgba(195,161,78,.8);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase}
 .card h2{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:400;letter-spacing:-.02em;line-height:1.24;color:#EAE2CF}
@@ -168,7 +168,7 @@ article{padding-bottom:clamp(48px,6vh,72px)}
   padding:12px 0;border-bottom:1px solid rgba(234,226,207,.08)}
 .lat__post:last-child{border-bottom:0;padding-bottom:0}
 .lat__post:first-of-type{padding-top:0}
-.lat__post .mini{overflow:hidden;aspect-ratio:4/3;border-radius:6px;background:rgba(234,226,207,.05)}
+.lat__post .mini{overflow:hidden;aspect-ratio:3/2;border-radius:6px;background:rgba(234,226,207,.05)}
 .lat__post .mini img{width:100%;height:100%;object-fit:cover}
 .lat__post h3{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:14.5px;
   font-style:italic;font-weight:500;line-height:1.35;color:#EFE8D8}
@@ -448,7 +448,7 @@ def topo(ativo=""):
 
     itens = "".join(link_nav(href, rot) for href, rot in LINKS_NAV)
     return f"""<header class="top" data-section="topo"><nav class="principal" aria-label="Navegação principal">
-<a class="brand" href="/" aria-label="MedCEO — início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26"></a>
+<a class="brand" href="/" aria-label="MedCEO, início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26"></a>
 <div class="navwide">{itens}</div>
 <a class="pilula" href="/diagnostico">Diagnóstico</a>
 </nav></header>"""
@@ -458,7 +458,7 @@ RODAPE = """<footer data-section="rodape">
 <div aria-hidden="true" class="grao"></div>
 <div class="wrap colunas">
   <div class="sobre">
-    <a href="/" aria-label="MedCEO — início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="108" height="24"></a>
+    <a href="/" aria-label="MedCEO, início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="108" height="24"></a>
     <p class="gab">Gabinete do diagnóstico</p>
     <p>Diagnóstico, direção e execução para médicos donos de clínica. Método criado dentro de uma operação real.</p>
   </div>
@@ -689,12 +689,12 @@ for p in publicados:
 lista = f"""<main id="conteudo"><div class="wrap head">
 <p class="eyebrow">Blog MedCEO</p>
 <h1>Gestão de clínica, sem fórmula pronta</h1>
-<p class="lede">Margem, comercial, operação e escala — escrito por quem toca uma clínica de verdade, não por quem só estuda o assunto.</p>
+<p class="lede">Margem, comercial, operação e escala, escrito por quem toca uma clínica de verdade e não por quem só estuda o assunto.</p>
 </div>
 <div class="wrap"><div class="posts">{cards}</div></div>
 <div class="wrap"><section class="cta" data-section="cta-listagem">
 <h2>Antes de ler mais, saiba onde você está</h2>
-<p>Vinte perguntas, cinco minutos. No fim você recebe o nível de maturidade, o gargalo prioritário e três próximos passos — e sabe qual desses textos ler primeiro.</p>
+<p>Vinte perguntas, cinco minutos. No fim você recebe o nível de maturidade, o gargalo prioritário e três próximos passos, e sabe qual desses textos ler primeiro.</p>
 <a class="btn" href="/diagnostico">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
 </section></div></main>"""
 
@@ -760,6 +760,69 @@ for p in posts:
     if not p["publicado"]:
         print(f"  [agendado] {p['data']}  {p['slug']}")
 print(f"sitemap: {len(urls)} urls | rss: {len(publicados)} itens")
+
+# --------------------------------------------------------------------------
+# dobra do blog na home
+#
+# Escrita aqui, e nao a mao no index.html, porque a versao manual desalinhava do
+# blog a cada publicacao: chegou a anunciar data antiga e um titulo que o post
+# nao tinha mais. A lista abaixo e escolha editorial, nao ordem cronologica.
+# --------------------------------------------------------------------------
+DESTAQUES_HOME = [
+    "maturidade-empresarial-medica-5-estagios",
+    "clinica-dependente-do-dono",
+    "agenda-cheia-prejuizo-clinica",
+    "margem-lucro-clinica-medica",
+    "custo-hora-clinica",
+]
+
+_por_slug = {p["slug"]: p for p in publicados}
+_faltando = [s for s in DESTAQUES_HOME if s not in _por_slug]
+_home = BUILD / "index.html"
+
+if _faltando:
+    avisos.append("dobra do blog na home nao atualizada, post nao publicado: "
+                  + ", ".join(_faltando))
+elif not _home.exists():
+    avisos.append("dobra do blog na home nao atualizada, site/index.html nao encontrado")
+else:
+    _html = _home.read_text(encoding="utf-8")
+    _ini = _html.find("<!-- dobra: blog -->")
+    _fim = _html.find("<!-- dobra:", _ini + 20) if _ini != -1 else -1
+    _a = _html.find('<div class="blogwrap">', _ini) if _ini != -1 else -1
+    if _ini == -1 or _fim == -1 or _a == -1 or _a > _fim:
+        avisos.append("dobra do blog na home nao atualizada, marcadores nao localizados")
+    else:
+        _cards = []
+        for _slug in DESTAQUES_HOME:
+            _p = _por_slug[_slug]
+            _capa = limpar_aspas(_p["fm"].get("imagem_capa", "DSC00192-2.jpg"))
+            _tit = html.escape(limpar_aspas(_p["fm"].get("titulo", _slug)))
+            _cards.append(
+                f'            <a class="bitem" href="/blog/{_slug}">\n'
+                f'              <span class="bitem__img"><img src="/blog/capas/{_capa}" alt="" '
+                f'width="{CAPA_W}" height="{CAPA_H}" loading="lazy" decoding="async"></span>\n'
+                f"              <span><h4>{_tit}</h4></span>\n"
+                f"            </a>"
+            )
+        _novo = ('        <div class="blogwrap">\n'
+                 '          <div class="blist" data-reveal style="--d:1">\n'
+                 + "\n".join(_cards)
+                 # sem espaco no fim: o texto que segue _b ja traz a propria
+                 # indentacao, e repetir aqui faria o arquivo crescer a cada build
+                 + "\n          </div>\n        </div>")
+        _b = _html.rfind("</div>", _a, _fim)
+        _b = _html.rfind("</div>", _a, _b) + len("</div>")
+        _antes = _html
+        _html = _html[:_a] + _novo.lstrip() + _html[_b:]
+        # o <style> da home nao pode mudar: a dobra e conteudo, nao design
+        _st = lambda t: t[t.find("<style>"):t.find("</style>")]
+        if _st(_antes) != _st(_html):
+            avisos.append("dobra do blog na home NAO gravada: a edicao tocaria o <style>")
+        else:
+            _home.write_text(_html, encoding="utf-8")
+            print(f"dobra do blog na home: {len(DESTAQUES_HOME)} posts sincronizados")
+
 if avisos:
     print("\navisos de conteúdo (não bloqueiam o build):")
     for a in avisos:

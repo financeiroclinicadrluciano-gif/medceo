@@ -1,6 +1,6 @@
 ---
-titulo: Gestão de clínica médica: guia completo para sair do improviso
-seo_title: Gestão de clínica médica: guia completo | MedCEO
+titulo: "Toda clínica passa por 5 estágios e quase nenhuma sai do segundo"
+seo_title: "Gestão de clínica médica: guia dos 5 estágios de maturidade | MedCEO"
 slug: maturidade-empresarial-medica-5-estagios
 marca: medceo
 tipo: pilar
@@ -154,11 +154,11 @@ Uma reunião boa não é uma volta livre por tudo o que aconteceu. Ela compara r
 
 Use esta ordem:
 
-1. **Cinco minutos — fatos:** o que mudou nos indicadores desde a última reunião.
-2. **Dez minutos — desvios:** onde houve diferença relevante e qual evidência existe.
-3. **Quinze minutos — gargalo:** discutir apenas o problema prioritário, sem abrir cinco frentes.
-4. **Dez minutos — decisões:** ação, responsável, prazo e métrica de sucesso.
-5. **Cinco minutos — confirmação:** cada responsável repete o que entrega até a próxima reunião.
+1. **Cinco minutos, fatos:** o que mudou nos indicadores desde a última reunião.
+2. **Dez minutos, desvios:** onde houve diferença relevante e qual evidência existe.
+3. **Quinze minutos, gargalo:** discutir apenas o problema prioritário, sem abrir cinco frentes.
+4. **Dez minutos, decisões:** ação, responsável, prazo e métrica de sucesso.
+5. **Cinco minutos, confirmação:** cada responsável repete o que entrega até a próxima reunião.
 
 O painel precisa caber na conversa. Se a equipe passa a reunião inteira atualizando planilha, não está decidindo. Dados devem chegar antes; a reunião existe para interpretação e compromisso.
 

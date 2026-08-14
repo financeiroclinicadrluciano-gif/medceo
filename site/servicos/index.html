@@ -812,7 +812,12 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 /* ---- lista de servicos: um cartao deitado por servico -------------------
    Cada cartao mostra as tres decisoes na mesma linha de leitura: o que e,
    para quem e quanto custa. Sem isso o preco vira uma cacada pela pagina. */
-.svc-lista{padding-block:clamp(40px,6vh,72px) clamp(64px,9vh,104px);background:var(--bg)}
+.svc-lista{padding-block:clamp(40px,6vh,72px) clamp(28px,4vh,44px);background:var(--bg)}
+/* O vao entre o ultimo card e 'Nao sabe em qual degrau' somava 193px:
+   81 do fim da lista mais 112 do topo da secao seguinte. Duas respiros
+   grandes colados viram buraco. Aqui os dois encolhem para 104 no total,
+   e so nesta transicao: o espacamento do resto do site nao muda. */
+.svc-lista + .sec{padding-top:clamp(40px,6vh,60px)}
 .svc-lista .env{display:grid;gap:clamp(16px,2vh,24px)}
 .svc-card{display:grid;gap:clamp(18px,2.4vw,32px);align-items:center;
   padding:clamp(18px,2.2vw,28px);border:1px solid rgba(234,226,207,.12);border-radius:18px;

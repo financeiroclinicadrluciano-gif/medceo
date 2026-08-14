@@ -1,5 +1,6 @@
 ---
-titulo: Parcelamento em 12 vezes consome a margem antes de qualquer desconto na tabela
+titulo: "O 12x que você oferece custa mais caro que o desconto que você recusou"
+seo_title: "Custo do parcelamento em clínica: a conta da antecipação | MedCEO"
 slug: parcelamento-clinica-margem
 marca: medceo
 tipo: satelite
@@ -21,8 +22,6 @@ links_internos:
     ancora: o efeito disso no valor da clínica
 elemento_notavel: fato curioso
 fontes:
-  - "Sênior Consulting, post sobre precificação em clínicas, H2 \"O parcelamento destrói margem silenciosamente\" sem cálculo ao lado, lido por HTTP em 08/08/2026"
-  - PESQUISA-MERCADO-MENTORIA-MEDICA-2026-08-08, leitura de 15 posts concorrentes por HTTP em 08/08/2026
   - "[PENDENTE] taxa de MDR e de antecipação da adquirente da clínica, que sai do extrato ou da tabela vigente, com nome da adquirente e data"
 ---
 
@@ -68,7 +67,7 @@ Compare a última linha com o desconto recusado. Cinco por cento sobre R$ 12 mil
 
 A explicação dessa assimetria não é financeira. O desconto tem rosto, acontece numa conversa e exige que alguém diga não. A taxa não tem rosto, chega trinta dias depois e vem dentro de um extrato consolidado.
 
-A Sênior Consulting chegou perto do assunto e parou. O H2 "o parcelamento destrói margem silenciosamente" está publicado, sem uma linha de cálculo ao lado. Uma headline pronta virou subtítulo de outro texto, e o tema seguiu sem dono no setor.
+O advérbio que descreve isso é silenciosamente, e ele é literal: o desconto aparece na conversa com o paciente e a taxa aparece só no extrato da adquirente, trinta dias depois, misturada com todas as outras vendas. Ninguém precisa aprovar a segunda, e por isso ninguém a discute.
 
 ## A correção é de tabela, não de política de crédito
 
