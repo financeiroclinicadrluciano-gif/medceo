@@ -94,7 +94,7 @@ h1{margin:20px 0 0;max-width:20ch;font-family:'Playfair Display',Georgia,serif;f
 /* artigo */
 article{padding-bottom:clamp(48px,6vh,72px)}
 .capa{max-width:680px;margin:clamp(30px,4vh,46px) auto 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
-.capa img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center;filter:saturate(.86) contrast(1.03)}
+.capa img{display:block;width:100%;height:auto;filter:saturate(.86) contrast(1.03)}
 .capa figcaption{padding:14px 20px;background:#080B0F;color:rgba(234,226,207,.62);font-size:13.5px;line-height:1.65}
 .prosa{max-width:68ch;margin-top:clamp(34px,5vh,52px);overflow-wrap:anywhere}
 .prosa p{margin:0 0 22px;color:rgba(234,226,207,.78);font-size:16.5px;line-height:1.78}
