@@ -379,3 +379,49 @@
     cards.forEach(function (c) { c.classList.add("dentro"); });
   }, 1800);
 })();
+
+
+/* ---------------- Menu do topo no celular ----------------
+   Abre e fecha a lista de links. O estado mora no atributo data-aberto do
+   header e no aria-expanded do botao, para que CSS e leitor de tela leiam a
+   mesma coisa. Fecha ao escolher um link, com Escape, e ao voltar para
+   desktop, caso a pessoa gire o aparelho com o menu aberto. */
+(function () {
+  var botao = document.querySelector("[data-menu]");
+  var nav = document.querySelector("[data-nav]");
+  if (!botao || !nav) return;
+  var painel = document.getElementById(botao.getAttribute("aria-controls"));
+  if (!painel) return;
+
+  function medir() {
+    document.documentElement.style.setProperty(
+      "--nav-height", Math.round(nav.offsetHeight) + "px");
+  }
+
+  function definir(aberto) {
+    nav.toggleAttribute("data-aberto", aberto);
+    botao.setAttribute("aria-expanded", aberto ? "true" : "false");
+    botao.setAttribute("aria-label", aberto ? "Fechar menu de navegação"
+                                            : "Abrir menu de navegação");
+    medir();
+  }
+
+  botao.addEventListener("click", function () {
+    definir(botao.getAttribute("aria-expanded") !== "true");
+  });
+
+  painel.addEventListener("click", function (e) {
+    if (e.target.closest("a")) definir(false);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && botao.getAttribute("aria-expanded") === "true") {
+      definir(false);
+      botao.focus();
+    }
+  });
+
+  addEventListener("resize", function () {
+    if (innerWidth >= 1120) definir(false);
+  }, { passive: true });
+})();

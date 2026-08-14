@@ -33,15 +33,42 @@ img{display:block;max-width:100%}
 .top{position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(195,161,78,.14);background:rgba(5,7,10,.72);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2)}
 .top nav.principal{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;width:100%;max-width:1240px;margin-inline:auto;padding:14px 28px}
 .navwide{display:none;flex:1 1 auto;align-items:center;justify-content:center;gap:30px;white-space:nowrap}
+/* Botao do menu, igual ao da home. Nasce escondido e so aparece abaixo de
+   1120px; as tres barras viram X por transformacao. */
+.hamburguer{display:none;place-content:center;gap:5px;flex:0 0 auto;width:42px;height:42px;
+  padding:0;border:1px solid rgba(195,161,78,.3);border-radius:10px;background:transparent;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .3s ease}
+.hamburguer:hover,.hamburguer[aria-expanded="true"]{border-color:rgba(195,161,78,.55)}
+.hamburguer span{display:block;width:17px;height:1.5px;border-radius:2px;background:#E8CE8E;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s ease}
+.hamburguer[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburguer[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburguer[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 @media (min-width:1120px){.navwide{display:flex}}
 .navwide a{color:rgba(234,226,207,.58);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding-block:8px;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
 .navwide a:hover,.navwide a[aria-current]{color:#EAE2CF;border-color:rgba(195,161,78,.5)}
 @media (max-width:1119px){
   html{scroll-padding-top:118px}
-  .top nav.principal{gap:8px 18px;padding-bottom:8px}
-  .navwide{order:3;display:flex;flex:1 0 100%;justify-content:flex-start;gap:22px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .navwide::-webkit-scrollbar{display:none}
-  .navwide a{flex:0 0 auto;min-height:44px;display:inline-flex;align-items:center;font-size:9px}
+  /* Mesma correcao da home: a tira de links com rolagem lateral saiu, porque
+     seis itens lado a lado num celular nao e o padrao esperado e ainda deixa
+     metade fora da tela sem avisar. */
+  .top nav.principal{justify-content:flex-start;gap:8px 12px;padding-bottom:8px}
+  .pilula{margin-left:auto}
+  .hamburguer{display:inline-grid}
+  .navwide{order:3;flex:1 0 100%;display:none;flex-direction:column;align-items:stretch;gap:0;
+    margin-top:6px;padding:2px 0 6px;border-top:1px solid rgba(195,161,78,.16)}
+  .top[data-aberto] .navwide{display:flex}
+  .navwide a{min-height:48px;display:flex;align-items:center;font-size:10px;padding-block:0;
+    border-bottom:1px solid rgba(234,226,207,.06);border-top:0}
+  .navwide a:last-child{border-bottom:0}
+}
+/* A 375px a primeira linha do topo somava 320px de conteudo para 319 de espaco,
+   e o botao caia sozinho para a linha de baixo. Um pixel. A pilula encolhe aqui
+   pelos mesmos valores que a home ja usa nessa largura. */
+@media (max-width:430px){
+  .top nav.principal{padding-inline:20px}
+  .brand img{height:23px}
+  .pilula{min-height:38px;padding-inline:14px;font-size:8.5px}
 }
 .brand{display:inline-flex;flex:0 0 auto;align-items:center;gap:14px}
 .brand img{height:26px;width:auto;object-fit:contain;object-position:left}
@@ -229,8 +256,10 @@ body.claro .cta p{color:rgba(234,226,207,.72)}
 <div aria-hidden="true" data-progresso class="progresso"></div>
 <header class="top" data-section="topo"><nav class="principal" aria-label="Navegação principal">
 <a class="brand" href="/" aria-label="MedCEO, início"><img src="/assets/medceo/logo.png" alt="MedCEO" width="118" height="26"></a>
-<div class="navwide"><a href="/#topo">Home</a><a href="/#time">Mentores</a><a href="/#resultado">Resultado</a><a href="/servicos">Serviços</a><a href="/blog" aria-current="page">Blog</a><a href="/webnar">Grupo</a></div>
+<div class="navwide" id="navlinks"><a href="/#topo">Home</a><a href="/#time">Mentores</a><a href="/#resultado">Resultado</a><a href="/servicos">Serviços</a><a href="/blog" aria-current="page">Blog</a><a href="/webnar">Grupo</a></div>
 <a class="pilula" href="/diagnostico">Diagnóstico</a>
+<button class="hamburguer" type="button" data-menu aria-expanded="false"
+        aria-controls="navlinks" aria-label="Abrir menu de navegação"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
 </nav></header>
 <main id="conteudo"><div class="wrap head">
 <nav class="migalhas" aria-label="Trilha"><a href="/">MedCEO</a><span aria-hidden="true">/</span><a href="/blog">Blog</a></nav>
@@ -358,6 +387,22 @@ Seguir @medico_ceo</a>
 function p(){if(t)return;t=requestAnimationFrame(function(){t=0;var h=document.documentElement;
 var m=h.scrollHeight-h.clientHeight;b.style.width=(m>0?Math.min(100,h.scrollTop/m*100):0)+'%'})}
 addEventListener('scroll',p,{passive:true});addEventListener('resize',p,{passive:true});p()})();
+</script>
+<script>
+/* Menu do topo no celular. O estado mora no data-aberto do header e no
+   aria-expanded do botao, para CSS e leitor de tela lerem a mesma coisa.
+   Fecha ao escolher um link, com Escape, e ao voltar para desktop. */
+(function(){
+var b=document.querySelector('[data-menu]');var t=document.querySelector('.top');
+if(!b||!t)return;var p=document.getElementById(b.getAttribute('aria-controls'));if(!p)return;
+function d(a){t.toggleAttribute('data-aberto',a);b.setAttribute('aria-expanded',a?'true':'false');
+b.setAttribute('aria-label',a?'Fechar menu de navegação':'Abrir menu de navegação')}
+b.addEventListener('click',function(){d(b.getAttribute('aria-expanded')!=='true')});
+p.addEventListener('click',function(e){if(e.target.closest('a'))d(false)});
+document.addEventListener('keydown',function(e){
+if(e.key==='Escape'&&b.getAttribute('aria-expanded')==='true'){d(false);b.focus()}});
+addEventListener('resize',function(){if(innerWidth>=1120)d(false)},{passive:true});
+})();
 </script>
 <script src="/tracking.js" defer></script>
 </body></html>
