@@ -5,7 +5,8 @@
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="theme-color" content="#05070A">
 <link rel="canonical" href="https://medceo.online/blog">
-<link rel="icon" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/medceo/logo-icone.png">
+<link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
 <link rel="alternate" type="application/rss+xml" title="Blog MedCEO" href="https://medceo.online/blog/feed.xml">
 <meta property="og:site_name" content="MedCEO"><meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Blog | MedCEO"><meta property="og:description" content="Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.">
@@ -115,19 +116,63 @@ article{padding-bottom:clamp(48px,6vh,72px)}
 .btn--ghost:hover{border-color:#D9BE7E;background:rgba(195,161,78,.08);color:#F6F3EC}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px 32px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg,rgba(217,190,126,.16),rgba(195,161,78,.06));color:#EFE0BB;font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;transition:border-color .5s,background .5s,transform .5s cubic-bezier(.16,1,.3,1)}
 .btn:hover{border-color:#D9BE7E;background:linear-gradient(180deg,rgba(217,190,126,.26),rgba(195,161,78,.1));transform:translateY(-2px);color:#EFE0BB}
-/* Assinatura do autor: quem escreveu, de onde ele fala e como falar com ele. */
-.autor{display:grid;gap:18px;margin-top:clamp(34px,4.5vh,52px);padding:clamp(22px,3vw,30px);
-  border:1px solid rgba(195,161,78,.2);border-radius:14px;background:rgba(10,13,18,.72)}
-@media(min-width:680px){.autor{grid-template-columns:104px minmax(0,1fr);align-items:center;gap:26px}}
-.autor__foto{overflow:hidden;width:104px;height:104px;border-radius:50%;border:1px solid rgba(195,161,78,.34);background:#04060a}
-.autor__foto img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
-.autor__nome{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:500;color:#F6F3EC}
-.autor__papel{margin-top:6px;color:rgba(234,226,207,.66);font-size:13.5px;line-height:1.6}
-.autor__links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:14px}
-.autor__links a{display:inline-flex;align-items:center;gap:8px;min-height:40px;
-  color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;
-  text-transform:uppercase;border-bottom:1px solid rgba(195,161,78,.34)}
-.autor__links a:hover{color:#F6F3EC;border-bottom-color:#C3A14E}
+/* ---- post em duas colunas: texto a esquerda, contexto a direita --------
+   A coluna da direita responde as tres perguntas que o leitor faz depois do
+   texto: quem escreveu, o que mais tem para ler e como falar com a gente. */
+.post{display:grid;gap:clamp(30px,4vh,48px)}
+@media(min-width:1040px){
+  .post{grid-template-columns:minmax(0,1fr) 336px;gap:clamp(38px,4vw,64px);align-items:start}
+  .lateral{position:sticky;top:96px}
+}
+.lateral{display:grid;gap:18px;min-width:0}
+.lat{padding:24px 22px;border:1px solid rgba(195,161,78,.2);border-radius:14px;background:rgba(10,13,18,.72)}
+.lat__titulo{margin:0 0 18px;color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;
+  font-size:8.5px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;text-align:center}
+/* Sobre o autor */
+.lat--autor{text-align:center}
+.lat--autor .foto{overflow:hidden;width:118px;height:118px;margin:0 auto 16px;border-radius:50%;
+  border:1px solid rgba(195,161,78,.4);background:#04060a}
+.lat--autor .foto img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.lat--autor .nome{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:21px;
+  font-style:italic;font-weight:500;color:#F6F3EC}
+.lat--autor .papel{margin:8px 0 0;color:#D9BE7E;font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+.lat--autor .bio{margin:16px 0 0;color:rgba(234,226,207,.68);font-size:13.5px;line-height:1.66}
+.lat--autor .bio b{color:#EFE0BB;font-weight:500}
+.lat__botao{display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;
+  margin-top:20px;padding:0 18px;border:1px solid rgba(195,161,78,.4);border-radius:6px;
+  color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;transition:background .35s ease,border-color .35s ease}
+.lat__botao:hover{border-color:#D9BE7E;background:rgba(195,161,78,.1);color:#F6F3EC}
+.lat__botao svg{flex:0 0 auto}
+/* Posts recentes */
+.lat__post{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:center;
+  padding:12px 0;border-bottom:1px solid rgba(234,226,207,.08)}
+.lat__post:last-child{border-bottom:0;padding-bottom:0}
+.lat__post:first-of-type{padding-top:0}
+.lat__post .mini{overflow:hidden;aspect-ratio:4/3;border-radius:6px;background:rgba(234,226,207,.05)}
+.lat__post .mini img{width:100%;height:100%;object-fit:cover}
+.lat__post h3{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:14.5px;
+  font-style:italic;font-weight:500;line-height:1.35;color:#EFE8D8}
+.lat__post:hover h3{color:#F6F3EC}
+.lat__post time{display:block;margin-top:6px;color:rgba(217,190,126,.8);
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em}
+/* Categorias */
+.lat__cat{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:52px;
+  margin-bottom:8px;padding:12px 16px;border:1px solid rgba(234,226,207,.09);border-radius:8px;
+  color:rgba(234,226,207,.86);font-size:14px;transition:border-color .3s ease,background .3s ease}
+.lat__cat:last-child{margin-bottom:0}
+.lat__cat:hover{border-color:rgba(195,161,78,.4);background:rgba(195,161,78,.06)}
+.lat__cat b{flex:0 0 auto;min-width:30px;padding:4px 0;border-radius:5px;
+  background:rgba(234,226,207,.09);color:rgba(234,226,207,.7);
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;text-align:center}
+/* CTA da lateral */
+.lat--cta{text-align:center;
+  background:radial-gradient(420px 220px at 50% 0%,rgba(195,161,78,.14),transparent 70%),rgba(10,13,18,.8)}
+.lat--cta h2{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-style:italic;
+  font-weight:400;line-height:1.24;color:#F6F3EC}
+.lat--cta h2 em{color:#D9BE7E;font-style:italic}
+.lat--cta p{margin:14px 0 0;color:rgba(234,226,207,.66);font-size:13.5px;line-height:1.62}
 
 /* rodape — mesma estrutura da home */
 footer{position:relative;overflow:hidden;border-top:1px solid rgba(195,161,78,.14);background:#080B0F;padding:72px 0 28px}
@@ -231,7 +276,7 @@ footer .legal{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-con
   </nav>
   <div class="contato">
     <span class="rotulo">Contato</span>
-    <a href="https://wa.me/554184875688?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20mentoria%21" target="_blank" rel="noreferrer">WhatsApp do time</a>
+    <a href="https://wa.me/5541984875688?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20mentoria%21" target="_blank" rel="noreferrer">WhatsApp do time</a>
     <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">Natuá MedSpa</a>
     <a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noreferrer">Instagram do Dr. Luciano</a>
   </div>

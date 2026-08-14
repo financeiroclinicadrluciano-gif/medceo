@@ -5,7 +5,8 @@
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="theme-color" content="#05070A">
 <link rel="canonical" href="https://medceo.online/blog/custo-hora-clinica">
-<link rel="icon" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/medceo/logo-icone.png">
+<link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
 <link rel="alternate" type="application/rss+xml" title="Blog MedCEO" href="https://medceo.online/blog/feed.xml">
 <meta property="og:site_name" content="MedCEO"><meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Médico calcula o preço da consulta sem saber quanto custa a própria hora | MedCEO"><meta property="og:description" content="Como calcular a hora clínica com 3 variáveis: faturamento, horas de porta aberta e custo fixo do mês. A conta aberta, com tabela e os 3 erros mais comuns.">
@@ -115,19 +116,63 @@ article{padding-bottom:clamp(48px,6vh,72px)}
 .btn--ghost:hover{border-color:#D9BE7E;background:rgba(195,161,78,.08);color:#F6F3EC}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px 32px;border:1px solid rgba(217,190,126,.5);border-radius:999px;background:linear-gradient(180deg,rgba(217,190,126,.16),rgba(195,161,78,.06));color:#EFE0BB;font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;transition:border-color .5s,background .5s,transform .5s cubic-bezier(.16,1,.3,1)}
 .btn:hover{border-color:#D9BE7E;background:linear-gradient(180deg,rgba(217,190,126,.26),rgba(195,161,78,.1));transform:translateY(-2px);color:#EFE0BB}
-/* Assinatura do autor: quem escreveu, de onde ele fala e como falar com ele. */
-.autor{display:grid;gap:18px;margin-top:clamp(34px,4.5vh,52px);padding:clamp(22px,3vw,30px);
-  border:1px solid rgba(195,161,78,.2);border-radius:14px;background:rgba(10,13,18,.72)}
-@media(min-width:680px){.autor{grid-template-columns:104px minmax(0,1fr);align-items:center;gap:26px}}
-.autor__foto{overflow:hidden;width:104px;height:104px;border-radius:50%;border:1px solid rgba(195,161,78,.34);background:#04060a}
-.autor__foto img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
-.autor__nome{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:500;color:#F6F3EC}
-.autor__papel{margin-top:6px;color:rgba(234,226,207,.66);font-size:13.5px;line-height:1.6}
-.autor__links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:14px}
-.autor__links a{display:inline-flex;align-items:center;gap:8px;min-height:40px;
-  color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;
-  text-transform:uppercase;border-bottom:1px solid rgba(195,161,78,.34)}
-.autor__links a:hover{color:#F6F3EC;border-bottom-color:#C3A14E}
+/* ---- post em duas colunas: texto a esquerda, contexto a direita --------
+   A coluna da direita responde as tres perguntas que o leitor faz depois do
+   texto: quem escreveu, o que mais tem para ler e como falar com a gente. */
+.post{display:grid;gap:clamp(30px,4vh,48px)}
+@media(min-width:1040px){
+  .post{grid-template-columns:minmax(0,1fr) 336px;gap:clamp(38px,4vw,64px);align-items:start}
+  .lateral{position:sticky;top:96px}
+}
+.lateral{display:grid;gap:18px;min-width:0}
+.lat{padding:24px 22px;border:1px solid rgba(195,161,78,.2);border-radius:14px;background:rgba(10,13,18,.72)}
+.lat__titulo{margin:0 0 18px;color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;
+  font-size:8.5px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;text-align:center}
+/* Sobre o autor */
+.lat--autor{text-align:center}
+.lat--autor .foto{overflow:hidden;width:118px;height:118px;margin:0 auto 16px;border-radius:50%;
+  border:1px solid rgba(195,161,78,.4);background:#04060a}
+.lat--autor .foto img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.lat--autor .nome{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:21px;
+  font-style:italic;font-weight:500;color:#F6F3EC}
+.lat--autor .papel{margin:8px 0 0;color:#D9BE7E;font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+.lat--autor .bio{margin:16px 0 0;color:rgba(234,226,207,.68);font-size:13.5px;line-height:1.66}
+.lat--autor .bio b{color:#EFE0BB;font-weight:500}
+.lat__botao{display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;
+  margin-top:20px;padding:0 18px;border:1px solid rgba(195,161,78,.4);border-radius:6px;
+  color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;transition:background .35s ease,border-color .35s ease}
+.lat__botao:hover{border-color:#D9BE7E;background:rgba(195,161,78,.1);color:#F6F3EC}
+.lat__botao svg{flex:0 0 auto}
+/* Posts recentes */
+.lat__post{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:center;
+  padding:12px 0;border-bottom:1px solid rgba(234,226,207,.08)}
+.lat__post:last-child{border-bottom:0;padding-bottom:0}
+.lat__post:first-of-type{padding-top:0}
+.lat__post .mini{overflow:hidden;aspect-ratio:4/3;border-radius:6px;background:rgba(234,226,207,.05)}
+.lat__post .mini img{width:100%;height:100%;object-fit:cover}
+.lat__post h3{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:14.5px;
+  font-style:italic;font-weight:500;line-height:1.35;color:#EFE8D8}
+.lat__post:hover h3{color:#F6F3EC}
+.lat__post time{display:block;margin-top:6px;color:rgba(217,190,126,.8);
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em}
+/* Categorias */
+.lat__cat{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:52px;
+  margin-bottom:8px;padding:12px 16px;border:1px solid rgba(234,226,207,.09);border-radius:8px;
+  color:rgba(234,226,207,.86);font-size:14px;transition:border-color .3s ease,background .3s ease}
+.lat__cat:last-child{margin-bottom:0}
+.lat__cat:hover{border-color:rgba(195,161,78,.4);background:rgba(195,161,78,.06)}
+.lat__cat b{flex:0 0 auto;min-width:30px;padding:4px 0;border-radius:5px;
+  background:rgba(234,226,207,.09);color:rgba(234,226,207,.7);
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;text-align:center}
+/* CTA da lateral */
+.lat--cta{text-align:center;
+  background:radial-gradient(420px 220px at 50% 0%,rgba(195,161,78,.14),transparent 70%),rgba(10,13,18,.8)}
+.lat--cta h2{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-style:italic;
+  font-weight:400;line-height:1.24;color:#F6F3EC}
+.lat--cta h2 em{color:#D9BE7E;font-style:italic}
+.lat--cta p{margin:14px 0 0;color:rgba(234,226,207,.66);font-size:13.5px;line-height:1.62}
 
 /* rodape — mesma estrutura da home */
 footer{position:relative;overflow:hidden;border-top:1px solid rgba(195,161,78,.14);background:#080B0F;padding:72px 0 28px}
@@ -159,7 +204,8 @@ footer .legal{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-con
 <p class="lede">A conta tem três variáveis e cabe em dez minutos: faturamento, horas de porta aberta e custo fixo do mês. Sem ela, toda tabela de preço nasce de comparação com o vizinho de sala.</p>
 <p class="meta"><span>Dr. Luciano Alves Neves</span><time datetime="2026-08-12">Publicado em 12 de agosto de 2026</time></p>
 </div>
-<article class="wrap" data-section="corpo-do-post">
+<div class="wrap post">
+<article data-section="corpo-do-post">
 <figure class="capa"><img src="/blog/capas/DSC00213-2.jpg" alt="Consultório com calculadora sobre a mesa. O preço da consulta sai da conta da hora, não da tabela do vizinho." width="1200" height="800" fetchpriority="high" decoding="async">
 <figcaption>Consultório com calculadora sobre a mesa. O preço da consulta sai da conta da hora, não da tabela do vizinho.</figcaption></figure>
 <div class="prosa"><p>A hora clínica, que é o custo de manter a estrutura aberta durante sessenta minutos, define o piso de qualquer preço e quase nunca é calculada antes da tabela.</p>
@@ -205,24 +251,40 @@ footer .legal{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-con
 <p>O diagnóstico do MedCEO aponta em cerca de cinco minutos em que estágio a sua operação está e qual dessas contas está drenando mais agora, com a ordem de ataque para a sua realidade. <a href="https://medceo.online/diagnostico">Faça o diagnóstico da sua clínica</a>.</p></div>
 <section class="bloco relacionados" data-section="leitura-relacionada"><h2>Continue por aqui</h2><ul><li><a href="/blog/margem-lucro-clinica-medica">onde a margem some na operação inteira</a></li><li><a href="/blog/parcelamento-clinica-margem">o desconto invisível que entra depois do preço definido</a></li><li><a href="/blog/custo-no-show-clinica">a hora que ninguém ocupou e mesmo assim custou</a></li></ul></section>
 <section class="bloco" data-section="fontes"><h2>Fontes</h2><ul><li>Pesquisa de mercado 8D, leitura por HTTP de 15 posts de gestão de clínicas dos três maiores blogs do nicho, 08/08/2026</li></ul></section>
-<aside class="autor" data-section="assinatura-do-autor">
-<div class="autor__foto"><img src="/assets/medceo/pilar-luciano.jpg" alt="Dr. Luciano Alves Neves" width="1200" height="1600" loading="lazy" decoding="async"></div>
-<div>
-<p class="autor__nome">Dr. Luciano Alves Neves</p>
-<p class="autor__papel">Médico, CEO e fundador da Natuá MedSpa, em Curitiba. Há mais de 17 anos à frente da própria clínica, criou o método MedCEO dentro da operação — com paciente marcado, equipe contratada e decisão que não podia esperar a próxima reunião.</p>
-<p class="autor__links">
-<a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noopener">Instagram · @dr.lucianoalvesneves ↗</a>
-<a href="https://natuamedspa.com.br/" target="_blank" rel="noopener">Natuá MedSpa ↗</a>
-</p>
-</div>
-</aside>
 <section class="cta" data-section="cta-fim-do-post">
 <h2>Onde está o gargalo da sua clínica?</h2>
 <p>Vinte perguntas, cinco minutos. No fim você recebe o nível de maturidade, o gargalo prioritário e três próximos passos. Prefere conversar? Fale direto com o time no WhatsApp.</p>
 <a class="btn" href="/diagnostico">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
-<a class="btn btn--ghost" href="https://wa.me/554184875688?text=Ol%C3%A1%2C+vim+pelo+blog+do+MedCEO+e+quero+falar+com+o+time." target="_blank" rel="noopener">Falar com a gente</a>
+<a class="btn btn--ghost" href="https://wa.me/5541984875688?text=Ol%C3%A1%2C+vim+pelo+blog+do+MedCEO+e+quero+falar+com+o+time." target="_blank" rel="noopener">Falar com a gente</a>
 </section>
-</article></main>
+</article>
+<aside class="lateral" data-section="barra-lateral">
+<section class="lat lat--autor">
+<p class="lat__titulo">Sobre o autor</p>
+<div class="foto"><img src="/assets/medceo/pilar-luciano.jpg" alt="Dr. Luciano Alves Neves" width="1200" height="1600" loading="lazy" decoding="async"></div>
+<p class="nome">Dr. Luciano Alves Neves</p>
+<p class="papel">Médico · CEO · Fundador da Natuá</p>
+<p class="bio">Mais de <b>17 anos</b> à frente da própria clínica, em Curitiba. Cada processo do MedCEO foi testado primeiro na operação dele, com paciente marcado e equipe contratada.</p>
+<a class="lat__botao" href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noopener">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>
+Seguir no Instagram</a>
+</section>
+<section class="lat">
+<p class="lat__titulo">Posts recentes</p>
+<a class="lat__post" href="/blog/agenda-cheia-prejuizo-clinica"><span class="mini"><img src="/blog/capas/DSC00199-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span><span><h3>Agenda cheia esconde prejuízo em 3 sinais que aparecem antes do caixa</h3><time datetime="2026-08-13">13 de agosto de 2026</time></span></a><a class="lat__post" href="/blog/clinica-dependente-do-dono"><span class="mini"><img src="/blog/capas/IMG_0223.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span><span><h3>Clínica dependente do dono trava em 4 pontos quando ele sai da rotina</h3><time datetime="2026-08-13">13 de agosto de 2026</time></span></a><a class="lat__post" href="/blog/custo-no-show-clinica"><span class="mini"><img src="/blog/capas/DSC00208-2.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span><span><h3>Paciente falta e a cadeira vazia cobra 3 custos que ninguém lança na planilha</h3><time datetime="2026-08-12">12 de agosto de 2026</time></span></a>
+</section>
+<section class="lat">
+<p class="lat__titulo">Categorias</p>
+<a class="lat__cat" href="/blog">O dinheiro da clínica<b>5</b></a><a class="lat__cat" href="/blog">Maturidade e dependência do dono<b>4</b></a><a class="lat__cat" href="/blog">Gestão de clínica médica<b>1</b></a>
+</section>
+<section class="lat lat--cta">
+<h2>Diagnóstico <em>gratuito</em><br>da sua clínica</h2>
+<p>Vinte perguntas, cinco minutos. Você sai com o gargalo nomeado e o próximo passo definido.</p>
+<a class="lat__botao" href="/diagnostico">Fazer o diagnóstico</a>
+<a class="lat__botao" href="https://wa.me/5541984875688?text=Ol%C3%A1%2C+vim+pelo+blog+do+MedCEO+e+quero+falar+com+o+time." target="_blank" rel="noopener">Falar com o time</a>
+</section>
+</aside>
+</div></main>
 <footer data-section="rodape">
 <div aria-hidden="true" class="grao"></div>
 <div class="wrap colunas">
@@ -241,7 +303,7 @@ footer .legal{position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-con
   </nav>
   <div class="contato">
     <span class="rotulo">Contato</span>
-    <a href="https://wa.me/554184875688?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20mentoria%21" target="_blank" rel="noreferrer">WhatsApp do time</a>
+    <a href="https://wa.me/5541984875688?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20mentoria%21" target="_blank" rel="noreferrer">WhatsApp do time</a>
     <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">Natuá MedSpa</a>
     <a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noreferrer">Instagram do Dr. Luciano</a>
   </div>
