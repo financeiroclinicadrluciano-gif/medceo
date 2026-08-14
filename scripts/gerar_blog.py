@@ -37,7 +37,7 @@ FONTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 CSS = """
 *,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{margin:0;background:#05070A;background-image:radial-gradient(1100px 620px at 18% -8%,rgba(195,161,78,.09),transparent 62%),radial-gradient(900px 520px at 92% 4%,rgba(120,140,190,.06),transparent 58%);background-attachment:fixed;background-repeat:no-repeat;color:#EAE2CF;font-family:'Poppins',system-ui,sans-serif;font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+body{margin:0;background:#05070A;color:#EAE2CF;font-family:'Poppins',system-ui,sans-serif;font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
 a{color:#D9BE7E;text-decoration:none}
 a:hover{color:#EFE0BB}
 img{display:block;max-width:100%}
@@ -79,13 +79,7 @@ img{display:block;max-width:100%}
    silo quebra em duas — em 360px ele ficava centrado entre as duas linhas. */
 .eyebrow{display:inline-flex;align-items:flex-start;gap:14px;margin:0;max-width:34ch;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.8;letter-spacing:.3em;text-transform:uppercase}
 .eyebrow::before{content:"";flex:0 0 auto;width:32px;height:1px;margin-top:.85em;background:#C3A14E}
-/* Abertura centrada. A capa full width logo abaixo fecha a dobra. */
-.head{text-align:center}
-.head .migalhas,.head .meta{justify-content:center}
-.head .eyebrow{max-width:none;justify-content:center;text-align:left}
-.head .lede{margin-inline:auto}
-.head .capa figcaption{text-align:left}
-h1{margin:20px auto 0;max-width:22ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:300;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
+h1{margin:20px 0 0;max-width:20ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:300;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
 .lede{max-width:62ch;margin:20px 0 0;color:rgba(234,226,207,.72);font-size:16px;line-height:1.75}
 /* listagem */
 .posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:clamp(20px,2.6vw,30px);padding-bottom:clamp(48px,6vh,72px)}
@@ -99,10 +93,10 @@ h1{margin:20px auto 0;max-width:22ch;font-family:'Playfair Display',Georgia,seri
 .card time{color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
 /* artigo */
 article{padding-bottom:clamp(48px,6vh,72px)}
-.capa{max-width:none;margin:clamp(30px,4vh,46px) 0 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
+.capa{max-width:840px;margin:clamp(30px,4vh,46px) auto 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
 .capa img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center;filter:saturate(.86) contrast(1.03)}
 .capa figcaption{padding:14px 20px;background:#080B0F;color:rgba(234,226,207,.62);font-size:13.5px;line-height:1.65}
-.prosa{max-width:70ch;margin-top:clamp(34px,5vh,52px);overflow-wrap:anywhere}
+.prosa{max-width:68ch;margin-top:clamp(34px,5vh,52px);overflow-wrap:anywhere}
 .prosa p{margin:0 0 22px;color:rgba(234,226,207,.78);font-size:16.5px;line-height:1.78}
 .prosa h2{margin:44px 0 16px;max-width:26ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,2.6vw,2rem);font-weight:400;letter-spacing:-.025em;line-height:1.16;color:#F6F3EC}
 .prosa h3{margin:34px 0 12px;max-width:34ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.15rem,1.9vw,1.35rem);font-weight:400;letter-spacing:-.015em;line-height:1.3;color:#EAE2CF}
@@ -125,43 +119,11 @@ article{padding-bottom:clamp(48px,6vh,72px)}
 .prosa th{color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
 .meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin:24px 0 0;color:rgba(234,226,207,.55);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
 /* fontes e leitura relacionada */
-/* A tabela e o unico bloco que pode passar da medida de leitura: ela precisa
-   de largura para nao virar scroll horizontal, e foi assim que ela apareceu
-   cortada no print de 14/08. */
-.prosa .rolagem,.prosa table{max-width:none}
-.prosa table{width:100%}
-.prosa .rolagem{margin-inline:-30px;width:calc(100% + 60px);overflow-x:auto;-webkit-overflow-scrolling:touch}
-.prosa table{border-collapse:collapse;font-size:12.5px}
-.prosa table th,.prosa table td{padding:12px 14px;vertical-align:top;
-  border-bottom:1px solid rgba(234,226,207,.09)}
-.prosa table thead th{position:sticky;top:0;background:rgba(12,16,22,.96);
-  color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:9.5px;
-  letter-spacing:.16em;text-transform:uppercase;text-align:left}
-.prosa table tbody tr:nth-child(even){background:rgba(234,226,207,.028)}
-@media(max-width:719px){.prosa .rolagem{margin-inline:0;width:100%}}
-.bloco{max-width:70ch;margin-top:clamp(40px,5vh,56px);padding-top:26px;border-top:1px solid rgba(195,161,78,.16)}
+.bloco{max-width:68ch;margin-top:clamp(40px,5vh,56px);padding-top:26px;border-top:1px solid rgba(195,161,78,.16)}
 .bloco h2{margin:0 0 16px;color:rgba(195,161,78,.85);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;letter-spacing:.26em;text-transform:uppercase}
 .bloco ul{margin:0;padding:0;list-style:none;display:grid;gap:2px}
 .bloco li{margin:0;color:rgba(234,226,207,.62);font-size:14px;line-height:1.7}
-/* Continue lendo deixa de ser lista de links e vira grade com capa. Link nu
-   no fim do texto quase nao e clicado; capa mais titulo e o padrao que a
-   imprensa usa porque funciona. */
-.bloco.relacionados{max-width:none}
-.relgrid{display:grid;gap:18px;margin-top:24px;list-style:none;padding:0}
-@media(min-width:640px){.relgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.relgrid li{margin:0}
-.relcard{display:grid;gap:12px;overflow:hidden;height:100%;
-  border:1px solid rgba(195,161,78,.16);border-radius:12px;background:rgba(8,11,15,.8);
-  transition:border-color .35s ease,transform .35s cubic-bezier(.16,1,.3,1)}
-.relcard:hover{border-color:rgba(217,190,126,.5);transform:translateY(-3px)}
-.relcard .capinha{aspect-ratio:16/9;overflow:hidden;background:rgba(234,226,207,.05)}
-.relcard .capinha img{width:100%;height:100%;object-fit:cover}
-.relcard .txt{padding:0 16px 18px}
-.relcard .silo{margin:0 0 8px;color:#C3A14E;font-family:'JetBrains Mono',monospace;
-  font-size:8.5px;letter-spacing:.22em;text-transform:uppercase}
-.relcard h3{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:16px;
-  font-weight:400;line-height:1.3;color:#EFE8D8}
-.relcard .tempo{margin:10px 0 0;color:rgba(234,226,207,.5);font-size:12px}
+.bloco.relacionados a{display:block;padding:12px 0;min-height:44px;border-bottom:1px solid rgba(234,226,207,.07);font-size:15px;line-height:1.5}
 /* cta */
 .cta{margin-top:clamp(48px,7vh,72px);padding:clamp(30px,4vw,46px);border:1px solid rgba(195,161,78,.22);border-radius:12px;background:radial-gradient(680px 320px at 18% 0%,rgba(195,161,78,.12),transparent 66%),#080B0F}
 .cta h2{margin:0 0 12px;max-width:24ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:300;letter-spacing:-.03em;line-height:1.14;color:#F6F3EC}
@@ -176,12 +138,6 @@ article{padding-bottom:clamp(48px,6vh,72px)}
    A coluna da direita responde as tres perguntas que o leitor faz depois do
    texto: quem escreveu, o que mais tem para ler e como falar com a gente. */
 .post{display:grid;gap:clamp(30px,4vh,48px)}
-/* A coluna de leitura ganha superficie propria: o texto deixa de flutuar
-   sobre o preto da pagina e passa a ter um papel embaixo dele. */
-.post>article{position:relative;padding:clamp(26px,3vw,44px) clamp(22px,3vw,46px) clamp(34px,4vw,54px);
-  border:1px solid rgba(195,161,78,.13);border-radius:16px;
-  background:linear-gradient(180deg,rgba(18,22,30,.62),rgba(9,12,17,.72))}
-@media(max-width:719px){.post>article{padding-inline:0;border:0;border-radius:0;background:none}}
 @media(min-width:1040px){
   .post{grid-template-columns:minmax(0,1fr) 336px;gap:clamp(38px,4vw,64px);align-items:start}
   .lateral{position:sticky;top:96px}
@@ -399,9 +355,9 @@ def montar_lateral(atual, publicados, por_slug):
 <p class="nome">Dr. Luciano Alves Neves</p>
 <p class="papel">Médico · CEO · Fundador da Natuá</p>
 <p class="bio">Mais de <b>17 anos</b> à frente da própria clínica, em Curitiba. Cada processo do MedCEO foi testado primeiro na operação dele, com paciente marcado e equipe contratada.</p>
-<a class="lat__botao" href="https://www.instagram.com/medico_ceo/" target="_blank" rel="noopener">
+<a class="lat__botao" href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noopener">
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>
-Seguir @medico_ceo</a>
+Seguir no Instagram</a>
 </section>
 <section class="lat">
 <p class="lat__titulo">Posts recentes</p>
@@ -483,7 +439,6 @@ RODAPE = """<footer data-section="rodape">
     <span class="rotulo">Contato</span>
     <a href="https://wa.me/5541984875688?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20mentoria%21" target="_blank" rel="noreferrer">WhatsApp do time</a>
     <a href="https://natuamedspa.com.br/" target="_blank" rel="noreferrer">Natuá MedSpa</a>
-    <a href="https://www.instagram.com/medico_ceo/" target="_blank" rel="noreferrer">Instagram do MedCEO</a>
     <a href="https://www.instagram.com/dr.lucianoalvesneves/" target="_blank" rel="noreferrer">Instagram do Dr. Luciano</a>
   </div>
 </div>
@@ -594,42 +549,11 @@ for p in publicados:
             if a:
                 itens_rel[-1]["ancora"] = limpar_aspas(a.group(1))
     vivos = [i for i in itens_rel if i["slug"] in por_slug and i["slug"] != p["slug"]]
-    # Completa ate 3 sugestoes. Primeiro o que o markdown declarou, depois o mais
-    # recente do mesmo silo, depois qualquer publicado. Fim de post sem proximo
-    # passo de leitura desperdica quem chegou ate o fim.
-    ja = {i["slug"] for i in vivos} | {p["slug"]}
-    silo_atual = limpar_aspas(str(fm.get("silo", "")))
-    candidatos = [q for q in publicados if q["slug"] not in ja]
-    mesmo_silo = [q for q in candidatos
-                  if limpar_aspas(str(q["fm"].get("silo", ""))) == silo_atual]
-    for q in mesmo_silo + [c for c in candidatos if c not in mesmo_silo]:
-        if len(vivos) >= 3:
-            break
-        vivos.append({"slug": q["slug"], "ancora": ""})
-        ja.add(q["slug"])
-
     if vivos:
-        def cartao(i):
-            alvo = por_slug[i["slug"]]
-            fmt = alvo["fm"]
-            # O card usa sempre o titulo do post. A ancora e texto de link no meio
-            # da frase e vira card ilegivel ("o estagio em que a clinica...").
-            titulo_alvo = limpar_aspas(str(fmt.get("titulo", ""))) or i["ancora"]
-            capa_alvo = limpar_aspas(str(fmt.get("imagem_capa", "DSC00192-2.jpg")))
-            silo_alvo = limpar_aspas(str(fmt.get("silo", "")))
-            # 200 palavras por minuto, a mesma regua usada no resto do site
-            minutos = max(1, round(len(alvo["corpo"].split()) / 200))
-            return (
-                f'<li><a class="relcard" href="/blog/{i["slug"]}">'
-                f'<span class="capinha"><img src="/blog/capas/{capa_alvo}" alt="" '
-                f'loading="lazy" decoding="async" width="{CAPA_W}" height="{CAPA_H}"></span>'
-                f'<span class="txt"><span class="silo">{html.escape(silo_alvo)}</span>'
-                f'<h3>{html.escape(titulo_alvo)}</h3>'
-                f'<span class="tempo">{minutos} min de leitura</span></span></a></li>'
-            )
-
-        li = "".join(cartao(i) for i in vivos[:3])
-        relacionados = f'<section class="bloco relacionados" data-section="leitura-relacionada"><h2>Continue lendo</h2><ul class="relgrid">{li}</ul></section>'
+        li = "".join(
+            f'<li><a href="/blog/{i["slug"]}">{html.escape(i["ancora"] or limpar_aspas(por_slug[i["slug"]]["fm"].get("titulo","")))}</a></li>'
+            for i in vivos)
+        relacionados = f'<section class="bloco relacionados" data-section="leitura-relacionada"><h2>Continue por aqui</h2><ul>{li}</ul></section>'
 
     # Fontes: o que está marcado [PENDENTE] não vira texto publicado — vira
     # aviso de build. Fonte incompleta na tela é pior que fonte ausente.
@@ -655,11 +579,11 @@ for p in publicados:
 <h1>{html.escape(titulo)}</h1>
 <p class="lede">{html.escape(dek)}</p>
 <p class="meta"><span>{html.escape(autor)}</span><time datetime="{p['data']}">Publicado em {data_br(str(p['data']))}</time>{f'<span>Atualizado em {data_br(str(fm.get("data_atualizacao")))}</span>' if fm.get("data_atualizacao") and str(fm.get("data_atualizacao")) != str(p["data"]) else ''}</p>
-<figure class="capa"><img src="/blog/capas/{capa}" alt="{html.escape(alt)}" width="{CAPA_W}" height="{CAPA_H}" fetchpriority="high" decoding="async">
-<figcaption>{html.escape(legenda)}</figcaption></figure>
 </div>
 <div class="wrap post">
 <article data-section="corpo-do-post">
+<figure class="capa"><img src="/blog/capas/{capa}" alt="{html.escape(alt)}" width="{CAPA_W}" height="{CAPA_H}" fetchpriority="high" decoding="async">
+<figcaption>{html.escape(legenda)}</figcaption></figure>
 <div class="prosa">{corpo_html}</div>
 {relacionados}
 {bloco_fontes}
@@ -690,7 +614,6 @@ for p in publicados:
         "author": {"@type": "Person", "name": autor,
                    "url": "https://www.instagram.com/dr.lucianoalvesneves/"},
         "publisher": {"@type": "Organization", "name": "MedCEO", "url": SITE,
-                      "sameAs": ["https://www.instagram.com/medico_ceo/"],
                       "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/medceo/logo.png"}},
         "mainEntityOfPage": {"@type": "WebPage", "@id": url},
     }, {
