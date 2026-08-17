@@ -13,7 +13,7 @@ Regra de publicação (mesma do app): só entra `marca: medceo` e só aparece po
 com `data` <= hoje. Post agendado fica fora da listagem, do feed e do sitemap —
 e também fora de qualquer link interno, para não gerar 404.
 """
-import re, json, shutil, html, pathlib, datetime
+import re, json, shutil, html, pathlib, datetime, hashlib
 
 # Caminhos relativos ao repositório: o mesmo script roda na máquina e no CI.
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
@@ -808,6 +808,31 @@ for p in posts:
     if not p["publicado"]:
         print(f"  [agendado] {p['data']}  {p['slug']}")
 print(f"sitemap: {len(urls)} urls | rss: {len(publicados)} itens")
+
+# --------------------------------------------------------------------------
+# versao do site.js na URL
+#
+# O arquivo e servido com sete dias de cache. Com URL fixa, o navegador que ja
+# baixou uma versao continua executando ela mesmo depois do deploy: foi assim
+# que o botao do menu apareceu na tela sem funcionar, porque o HTML chega novo
+# (max-age=0) e o JS nao. A versao vira o hash do conteudo, entao a URL muda
+# sozinha quando o arquivo muda.
+# --------------------------------------------------------------------------
+_js = BUILD / "site.js"
+if not _js.exists():
+    avisos.append("site.js nao encontrado, versao de cache nao carimbada")
+else:
+    _v = hashlib.sha256(_js.read_bytes()).hexdigest()[:10]
+    _tocadas = 0
+    for _pag in BUILD.rglob("*.html"):
+        _t = _pag.read_text(encoding="utf-8")
+        _novo = re.sub(r'src="/site\.js(?:\?v=[^"]*)?"', f'src="/site.js?v={_v}"', _t)
+        if _novo != _t:
+            _pag.write_text(_novo, encoding="utf-8")
+            _tocadas += 1
+    if _tocadas:
+        print(f"site.js?v={_v} carimbado em {_tocadas} pagina(s)")
+
 
 # --------------------------------------------------------------------------
 # dobra do blog na home
