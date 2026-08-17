@@ -814,6 +814,49 @@ for p in posts:
 print(f"sitemap: {len(urls)} urls | rss: {len(publicados)} itens")
 
 # --------------------------------------------------------------------------
+# versao das capas na URL
+#
+# As capas vao com cache de um ano e immutable. Sem versao na URL, trocar a
+# imagem nao chega em quem ja visitou o blog: o navegador nem pergunta. Foi o
+# que aconteceu ao reenquadrar as capas em 17/08, e o mesmo erro do site.js no
+# mesmo dia. A versao e o hash do proprio arquivo, entao a URL acompanha o
+# conteudo.
+# --------------------------------------------------------------------------
+_capas_dir = blog / "capas"
+if not _capas_dir.exists():
+    avisos.append("pasta de capas nao encontrada, versao de cache nao carimbada")
+else:
+    _v = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()[:10]
+          for p in _capas_dir.iterdir() if p.is_file()}
+    _tocadas = 0
+    for _pag in BUILD.rglob("*.html"):
+        _t = _pag.read_text(encoding="utf-8")
+        _novo = _t
+        for _nome, _h in _v.items():
+            _novo = re.sub(
+                r"(/blog/capas/" + re.escape(_nome) + r")(?:\?v=[0-9a-f]+)?",
+                r"\1?v=" + _h, _novo)
+        if _novo != _t:
+            _pag.write_text(_novo, encoding="utf-8")
+            _tocadas += 1
+    # o feed e o sitemap tambem citam capa; xml nao aceita & solto, mas ?v= sim
+    for _xml in [BUILD / "blog" / "feed.xml"]:
+        if not _xml.exists():
+            continue
+        _t = _xml.read_text(encoding="utf-8")
+        _novo = _t
+        for _nome, _h in _v.items():
+            _novo = re.sub(
+                r"(/blog/capas/" + re.escape(_nome) + r")(?:\?v=[0-9a-f]+)?",
+                r"\1?v=" + _h, _novo)
+        if _novo != _t:
+            _xml.write_text(_novo, encoding="utf-8")
+            _tocadas += 1
+    if _tocadas:
+        print(f"capas versionadas por hash em {_tocadas} arquivo(s)")
+
+
+# --------------------------------------------------------------------------
 # versao do site.js na URL
 #
 # O arquivo e servido com sete dias de cache. Com URL fixa, o navegador que ja
