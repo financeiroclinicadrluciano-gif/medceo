@@ -84,11 +84,34 @@
     text-align: left;
     align-items: flex-start;
   }
-  /* o paragrafo de apoio some no celular: ele repete em quatro linhas o que o
-     H1 e os tres beneficios ja dizem, e era o segundo maior consumidor de
-     altura da dobra depois do titulo. No desktop continua. */
+  /* --- HIERARQUIA DE TAMANHO ---------------------------------------------
+     Erro de 17/08 desfeito aqui. O pedido era "diminuir um pouco o tamanho da
+     subdescricao, usar Poppins"; eu apliquei Poppins nos BULLETS e escondi a
+     subdescricao com display:none. Duas leituras erradas do mesmo pedido, e o
+     resultado foi um bloco de bullets pesando mais que o titulo.
+
+     A escala agora e explicita e medida, do maior para o menor:
+       H1            26px   Playfair
+       subdescricao  13px   Poppins
+       bullets     12,5px   Poppins
+
+     O H1 precisa dessa folga porque Playfair 300 e fino, serif e de x-height
+     baixa, enquanto Poppins e geometrica de x-height alta: com 25px contra
+     14px os bullets ainda pareciam maiores que o titulo na tela. Numero igual
+     nao e peso visual igual.
+
+     Os dois levam !important porque a subdescricao e cada <li> tem font-size
+     INLINE: `min(15px, 2.3vh)` e `min(14px, 2.1vh)`. Sem ele a regra e escrita,
+     publicada e ignorada, que foi exatamente como este defeito voltou tres
+     vezes nos pilares. Achado em segundos com porque_nao_aplicou.py. */
   .group-hero__content > p:not(.eyebrow):not([class*=selo]) {
-    display: none;
+    display: block;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(.78rem, 3.3vw, .85rem) !important;
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 42ch;
+    margin-block: clamp(2px, .5vh, 6px);
   }
   .group-hero__content > *,
   .group-hero__content ul,
@@ -108,7 +131,7 @@
      do object-position dos pilares. */
   .group-hero__content h1 {
     max-width: 100% !important;
-    font-size: clamp(1.5rem, 6.4vw, 1.85rem) !important;
+    font-size: clamp(1.62rem, 6.9vw, 2rem) !important;
     line-height: 1.08 !important;
     margin-block: clamp(2px, .5vh, 6px);
   }
@@ -147,7 +170,7 @@
     border-radius: 0 8px 8px 0;
     background: linear-gradient(90deg, rgba(195,161,78,.10), rgba(195,161,78,0) 62%);
     font-family: 'Poppins', system-ui, sans-serif;
-    font-size: clamp(.86rem, 3.7vw, .95rem);
+    font-size: clamp(.75rem, 3.2vw, .82rem) !important;
     font-weight: 300;
     line-height: 1.5;
     letter-spacing: .005em;
