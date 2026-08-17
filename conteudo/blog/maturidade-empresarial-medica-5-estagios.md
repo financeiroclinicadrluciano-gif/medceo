@@ -15,14 +15,14 @@ palavras_alvo: 2600
 imagem_capa: IMG_7115.jpg
 imagem_capa_legenda: Dr. Luciano Alves Neves na clínica em Curitiba. Gestão começa quando a decisão deixa de depender apenas da memória do dono.
 links_internos:
-  - slug: diagnostico-gestao-clinica
-    ancora: como diagnosticar o gargalo antes de agir
+  - slug: medico-modo-automatico
+    ancora: o modo automático e os sinais dele
   - slug: clinica-dependente-do-dono
     ancora: como reduzir a dependência do dono
   - slug: margem-lucro-clinica-medica
     ancora: como calcular a margem da clínica
-  - slug: indicadores-clinica-faixa-referencia
-    ancora: quais indicadores acompanhar
+  - slug: trabalhar-muito-ganhar-pouco
+    ancora: a conta que explica o cansaço
   - slug: custo-hora-clinica
     ancora: como calcular o custo da hora clínica
 elemento_notavel: sistema operacional + plano de 90 dias
@@ -73,7 +73,7 @@ Antes de comprar outra ferramenta, levante um mês fechado e responda:
 | Pessoas | Cada função tem resultado e limite de decisão claros? | Responsável, indicador, rotina e alçada |
 | Governança | A clínica decide por dados em uma cadência definida? | Reunião, pauta, plano de ação e revisão |
 
-O diagnóstico não precisa começar perfeito. Precisa deixar claro o que é dado, o que é cálculo e o que ainda é hipótese. O artigo sobre [como diagnosticar o gargalo antes de agir](/blog/diagnostico-gestao-clinica) mostra a diferença entre receber um rótulo e obter uma ordem de ataque.
+O diagnóstico não precisa começar perfeito. Precisa deixar claro o que é dado, o que é cálculo e o que ainda é hipótese. O artigo sobre [o modo automático e os sinais dele](/blog/medico-modo-automatico) mostra a diferença entre receber um rótulo e obter uma ordem de ataque.
 
 ## Os cinco sistemas de uma clínica bem gerida
 
@@ -130,7 +130,7 @@ As fórmulas acima são definições operacionais. O denominador precisa ser dec
 
 Não publicamos aqui uma faixa “boa” universal porque não há base confiável para afirmar que o mesmo percentual serve para modelos diferentes. A primeira referência honesta é a série da própria clínica: compare os últimos meses com a mesma definição e procure tendência, variação e causa.
 
-O guia sobre [quais indicadores acompanhar](/blog/indicadores-clinica-faixa-referencia) ajuda a montar essa linha de base sem inventar benchmark.
+O guia sobre [a conta que explica trabalhar muito e ganhar pouco](/blog/trabalhar-muito-ganhar-pouco) ajuda a montar essa linha de base sem inventar benchmark.
 
 ## Como criar processos sem burocratizar a clínica
 

@@ -16,8 +16,8 @@ imagem_capa_legenda: Recepção da clínica. A primeira decisão do dia costuma 
 links_internos:
   - slug: clinica-dependente-do-dono
     ancora: as decisões que voltam para a sua mesa
-  - slug: custo-no-show-clinica
-    ancora: o custo de cada falta
+  - slug: clinica-roda-sem-o-dono
+    ancora: o que precisa existir antes de você sumir
   - slug: maturidade-empresarial-medica-5-estagios
     ancora: os cinco estágios e onde a clínica trava
 elemento_notavel: ferramenta de bolso
@@ -88,7 +88,7 @@ Três regras evitam que o bônus vire despesa fixa disfarçada:
 2. **O indicador é do setor, não da clínica inteira.** Meta global premia quem não influenciou e frustra quem influenciou.
 3. **O gatilho é uma faixa, não um número exato.** Faixa evita o efeito de desistir no dia 20 quando o alvo cheio ficou impossível.
 
-O indicador mais barato de começar costuma ser a taxa de falta, porque cada ponto recuperado tem valor calculável e imediato, como está em [o custo de cada falta](/blog/custo-no-show-clinica).
+O indicador mais barato de começar costuma ser a taxa de confirmação, porque cada ponto recuperado tem valor calculável e imediato. A alçada bem escrita é também o que sustenta [a clínica rodando sem você presente](/blog/clinica-roda-sem-o-dono).
 
 ## Contratar não resolve dependência
 

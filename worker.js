@@ -19,6 +19,9 @@ const REDIRECIONAMENTOS = new Map([
   ["/contato", "/#diagnostico"],
   ["/como-funciona", "/#metodo"],
   ["/webinar", "/webnar"],
+  ["/blog/indicadores-clinica-faixa-referencia", "/blog/trabalhar-muito-ganhar-pouco"],
+  ["/blog/diagnostico-gestao-clinica", "/blog/medico-modo-automatico"],
+  ["/blog/custo-no-show-clinica", "/blog/clinica-roda-sem-o-dono"],
 ]);
 
 // Os cabeçalhos de segurança e de cache moram em `site/_headers`: com Static

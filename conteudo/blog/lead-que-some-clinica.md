@@ -14,8 +14,8 @@ palavras_alvo: 1500
 imagem_capa: DSC00202-2.jpg
 imagem_capa_legenda: Recepção da clínica. Entre a primeira mensagem e a cadeira existem quatro pontos onde o paciente desiste.
 links_internos:
-  - slug: custo-no-show-clinica
-    ancora: o custo da cadeira vazia
+  - slug: clinica-roda-sem-o-dono
+    ancora: o que precisa existir antes de você sumir
   - slug: equipe-clinica-medica
     ancora: quem responde por cada frente
   - slug: aumentar-preco-consulta-medica
@@ -85,7 +85,7 @@ Separar a frente de relacionamento da frente de recepção resolve, e não exige
 
 ## O vazamento continua depois do agendamento
 
-Fechar a consulta não encerra o funil. O paciente que marcou e não aparece custa a mesma hora de estrutura que o que nunca ligou, com o agravante de ter bloqueado a vaga de outro. O cálculo desse custo está em [o custo da cadeira vazia](/blog/custo-no-show-clinica), e a confirmação ativa é a continuação natural da cadência descrita aqui.
+Fechar a consulta não encerra o funil. O paciente que marcou e não aparece custa a mesma hora de estrutura que o que nunca ligou, com o agravante de ter bloqueado a vaga de outro. A confirmação ativa é a continuação natural da cadência descrita aqui, e ela precisa acontecer com ou sem você por perto, como em [a clínica rodando sem você presente](/blog/clinica-roda-sem-o-dono).
 
 ## Perguntas frequentes
 

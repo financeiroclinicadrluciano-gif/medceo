@@ -18,8 +18,8 @@ links_internos:
     ancora: onde a margem some na operação inteira
   - slug: parcelamento-clinica-margem
     ancora: o desconto invisível que entra depois do preço definido
-  - slug: custo-no-show-clinica
-    ancora: a hora que ninguém ocupou e mesmo assim custou
+  - slug: clinica-roda-sem-o-dono
+    ancora: o que precisa existir antes de você sumir
 elemento_notavel: valor prático
 fontes:
   - Pesquisa de mercado 8D, leitura por HTTP de 15 posts de gestão de clínicas dos três maiores blogs do nicho, 08/08/2026
@@ -78,7 +78,7 @@ O segundo é sobre o portfólio. Um procedimento que ocupa três horas e um que 
 
 O terceiro é sobre convênio. Renegociar uma tabela sem saber o custo da hora é discutir no escuro. Com o número, a conversa muda de tom, porque existe um piso conhecido abaixo do qual atender gera prejuízo mensurável.
 
-O quarto aparece na conversa com a equipe. Um horário vago deixa de ser um alívio na rotina e vira uma perda com valor conhecido, que é [a hora que ninguém ocupou e mesmo assim custou](/blog/custo-no-show-clinica).
+O quarto aparece na conversa com a equipe. Um horário vago deixa de ser um alívio na rotina e vira uma perda com valor conhecido, que é [o que precisa existir para a clínica rodar sem você](/blog/clinica-roda-sem-o-dono).
 
 ## Preço é decisão de gestão, não de coragem
 

@@ -16,12 +16,12 @@ imagem_capa_legenda: Corredor de espera de clínica em Curitiba. Agenda cheia e 
 links_internos:
   - slug: maturidade-empresarial-medica-5-estagios
     ancora: o estágio em que a clínica costuma travar
-  - slug: indicadores-clinica-faixa-referencia
-    ancora: os indicadores que mostram isso antes do extrato
-  - slug: diagnostico-gestao-clinica
-    ancora: o diagnóstico que separa volume de estrutura
-  - slug: custo-no-show-clinica
-    ancora: a conta da cadeira vazia
+  - slug: trabalhar-muito-ganhar-pouco
+    ancora: a conta que explica o cansaço
+  - slug: medico-modo-automatico
+    ancora: o modo automático e os sinais dele
+  - slug: clinica-roda-sem-o-dono
+    ancora: o que precisa existir antes de você sumir
 elemento_notavel: identificação
 fontes: régua de maturidade empresarial médica do método DOC365, MedCEO, 2026; levantamento interno de 15 conteúdos públicos sobre gestão de clínica lidos por HTTP em 08/08/2026, sem faixa de referência de mercado publicada com metodologia aberta
 ---
@@ -80,7 +80,7 @@ O reflexo natural de quem sente o caixa apertar é investir em captação. Se a 
 
 Esse é [o estágio em que a clínica costuma travar](/blog/maturidade-empresarial-medica-5-estagios), e ele se parece tanto com sucesso que quase ninguém procura ajuda enquanto o faturamento sobe.
 
-A cadeira vazia entra na mesma conta, porque hora reservada e não usada custa exatamente o mesmo que hora ocupada. Quem já mediu a hora clínica consegue fazer [a conta da cadeira vazia](/blog/custo-no-show-clinica) em três linhas.
+A cadeira vazia entra na mesma conta, porque hora reservada e não usada custa exatamente o mesmo que hora ocupada. Quem já mediu a hora clínica consegue fazer [o que precisa existir para a clínica rodar sem você](/blog/clinica-roda-sem-o-dono) em três linhas.
 
 ## O que corrigir primeiro, e em qual ordem
 
@@ -90,7 +90,7 @@ Depois abra a margem por linha de serviço, mesmo que de forma grosseira, com os
 
 Por último, escreva a política de parcelamento antes de a próxima negociação acontecer, com o custo da antecipação embutido no preço da condição longa. Precificar a condição no balcão é a decisão financeira mais cara e menos discutida das clínicas.
 
-Para transformar isso em rotina, vale montar [os indicadores que mostram isso antes do extrato](/blog/indicadores-clinica-faixa-referencia) em um painel semanal. E quando o problema parecer maior que a planilha, existe [o diagnóstico que separa volume de estrutura](/blog/diagnostico-gestao-clinica).
+Para transformar isso em rotina, vale montar [a conta que explica trabalhar muito e ganhar pouco](/blog/trabalhar-muito-ganhar-pouco) em um painel semanal. E quando o problema parecer maior que a planilha, existe [o modo automático e os sinais dele](/blog/medico-modo-automatico).
 
 ## Perguntas frequentes
 

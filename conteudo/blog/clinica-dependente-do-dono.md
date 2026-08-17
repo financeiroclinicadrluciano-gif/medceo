@@ -18,8 +18,8 @@ links_internos:
     ancora: os cinco estágios e o que trava a passagem de cada um
   - slug: agenda-cheia-prejuizo-clinica
     ancora: a agenda lotada que esconde prejuízo
-  - slug: indicadores-clinica-faixa-referencia
-    ancora: medir dependência com número, não com sensação
+  - slug: trabalhar-muito-ganhar-pouco
+    ancora: a conta que explica o cansaço
 elemento_notavel: identificação
 fontes: régua de maturidade empresarial médica do método DOC365, MedCEO, 2026; levantamento interno de 15 conteúdos públicos sobre gestão de clínica lidos por HTTP em 08/08/2026, sem faixa de referência de mercado publicada com metodologia aberta
 ---
@@ -99,7 +99,7 @@ Três medidas resolvem: quanto a receita cai numa semana sem você, quantas deci
 
 O resultado não é uma nota, é um endereço dentro dos [cinco estágios e o que trava a passagem de cada um](/blog/maturidade-empresarial-medica-5-estagios). Saber o endereço muda a próxima decisão de investimento, porque comprar demanda com o gargalo na sua mesa aumenta a fila, não o lucro.
 
-Quem quiser transformar isso em rotina precisa de painel, e painel exige [medir dependência com número, não com sensação](/blog/indicadores-clinica-faixa-referencia), com a fórmula de cada indicador à mostra desde a primeira semana.
+Quem quiser transformar isso em rotina precisa de painel, e painel exige [a conta que explica trabalhar muito e ganhar pouco](/blog/trabalhar-muito-ganhar-pouco), com a fórmula de cada indicador à mostra desde a primeira semana.
 
 ## Perguntas frequentes
 

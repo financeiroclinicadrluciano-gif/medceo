@@ -16,8 +16,8 @@ imagem_capa_legenda: Mesa de trabalho com o fechamento do mês aberto. Parcelame
 links_internos:
   - slug: margem-lucro-clinica-medica
     ancora: as quatro perdas de margem, na ordem em que acontecem
-  - slug: custo-no-show-clinica
-    ancora: outra perda que não aparece no faturamento
+  - slug: clinica-roda-sem-o-dono
+    ancora: o que precisa existir antes de você sumir
   - slug: valuation-clinica-saida-socio
     ancora: o efeito disso no valor da clínica
 elemento_notavel: fato curioso
@@ -83,7 +83,7 @@ A terceira é revisar a taxa da adquirente uma vez por trimestre, com o extrato 
 
 O custo financeiro é uma das quatro perdas que separam o faturamento do que sobra no fim do mês. Quem quiser ver a sequência completa encontra [as quatro perdas de margem, na ordem em que acontecem](/blog/margem-lucro-clinica-medica) com a conta de cada uma.
 
-A mecânica se repete no horário vago. A estrutura corre, a receita não entra, e nada disso aparece na linha de faturamento, o que faz da falta [outra perda que não aparece no faturamento](/blog/custo-no-show-clinica) e some do relatório no mesmo dia.
+A mecânica se repete no horário vago. A estrutura corre, a receita não entra, e nada disso aparece na linha de faturamento, o que faz da falta [o que precisa existir para a clínica rodar sem você](/blog/clinica-roda-sem-o-dono) e some do relatório no mesmo dia.
 
 E o parcelamento reaparece no dia mais caro possível, que é quando alguém coloca preço na clínica. Recebível longo vale menos que dinheiro no mês, e é esse [o efeito disso no valor da clínica](/blog/valuation-clinica-saida-socio) numa negociação de compra ou de saída de sócio.
 

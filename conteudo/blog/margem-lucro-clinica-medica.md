@@ -18,8 +18,8 @@ links_internos:
     ancora: o custo da sua hora, com a conta à mostra
   - slug: parcelamento-clinica-margem
     ancora: o que o parcelamento leva antes de qualquer desconto
-  - slug: custo-no-show-clinica
-    ancora: quanto custa a falta que ninguém lança
+  - slug: clinica-roda-sem-o-dono
+    ancora: o que precisa existir antes de você sumir
   - slug: valuation-clinica-saida-socio
     ancora: o que decide o preço quando um sócio sai
   - slug: maturidade-empresarial-medica-5-estagios
@@ -127,7 +127,7 @@ No caso hipotético, com R$ 1.193 de receita por hora e uma taxa de falta de 12%
 
 O detalhe que muda a conduta é este: reduzir falta de 12% para 8% devolve sete horas produtivas por mês sem contratar ninguém, sem comprar equipamento e sem gastar um real a mais em anúncio.
 
-É por isso que ler [quanto custa a falta que ninguém lança](/blog/custo-no-show-clinica) costuma render mais que a próxima campanha. Recuperar cadeira vazia é margem pura, porque o custo daquela hora já foi pago.
+É por isso que ler [o que precisa existir para a clínica rodar sem você](/blog/clinica-roda-sem-o-dono) costuma render mais que a próxima campanha. Recuperar cadeira vazia é margem pura, porque o custo daquela hora já foi pago.
 
 ## O mix de procedimentos decide a margem antes de qualquer negociação
 
