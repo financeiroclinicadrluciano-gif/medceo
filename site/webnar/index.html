@@ -62,38 +62,71 @@
     min-height: 0 !important;
     padding: 0 0 clamp(30px, 5vh, 46px) !important;
   }
-  /* O pedido foi: "coloque os textos bem quando comeca o degrade". Medido, os
-     textos comecavam em 308px e o degrade em 127px, ou seja 181px depois, ja
-     quase no fim da foto: a faixa escura ficava vazia e tudo era empurrado
-     para baixo, deixando o hero com 1179px, 1,4 tela. A foto encolhe para
-     36svh (era 42) e o conteudo sobe para dentro do degrade. A area limpa
-     que sobra cobre os tres rostos, que ocupam o terco de cima do arquivo.
+  /* Layout do hero conforme a referencia que o Gustavo mandou em 17/08 (a
+     landing do Dr. Thiago Salerno): FOTO em cima ocupando cerca de um terco da
+     tela, o degrade fechando a base dela, e SO DEPOIS as informacoes, todas
+     centralizadas, sem nada sobrepondo os rostos.
 
-     O ponto de pouso e onde o degrade JA ESCURECEU, nao onde ele comeca. A
-     primeira tentativa subiu o texto ate 127px, o inicio literal do degrade, e
-     o logo caiu em cima dos rostos, ilegivel. O gradiente atinge 90% de
-     opacidade em 52% da propria altura, o que da ~214px numa foto de 304px: e
-     ali que o texto pousa. */
+     As duas tentativas anteriores erraram o ponto de pouso em direcoes
+     opostas: a primeira deixou os textos a 308px numa foto de 354px, com a
+     faixa escura vazia e o hero em 1,40 tela; a segunda subiu ate 127px, o
+     inicio literal do degrade, e jogou o logo em cima dos rostos. Aqui o
+     conteudo comeca no fim do degrade, que e o que a referencia mostra, e a
+     unica sobreposicao e a de 16px que costura a foto ao texto. */
   .group-hero > [data-hero-foto] {
     position: relative !important;
     z-index: 0 !important;
     display: block;
-    height: 36svh;
-    min-height: 240px;
+    height: 34svh;
+    min-height: 230px;
+    max-height: 320px;
   }
   .group-hero > [data-hero-foto]::after {
     content: "";
     position: absolute;
     inset: auto 0 0 0;
-    height: 62%;
-    background: linear-gradient(180deg, rgba(5,7,10,0), rgba(5,7,10,.9) 52%, #05070A 100%);
+    height: 58%;
+    background: linear-gradient(180deg, rgba(5,7,10,0), rgba(5,7,10,.92) 58%, #05070A 100%);
   }
   .group-hero__content {
     position: relative;
     z-index: 2;
-    margin-top: max(-10.5svh, -96px);
-    padding-inline: 22px;
-    gap: 12px !important;
+    margin-top: -16px;
+    padding-inline: 24px;
+    gap: 14px !important;
+    text-align: center;
+    align-items: center;
+  }
+  /* a referencia centraliza tudo, inclusive a lista de bullets e o tracinho
+     do eyebrow, que por padrao ficam alinhados a esquerda */
+  .group-hero__content > *,
+  .group-hero__content ul,
+  .group-hero__content li {
+    margin-inline: auto;
+    text-align: center;
+  }
+  .group-hero__content li {
+    padding-left: 0;
+    max-width: 34ch;
+  }
+  /* o tracinho do eyebrow e o losango dos bullets sao <span aria-hidden> reais
+     no HTML, com estilo inline, nao pseudo-elementos: por isso a primeira
+     tentativa, que mirava ::before e ::marker, nao surtiu efeito nenhum.
+     Com o texto centralizado eles ficam soltos a esquerda, longe da frase que
+     marcam. Somem no celular; no desktop continuam. */
+  .group-hero__content p > span[aria-hidden="true"],
+  .group-hero__content li > span[aria-hidden="true"] {
+    display: none !important;
+  }
+  .group-hero__content ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .group-hero__content li {
+    justify-content: center;
+  }
+  .group-hero__content p:has(> span[aria-hidden="true"]) {
+    justify-content: center;
   }
 }
 /* <<< hero-mobile-webnar */

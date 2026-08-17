@@ -818,8 +818,8 @@ html.js:not(.motion-ready) .fcard li {
     max-width: 300px;
     margin-inline: auto;
     height: auto;
-    aspect-ratio: 2 / 3;
-    max-height: 48svh;
+    aspect-ratio: 29 / 50;
+    max-height: 58svh;
   }
   .pro__moldura img {
     width: 100%;
@@ -916,63 +916,19 @@ html.js:not(.motion-ready) .fcard li {
 
 /* >>> mobile-rodada3 (gerado, nao editar a mao) */
 @media (max-width: 899px) {
-
-  /* --- ESCADA FORA DO CELULAR -------------------------------------------
-     Decisao do Gustavo em 17/08: a dobra sai do mobile e continua no desktop.
-     Duas tentativas de fazer a escada funcionar em 390px (recuo escalonado e
-     inversao da ordem) deixaram o desenho legivel, mas a figura precisa de
-     largura para ler como escada e no celular ela concorre com o texto.
-     Nada e apagado: e display:none dentro do @media, o desktop segue igual. */
+  /* A escada sai do celular por decisao do Gustavo em 17/08 e continua no
+     desktop: a figura precisa de largura para ler como escada, e em 390px ela
+     concorre com o texto. Nada e apagado, e display:none dentro do @media. */
   #esteira {
     display: none;
   }
 
-  /* --- QUEM CONDUZ: a foto vira imagem, nao papel de parede --------------
-     No desktop o retrato do Dr. Luciano e fundo com veu por cima, o que
-     funciona numa tela larga: o texto ocupa a esquerda e o rosto sobra a
-     direita. Em 390px o veu cobre a coluna inteira e a foto vira uma sombra
-     atras do texto, que foi o que o Gustavo viu.
-
-     No celular o mesmo div entra em fluxo como uma faixa no topo da dobra.
-     A caixa e 4/3, nao 16/9: o arquivo tem 1920x1080, exatamente 16/9, e numa
-     caixa de mesma proporcao o cover nao deixa NENHUMA sobra para deslocar,
-     entao background-position vira letra morta e a foto entra inteira, com o
-     Dr. Luciano pequeno no canto direito e metade do quadro em fundo azul
-     vazio. Foi exatamente o que a primeira tentativa produziu.
-
-     Com 4/3 a largura escalada vai a 520px numa caixa de 390, e os 130px de
-     sobra permitem empurrar o enquadramento para 76%, onde esta o rosto. */
-  #quem.quem {
-    display: block;
-    min-height: 0;
-    padding-top: 0;
-    /* o header e fixo com 61px: quem chega por ancora (o menu e o rodape
-       linkam /#quem) parava com a barra em cima do rosto. scroll-margin so age
-       na navegacao por ancora, entao nao cria vao na rolagem normal. */
+  /* O header e fixo com 61px e o menu e o rodape linkam /#quem: quem chegava
+     por ancora parava com a barra em cima do rosto do Dr. Luciano.
+     scroll-margin so age na navegacao por ancora, entao nao cria vao na
+     rolagem normal. */
+  #quem {
     scroll-margin-top: 76px;
   }
-  #quem .quem__bg {
-    position: relative;
-    z-index: 0;
-    inset: auto;
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    max-height: 46svh;
-    background-position: 76% center;
-    opacity: 1;
-    margin-bottom: clamp(22px, 3.4vh, 34px);
-    transform: none !important;
-  }
-  /* o veu e o grao existem para dar contraste ao texto sobre a foto; sem foto
-     atras do texto eles so escurecem a secao inteira sem funcao */
-  #quem .quem__veil,
-  #quem .quem__grain {
-    display: none;
-  }
-  #quem .env {
-    padding-inline: 22px;
-  }
-
 }
 /* <<< mobile-rodada3 */
