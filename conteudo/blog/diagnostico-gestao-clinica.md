@@ -1,5 +1,5 @@
 ---
-titulo: "Você respondeu o quiz, recebeu um nível e na segunda não mudou nada"
+titulo: "Diagnóstico de gestão para clínica: os 4 números que o quiz não devolve"
 seo_title: "Diagnóstico de gestão para clínica médica: o que ele mede | MedCEO"
 slug: diagnostico-gestao-clinica
 marca: medceo

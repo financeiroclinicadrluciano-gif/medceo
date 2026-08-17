@@ -1,5 +1,5 @@
 ---
-titulo: "A cadeira vazia cobra 3 vezes, e nenhuma delas entra na sua planilha"
+titulo: "Custo do no-show em clínica: os 3 valores que a sua planilha não mostra"
 seo_title: "Taxa de no-show em clínica: como calcular o custo real da falta | MedCEO"
 slug: custo-no-show-clinica
 marca: medceo

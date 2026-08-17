@@ -1,5 +1,5 @@
 ---
-titulo: "O 12x que você oferece custa mais caro que o desconto que você recusou"
+titulo: "Custo do parcelamento na clínica: por que o 12x sai mais caro que o desconto"
 seo_title: "Custo do parcelamento em clínica: a conta da antecipação | MedCEO"
 slug: parcelamento-clinica-margem
 marca: medceo

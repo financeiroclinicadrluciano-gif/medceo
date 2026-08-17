@@ -1,5 +1,5 @@
 ---
-titulo: "Sua agenda está cheia e a sobra caiu: os 3 sinais que vêm antes"
+titulo: "Agenda cheia e caixa magro: os 3 sinais que aparecem antes do prejuízo"
 seo_title: "Agenda cheia e prejuízo na clínica: 3 sinais antes do caixa apertar | MedCEO"
 slug: agenda-cheia-prejuizo-clinica
 marca: medceo

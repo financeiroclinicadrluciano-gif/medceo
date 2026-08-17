@@ -1,5 +1,5 @@
 ---
-titulo: "Toda clínica passa por 5 estágios e quase nenhuma sai do segundo"
+titulo: "Gestão de clínica médica: os 5 estágios e onde quase toda clínica trava"
 seo_title: "Gestão de clínica médica: guia dos 5 estágios de maturidade | MedCEO"
 slug: maturidade-empresarial-medica-5-estagios
 marca: medceo

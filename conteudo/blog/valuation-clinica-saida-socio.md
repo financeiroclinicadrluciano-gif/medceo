@@ -1,5 +1,5 @@
 ---
-titulo: "Se você parar de atender amanhã, quanto vale a sua clínica?"
+titulo: "Valuation de clínica médica: quanto vale a sua se você parar de atender"
 seo_title: "Valuation de clínica médica e saída de sócio: como preparar | MedCEO"
 slug: valuation-clinica-saida-socio
 marca: medceo

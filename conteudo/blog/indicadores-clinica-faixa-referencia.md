@@ -1,5 +1,5 @@
 ---
-titulo: "Você mede ocupação e no-show, mas sabe dizer se o número está bom?"
+titulo: "Indicadores de clínica médica: as fórmulas e como saber se o número está bom"
 seo_title: "Indicadores de clínica médica: fórmulas e faixas de referência | MedCEO"
 slug: indicadores-clinica-faixa-referencia
 marca: medceo

@@ -1,5 +1,5 @@
 ---
-titulo: "Faturou o dobro e sobrou menos: os 4 pontos onde a margem vaza"
+titulo: "Margem de lucro da clínica: os 4 pontos onde o dinheiro vaza sem aparecer"
 seo_title: "Margem de lucro em clínica médica: as 4 perdas e como medir | MedCEO"
 slug: margem-lucro-clinica-medica
 marca: medceo

@@ -1,5 +1,5 @@
 ---
-titulo: "Tire uma semana de férias e descubra em 4 pontos quem sustenta a clínica"
+titulo: "Clínica que depende do dono: os 4 pontos que travam na sua primeira semana fora"
 seo_title: "Clínica dependente do dono: os 4 pontos que travam sem você | MedCEO"
 slug: clinica-dependente-do-dono
 marca: medceo

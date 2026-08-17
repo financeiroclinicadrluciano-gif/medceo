@@ -1,5 +1,5 @@
 ---
-titulo: "Você precifica a consulta sem saber quanto custa uma hora de porta aberta"
+titulo: "Como calcular a hora clínica: a conta que muda o preço da sua consulta"
 seo_title: "Como calcular a hora clínica: fórmula e exemplo passo a passo | MedCEO"
 slug: custo-hora-clinica
 marca: medceo
