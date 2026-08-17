@@ -57,48 +57,28 @@
 }
 /* >>> hero-mobile-webnar (gerado, nao editar a mao) */
 @media (max-width: 899px) {
+  /* Foto fora do hero no celular, decisao do Gustavo em 17/08 depois de tres
+     tentativas de enquadramento que ele reprovou no aparelho. So no celular:
+     no desktop o hero segue com a imagem, onde ela sempre funcionou porque o
+     texto ocupa a esquerda e o grupo sobra a direita.
+     Para trazer de volta, apagar o display:none abaixo. */
+  .group-hero > [data-hero-foto] {
+    display: none !important;
+  }
   .group-hero {
     display: block !important;
     min-height: 0 !important;
-    padding: 0 0 clamp(30px, 5vh, 46px) !important;
-  }
-  /* Layout do hero conforme a referencia que o Gustavo mandou em 17/08 (a
-     landing do Dr. Thiago Salerno): FOTO em cima ocupando cerca de um terco da
-     tela, o degrade fechando a base dela, e SO DEPOIS as informacoes, todas
-     centralizadas, sem nada sobrepondo os rostos.
-
-     As duas tentativas anteriores erraram o ponto de pouso em direcoes
-     opostas: a primeira deixou os textos a 308px numa foto de 354px, com a
-     faixa escura vazia e o hero em 1,40 tela; a segunda subiu ate 127px, o
-     inicio literal do degrade, e jogou o logo em cima dos rostos. Aqui o
-     conteudo comeca no fim do degrade, que e o que a referencia mostra, e a
-     unica sobreposicao e a de 16px que costura a foto ao texto. */
-  .group-hero > [data-hero-foto] {
-    position: relative !important;
-    z-index: 0 !important;
-    display: block;
-    height: 34svh;
-    min-height: 230px;
-    max-height: 320px;
-  }
-  .group-hero > [data-hero-foto]::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 58%;
-    background: linear-gradient(180deg, rgba(5,7,10,0), rgba(5,7,10,.92) 58%, #05070A 100%);
+    padding: clamp(26px, 4vh, 40px) 0 clamp(30px, 5vh, 46px) !important;
   }
   .group-hero__content {
     position: relative;
     z-index: 2;
-    margin-top: -16px;
+    margin-top: 0;
     padding-inline: 24px;
     gap: 14px !important;
     text-align: center;
     align-items: center;
   }
-  /* a referencia centraliza tudo, inclusive a lista de bullets e o tracinho
-     do eyebrow, que por padrao ficam alinhados a esquerda */
   .group-hero__content > *,
   .group-hero__content ul,
   .group-hero__content li {
@@ -108,12 +88,11 @@
   .group-hero__content li {
     padding-left: 0;
     max-width: 34ch;
+    justify-content: center;
   }
   /* o tracinho do eyebrow e o losango dos bullets sao <span aria-hidden> reais
-     no HTML, com estilo inline, nao pseudo-elementos: por isso a primeira
-     tentativa, que mirava ::before e ::marker, nao surtiu efeito nenhum.
-     Com o texto centralizado eles ficam soltos a esquerda, longe da frase que
-     marcam. Somem no celular; no desktop continuam. */
+     com estilo inline, nao pseudo-elementos: com o texto centralizado eles
+     ficam soltos a esquerda, longe da frase que marcam */
   .group-hero__content p > span[aria-hidden="true"],
   .group-hero__content li > span[aria-hidden="true"] {
     display: none !important;
@@ -121,12 +100,6 @@
   .group-hero__content ul {
     list-style: none;
     padding-left: 0;
-  }
-  .group-hero__content li {
-    justify-content: center;
-  }
-  .group-hero__content p:has(> span[aria-hidden="true"]) {
-    justify-content: center;
   }
 }
 /* <<< hero-mobile-webnar */

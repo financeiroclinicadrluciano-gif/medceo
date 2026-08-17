@@ -814,19 +814,27 @@ html.js:not(.motion-ready) .fcard li {
      e encolhe para 76% da coluna para o card caber na tela: 269x403 em vez de
      354x443, mais baixo que antes E com a cabeca inteira. */
   .pro__moldura {
-    width: 76%;
-    max-width: 300px;
+    width: 88%;
+    max-width: 340px;
     margin-inline: auto;
     height: auto;
-    aspect-ratio: 29 / 50;
-    max-height: 58svh;
+    aspect-ratio: 4 / 5;
+    max-height: 42svh;
   }
+  /* !important e a unica forma de vencer aqui: cada <img> dos pilares tem
+     object-position INLINE proprio (50% 24%, 50% 18%, 50% 16%...), calibrado
+     para o enquadramento antigo, e estilo inline ganha de qualquer regra de
+     arquivo. Por isso o `center top` que escrevi nas rodadas anteriores nunca
+     aplicou, e o Gustavo continuou vendo a cabeca cortada tres vezes seguidas,
+     enquanto minha medicao dizia "corte 0" porque media o corte TOTAL, nao o
+     corte no topo. Medido com os valores inline: 44px comidos do topo na foto
+     do Dr. Luciano, 40px na do Marcos, 25px a 32px nas demais. */
   .pro__moldura img {
     width: 100%;
     height: 100%;
     aspect-ratio: auto;
     object-fit: cover;
-    object-position: center top;
+    object-position: center top !important;
   }
 
   /* --- ESPACAMENTO: texto encostando na foto -----------------------------
