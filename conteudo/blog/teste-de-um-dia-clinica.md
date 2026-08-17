@@ -11,8 +11,8 @@ dek: Dependência do dono costuma ser discutida como sensação. Um dia de obser
 data: 2026-08-16
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1450
-imagem_capa: DSC00206.jpg
-imagem_capa_legenda: Consultório da clínica. O que trava quando o dono não decide aparece em menos de um dia.
+imagem_capa: IMG_7667.jpg
+imagem_capa_legenda: Clínica em Curitiba. O teste de um dia mostra quais decisões só existem porque o dono está presente.
 links_internos:
   - slug: clinica-dependente-do-dono
     ancora: os quatro pontos que travam sem você

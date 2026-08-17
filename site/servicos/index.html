@@ -834,6 +834,10 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
    grandes colados viram buraco. Aqui os dois encolhem para 104 no total,
    e so nesta transicao: o espacamento do resto do site nao muda. */
 .svc-lista + .sec{padding-top:clamp(40px,6vh,60px)}
+/* O indice de atalhos serve no desktop e no celular vira sete retangulos
+   vazios entre o titulo e o conteudo, empurrando para baixo o que a pessoa
+   veio ler. */
+@media(max-width:899px){.svc-indice{display:none}}
 .svc-lista .env{display:grid;gap:clamp(16px,2vh,24px)}
 .svc-card{display:grid;gap:clamp(18px,2.4vw,32px);align-items:center;
   padding:clamp(18px,2.2vw,28px);border:1px solid rgba(234,226,207,.12);border-radius:18px;
@@ -937,7 +941,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
       <div class="env">
       <article class="svc-card" id="webnar" data-reveal="">
         <figure class="svc-card__foto">
-          <img src="/assets/medceo/servicos/aulas-semanais.jpg" alt="Dr. Luciano Alves Neves conduzindo o encontro semanal aberto do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
+          <img src="/assets/medceo/servicos/aulas-semanais.jpg?v=b69e4df091" alt="Dr. Luciano Alves Neves conduzindo o encontro semanal aberto do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
         </figure>
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo">Gratuito</span><span class="svc-card__chapeu">Encontro online aberto, toda semana</span></p>
@@ -954,7 +958,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <article class="svc-card" id="medmanager" data-reveal="">
         <figure class="svc-card__foto">
-          <img src="/assets/medceo/servicos/medmanager.jpg" alt="Time do MedCEO responsável pela formação executiva do MedManager." width="1080" height="1080" loading="lazy" decoding="async" />
+          <img src="/assets/medceo/servicos/medmanager.jpg?v=2d7cb9da18" alt="Time do MedCEO responsável pela formação executiva do MedManager." width="1080" height="1080" loading="lazy" decoding="async" />
         </figure>
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo">Formação</span><span class="svc-card__chapeu">Curso completo com as aulas de todos os pilares</span></p>
@@ -971,7 +975,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <article class="svc-card" id="medscale" data-reveal="">
         <figure class="svc-card__foto">
-          <img src="/assets/medceo/servicos/medscale.jpg" alt="Time do MedCEO que conduz o MedScale." width="1080" height="1080" loading="lazy" decoding="async" />
+          <img src="/assets/medceo/servicos/medscale.jpg?v=0a0e2bf120" alt="Time do MedCEO que conduz o MedScale." width="1080" height="1080" loading="lazy" decoding="async" />
         </figure>
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo">6 meses</span><span class="svc-card__chapeu">O MedCEO conduzido em meio período</span></p>
@@ -988,7 +992,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <article class="svc-card svc-card--destaque" id="medceo" data-reveal="">
         <figure class="svc-card__foto">
-          <img src="/assets/medceo/servicos/medceo.jpg" alt="Dr. Luciano Alves Neves e o time dos seis pilares do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
+          <img src="/assets/medceo/servicos/medceo.jpg?v=a44dbe4d00" alt="Dr. Luciano Alves Neves e o time dos seis pilares do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
         </figure>
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo svc-card__selo--forte">Mais procurado</span><span class="svc-card__chapeu">Mentoria de 12 meses, o produto principal</span></p>
@@ -1005,7 +1009,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <article class="svc-card" id="medlab" data-reveal="">
         <figure class="svc-card__foto">
-          <img src="/assets/medceo/servicos/medlab.jpg" alt="Imersão presencial MedLab, de três dias, com o time do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
+          <img src="/assets/medceo/servicos/medlab.jpg?v=35017b42cc" alt="Imersão presencial MedLab, de três dias, com o time do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
         </figure>
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo">Presencial</span><span class="svc-card__chapeu">Imersão presencial de três dias</span></p>
@@ -1022,7 +1026,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <article class="svc-card" id="individual" data-reveal="">
         <figure class="svc-card__foto">
-          <img src="/assets/medceo/servicos/mentoria-individual.jpg" alt="Dr. Luciano Alves Neves, que conduz a mentoria individual." width="1080" height="1080" loading="lazy" decoding="async" />
+          <img src="/assets/medceo/servicos/mentoria-individual.jpg?v=7c7e4eac71" alt="Dr. Luciano Alves Neves, que conduz a mentoria individual." width="1080" height="1080" loading="lazy" decoding="async" />
         </figure>
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo">Ultra premium</span><span class="svc-card__chapeu">Acompanhamento individual com o Dr. Luciano</span></p>
@@ -1039,7 +1043,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
       <article class="svc-card" id="consultorias" data-reveal="">
         <figure class="svc-card__foto">
-          <img src="/assets/medceo/servicos/medceo.jpg" alt="Time responsável pelas consultorias por pilar do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
+          <img src="/assets/medceo/servicos/medceo.jpg?v=a44dbe4d00" alt="Time responsável pelas consultorias por pilar do MedCEO." width="1080" height="1080" loading="lazy" decoding="async" />
         </figure>
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo">Por pilar</span><span class="svc-card__chapeu">Marketing, Comercial, Gestão e Mentalidade CEO</span></p>

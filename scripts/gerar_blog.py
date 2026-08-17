@@ -120,9 +120,18 @@ h1{margin:20px 0 0;max-width:20ch;font-family:'Playfair Display',Georgia,serif;f
 .card time{color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
 /* artigo */
 article{padding-bottom:clamp(48px,6vh,72px)}
-.capa{max-width:680px;margin:clamp(30px,4vh,46px) auto 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
+/* A capa usava 680px centrada enquanto a coluna de leitura usa 68ch: duas
+   larguras diferentes, centradas de formas diferentes, e a imagem nunca
+   comecava onde o texto comeca. Agora ela herda a largura da prosa e alinha
+   pela esquerda, como o resto do artigo. */
+.capa{max-width:68ch;margin:clamp(30px,4vh,46px) 0 0;border-radius:12px;overflow:hidden;border:1px solid rgba(195,161,78,.16)}
 .capa img{display:block;width:100%;height:auto;filter:saturate(.86) contrast(1.03)}
 .capa figcaption{padding:14px 20px;background:#080B0F;color:rgba(234,226,207,.62);font-size:13.5px;line-height:1.65}
+/* No post de fundo claro o #080B0F virava uma tarja preta grudada embaixo de
+   uma foto clara. Aqui ela vira continuacao da pagina, separada por filete. */
+body.claro .capa figcaption{background:transparent;color:rgba(23,20,13,.62);
+  padding:12px 2px 0;border-top:1px solid rgba(23,20,13,.1)}
+body.claro .capa{border-color:rgba(23,20,13,.12);border-radius:12px 12px 0 0}
 .prosa{max-width:68ch;margin-top:clamp(34px,5vh,52px);overflow-wrap:anywhere}
 .prosa p{margin:0 0 22px;color:rgba(234,226,207,.78);font-size:16.5px;line-height:1.78}
 .prosa h2{margin:44px 0 16px;max-width:26ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,2.6vw,2rem);font-weight:400;letter-spacing:-.025em;line-height:1.16;color:#F6F3EC}

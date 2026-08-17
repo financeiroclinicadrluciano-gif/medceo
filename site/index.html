@@ -432,6 +432,10 @@ html:not(.js) .atlas__slides{gap:clamp(48px,7vh,88px);padding-block:clamp(36px,5
    profissional caber inteiro na dobra — se sobrar altura, sobra corte. */
 @media(max-width:699px){
   .atlas__stage{padding-block:10px}
+  /* Retrato 933x1400 exibido com 167px de altura fica esmagado e o rosto
+     some. No celular a foto ganha proporcao propria, ancorada no alto. */
+  .atlas__slides img,.atlas__stage img{width:100%;height:auto;aspect-ratio:4/5;
+    object-fit:cover;object-position:center 18%}
   .pro{gap:14px;align-content:center}
   /* Altura fixa em vez de proporcao: com max-height a moldura encolhia a
      largura junto e a foto virava um selo no canto esquerdo. */
@@ -458,6 +462,15 @@ html:not(.js) .atlas__slides{gap:clamp(48px,7vh,88px);padding-block:clamp(36px,5
 /* ---------- alem do numero (chart) ---------- */
 .alem{overflow:hidden;isolation:isolate;border-top:1px solid rgba(195,161,78,.12);background:var(--bg2)}
 .alem__split{display:grid;grid-template-columns:1fr;align-items:stretch}
+/* No DOM o video vem antes do texto, o que no desktop e certo e no celular
+   entrega um video sem contexto. `order` inverte so na coluna unica, sem
+   tocar no HTML nem no layout de duas colunas. */
+@media(max-width:899px){
+  .alem__text{order:-1;padding-block:clamp(26px,4vh,38px) clamp(14px,2vh,20px);
+    gap:clamp(12px,1.6vh,18px)}
+  .alem__media{min-height:0;aspect-ratio:16/10}
+  .alem__media--video{aspect-ratio:16/9}
+}
 @media(min-width:900px){.alem__split{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}}
 .alem__media{position:relative;margin:0;min-height:clamp(300px,42vh,520px);overflow:hidden}
 .alem__media img{position:absolute;inset:-4% 0;width:100%;height:108%;object-fit:cover;object-position:center 24%;
@@ -772,9 +785,26 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 
 /* Abaixo de 1040px a escada deita: vira lista, que e o que cabe num polegar. */
 @media(max-width:1039px){
-  .escada2{grid-template-columns:1fr;gap:1px;background:rgba(107,83,32,.18)}
-  .deg{height:auto!important;padding:18px 20px;border:0;border-left:2px solid var(--gold)}
-  .deg__n{margin-bottom:8px}
+  /* Seis blocos iguais empilhados nao comunicam progressao, e o gradiente
+     claro por baixo do nome deixava o texto quase ilegivel. Vira escada: trilho
+     vertical, marcador numerado e recuo crescente, o mesmo desenho aprovado no
+     bloco de niveis da dobra do diagnostico. */
+  .escada2{position:relative;grid-template-columns:1fr;grid-auto-rows:min-content;
+    align-items:start;gap:0;background:transparent;padding-left:34px}
+  .escada2::before{content:"";position:absolute;left:13px;top:14px;bottom:18px;width:1px;
+    background:linear-gradient(180deg,rgba(107,83,32,.2),rgba(107,83,32,.75))}
+  .deg{height:auto!important;padding:13px 4px 13px 0;border:0;background:none;overflow:visible;
+    display:grid;grid-template-columns:1fr auto;align-items:baseline;column-gap:12px}
+  .deg::before,.deg::after{display:none}
+  .deg+.deg{border-top:1px solid rgba(107,83,32,.14)}
+  .deg__n{position:absolute;left:-34px;top:11px;margin:0;display:grid;place-items:center;
+    width:27px;height:27px;border-radius:50%;background:var(--ivory);
+    border:1px solid rgba(107,83,32,.4);color:#6B5320;font-size:8px}
+  .deg:nth-child(4) .deg__n{border-color:rgba(107,83,32,.62)}
+  .deg:nth-child(5) .deg__n{border-color:rgba(107,83,32,.8)}
+  .deg:last-child .deg__n{border-color:transparent;background:var(--gold);color:#120E06;font-weight:500}
+  .deg__nome{grid-column:1;font-size:1.06rem;line-height:1.2}
+  .deg__f{grid-column:2;margin:0;text-align:right;white-space:nowrap;align-self:center}
   .deg__d{font-size:12.5px}
 }
 
