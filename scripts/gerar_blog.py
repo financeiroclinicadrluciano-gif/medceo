@@ -164,7 +164,11 @@ article{padding-bottom:clamp(48px,6vh,72px)}
 /* ---- post em duas colunas: texto a esquerda, contexto a direita --------
    A coluna da direita responde as tres perguntas que o leitor faz depois do
    texto: quem escreveu, o que mais tem para ler e como falar com a gente. */
-.post{display:grid;gap:clamp(30px,4vh,48px)}
+/* O padding-bottom nao e decoracao: sem ele o ultimo botao do post encosta
+   no rodape, e a pagina salta de creme para preto no pixel seguinte. Ele
+   tambem absorve a diferenca de altura entre as duas colunas, que a 1440px
+   media 48px e formava um degrau exatamente sobre essa linha. */
+.post{display:grid;gap:clamp(30px,4vh,48px);padding-bottom:clamp(56px,8vh,104px)}
 @media(min-width:1040px){
   .post{grid-template-columns:minmax(0,1fr) 336px;gap:clamp(38px,4vw,64px);align-items:start}
   .lateral{position:sticky;top:96px}
