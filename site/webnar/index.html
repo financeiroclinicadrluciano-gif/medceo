@@ -79,7 +79,7 @@
     position: relative;
     z-index: 2;
     margin-top: 0;
-    padding-inline: 22px;
+    padding-inline: 15px;
     gap: clamp(6px, .9vh, 10px) !important;
     text-align: left;
     align-items: flex-start;
@@ -96,9 +96,20 @@
     margin-inline: 0;
     text-align: left;
   }
+  /* O H1 vinha com max-width:16ch INLINE. As tres frases foram escritas para
+     ocupar tres linhas ("Uma aula por semana" / "sobre a parte que a" /
+     "faculdade nao ensinou."), mas 16ch e estreito demais para a primeira e a
+     terceira, que quebravam no meio e viravam CINCO linhas tortas. Cada bloco
+     e um <span display:block> proprio, entao o max-width age dentro de cada um.
+
+     O font-size tambem e inline (min(clamp(2.2rem,...), 7.4vh)) e vencia a
+     minha regra: eu pedia 28px e o computado saia 35,2px, largo demais para
+     "faculdade nao ensinou." caber em 360px. Dai o !important, mesma armadilha
+     do object-position dos pilares. */
   .group-hero__content h1 {
-    font-size: clamp(1.75rem, 7.6vw, 2.2rem);
-    line-height: 1.04;
+    max-width: 100% !important;
+    font-size: clamp(1.5rem, 6.4vw, 1.85rem) !important;
+    line-height: 1.08 !important;
     margin-block: clamp(2px, .5vh, 6px);
   }
   .group-hero__content p {
@@ -126,11 +137,20 @@
     display: grid;
     gap: clamp(6px, .9vh, 10px);
   }
+  /* Poppins e corpo menor na subdescricao dos bullets: o texto vinha na fonte
+     do corpo em 16,5px e competia com o titulo. A familia ja e carregada pelo
+     site (Playfair para titulo, Poppins para texto, JetBrains Mono para
+     rotulo), entao nao ha download novo. */
   .group-hero__content li {
     position: relative;
-    padding: clamp(8px, 1.1vh, 12px) 0 clamp(8px, 1.1vh, 12px) 16px;
+    padding: clamp(9px, 1.2vh, 13px) 12px clamp(9px, 1.2vh, 13px) 14px;
     border-radius: 0 8px 8px 0;
     background: linear-gradient(90deg, rgba(195,161,78,.10), rgba(195,161,78,0) 62%);
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(.86rem, 3.7vw, .95rem);
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: .005em;
   }
   .group-hero__content li::before {
     content: "";
@@ -145,6 +165,8 @@
   .group-hero__content li strong,
   .group-hero__content li b {
     color: #F2EAD6;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 500;
   }
   .group-hero__content p > span[aria-hidden="true"],
   .group-hero__content li > span[aria-hidden="true"] {
