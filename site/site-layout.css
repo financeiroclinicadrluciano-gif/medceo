@@ -799,3 +799,117 @@ html.js:not(.motion-ready) .fcard li {
   }
 
 }
+
+/* >>> mobile-rodada2 (gerado, nao editar a mao) */
+@media (max-width: 899px) {
+
+  /* --- FOTOS DOS PILARES: cabeca raspada e card que nao cabe -------------
+     Medido nas seis fotos: os arquivos sao todos ~2/3 (0,666 a 0,671) e a
+     moldura estava em 0,8. Com object-fit:cover isso corta 88px de altura,
+     divididos pelo object-position de cada um (14% a 24%), e o que sai e
+     sempre um pedaco do alto da cabeca. Nenhum object-position resolve: o
+     problema e a caixa ter proporcao diferente do arquivo.
+
+     A moldura passa a ter a proporcao dos arquivos, entao o corte vai a zero,
+     e encolhe para 76% da coluna para o card caber na tela: 269x403 em vez de
+     354x443, mais baixo que antes E com a cabeca inteira. */
+  .pro__moldura {
+    width: 76%;
+    max-width: 300px;
+    margin-inline: auto;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    max-height: 48svh;
+  }
+  .pro__moldura img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /* --- ESPACAMENTO: texto encostando na foto -----------------------------
+     O paragrafo de abertura dos pilares terminava colado na primeira foto, e
+     a mesma falta de ar aparecia entre o fim de um pilar e a dobra seguinte.
+     Espaco explicito, em vh, para acompanhar a altura da tela. */
+  .pro__media {
+    margin-top: clamp(20px, 3vh, 30px);
+  }
+  .pro,
+  .pro__item,
+  .atlas__slide {
+    padding-block: clamp(18px, 2.6vh, 28px);
+  }
+  #time > .wrap > p:last-of-type,
+  .pro__intro {
+    margin-bottom: clamp(18px, 2.6vh, 28px);
+  }
+  .alem {
+    padding-top: clamp(30px, 4.5vh, 48px);
+  }
+
+  /* --- ESCADA: virar uma escada de verdade, subindo ----------------------
+     Os seis degraus tinham o MESMO recuo (52px medidos em todos), entao de
+     escada so tinha o nome: era uma lista com numero na frente. Aqui o 01
+     fica embaixo e o 06 no topo (column-reverse), com recuo crescente
+     conforme sobe, que e como a escada de produtos e falada: comeca no
+     gratuito, embaixo, e sobe ate a mentoria individual.
+
+     Escada sobe para a DIREITA: o degrau de baixo (01, gratuito) encostado na
+     esquerda e cada degrau acima recuando mais. A primeira tentativa inverteu
+     so a ordem e deixou o recuo ao contrario, o que desenhava uma escada
+     descendo. O sentido do recuo e o que faz a figura ler como subida.
+
+     A linha vertical do :before do <ol> some no celular: ela foi desenhada
+     para uma lista alinhada e, com os degraus escalonados, fica solta a
+     esquerda, ligando coisa nenhuma. O piso de cada degrau assume o desenho. */
+  .escada2 {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+  .escada2::before {
+    display: none;
+  }
+  .escada2 .deg {
+    position: relative;
+    border-bottom: 0;
+    padding-bottom: 14px;
+  }
+  .escada2 .deg:nth-child(1) { margin-left: 0px; }
+  .escada2 .deg:nth-child(2) { margin-left: 9px; }
+  .escada2 .deg:nth-child(3) { margin-left: 18px; }
+  .escada2 .deg:nth-child(4) { margin-left: 27px; }
+  .escada2 .deg:nth-child(5) { margin-left: 36px; }
+  .escada2 .deg:nth-child(6) { margin-left: 45px; }
+  /* o piso do degrau, com o espelho subindo na quina esquerda */
+  .escada2 .deg::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      rgba(195, 161, 78, .55), rgba(195, 161, 78, .08));
+  }
+  .escada2 .deg::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg,
+      rgba(195, 161, 78, .05), rgba(195, 161, 78, .45));
+  }
+  /* o topo da escada, onde o ticket e maior, puxa mais luz */
+  .escada2 .deg:last-child::before {
+    height: 2px;
+    background: linear-gradient(90deg,
+      rgba(195, 161, 78, .9), rgba(195, 161, 78, .2));
+  }
+
+}
+/* <<< mobile-rodada2 */

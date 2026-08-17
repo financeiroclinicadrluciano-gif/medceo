@@ -119,7 +119,14 @@ h1{margin:20px 0 0;max-width:20ch;font-family:'Playfair Display',Georgia,serif;f
 .card p{margin:0;color:rgba(234,226,207,.68);font-size:14px;line-height:1.62}
 .card time{color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
 /* artigo */
-article{padding-bottom:clamp(48px,6vh,72px)}
+/* min-width:0 e o que impede a tabela de esticar a pagina inteira.
+   O article e item de um grid (.wrap), e item de grid nasce com min-width:auto:
+   ele se recusa a ficar menor que o conteudo minimo. Uma tabela de 512px dentro
+   de um post fazia o article ir para 512px numa tela de 390, e com ele o texto
+   TODO, que passava a sair pela direita cortado. O overflow-x:auto do .rolagem
+   nao adiantava nada, porque quem estava esticando era o pai dele. Medido:
+   scrollWidth 540 contra innerWidth 390, e 390 assim que min-width vai a 0. */
+article{padding-bottom:clamp(48px,6vh,72px);min-width:0}
 /* A capa usava 680px centrada enquanto a coluna de leitura usa 68ch: duas
    larguras diferentes, centradas de formas diferentes, e a imagem nunca
    comecava onde o texto comeca. Agora ela herda a largura da prosa e alinha
@@ -148,7 +155,7 @@ body.claro .capa{border-color:rgba(23,20,13,.12);border-radius:12px 12px 0 0}
 /* tabela: rola dentro da propria caixa. Sem isso, a tabela de 583px empurrava
    a pagina inteira para 611px em tela de 360px e o Chrome mobile reduzia o
    corpo do texto de 16,5px para 9,7px por shrink-to-fit. */
-.rolagem{overflow-x:auto;margin:0 0 26px;-webkit-overflow-scrolling:touch;border-bottom:1px solid rgba(234,226,207,.08)}
+.rolagem{overflow-x:auto;min-width:0;max-width:100%;margin:0 0 26px;-webkit-overflow-scrolling:touch;border-bottom:1px solid rgba(234,226,207,.08)}
 .rolagem:focus-visible{outline:1px solid #C3A14E;outline-offset:2px}
 .prosa table{width:100%;min-width:32rem;margin:0;border-collapse:collapse;font-size:14px}
 .prosa th,.prosa td{padding:12px 14px;border-bottom:1px solid rgba(234,226,207,.12);text-align:left;overflow-wrap:normal}

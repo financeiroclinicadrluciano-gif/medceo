@@ -62,24 +62,36 @@
     min-height: 0 !important;
     padding: 0 0 clamp(30px, 5vh, 46px) !important;
   }
+  /* O pedido foi: "coloque os textos bem quando comeca o degrade". Medido, os
+     textos comecavam em 308px e o degrade em 127px, ou seja 181px depois, ja
+     quase no fim da foto: a faixa escura ficava vazia e tudo era empurrado
+     para baixo, deixando o hero com 1179px, 1,4 tela. A foto encolhe para
+     36svh (era 42) e o conteudo sobe para dentro do degrade. A area limpa
+     que sobra cobre os tres rostos, que ocupam o terco de cima do arquivo.
+
+     O ponto de pouso e onde o degrade JA ESCURECEU, nao onde ele comeca. A
+     primeira tentativa subiu o texto ate 127px, o inicio literal do degrade, e
+     o logo caiu em cima dos rostos, ilegivel. O gradiente atinge 90% de
+     opacidade em 52% da propria altura, o que da ~214px numa foto de 304px: e
+     ali que o texto pousa. */
   .group-hero > [data-hero-foto] {
     position: relative !important;
     z-index: 0 !important;
     display: block;
-    height: 42svh;
-    min-height: 260px;
+    height: 36svh;
+    min-height: 240px;
   }
   .group-hero > [data-hero-foto]::after {
     content: "";
     position: absolute;
     inset: auto 0 0 0;
-    height: 64%;
-    background: linear-gradient(180deg, rgba(5,7,10,0), rgba(5,7,10,.88) 60%, #05070A 100%);
+    height: 62%;
+    background: linear-gradient(180deg, rgba(5,7,10,0), rgba(5,7,10,.9) 52%, #05070A 100%);
   }
   .group-hero__content {
     position: relative;
     z-index: 2;
-    margin-top: -46px;
+    margin-top: max(-10.5svh, -96px);
     padding-inline: 22px;
     gap: 12px !important;
   }
