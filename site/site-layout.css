@@ -814,12 +814,15 @@ html.js:not(.motion-ready) .fcard li {
      e encolhe para 76% da coluna para o card caber na tela: 269x403 em vez de
      354x443, mais baixo que antes E com a cabeca inteira. */
   .pro__moldura {
-    width: 88%;
-    max-width: 340px;
+    /* Sem max-height: ele agia DEPOIS do aspect-ratio e achatava a caixa para
+       312x354, proporcao 0,881, o que fazia o cover voltar a cortar 34px mesmo
+       com os arquivos ja recortados em 4/5 exato. Quem limita a altura agora e
+       a largura, que e o unico jeito de a proporcao sobreviver. */
+    width: 80%;
+    max-width: 320px;
     margin-inline: auto;
     height: auto;
     aspect-ratio: 4 / 5;
-    max-height: 42svh;
   }
   /* !important e a unica forma de vencer aqui: cada <img> dos pilares tem
      object-position INLINE proprio (50% 24%, 50% 18%, 50% 16%...), calibrado

@@ -65,30 +65,48 @@
   .group-hero > [data-hero-foto] {
     display: none !important;
   }
+  /* Tudo a esquerda e a dobra inteira cabendo na primeira tela, pedido do
+     Gustavo em 17/08. Sem a foto, o hero e so texto, e ele estava com 892px
+     (1,06 tela) enquanto a area util abaixo do header fixo e de 783px em
+     390x844: o botao ficava fora da primeira tela. O que come altura aqui e o
+     H1, que quebra em cinco linhas, e os vaos entre blocos. */
   .group-hero {
     display: block !important;
     min-height: 0 !important;
-    padding: clamp(26px, 4vh, 40px) 0 clamp(30px, 5vh, 46px) !important;
+    padding: clamp(14px, 2vh, 22px) 0 clamp(18px, 2.6vh, 28px) !important;
   }
   .group-hero__content {
     position: relative;
     z-index: 2;
     margin-top: 0;
-    padding-inline: 24px;
-    gap: 14px !important;
-    text-align: center;
-    align-items: center;
+    padding-inline: 22px;
+    gap: clamp(8px, 1.2vh, 12px) !important;
+    text-align: left;
+    align-items: flex-start;
   }
   .group-hero__content > *,
   .group-hero__content ul,
   .group-hero__content li {
-    margin-inline: auto;
-    text-align: center;
+    margin-inline: 0;
+    text-align: left;
+  }
+  .group-hero__content h1 {
+    font-size: clamp(1.9rem, 8.4vw, 2.5rem);
+    line-height: 1.06;
+    margin-block: clamp(4px, .8vh, 10px);
+  }
+  .group-hero__content p {
+    margin-block: 0;
+  }
+  .group-hero__content ul {
+    margin-block: clamp(4px, .8vh, 10px);
+    display: grid;
+    gap: clamp(6px, 1vh, 10px);
   }
   .group-hero__content li {
     padding-left: 0;
-    max-width: 34ch;
-    justify-content: center;
+    max-width: 40ch;
+    justify-content: flex-start;
   }
   /* o tracinho do eyebrow e o losango dos bullets sao <span aria-hidden> reais
      com estilo inline, nao pseudo-elementos: com o texto centralizado eles
