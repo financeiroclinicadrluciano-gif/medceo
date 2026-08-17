@@ -65,3 +65,14 @@ jobs:
 
           [ "$FALHAS" -eq 0 ] || { echo "FALHAS: $FALHAS"; exit 1; }
           echo "site no ar, verificado"
+
+  # Job separado de proposito: se o estoque acabar, o deploy do dia continua
+  # acontecendo e so este fica vermelho. Workflow agendado que falha gera
+  # email, e e esse email o alarme que faltou em 17/08, quando o blog passou
+  # quatro dias parado com todos os sinais verdes.
+  estoque:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ha post agendado para os proximos dias?
+        run: python3 scripts/estoque_editorial.py
