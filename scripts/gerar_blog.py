@@ -576,6 +576,7 @@ def pagina(titulo, desc, corpo, canonical, ativo="", extra_head="", og_tipo="web
 <meta name="twitter:image" content="{imagem}">
 {FONTES}{extra_head}
 <style>{CSS}</style>
+<!-- GA4 --><script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('set',{{site_marca:'medceo'}});gtag('config','GT-PJWWKM65',{{site_marca:'medceo'}});</script><script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
 </head><body{' class="claro"' if claro else ''}>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 {'<div aria-hidden="true" data-progresso class="progresso"></div>' if barra else ''}

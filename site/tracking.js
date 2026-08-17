@@ -99,6 +99,7 @@
     p.utm_medium = origem.utm_medium;
     p.utm_campaign = origem.utm_campaign;
     p.pagina = location.pathname;
+    p.site_marca = window.SITE_MARCA || 'medceo';
 
     if (typeof window.gtag === "function") {
       try { window.gtag("event", nome, p); } catch (e) {}
