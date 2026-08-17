@@ -824,31 +824,6 @@ for p in posts:
 print(f"sitemap: {len(urls)} urls | rss: {len(publicados)} itens")
 
 # --------------------------------------------------------------------------
-# versao do site.js na URL
-#
-# O arquivo e servido com sete dias de cache. Com URL fixa, o navegador que ja
-# baixou uma versao continua executando ela mesmo depois do deploy: foi assim
-# que o botao do menu apareceu na tela sem funcionar, porque o HTML chega novo
-# (max-age=0) e o JS nao. A versao vira o hash do conteudo, entao a URL muda
-# sozinha quando o arquivo muda.
-# --------------------------------------------------------------------------
-_js = BUILD / "site.js"
-if not _js.exists():
-    avisos.append("site.js nao encontrado, versao de cache nao carimbada")
-else:
-    _v = hashlib.sha256(_js.read_bytes()).hexdigest()[:10]
-    _tocadas = 0
-    for _pag in BUILD.rglob("*.html"):
-        _t = _pag.read_text(encoding="utf-8")
-        _novo = re.sub(r'src="/site\.js(?:\?v=[^"]*)?"', f'src="/site.js?v={_v}"', _t)
-        if _novo != _t:
-            _pag.write_text(_novo, encoding="utf-8")
-            _tocadas += 1
-    if _tocadas:
-        print(f"site.js?v={_v} carimbado em {_tocadas} pagina(s)")
-
-
-# --------------------------------------------------------------------------
 # dobra do blog na home
 #
 # Escrita aqui, e nao a mao no index.html, porque a versao manual desalinhava do
@@ -916,7 +891,43 @@ if avisos:
         print(f"  ! {a}")
 
 # O carimbo de versao vem por ultimo de proposito: qualquer etapa que
-# reescreva HTML depois dele apagaria as URLs versionadas.
+# reescreva HTML depois dele apagaria as URLs versionadas. Ja aconteceu: o
+# carimbo das capas rodava antes da reescrita da dobra do blog e a home saia com
+# as URLs sem versao.
+# --------------------------------------------------------------------------
+# versao dos assets de codigo na URL
+#
+# Os dois arquivos vao com cache longo. Com URL fixa, quem ja visitou o site
+# continua executando a versao antiga mesmo depois do deploy, porque o HTML
+# chega novo (max-age=0) e o asset nao. Foi assim que o botao do menu apareceu
+# na tela sem funcionar (site.js, sete dias de cache) e e a mesma armadilha que
+# o site-layout.css corria com a versao 20260813b escrita a mao: data digitada
+# so muda quando alguem lembra de mudar, e ninguem lembra.
+#
+# A versao e o hash do conteudo. A URL muda sozinha quando o arquivo muda, e nao
+# muda quando ele nao muda.
+# --------------------------------------------------------------------------
+ASSETS_VERSIONADOS = [
+    ("site.js", r'src="/site\.js(?:\?v=[^"]*)?"', 'src="/site.js?v={v}"'),
+    ("site-layout.css", r'href="/site-layout\.css(?:\?v=[^"]*)?"',
+     'href="/site-layout.css?v={v}"'),
+]
+for _nome, _padrao, _molde in ASSETS_VERSIONADOS:
+    _arq = BUILD / _nome
+    if not _arq.exists():
+        avisos.append(f"{_nome} nao encontrado, versao de cache nao carimbada")
+        continue
+    _v = hashlib.sha256(_arq.read_bytes()).hexdigest()[:10]
+    _tocadas = 0
+    for _pag in BUILD.rglob("*.html"):
+        _t = _pag.read_text(encoding="utf-8")
+        _novo = re.sub(_padrao, _molde.format(v=_v), _t)
+        if _novo != _t:
+            _pag.write_text(_novo, encoding="utf-8")
+            _tocadas += 1
+    if _tocadas:
+        print(f"{_nome}?v={_v} carimbado em {_tocadas} pagina(s)")
+
 # --------------------------------------------------------------------------
 # versao das capas na URL
 #

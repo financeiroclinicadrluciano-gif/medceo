@@ -888,7 +888,9 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
 
 @media(max-width:899px){
   .svc-card{grid-template-columns:minmax(0,1fr)}
-  .svc-card__foto{aspect-ratio:16/9}
+  /* 16/9 sobre arquivo 1080x1080 cortava 43,7% da altura, 68,25px CSS em cada
+     ponta. A caixa volta a ter a proporcao do arquivo: corte zero. */
+  .svc-card__foto{aspect-ratio:1}
   .svc-card__valorbox{gap:6px;padding-top:16px;border-top:1px solid rgba(234,226,207,.1)}
   .svc-card__btn{width:100%;justify-content:center;min-height:52px}
 }

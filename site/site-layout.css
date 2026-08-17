@@ -685,3 +685,117 @@ html.js:not(.motion-ready) .fcard li {
   }
 }
 
+/* ==========================================================================
+   MOBILE, correcoes de 2026-08-17, medidas a 390x844
+   --------------------------------------------------------------------------
+   Este bloco vive no FIM do site-layout.css de proposito. O arquivo carrega
+   depois do <style> inline do index.html, entao regra de mesma especificidade
+   escrita la nao vence. Foi essa a razao de correcoes anteriores nao surtirem
+   efeito nenhum na tela.
+   ========================================================================== */
+@media (max-width: 899px) {
+
+  /* --- 1. ESCADA: vao branco depois do ultimo degrau ---------------------
+     Causa medida: min-height:108px orfao no .deg (linha 612 deste arquivo),
+     calibrado para o layout antigo, quando o degrau ainda tinha a descricao
+     .deg__d. O conteudo real de hoje mede 68,7px. Sobravam ~39px por degrau,
+     seis degraus, mais o vao final. height:auto!important do inline nao mata
+     min-height. */
+  .escada2 .deg,
+  #esteira .deg {
+    min-height: 0;
+    padding: 12px 4px 12px 0;
+  }
+  #esteira .env {
+    gap: 26px;
+  }
+
+  /* --- 2. DOBRA DO DR. LUIZ: vao preto entre texto e video ---------------
+     Causa medida: 126,6px de padding somado (76,0 do .alem__text embaixo mais
+     50,64 do .alem__media--video em cima). A folga de align-content e zero nos
+     dois lados, entao o vao e 100% padding. O @media anterior usava a longhand
+     padding-block e era resetado por duas regras posteriores com a shorthand
+     padding. Aqui a shorthand tambem e usada, e este arquivo fala por ultimo. */
+  .alem__text {
+    order: -1;
+    padding: clamp(26px, 4vh, 34px) 22px clamp(10px, 1.4vh, 14px);
+    gap: clamp(10px, 1.4vh, 16px);
+  }
+  .alem__media {
+    min-height: 0;
+    padding-top: 0;
+    aspect-ratio: 16 / 10;
+  }
+  /* O video e VERTICAL: o .alem__frame tem aspect-ratio 9/16 e 557px de
+     altura. Forcar 16/9 na caixa dava 219px e o overflow:hidden cortava 338px
+     do video, deixando so a testa do medico. A caixa passa a seguir o conteudo,
+     com teto de 62svh para nao ocupar duas telas. */
+  .alem__media--video {
+    padding-top: 0;
+    aspect-ratio: auto;
+    height: auto;
+  }
+  .alem__media--video .alem__frame {
+    max-height: 62svh;
+    margin-inline: auto;
+  }
+  .alem__media--video .alem__fundo {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* --- 3. FOTO DOS PILARES: rosto cortado na testa e no queixo -----------
+     Causa medida: corte duplo. O <img> recebia aspect-ratio:4/5 e ficava
+     352x440, dentro de uma .pro__moldura de height:26svh (219,44px) com
+     overflow:hidden. O pai cortava 221,6px, 50,4% do <img>, sempre pela base.
+     A moldura passa a ter a proporcao do retrato e o <img> preenche ela. */
+  .pro__moldura {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    max-height: 62svh;
+  }
+  .pro__moldura img,
+  .atlas__slides img,
+  .atlas__stage img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center 22%;
+  }
+
+  /* --- 4. DOBRA DO BLOG: card de desktop herdado -------------------------
+     Causa medida: nao existia UMA regra para .blist ou .bitem abaixo de
+     1100px. Com o container em 354px, o auto-fit colapsava para 1 coluna e o
+     aspect-ratio:3/2 virava altura: 234,66px de foto em cima de cada titulo,
+     cinco vezes. Vira lista horizontal compacta, foto a esquerda. */
+  .blist {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .bitem {
+    grid-template-rows: auto;
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(234, 226, 207, .08);
+    border-radius: 0;
+  }
+  .bitem:last-child {
+    border-bottom: 0;
+  }
+  .bitem__img {
+    aspect-ratio: 3 / 2;
+    border-radius: 8px;
+  }
+  .bitem h4 {
+    font-size: 1rem;
+    line-height: 1.28;
+  }
+  .bitem > span:last-child {
+    padding: 0;
+  }
+
+}
