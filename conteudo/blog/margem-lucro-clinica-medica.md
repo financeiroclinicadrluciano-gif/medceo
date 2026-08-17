@@ -16,12 +16,12 @@ imagem_capa_legenda: Estante de livros de gestão na recepção da clínica. Fat
 links_internos:
   - slug: custo-hora-clinica
     ancora: o custo da sua hora, com a conta à mostra
-  - slug: parcelamento-clinica-margem
-    ancora: o que o parcelamento leva antes de qualquer desconto
+  - slug: so-consulta-tem-teto
+    ancora: o que oferecer depois do objetivo
   - slug: clinica-roda-sem-o-dono
     ancora: o que precisa existir antes de você sumir
-  - slug: valuation-clinica-saida-socio
-    ancora: o que decide o preço quando um sócio sai
+  - slug: jornada-do-paciente-clinica
+    ancora: a jornada que começa antes da recepção
   - slug: maturidade-empresarial-medica-5-estagios
     ancora: o estágio da clínica muda qual conta importa primeiro
 elemento_notavel: argumentação + valor prático
@@ -115,7 +115,7 @@ A diferença entre os dois números é o motivo de o parcelamento ser a decisão
 
 Não existe defeito em parcelar. Existe defeito em precificar a condição depois de oferecê-la, e é isso que acontece quando a tabela de preço nasce sem a coluna do custo financeiro ao lado.
 
-Quem quiser abrir essa linha em separado encontra [o que o parcelamento leva antes de qualquer desconto](/blog/parcelamento-clinica-margem) com a fórmula por variável, o que permite trocar as taxas pelas da adquirente da própria clínica.
+Reduzir custo tem piso, e ele chega rápido. Ampliar o que o paciente resolve dentro da clínica não tem esse limite, e é o caminho descrito em [o que oferecer depois do objetivo](/blog/so-consulta-tem-teto).
 
 ## A cadeira vazia cobra três custos e nenhum entra na planilha
 
@@ -183,7 +183,7 @@ A ordem correta é chata e funciona. Medir a hora, corrigir a condição de paga
 
 Essa ordem também depende de onde a clínica está, porque [o estágio da clínica muda qual conta importa primeiro](/blog/maturidade-empresarial-medica-5-estagios). Um consultório de uma sala e uma clínica com quatro sócios não atacam as mesmas linhas na mesma sequência.
 
-E existe um dia em que essas quatro contas deixam de ser gestão e viram preço. Quando um sócio decide sair, a margem dos últimos doze meses é [o que decide o preço quando um sócio sai](/blog/valuation-clinica-saida-socio), com muito mais peso que o faturamento.
+Margem boa também muda o que acontece antes da consulta. Sobra permite investir na experiência que traz paciente por indicação, e o mapa dela está em [a jornada que começa antes da recepção](/blog/jornada-do-paciente-clinica).
 
 ## Perguntas frequentes
 

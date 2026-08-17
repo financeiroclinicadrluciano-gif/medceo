@@ -18,8 +18,8 @@ links_internos:
     ancora: quanto custa uma hora de porta aberta
   - slug: margem-lucro-clinica-medica
     ancora: os pontos onde a margem vaza
-  - slug: parcelamento-clinica-margem
-    ancora: o desconto invisível do parcelamento
+  - slug: so-consulta-tem-teto
+    ancora: o que oferecer depois do objetivo
 elemento_notavel: ferramenta de bolso
 fontes:
   - Depoimento gravado do Dr. Luiz Henrique, nutrólogo e médico esportivo, 47 minutos, 11/08/2026, transcrito integralmente
@@ -86,7 +86,7 @@ O reajuste dói mais na carteira antiga que no paciente novo. Três decisões re
 - **Janela de transição** para quem já tem pacote ou protocolo em andamento, terminando o ciclo no valor antigo.
 - **Uma regra só para exceção**, escrita, com limite. Sem isso, cada exceção vira uma decisão sua e a tabela nova deixa de existir na prática.
 
-Vale checar antes o que já está sendo dado sem aparecer: em muitas clínicas o desconto real não está na tabela, está no [desconto invisível do parcelamento](/blog/parcelamento-clinica-margem).
+E vale lembrar que preço não é a única alavanca: ampliar o que o paciente resolve dentro da clínica muda o ticket sem mexer na tabela, como em [o que oferecer depois do objetivo](/blog/so-consulta-tem-teto).
 
 ## O que costuma acontecer de fato
 

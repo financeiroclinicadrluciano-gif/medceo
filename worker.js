@@ -19,6 +19,8 @@ const REDIRECIONAMENTOS = new Map([
   ["/contato", "/#diagnostico"],
   ["/como-funciona", "/#metodo"],
   ["/webinar", "/webnar"],
+  ["/blog/parcelamento-clinica-margem", "/blog/so-consulta-tem-teto"],
+  ["/blog/valuation-clinica-saida-socio", "/blog/jornada-do-paciente-clinica"],
   ["/blog/indicadores-clinica-faixa-referencia", "/blog/trabalhar-muito-ganhar-pouco"],
   ["/blog/diagnostico-gestao-clinica", "/blog/medico-modo-automatico"],
   ["/blog/custo-no-show-clinica", "/blog/clinica-roda-sem-o-dono"],

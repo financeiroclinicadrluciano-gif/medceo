@@ -16,8 +16,8 @@ imagem_capa_legenda: Consultório com calculadora sobre a mesa. O preço da cons
 links_internos:
   - slug: margem-lucro-clinica-medica
     ancora: onde a margem some na operação inteira
-  - slug: parcelamento-clinica-margem
-    ancora: o desconto invisível que entra depois do preço definido
+  - slug: so-consulta-tem-teto
+    ancora: o que oferecer depois do objetivo
   - slug: clinica-roda-sem-o-dono
     ancora: o que precisa existir antes de você sumir
 elemento_notavel: valor prático
@@ -68,7 +68,7 @@ Com 176 horas abertas e 146 atendidas, dividir por 146 devolve uma receita por h
 
 O segundo erro é esquecer o pró-labore de quem assina a clínica. Se o dono não se paga, a sobra por hora está inflada pelo valor do próprio trabalho dele, e a clínica parece saudável às custas de quem a sustenta.
 
-O terceiro é somar taxa de cartão como se fosse custo fixo. Ela é variável e depende da forma de pagamento, o que exige uma linha própria, e é aí que aparece [o desconto invisível que entra depois do preço definido](/blog/parcelamento-clinica-margem).
+O terceiro é somar taxa de cartão como se fosse custo fixo. Ela é variável e depende da forma de pagamento, o que exige uma linha própria, e é aí que aparece [o que oferecer depois do objetivo](/blog/so-consulta-tem-teto).
 
 ## O que a conta muda na semana seguinte
 
