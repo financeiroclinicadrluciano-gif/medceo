@@ -255,6 +255,13 @@ body.claro figcaption{color:rgba(23,20,13,.6)}
 body.claro .prosa a{color:#7A5F22;text-decoration-color:rgba(122,95,34,.45)}
 body.claro .prosa a:hover{color:#5E4816}
 body.claro .prosa strong,body.claro .prosa b{color:#17140D}
+/* A lista ficava com a cor do tema ESCURO no tema claro: .prosa ul/ol define
+   rgba(234,226,207,.78), um bege claro, e nenhuma regra de body.claro
+   sobrescrevia. Medido no post publicado: contraste 1,08 contra o fundo
+   #EFEBE2, ou seja texto invisivel. Aparecia so o trecho em <strong>, que tem
+   cor propria, e o resto da frase sumia. */
+body.claro .prosa ul,body.claro .prosa ol{color:rgba(23,20,13,.78)}
+body.claro .prosa li::marker{color:#8C6F2E}
 body.claro .prosa blockquote{border-left-color:#C3A14E;color:#2A2419}
 body.claro .prosa table th,body.claro .prosa table td{border-color:rgba(23,20,13,.14)}
 body.claro .prosa table thead th{background:rgba(23,20,13,.05);color:#6B5320}
