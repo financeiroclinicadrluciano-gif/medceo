@@ -946,6 +946,10 @@ html.js:not(.motion-ready) .fcard li {
     display: block;
     min-height: 0;
     padding-top: 0;
+    /* o header e fixo com 61px: quem chega por ancora (o menu e o rodape
+       linkam /#quem) parava com a barra em cima do rosto. scroll-margin so age
+       na navegacao por ancora, entao nao cria vao na rolagem normal. */
+    scroll-margin-top: 76px;
   }
   #quem .quem__bg {
     position: relative;
