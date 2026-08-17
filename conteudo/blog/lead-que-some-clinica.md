@@ -1,6 +1,6 @@
 ---
 titulo: "Lead que some no WhatsApp: os 4 pontos onde o paciente desiste"
-seo_title: "Comercial para clínica: por que o lead some no WhatsApp | MedCEO"
+seo_title: "Lead que some no WhatsApp da clínica: os 4 vazamentos | MedCEO"
 slug: lead-que-some-clinica
 marca: medceo
 tipo: satelite
@@ -86,6 +86,40 @@ Separar a frente de relacionamento da frente de recepção resolve, e não exige
 ## O vazamento continua depois do agendamento
 
 Fechar a consulta não encerra o funil. O paciente que marcou e não aparece custa a mesma hora de estrutura que o que nunca ligou, com o agravante de ter bloqueado a vaga de outro. A confirmação ativa é a continuação natural da cadência descrita aqui, e ela precisa acontecer com ou sem você por perto, como em [a clínica rodando sem você presente](/blog/clinica-roda-sem-o-dono).
+
+## O quinto furo, que aparece depois da proposta
+
+Existe um vazamento que não está entre os quatro porque acontece depois deles: o
+paciente recebeu a proposta de protocolo, disse que ia pensar, e não voltou.
+
+Ele é diferente dos outros porque a pessoa já demonstrou intenção clara. Sumir
+depois disso quase nunca é preço: é dúvida não resolvida que não foi dita em voz
+alta, normalmente sobre tempo, sobre resultado esperado ou sobre o que acontece
+se não der certo.
+
+O que muda esse ponto é uma pergunta só, feita 48 horas depois: qual foi a parte
+que ficou menos clara. Ela funciona melhor que reforçar benefício, porque devolve
+a palavra para o paciente em vez de empurrar argumento. E o que aparece nessas
+respostas costuma ser o material mais útil que a clínica tem para melhorar a
+própria apresentação de proposta.
+
+## Como montar o painel em uma planilha
+
+Nenhum dos cinco pontos exige sistema. Uma planilha com seis colunas produz todos
+os números deste artigo:
+
+| Coluna | O que registrar |
+|---|---|
+| Data do contato | quando a primeira mensagem chegou |
+| Hora da resposta | para calcular o tempo até a primeira resposta humana |
+| Etapa atual | primeiro contato, preço, agenda, proposta, fechado |
+| Data da próxima ação | o campo que sustenta a cadência |
+| Motivo da perda | preenchido só quando encerra |
+| Origem | como a pessoa chegou |
+
+A coluna que mais gente esquece é a quarta. Sem data da próxima ação, a cadência
+depende de alguém lembrar, e é exatamente por isso que a maior parte das clínicas
+para na primeira tentativa.
 
 ## Perguntas frequentes
 

@@ -96,6 +96,38 @@ No caso do Dr. Luiz Henrique, a consulta passou de R$ 450 para R$ 950 e o relato
 
 Se sobrar dúvida sobre onde o dinheiro está indo mesmo depois do reajuste, o mapa está em [os pontos onde a margem vaza](/blog/margem-lucro-clinica-medica).
 
+## A perda tolerada por faixa de margem, para consultar antes de decidir
+
+A fórmula é uma só, mas o número muda bastante conforme a sua margem. Vale
+consultar a linha da sua antes de definir o tamanho do reajuste.
+
+| Sua margem de contribuição | Aumento de 10% | Aumento de 20% | Aumento de 30% |
+|---|---:|---:|---:|
+| 40% | 20,0% | 33,3% | 42,9% |
+| 50% | 16,7% | 28,6% | 37,5% |
+| 60% | 14,3% | 25,0% | 33,3% |
+| 70% | 12,5% | 22,2% | 30,0% |
+
+Cada célula é quanto do volume você pode perder e ainda terminar o mês igual.
+Margem mais alta reduz a folga, o que parece contraintuitivo e não é: quem já
+tem margem boa depende mais do volume para sustentar o mesmo resultado.
+
+Duas leituras práticas saem da tabela. A primeira é que quase nenhuma clínica
+perde 25% da agenda com um reajuste de 20%, e portanto quase todo reajuste dessa
+ordem é financeiramente positivo. A segunda é que, se você não sabe a sua margem
+de contribuição, nenhuma linha serve, e a decisão continua sendo tomada no escuro.
+
+## O que fazer no mês seguinte ao reajuste
+
+O erro depois do aumento é olhar só o faturamento. Ele pode subir por motivo
+errado, como uma concentração de procedimentos num mês atípico, e esconder uma
+perda de volume que vai aparecer no mês seguinte.
+
+Acompanhe três números por 90 dias: número de atendimentos, ticket real e margem
+de contribuição. Se atendimentos caíram menos que a perda tolerada, o reajuste
+funcionou, mesmo que a agenda esteja visivelmente menos cheia. Agenda cheia nunca
+foi o objetivo; foi o hábito.
+
 ## Perguntas frequentes
 
 **Como aumentar o preço da consulta médica sem perder pacientes?**

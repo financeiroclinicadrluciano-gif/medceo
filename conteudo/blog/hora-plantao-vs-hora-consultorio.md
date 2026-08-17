@@ -1,11 +1,11 @@
 ---
-titulo: "Hora de plantão e hora de consultório: a conta que decide quando parar"
-seo_title: "Quanto vale a hora de plantão comparada à hora de consultório | MedCEO"
+titulo: "Vale a pena largar o plantão? A conta que a hora de consultório responde"
+seo_title: "Vale a pena largar o plantão? A conta da hora clínica | MedCEO"
 slug: hora-plantao-vs-hora-consultorio
 marca: medceo
 tipo: satelite
 silo: O tempo do médico
-keyword: quanto vale a hora do médico plantonista
+keyword: vale a pena largar o plantão
 meta_description: A hora de plantão parece garantida e a de consultório parece risco. A conta muda quando você inclui deslocamento, descanso e o que o plantão impede de construir.
 dek: Quase todo médico dono de clínica compara plantão e consultório pelo valor do turno. A comparação certa é por hora comprometida, e ela costuma inverter o resultado.
 data: 2026-08-18
