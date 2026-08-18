@@ -197,6 +197,14 @@
   }
 }
 /* <<< hero-mobile-webnar */
+
+/* O selo de exclusividade nunca quebra em duas linhas. Medido: 343x57 em 500px
+   de largura antes desta regra, contra 291x33 no desktop. */
+.selo-med{white-space:nowrap}
+@media(max-width:600px){
+  .selo-med{font-size:9px !important;letter-spacing:.12em !important;
+    padding:7px 16px !important;gap:10px !important}
+}
 </style>
 
 <style>
@@ -246,9 +254,9 @@
         <small style="color:rgba(217,190,126,.8);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;letter-spacing:.28em;line-height:1.5;text-transform:uppercase">Gabinete do<br />diagnóstico</small>
       </a>
 
-      <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .12s both"><span aria-hidden="true" style="flex:0 0 auto;width:32px;height:1px;background:rgba(195,161,78,.7)"></span>Exclusivo para médicos · toda semana</p>
+      <p style="display:inline-flex;align-items:center;gap:12px;width:fit-content;padding:7px 20px 7px 16px;border:1px solid rgba(195,161,78,.55);border-radius:999px;background:rgba(195,161,78,.1);color:#E0C88E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .12s both" class="selo-med"><span aria-hidden="true" style="flex:0 0 auto;width:6px;height:6px;background:#C3A14E;transform:rotate(45deg)"></span>Grupo exclusivo para médicos</p>
 
-      <h1 style="max-width:16ch;margin-top:8px;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:min(clamp(2.2rem,1.3rem + 3vw,3.8rem), 7.4vh);font-weight:300;letter-spacing:-.04em;line-height:1.02;text-wrap:balance">
+      <h1 style="max-width:16ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:min(clamp(2.2rem,1.3rem + 3vw,3.8rem), 7.4vh);font-weight:300;letter-spacing:-.04em;line-height:1.02;text-wrap:balance">
         <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .2s both">Uma</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .26s both">aula</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .32s both">por</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .38s both">semana</span></span>
         <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .44s both">sobre</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .5s both">a</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .56s both">parte</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .62s both">que</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .68s both">a</span></span>
         <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .74s both">faculdade</span> <em style="display:inline-block;color:#D9BE7E;font-style:italic;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .8s both">não&nbsp;ensinou.</em></span>
