@@ -103,7 +103,7 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--night);color:var(--paper);
   font-family:var(--sans);font-weight:300;line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-x:clip}
-h1,h2,p,figure,blockquote,ul{margin:0}
+h1,h2,h3,p,figure,blockquote,ul{margin:0}
 img{display:block;max-width:100%}
 a{color:inherit}
 
@@ -126,6 +126,7 @@ a{color:inherit}
   font-family:var(--mono);font-size:11px;font-weight:400;
   letter-spacing:.2em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
 .pill i{flex:0 0 auto;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.pill--escura{border-color:rgba(200,169,81,.5);color:var(--gold)}
 
 /* Botao: pill de 64px com o circulo da seta encaixado a direita. O circulo
    tem 44px, que e tambem o alvo minimo de toque. */
@@ -145,9 +146,38 @@ a{color:inherit}
 .btn--escuro .btn__seta{background:var(--paper);color:var(--ink)}
 .btn--escuro:hover{background:var(--navy)}
 
+/* Fachada de video. O iframe do Panda so nasce no clique, entao nenhuma dobra
+   baixa CSS, JS ou segmento HLS de quem nunca deu play. */
+.quadro{position:relative;overflow:hidden;
+  border:1px solid rgba(200,169,81,.55);border-radius:var(--r-grande);
+  background:var(--navy-2)}
+.quadro--retrato{aspect-ratio:9/16;height:min(70vh,560px);width:auto;margin-inline:auto}
+.quadro--paisagem{aspect-ratio:16/9;width:100%}
+.fachada{position:absolute;inset:0;display:grid;place-items:center;padding:0;
+  border:0;cursor:pointer;overflow:hidden;background:var(--navy-2)}
+.fachada img{grid-area:1/1;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) contrast(1.06);opacity:.72;
+  transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.fachada:hover img{opacity:.86;transform:scale(1.02)}
+.fachada:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.play{grid-area:1/1;place-self:center;display:grid;place-items:center;
+  width:76px;height:76px;border:1px solid var(--paper);border-radius:50%;
+  color:var(--paper);background:rgba(7,19,29,.34);
+  transition:background .45s ease,transform .45s cubic-bezier(.16,1,.3,1)}
+.fachada:hover .play{background:rgba(7,19,29,.52);transform:scale(1.06)}
+
+/* Legenda de video: fio curto e mono. Vale nas duas superficies. */
+.legenda{display:flex;align-items:center;gap:12px;margin-top:16px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.legenda::before{content:"";flex:0 0 auto;width:24px;height:1px}
+.legenda--clara{color:rgba(247,240,228,.58)}
+.legenda--clara::before{background:rgba(247,240,228,.34)}
+.legenda--escura{color:var(--secundario-claro)}
+.legenda--escura::before{background:rgba(18,32,45,.3)}
+
 /* ══════════════════════════════════════════════════════════════════════
    DOBRA 1, CONVITE
-   Superficie escura. Texto a esquerda em 55%, video a direita.
+   Superficie mais profunda. Texto a esquerda, video a direita.
    ══════════════════════════════════════════════════════════════════════ */
 .convite{position:relative;isolation:isolate;overflow:hidden;
   padding:clamp(72px,10vh,132px) var(--margem) clamp(64px,9vh,116px);
@@ -155,10 +185,10 @@ a{color:inherit}
 
 /* Anel de 1px saindo pelo canto superior esquerdo. Elemento grafico, nao
    textura: e uma linha unica, do mesmo peso dos fios da pagina. */
-.convite__anel{position:absolute;z-index:-1;top:-430px;left:-390px;
+.anel{position:absolute;z-index:-1;top:-430px;left:-390px;
   width:760px;height:760px;border:1px solid rgba(200,169,81,.28);border-radius:50%;
   pointer-events:none}
-.convite__anel--interno{top:-352px;left:-318px;width:604px;height:604px;
+.anel--interno{top:-352px;left:-318px;width:604px;height:604px;
   border-color:rgba(247,240,228,.08)}
 
 .convite__grade{display:grid;gap:clamp(40px,5vw,72px);align-items:center;
@@ -171,7 +201,7 @@ a{color:inherit}
     row-gap:clamp(20px,2.4vw,30px)}
   .convite__texto{grid-area:texto;align-content:end}
   .convite__acao{grid-area:acao}
-  .video{grid-area:video}
+  .convite__video{grid-area:video}
 }
 
 .convite__texto{min-width:0;display:grid;gap:clamp(20px,2.4vw,30px);justify-items:start}
@@ -182,8 +212,8 @@ a{color:inherit}
 .marca small{font-family:var(--mono);font-size:9px;letter-spacing:.24em;
   text-transform:uppercase;color:rgba(247,240,228,.5);line-height:1.6}
 
-/* Titulo: Playfair grande, duas frases. A palavra em italico ganha o
-   sublinhado por text-decoration, com offset. Um ::after posicionado
+/* Titulo: Playfair grande, duas sentencas, uma por bloco. A palavra em italico
+   ganha o sublinhado por text-decoration, com offset. Um ::after posicionado
    atravessaria a linha de baixo quando o titulo quebra. */
 .convite h1{max-width:19ch;display:grid;gap:.12em;
   font-family:var(--serif);font-weight:400;
@@ -193,72 +223,47 @@ a{color:inherit}
   text-decoration:underline;text-decoration-color:var(--gold);
   text-decoration-thickness:1px;text-underline-offset:9px}
 
-.convite__sub{max-width:520px;color:rgba(247,240,228,.72);
+.convite__sub{max-width:540px;color:rgba(247,240,228,.72);
   font-size:16px;font-weight:300;line-height:1.75}
 
 .convite__acao{display:grid;gap:14px;justify-items:start;margin-top:6px}
 .convite__micro{max-width:44ch;font-family:var(--mono);font-size:11px;font-weight:400;
   line-height:1.7;letter-spacing:.04em;color:rgba(247,240,228,.5)}
+.convite__video{min-width:0}
 
-/* ── video ───────────────────────────────────────────────────────────── */
-.video{min-width:0}
-.video__quadro{position:relative;aspect-ratio:9/16;overflow:hidden;
-  border:1px solid rgba(200,169,81,.55);border-radius:var(--r-grande);
-  background:var(--navy-2);
-  /* 9:16 porque o video E 9:16 (612x1080 no manifesto). A altura manda, senao a
-     coluna esticaria a dobra inteira. */
-  max-height:min(74vh,620px);width:auto;margin-inline:auto;aspect-ratio:9/16}
-.video__quadro{height:min(74vh,620px)}
-/* Fachada do video: um botao com o poster. O iframe do Panda so entra no
-   clique, entao o player nao baixa CSS, JS nem segmento de video antes disso. */
-.video__ph{position:absolute;inset:0;display:grid;place-items:center;padding:0;
-  border:0;cursor:pointer;overflow:hidden;
+/* Placeholder do vídeo que ainda vai ser gravado. Fica declarado no proprio
+   quadro, para ninguem publicar achando que e um player quebrado. */
+.aguardando{position:absolute;inset:0;display:grid;place-items:center;gap:14px;
+  align-content:center;padding:32px;text-align:center;
   background:radial-gradient(120% 100% at 50% 42%,var(--navy-2) 0%,var(--night) 100%)}
-.video__ph img{grid-area:1/1;width:100%;height:100%;object-fit:cover;
-  filter:grayscale(1) contrast(1.06);opacity:.72;
-  transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
-.video__ph:hover img{opacity:.84;transform:scale(1.02)}
-.video__ph:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.video__play{grid-area:1/1;place-self:center;display:grid;place-items:center;
-  width:76px;height:76px;border:1px solid var(--paper);border-radius:50%;
-  color:var(--paper);background:rgba(7,19,29,.32);
-  transition:background .45s ease,transform .45s cubic-bezier(.16,1,.3,1)}
-.video__ph:hover .video__play{background:rgba(7,19,29,.5);transform:scale(1.06)}
-.video__legenda{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;
-  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(247,240,228,.58)}
-.video__legenda::before{content:"";flex:0 0 auto;width:24px;height:1px;
-  background:rgba(247,240,228,.28)}
+.aguardando span{display:grid;place-items:center;width:76px;height:76px;
+  border:1px solid rgba(247,240,228,.4);border-radius:50%;color:rgba(247,240,228,.6)}
+.aguardando p{font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(247,240,228,.46);line-height:1.9}
 
 /* ══════════════════════════════════════════════════════════════════════
-   DOBRA 2, PROVA
-   Superficie clara, alternando com a dobra 1 de proposito.
-   Foto sangra na esquerda e ocupa a seçao inteira na vertical.
+   DOBRA 2, DEPOIMENTO
+   Superficie clara. Video vertical dele a esquerda, fala a direita.
    ══════════════════════════════════════════════════════════════════════ */
-.prova{position:relative;background:var(--paper);color:var(--ink)}
-.prova__grade{display:grid;align-items:stretch}
+.prova{background:var(--paper);color:var(--ink);
+  padding:clamp(64px,9vh,116px) var(--margem)}
+.prova__grade{display:grid;gap:clamp(36px,5vw,72px);align-items:center;
+  max-width:1320px;margin-inline:auto}
 @media(min-width:1000px){
-  .prova__grade{grid-template-columns:minmax(0,40fr) minmax(0,60fr)}
+  .prova__grade{grid-template-columns:minmax(0,34fr) minmax(0,66fr)}
 }
+.prova__video{min-width:0;position:relative}
+/* Filete dourado costurando o video ao texto. Fica fora do quadro para nao
+   ser alcancado pelo grayscale da fachada. */
+@media(min-width:1000px){
+  .prova__video::after{content:"";position:absolute;top:8%;right:calc(-1 * clamp(18px,2.5vw,36px));
+    width:3px;height:84%;background:var(--gold)}
+}
+.prova__texto{min-width:0;display:grid;gap:clamp(20px,2.4vw,28px);justify-items:start}
 
-/* PLACEHOLDER DA FOTO. Trocar o bloco .foto__ph por
-   <img src="..." alt="Dr. Luiz Henrique no consultorio" /> */
-.foto{position:relative;min-width:0;margin:0;overflow:hidden}
-/* O filtro fica na imagem, nunca no <figure>: filtro alcança tambem o ::after,
-   e foi assim que o filete dourado saiu cinza na primeira versao. */
-.foto img{filter:grayscale(1) contrast(1.06);
-  width:100%;height:100%;min-height:320px;object-fit:cover;object-position:center 22%}
-.foto picture{display:block;height:100%}
-/* O filete dourado costura a foto ao texto. 3px, vertical, sem sombra. */
-.foto::after{content:"";position:absolute;top:0;right:0;width:3px;height:100%;
-  background:var(--gold)}
-
-.prova__texto{min-width:0;display:grid;gap:clamp(22px,2.6vw,32px);justify-items:start;
-  padding:clamp(56px,8vh,104px) var(--margem) clamp(56px,8vh,104px) clamp(32px,4vw,72px)}
-
-.prova blockquote{max-width:19ch;
+.prova blockquote{max-width:17ch;
   font-family:var(--serif);font-weight:400;
-  font-size:clamp(26px,1.2rem + 1.9vw,40px);line-height:1.16;letter-spacing:-.015em;
+  font-size:clamp(30px,1.4rem + 2.1vw,48px);line-height:1.12;letter-spacing:-.015em;
   color:var(--ink);text-wrap:balance}
 
 .assinatura{display:grid;gap:4px}
@@ -266,33 +271,92 @@ a{color:inherit}
 .assinatura span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--secundario-claro)}
 
-/* Tres frases separadas por fio de 1px. O fio marca a fronteira entre
-   depoimentos, e o que faz cada frase ser lida como uma unidade. */
-.frases{display:grid;max-width:60ch;padding:0;list-style:none;
+/* Tres frases separadas por fio de 1px. O fio marca a fronteira entre falas,
+   e o que faz cada uma ser lida como uma unidade. */
+.frases{display:grid;max-width:62ch;padding:0;list-style:none;
   border-top:1px solid rgba(18,32,45,.16)}
-.frases li{padding:20px 0;border-bottom:1px solid rgba(18,32,45,.16);
+.frases li{padding:18px 0;border-bottom:1px solid rgba(18,32,45,.16);
   font-size:15px;font-weight:400;line-height:1.65;color:var(--ink)}
 
 /* ══════════════════════════════════════════════════════════════════════
+   DOBRA 3, AULA
+   Superficie escura de novo. Video 16:9 a direita, contexto a esquerda.
+   ══════════════════════════════════════════════════════════════════════ */
+.aula{position:relative;isolation:isolate;overflow:hidden;background:var(--navy);
+  padding:clamp(64px,9vh,116px) var(--margem)}
+.aula__grade{display:grid;gap:clamp(36px,5vw,64px);align-items:center;
+  max-width:1320px;margin-inline:auto}
+@media(min-width:1000px){
+  .aula__grade{grid-template-columns:minmax(0,40fr) minmax(0,60fr)}
+}
+.aula__texto{min-width:0;display:grid;gap:clamp(18px,2.2vw,26px);justify-items:start}
+.aula h2{max-width:16ch;font-family:var(--serif);font-weight:400;
+  font-size:clamp(28px,1.3rem + 1.9vw,44px);line-height:1.1;letter-spacing:-.02em;
+  color:var(--paper);text-wrap:balance}
+.aula h2 em{font-style:italic;color:var(--gold-soft)}
+.aula p{max-width:46ch;color:rgba(247,240,228,.72);font-size:15.5px;line-height:1.75}
+.aula__video{min-width:0}
+/* Fio de 1px separando a dobra da anterior. Estrutural: e a linha de corte
+   entre a prova e o conteudo. */
+.aula::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:rgba(200,169,81,.28)}
+
+/* ══════════════════════════════════════════════════════════════════════
+   DOBRA 4, RECONVITE
+   Volta ao claro. O mesmo convite por outro angulo: o teste, nao a promessa.
+   ══════════════════════════════════════════════════════════════════════ */
+.fecho{position:relative;overflow:hidden;background:var(--paper);color:var(--ink);
+  padding:clamp(72px,10vh,124px) var(--margem)}
+.fecho__anel{position:absolute;z-index:0;top:-300px;right:-280px;
+  width:660px;height:660px;border:1px solid rgba(200,169,81,.4);border-radius:50%;
+  pointer-events:none}
+.fecho__grade{position:relative;z-index:1;display:grid;gap:clamp(32px,4.4vw,64px);
+  align-items:start;max-width:1320px;margin-inline:auto}
+@media(min-width:1000px){
+  .fecho__grade{grid-template-columns:minmax(0,54fr) minmax(0,46fr)}
+}
+.fecho__texto{min-width:0;display:grid;gap:clamp(20px,2.4vw,28px);justify-items:start}
+.fecho h2{max-width:17ch;font-family:var(--serif);font-weight:400;
+  font-size:clamp(30px,1.4rem + 2.1vw,48px);line-height:1.1;letter-spacing:-.02em;
+  color:var(--ink);text-wrap:balance}
+.fecho h2 em{font-style:italic;
+  text-decoration:underline;text-decoration-color:var(--gold);
+  text-decoration-thickness:2px;text-underline-offset:8px}
+.fecho__lede{max-width:52ch;color:var(--secundario-claro);font-size:16px;line-height:1.75}
+
+/* O que o grupo entrega. Fio de 1px por item, igual a dobra 2: a pagina inteira
+   usa o mesmo elemento para separar unidades de leitura. */
+.entrega{display:grid;max-width:56ch;padding:0;list-style:none;
+  border-top:1px solid rgba(18,32,45,.16)}
+.entrega li{display:grid;gap:4px;padding:18px 0;
+  border-bottom:1px solid rgba(18,32,45,.16)}
+.entrega strong{font-size:15px;font-weight:500;color:var(--ink)}
+.entrega span{font-size:14.5px;font-weight:300;line-height:1.6;color:var(--secundario-claro)}
+.fecho__acao{display:grid;gap:14px;justify-items:start}
+.fecho__micro{max-width:46ch;font-family:var(--mono);font-size:11px;line-height:1.7;
+  letter-spacing:.04em;color:var(--secundario-claro)}
+
+/* ══════════════════════════════════════════════════════════════════════
    CELULAR
-   Dobra 1 empilha na ordem titulo, video, botao.
-   Dobra 2 empilha com a foto no topo em 320px.
    ══════════════════════════════════════════════════════════════════════ */
 @media(max-width:999px){
-  .convite__anel{top:-380px;left:-260px;width:620px;height:620px}
-  .convite__anel--interno{display:none}
+  .anel{top:-380px;left:-260px;width:620px;height:620px}
+  .anel--interno{display:none}
+  .fecho__anel{top:-260px;right:-300px;width:520px;height:520px}
   .convite h1{max-width:none}
-  .convite__acao{justify-items:stretch;width:100%;max-width:420px}
+  .convite__acao,.fecho__acao{justify-items:stretch;width:100%;max-width:420px}
   .btn{width:100%;max-width:420px;justify-content:space-between;padding-left:28px}
-  .foto{height:320px}
-  .foto__ph{height:320px}
-  .foto::after{top:auto;bottom:0;right:0;width:100%;height:3px}
-  .prova__texto{padding-inline:var(--margem)}
+  .quadro--retrato{height:min(64vh,480px)}
+  .prova blockquote,.fecho h2,.aula h2{max-width:none}
 }
 @media(max-width:520px){
-  .kicker{font-size:10px;letter-spacing:.2em}
+  /* Piso de 11px em todo rotulo. Medido antes: cinco textos em 10px, todos em
+     mono com espacamento largo, que e o pior caso de leitura no celular. */
+  .kicker{font-size:11px;letter-spacing:.16em}
   .kicker::before{width:24px}
-  .pill{font-size:10px;letter-spacing:.14em;padding:8px 16px}
+  .pill{font-size:11px;letter-spacing:.1em;padding:8px 15px}
+  .legenda{font-size:11px;letter-spacing:.13em}
+  .aguardando p{font-size:11px;letter-spacing:.13em}
   .btn{font-size:14px;gap:14px}
 }
 
@@ -306,8 +370,8 @@ a{color:inherit}
 
 <!-- ═══════════════ DOBRA 1, CONVITE ═══════════════ -->
 <section class="convite">
-  <div class="convite__anel" aria-hidden="true"></div>
-  <div class="convite__anel convite__anel--interno" aria-hidden="true"></div>
+  <div class="anel" aria-hidden="true"></div>
+  <div class="anel anel--interno" aria-hidden="true"></div>
 
   <div class="convite__grade">
 
@@ -320,23 +384,28 @@ a{color:inherit}
 
       <p class="kicker">Para médico dono de clínica</p>
 
-      <h1><span>Sua clínica não precisa de mais pacientes.</span><span>Precisa parar de <em>depender</em> de você.</span></h1>
+      <h1><span>Sua clínica cresceu.</span><span>Sua semana <em>encolheu</em>.</span></h1>
 
-      <p class="convite__sub">Toda semana, uma aula ao vivo e gratuita para o médico que quer transformar a clínica numa empresa que anda sem ele. Sem sair da medicina.</p>
-
+      <p class="convite__sub">Toda semana, uma aula ao vivo e gratuita sobre a parte da clínica que ninguém ensinou na residência: margem, equipe, comercial e a estrutura que sustenta a sua ausência.</p>
     </div>
 
-    <div class="video">
-      <div class="video__quadro">
-        <button class="video__ph" type="button" data-video="6e8f2654-57ab-4069-950e-eb9bfe5d1018"
-                aria-label="Assistir ao depoimento em vídeo do Dr. Luiz Henrique">
-          <img src="/assets/medceo/video-luis-poster.webp" alt="" width="612" height="1080" loading="lazy" decoding="async" />
-          <span class="video__play" aria-hidden="true">
+    <div class="convite__video">
+      <div class="quadro quadro--retrato">
+        <!-- VIDEO NOVO, AINDA NAO GRAVADO.
+             Quando existir, trocar este bloco .aguardando inteiro por:
+             <button class="fachada" type="button" data-video="ID-DO-PANDA"
+                     aria-label="Assistir ao convite em vídeo">
+               <img src="/assets/medceo/POSTER.webp" alt="" width="612" height="1080" loading="lazy" decoding="async" />
+               <span class="play" aria-hidden="true">SVG do play</span>
+             </button>
+             O script no fim da página já cuida do clique de qualquer [data-video]. -->
+        <div class="aguardando">
+          <span aria-hidden="true">
             <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M19 9.27a2 2 0 0 1 0 3.46L3 21.99a2 2 0 0 1-3-1.73V1.74A2 2 0 0 1 3 .01z"/></svg>
           </span>
-        </button>
+          <p>Vídeo em produção</p>
+        </div>
       </div>
-      <p class="video__legenda">Dr. Luiz Henrique, nutrologia e medicina esportiva</p>
     </div>
 
     <div class="convite__acao">
@@ -352,24 +421,27 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- ═══════════════ DOBRA 2, PROVA ═══════════════ -->
+<!-- ═══════════════ DOBRA 2, DEPOIMENTO ═══════════════ -->
 <section class="prova">
   <div class="prova__grade">
 
-    <figure class="foto">
-      <!-- Dois recortes do mesmo original, um por proporcao de caixa: retrato na
-           coluna do desktop, faixa larga na tira de 320px do celular. -->
-      <picture>
-        <source media="(max-width:999px)" srcset="/assets/medceo/dr-luis-largo.webp" width="1400" height="630" />
-        <img src="/assets/medceo/dr-luis-retrato.webp" alt="Dr. Luiz Henrique sentado no consultório dele"
-             width="900" height="1350" loading="lazy" decoding="async" />
-      </picture>
-    </figure>
+    <div class="prova__video">
+      <div class="quadro quadro--retrato">
+        <button class="fachada" type="button" data-video="6e8f2654-57ab-4069-950e-eb9bfe5d1018"
+                aria-label="Assistir ao depoimento em vídeo do Dr. Luiz Henrique">
+          <img src="/assets/medceo/video-luis-poster.webp" alt="" width="612" height="1080" loading="lazy" decoding="async" />
+          <span class="play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M19 9.27a2 2 0 0 1 0 3.46L3 21.99a2 2 0 0 1-3-1.73V1.74A2 2 0 0 1 3 .01z"/></svg>
+          </span>
+        </button>
+      </div>
+      <p class="legenda legenda--escura">Depoimento em vídeo, 2min20s</p>
+    </div>
 
     <div class="prova__texto">
-      <p class="pill"><i aria-hidden="true"></i>Quem já fez esse caminho</p>
+      <p class="pill"><i aria-hidden="true"></i>Um médico que já fez isso</p>
 
-      <blockquote>“Eu trabalhava bastante para ganhar pouco. Hoje eu trabalho pouco e ganho bastante.”</blockquote>
+      <blockquote>“Hoje eu atendo menos e faturo mais.”</blockquote>
 
       <p class="assinatura">
         <strong>Dr. Luiz Henrique</strong>
@@ -377,41 +449,105 @@ a{color:inherit}
       </p>
 
       <ul class="frases">
-        <li>“Hoje eu tenho mais tempo, faturando muito mais. E a clínica não dependendo só de mim.”</li>
+        <li>“Eu costumo dizer que o primeiro ano do meu filho eu perdi. Porque eu sempre estava trabalhando.”</li>
         <li>“Todo médico tem medo de perder paciente quando você sobe a consulta. Não perdi pacientes.”</li>
         <li>“A equipe é a essência do negócio. Não é o médico.”</li>
       </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ DOBRA 3, AULA ═══════════════ -->
+<section class="aula">
+  <div class="aula__grade">
+
+    <div class="aula__texto">
+      <p class="kicker">Aula introdutória, acesso liberado</p>
+
+      <h2>Antes de entrar, veja a aula que <em>abre o método</em>.</h2>
+
+      <p>Diagnóstico, margem, comercial, operação e escala. Onde a sua clínica está deixando dinheiro na mesa hoje, explicado por quem toca uma operação real em Curitiba, não por quem só estuda o assunto.</p>
+    </div>
+
+    <div class="aula__video">
+      <div class="quadro quadro--paisagem">
+        <button class="fachada" type="button" data-video="85638f9a-6681-4a3d-bdab-83aed5805455"
+                aria-label="Assistir à aula introdutória do MedCEO">
+          <img src="/assets/medceo/aula-poster.webp" alt="" width="1280" height="718" loading="lazy" decoding="async" />
+          <span class="play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M19 9.27a2 2 0 0 1 0 3.46L3 21.99a2 2 0 0 1-3-1.73V1.74A2 2 0 0 1 3 .01z"/></svg>
+          </span>
+        </button>
+      </div>
+      <p class="legenda legenda--clara">Dr. Luciano Alves Neves, CRM/PR 45049 · 22min18s</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ DOBRA 4, RECONVITE ═══════════════ -->
+<section class="fecho">
+  <div class="fecho__anel" aria-hidden="true"></div>
+
+  <div class="fecho__grade">
+
+    <div class="fecho__texto">
+      <p class="pill"><i aria-hidden="true"></i>Antes de fechar esta página</p>
+
+      <h2>Tire uma semana de férias. O que acontece com o faturamento é o seu <em>diagnóstico</em>.</h2>
+
+      <p class="fecho__lede">Se ele cai junto com você, o problema nunca foi a agenda. É que a clínica não tem estrutura para andar sem o dono dentro dela. Isso não se resolve atendendo mais.</p>
 
       <a class="btn btn--escuro" href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener noreferrer">
-        Quero entrar no grupo
+        Entrar no grupo agora
         <span class="btn__seta" aria-hidden="true">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
         </span>
       </a>
     </div>
 
+    <div class="fecho__acao">
+      <ul class="entrega">
+        <li>
+          <strong>Uma aula ao vivo, gratuita, toda semana</strong>
+          <span>Pauta única e aplicação prática, sem teoria solta.</span>
+        </li>
+        <li>
+          <strong>Materiais e modelos liberados no grupo</strong>
+          <span>Planilhas, scripts e roteiros que já rodam numa clínica de verdade.</span>
+        </li>
+        <li>
+          <strong>Sala com outros médicos donos de clínica</strong>
+          <span>Mesma dor, mesmo vocabulário. Ninguém explicando o óbvio.</span>
+        </li>
+      </ul>
+      <p class="fecho__micro">Grupo gratuito no WhatsApp. Só para médico com clínica ou consultório próprio.</p>
+    </div>
+
   </div>
 </section>
 
 <script>
-/* O iframe do Panda so nasce no clique. Antes disso a dobra nao carrega player
-   nenhum: quem nao da play nao paga o custo do video. */
+/* O iframe do Panda so nasce no clique. Antes disso nenhuma dobra carrega
+   player: quem nao da play nao paga o custo do video. Um listener so, para
+   qualquer [data-video] da pagina. */
 (function () {
   var LIB = "vz-cc72507e-ecc";
-  var alvo = document.querySelector("[data-video]");
-  if (!alvo) return;
-  alvo.addEventListener("click", function () {
+  document.addEventListener("click", function (ev) {
+    var alvo = ev.target.closest("[data-video]");
+    if (!alvo) return;
     var quadro = alvo.parentNode;
     var f = document.createElement("iframe");
     f.src = "https://player-" + LIB + ".tv.pandavideo.com.br/embed/?v=" +
             alvo.getAttribute("data-video") + "&autoplay=1";
-    f.title = "Depoimento do Dr. Luiz Henrique";
+    f.title = alvo.getAttribute("aria-label") || "Vídeo";
     f.allow = "accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture";
     f.setAttribute("allowfullscreen", "");
     f.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0";
     quadro.appendChild(f);
     alvo.remove();
-  }, { once: true });
+  });
 })();
 </script>
 </body>
