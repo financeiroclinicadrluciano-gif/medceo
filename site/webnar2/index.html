@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aula semanal gratuita para médico dono de clínica | MedCEO</title>
+<meta name="description" content="Toda semana, uma aula ao vivo e gratuita para o médico que quer transformar a clínica numa empresa que anda sem ele. Grupo no WhatsApp só para médico com clínica ou consultório próprio." />
+<link rel="canonical" href="https://medceo.online/webnar2" />
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/medceo/logo-icone.png" />
+<link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png" />
+<meta name="robots" content="noindex, follow" />
+
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   TIPOGRAFIA
+   Hospedada no proprio dominio, em /assets/fonts. Nenhuma requisicao sai
+   para terceiro: o briefing pede zero dependencia externa.
+   Dois subsets por peso, latin e latin-ext. PT-BR precisa do latin-ext,
+   que e onde moram cedilha e boa parte dos acentos.
+   ══════════════════════════════════════════════════════════════════════ */
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;
+  src:url(/assets/fonts/playfair-display-400-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;
+  src:url(/assets/fonts/playfair-display-400-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:500;font-display:swap;
+  src:url(/assets/fonts/playfair-display-500-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:500;font-display:swap;
+  src:url(/assets/fonts/playfair-display-500-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;
+  src:url(/assets/fonts/playfair-display-400-italic-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;
+  src:url(/assets/fonts/playfair-display-400-italic-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:300;font-display:swap;
+  src:url(/assets/fonts/poppins-300-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:300;font-display:swap;
+  src:url(/assets/fonts/poppins-300-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;
+  src:url(/assets/fonts/poppins-400-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;
+  src:url(/assets/fonts/poppins-400-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;
+  src:url(/assets/fonts/poppins-500-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;
+  src:url(/assets/fonts/poppins-500-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;
+  src:url(/assets/fonts/poppins-600-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;
+  src:url(/assets/fonts/poppins-600-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* ══════════════════════════════════════════════════════════════════════
+   TOKENS
+   Cores do design system oficial, sem inventar nenhuma.
+   `--secundario-claro` nao e cor nova: e o #55616B que o proprio briefing
+   determina para texto secundario em fundo claro, porque o --muted oficial
+   mede 4.36:1 ali e reprova AA em corpo pequeno.
+   ══════════════════════════════════════════════════════════════════════ */
+:root{
+  --night:#07131D;
+  --navy:#0D2434;
+  --navy-2:#15354A;
+  --gold:#C8A951;
+  --gold-soft:#E7D28C;
+  --paper:#F7F0E4;
+  --paper-2:#E9DCC6;
+  --ink:#12202D;
+  --muted:#65727C;
+  --secundario-claro:#55616B;
+
+  --serif:'Playfair Display',Iowan Old Style,Palatino Linotype,Palatino,Georgia,serif;
+  --sans:'Poppins',-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+
+  --r-pequeno:8px;
+  --r-grande:12px;
+  --r-pill:32px;
+
+  --margem:clamp(24px,5vw,88px);
+}
+
+/* ── reset curto ─────────────────────────────────────────────────────── */
+*,::before,::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--paper);
+  font-family:var(--sans);font-weight:300;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,p,figure,blockquote,ul{margin:0}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PECAS REPETIDAS
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Kicker: mono em caixa alta com um fio de 1px a esquerda. O fio e
+   estrutural, ele ancora o texto na margem, nao enfeita. */
+.kicker{display:flex;align-items:center;gap:16px;
+  font-family:var(--mono);font-size:11px;font-weight:400;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.kicker::before{content:"";flex:0 0 auto;width:40px;height:1px;background:var(--gold)}
+
+/* Pill de rotulo com micro-icone. Em fundo claro o dourado aparece como
+   borda e como preenchimento do losango, nunca como texto: sobre paper ele
+   mede 2.00:1 e reprovaria. O texto ali e ink. */
+.pill{display:inline-flex;align-items:center;gap:12px;width:fit-content;
+  padding:9px 20px;border:1px solid rgba(200,169,81,.55);border-radius:var(--r-pill);
+  font-family:var(--mono);font-size:11px;font-weight:400;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.pill i{flex:0 0 auto;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+
+/* Botao: pill de 64px com o circulo da seta encaixado a direita. O circulo
+   tem 44px, que e tambem o alvo minimo de toque. */
+.btn{display:inline-flex;align-items:center;gap:22px;
+  height:64px;padding:0 10px 0 32px;border:0;border-radius:var(--r-pill);
+  background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:.01em;
+  text-decoration:none;cursor:pointer;
+  transition:background .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1)}
+.btn__seta{flex:0 0 auto;display:grid;place-items:center;width:44px;height:44px;
+  border-radius:50%;background:var(--night);color:var(--paper);
+  transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.btn:hover{background:var(--paper-2)}
+.btn:hover .btn__seta{transform:translateX(4px)}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.btn--escuro{background:var(--ink);color:var(--paper)}
+.btn--escuro .btn__seta{background:var(--paper);color:var(--ink)}
+.btn--escuro:hover{background:var(--navy)}
+
+/* ══════════════════════════════════════════════════════════════════════
+   DOBRA 1, CONVITE
+   Superficie escura. Texto a esquerda em 55%, video a direita.
+   ══════════════════════════════════════════════════════════════════════ */
+.convite{position:relative;isolation:isolate;overflow:hidden;
+  padding:clamp(72px,10vh,132px) var(--margem) clamp(64px,9vh,116px);
+  background:linear-gradient(158deg,var(--night) 0%,var(--night) 38%,var(--navy) 100%)}
+
+/* Anel de 1px saindo pelo canto superior esquerdo. Elemento grafico, nao
+   textura: e uma linha unica, do mesmo peso dos fios da pagina. */
+.convite__anel{position:absolute;z-index:-1;top:-430px;left:-390px;
+  width:760px;height:760px;border:1px solid rgba(200,169,81,.28);border-radius:50%;
+  pointer-events:none}
+.convite__anel--interno{top:-352px;left:-318px;width:604px;height:604px;
+  border-color:rgba(247,240,228,.08)}
+
+.convite__grade{display:grid;gap:clamp(40px,5vw,72px);align-items:center;
+  max-width:1320px;margin-inline:auto}
+@media(min-width:1000px){
+  /* O video ocupa as duas linhas da direita; texto e botao empilham a esquerda.
+     No celular esta regra nao vale e a ordem do DOM manda: titulo, video, botao. */
+  .convite__grade{grid-template-columns:minmax(0,55fr) minmax(0,45fr);
+    grid-template-areas:"texto video" "acao video";
+    row-gap:clamp(20px,2.4vw,30px)}
+  .convite__texto{grid-area:texto;align-content:end}
+  .convite__acao{grid-area:acao}
+  .video{grid-area:video}
+}
+
+.convite__texto{min-width:0;display:grid;gap:clamp(20px,2.4vw,30px);justify-items:start}
+
+.marca{display:inline-flex;align-items:center;gap:14px;text-decoration:none;min-height:44px}
+.marca img{height:26px;width:auto;object-fit:contain}
+.marca span{width:1px;height:20px;background:rgba(200,169,81,.32)}
+.marca small{font-family:var(--mono);font-size:9px;letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(247,240,228,.5);line-height:1.6}
+
+/* Titulo: Playfair grande, duas frases. A palavra em italico ganha o
+   sublinhado por text-decoration, com offset. Um ::after posicionado
+   atravessaria a linha de baixo quando o titulo quebra. */
+.convite h1{max-width:19ch;display:grid;gap:.12em;
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(34px,1.6rem + 2.6vw,60px);line-height:1.06;letter-spacing:-.02em;
+  color:var(--paper);text-wrap:balance}
+.convite h1 em{font-style:italic;color:var(--gold-soft);
+  text-decoration:underline;text-decoration-color:var(--gold);
+  text-decoration-thickness:1px;text-underline-offset:9px}
+
+.convite__sub{max-width:520px;color:rgba(247,240,228,.72);
+  font-size:16px;font-weight:300;line-height:1.75}
+
+.convite__acao{display:grid;gap:14px;justify-items:start;margin-top:6px}
+.convite__micro{max-width:44ch;font-family:var(--mono);font-size:11px;font-weight:400;
+  line-height:1.7;letter-spacing:.04em;color:rgba(247,240,228,.5)}
+
+/* ── video ───────────────────────────────────────────────────────────── */
+.video{min-width:0}
+.video__quadro{position:relative;aspect-ratio:16/9;overflow:hidden;
+  border:1px solid rgba(200,169,81,.55);border-radius:var(--r-grande);
+  background:var(--navy-2)}
+/* PLACEHOLDER DO VIDEO. Trocar o bloco .video__ph inteiro pelo embed. */
+.video__ph{position:absolute;inset:0;display:grid;place-items:center;
+  background:radial-gradient(120% 100% at 50% 42%,var(--navy-2) 0%,var(--night) 100%);
+  filter:grayscale(1) contrast(1.06)}
+.video__play{display:grid;place-items:center;width:76px;height:76px;
+  border:1px solid var(--paper);border-radius:50%;color:var(--paper);
+  background:transparent}
+.video__legenda{display:flex;align-items:center;gap:12px;margin-top:16px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(247,240,228,.58)}
+.video__legenda::before{content:"";flex:0 0 auto;width:24px;height:1px;
+  background:rgba(247,240,228,.28)}
+
+/* ══════════════════════════════════════════════════════════════════════
+   DOBRA 2, PROVA
+   Superficie clara, alternando com a dobra 1 de proposito.
+   Foto sangra na esquerda e ocupa a seçao inteira na vertical.
+   ══════════════════════════════════════════════════════════════════════ */
+.prova{position:relative;background:var(--paper);color:var(--ink)}
+.prova__grade{display:grid;align-items:stretch}
+@media(min-width:1000px){
+  .prova__grade{grid-template-columns:minmax(0,40fr) minmax(0,60fr)}
+}
+
+/* PLACEHOLDER DA FOTO. Trocar o bloco .foto__ph por
+   <img src="..." alt="Dr. Luiz Henrique no consultorio" /> */
+.foto{position:relative;min-width:0;margin:0;overflow:hidden}
+/* O filtro fica na imagem, nunca no <figure>: filtro alcança tambem o ::after,
+   e foi assim que o filete dourado saiu cinza na primeira versao. */
+.foto__ph,.foto img{filter:grayscale(1) contrast(1.06)}
+.foto__ph{width:100%;height:100%;min-height:320px;
+  background:linear-gradient(168deg,var(--navy-2) 0%,var(--night) 100%)}
+/* O filete dourado costura a foto ao texto. 3px, vertical, sem sombra. */
+.foto::after{content:"";position:absolute;top:0;right:0;width:3px;height:100%;
+  background:var(--gold)}
+
+.prova__texto{min-width:0;display:grid;gap:clamp(22px,2.6vw,32px);justify-items:start;
+  padding:clamp(56px,8vh,104px) var(--margem) clamp(56px,8vh,104px) clamp(32px,4vw,72px)}
+
+.prova blockquote{max-width:19ch;
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(26px,1.2rem + 1.9vw,40px);line-height:1.16;letter-spacing:-.015em;
+  color:var(--ink);text-wrap:balance}
+
+.assinatura{display:grid;gap:4px}
+.assinatura strong{font-size:15px;font-weight:500;color:var(--ink)}
+.assinatura span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--secundario-claro)}
+
+/* Tres frases separadas por fio de 1px. O fio marca a fronteira entre
+   depoimentos, e o que faz cada frase ser lida como uma unidade. */
+.frases{display:grid;max-width:60ch;padding:0;list-style:none;
+  border-top:1px solid rgba(18,32,45,.16)}
+.frases li{padding:20px 0;border-bottom:1px solid rgba(18,32,45,.16);
+  font-size:15px;font-weight:400;line-height:1.65;color:var(--ink)}
+
+/* ══════════════════════════════════════════════════════════════════════
+   CELULAR
+   Dobra 1 empilha na ordem titulo, video, botao.
+   Dobra 2 empilha com a foto no topo em 320px.
+   ══════════════════════════════════════════════════════════════════════ */
+@media(max-width:999px){
+  .convite__anel{top:-380px;left:-260px;width:620px;height:620px}
+  .convite__anel--interno{display:none}
+  .convite h1{max-width:none}
+  .convite__acao{justify-items:stretch;width:100%;max-width:420px}
+  .btn{width:100%;max-width:420px;justify-content:space-between;padding-left:28px}
+  .foto{height:320px}
+  .foto__ph{height:320px}
+  .foto::after{top:auto;bottom:0;right:0;width:100%;height:3px}
+  .prova__texto{padding-inline:var(--margem)}
+}
+@media(max-width:520px){
+  .kicker{font-size:10px;letter-spacing:.2em}
+  .kicker::before{width:24px}
+  .pill{font-size:10px;letter-spacing:.14em;padding:8px 16px}
+  .btn{font-size:14px;gap:14px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════ DOBRA 1, CONVITE ═══════════════ -->
+<section class="convite">
+  <div class="convite__anel" aria-hidden="true"></div>
+  <div class="convite__anel convite__anel--interno" aria-hidden="true"></div>
+
+  <div class="convite__grade">
+
+    <div class="convite__texto">
+      <a class="marca" href="/" aria-label="MedCEO, ir para o site">
+        <img src="/assets/medceo/logo.png" alt="MedCEO" width="124" height="27" />
+        <span aria-hidden="true"></span>
+        <small>Alpha MedBusiness</small>
+      </a>
+
+      <p class="kicker">Para médico dono de clínica</p>
+
+      <h1><span>Sua clínica não precisa de mais pacientes.</span><span>Precisa parar de <em>depender</em> de você.</span></h1>
+
+      <p class="convite__sub">Toda semana, uma aula ao vivo e gratuita para o médico que quer transformar a clínica numa empresa que anda sem ele. Sem sair da medicina.</p>
+
+    </div>
+
+    <div class="video">
+      <div class="video__quadro">
+        <!-- VIDEO. Trocar esta div .video__ph inteira pelo embed do Panda:
+             <iframe src="https://player-vz-...pandavideo.com.br/embed/?v=ID"
+                     style="position:absolute;inset:0;width:100%;height:100%;border:0"
+                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+                     allowfullscreen title="Dr. Luciano Alves Neves"></iframe> -->
+        <div class="video__ph">
+          <span class="video__play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M19 9.27a2 2 0 0 1 0 3.46L3 21.99a2 2 0 0 1-3-1.73V1.74A2 2 0 0 1 3 .01z"/></svg>
+          </span>
+        </div>
+      </div>
+      <p class="video__legenda">Dr. Luciano Alves Neves, médico e CEO</p>
+    </div>
+
+    <div class="convite__acao">
+      <a class="btn" href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener noreferrer">
+        Quero entrar no grupo
+        <span class="btn__seta" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </span>
+      </a>
+      <p class="convite__micro">Grupo gratuito no WhatsApp. Só para médico com clínica ou consultório próprio.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ DOBRA 2, PROVA ═══════════════ -->
+<section class="prova">
+  <div class="prova__grade">
+
+    <figure class="foto">
+      <!-- FOTO. Trocar esta div .foto__ph por:
+           <img src="/assets/medceo/dr-luiz-henrique.jpg" alt="Dr. Luiz Henrique no consultório"
+                width="900" height="1200" style="width:100%;height:100%;object-fit:cover" /> -->
+      <div class="foto__ph" role="img" aria-label="Retrato do Dr. Luiz Henrique"></div>
+    </figure>
+
+    <div class="prova__texto">
+      <p class="pill"><i aria-hidden="true"></i>Quem já fez esse caminho</p>
+
+      <blockquote>“Eu trabalhava bastante para ganhar pouco. Hoje eu trabalho pouco e ganho bastante.”</blockquote>
+
+      <p class="assinatura">
+        <strong>Dr. Luiz Henrique</strong>
+        <span>Nutrologia e medicina esportiva, Londrina</span>
+      </p>
+
+      <ul class="frases">
+        <li>“Hoje eu tenho mais tempo, faturando muito mais. E a clínica não dependendo só de mim.”</li>
+        <li>“Todo médico tem medo de perder paciente quando você sobe a consulta. Não perdi pacientes.”</li>
+        <li>“A equipe é a essência do negócio. Não é o médico.”</li>
+      </ul>
+
+      <a class="btn btn--escuro" href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener noreferrer">
+        Quero entrar no grupo
+        <span class="btn__seta" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
