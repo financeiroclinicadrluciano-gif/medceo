@@ -956,6 +956,127 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   .svc-detalhe__corpo{animation:none}
   .svc-detalhe__mais{transition:none}
 }
+/* ==========================================================================
+   PAINEL DE VALOR
+   O toggle antes abria uma ficha tecnica. Ficha tecnica descreve, nao vende.
+   Agora abre: de onde voce sai, onde voce chega, o que esta incluido e para
+   quem NAO e. O "nao e para voce se" converte mais que mais um beneficio,
+   porque quem se reconhece no filtro confia no resto da pagina.
+   ========================================================================== */
+.svc-detalhe > summary{justify-content:flex-start;flex-wrap:wrap}
+.svc-detalhe__pista{font-family:'Inter',system-ui,sans-serif;font-size:12.5px;
+  letter-spacing:normal;text-transform:none;font-weight:400;
+  color:rgba(232,226,213,.42)}
+.svc-detalhe[open] .svc-detalhe__pista{opacity:0}
+
+.svc-p__h{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(232,226,213,.42);margin:26px 0 12px}
+.svc-detalhe__corpo > .svc-p__h:first-child{margin-top:4px}
+
+/* Antes e depois. A seta some no mobile: em coluna ela aponta para o lado errado. */
+.svc-p__virada{display:grid;gap:14px;align-items:stretch;margin-top:4px}
+@media(min-width:760px){.svc-p__virada{grid-template-columns:1fr 30px 1fr}}
+.svc-p__lado{padding:18px 20px;border-radius:12px;border:1px solid rgba(232,226,213,.1);
+  background:rgba(232,226,213,.025)}
+.svc-p__lado--depois{border-color:rgba(200,169,81,.3);
+  background:linear-gradient(180deg,rgba(200,169,81,.07),rgba(200,169,81,.015))}
+.svc-p__lado .svc-p__h{margin:0 0 10px}
+.svc-p__lado--depois .svc-p__h{color:#C8A951}
+.svc-p__lado p{margin:0;font-size:14.5px;line-height:1.62;color:rgba(232,226,213,.66)}
+.svc-p__lado--depois p{color:#E8E2D5}
+.svc-p__seta{display:none;place-items:center;color:rgba(200,169,81,.5);font-size:18px}
+@media(min-width:760px){.svc-p__seta{display:grid}}
+
+/* Filtro. Dois lados, mesma altura, um confirma e o outro dispensa. */
+.svc-p__filtro{display:grid;gap:14px}
+@media(min-width:760px){.svc-p__filtro{grid-template-columns:1fr 1fr}}
+.svc-p__filtro ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.svc-p__filtro li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:11px;
+  font-size:14px;line-height:1.55;color:rgba(232,226,213,.72)}
+.svc-p__filtro li::before{content:"";display:block;width:16px;height:16px;margin-top:3px;
+  border-radius:50%;border:1px solid currentColor}
+.svc-p__sim li{color:rgba(232,226,213,.78)}
+.svc-p__sim li::before{border-color:rgba(200,169,81,.55);
+  background:radial-gradient(circle,#C8A951 0 3.2px,transparent 3.2px)}
+.svc-p__nao li{color:rgba(232,226,213,.5)}
+.svc-p__nao li::before{border-color:rgba(232,226,213,.22);
+  background:linear-gradient(45deg,transparent 45%,rgba(232,226,213,.3) 45% 55%,transparent 55%)}
+
+/* Toggle dentro do toggle: o curriculo completo so aparece para quem pediu
+   duas vezes. E o que impede a pagina de virar um documento. */
+.svc-sub{margin-top:24px;border:1px solid rgba(200,169,81,.2);border-radius:12px;
+  background:rgba(200,169,81,.03)}
+.svc-sub > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:11px;
+  padding:15px 18px;min-height:46px;font-size:13.5px;color:#E7D28C}
+.svc-sub > summary::-webkit-details-marker{display:none}
+.svc-sub > summary:focus-visible{outline:2px solid #C8A951;outline-offset:3px}
+.svc-sub > summary b{font-weight:500}
+.svc-sub__seta{margin-left:auto;flex:0 0 auto;font-size:11px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.svc-sub[open] .svc-sub__seta{transform:rotate(90deg)}
+.svc-sub__corpo{padding:2px 18px 18px;animation:svcAbre .5s cubic-bezier(.16,1,.3,1) both}
+.svc-sub .svc-semanas{margin-top:6px}
+
+/* Parcela e ancoragem no card fechado. */
+.svc-card__parcela{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;
+  color:#C8A951;margin-top:2px}
+.svc-card__turma{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:999px;
+  border:1px solid rgba(200,169,81,.32);font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#C8A951}
+
+/* Prova. Numero de um caso real, nomeado e consentido, nunca media. */
+.svc-prova{display:grid;gap:clamp(24px,4vw,52px);align-items:center}
+/* min-width:0 nos filhos: sem isso o item de grid nao encolhe abaixo do
+   conteudo, e a fila de numeros (4x104 + 3 gaps = 464px) levava a pagina
+   inteira para a direita a 390. Medido: overflowDoc true -> false. */
+.svc-prova > *{min-width:0}
+@media(min-width:900px){.svc-prova{grid-template-columns:minmax(0,420px) minmax(0,1fr)}}
+/* 612x1080 e a proporcao do arquivo do poster: mantida igual nos dois
+   tamanhos para corte zero. */
+/* width:100% obrigatorio: o min-width:0 acima deixa o item de grid encolher
+   ate o conteudo, e o conteudo aqui e um botao absoluto, ou seja, zero.
+   Sem isso a moldura media 4px de altura. */
+.svc-prova__quadro{position:relative;width:100%;aspect-ratio:612/1080;max-width:340px;
+  border-radius:16px;overflow:hidden;border:1px solid rgba(200,169,81,.28);
+  background:#0B0B0C}
+@media(max-width:899px){.svc-prova__quadro{max-width:300px;margin-inline:auto}}
+.svc-prova__play{position:absolute;inset:0;width:100%;height:100%;cursor:pointer;border:0;
+  padding:0;display:grid;place-items:center;gap:14px;align-content:center;
+  background:linear-gradient(180deg,rgba(11,11,12,.34),rgba(11,11,12,.86)),
+    url("/assets/medceo/video-luis-poster.webp") center/cover no-repeat;
+  color:#E8E2D5;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;transition:filter .4s ease}
+.svc-prova__play:hover{filter:brightness(1.12)}
+.svc-prova__play:focus-visible{outline:2px solid #C8A951;outline-offset:-4px}
+.svc-prova__play span{display:grid;place-items:center;width:62px;height:62px;border-radius:50%;
+  border:1px solid rgba(200,169,81,.7);color:#C8A951;font-size:17px;padding-left:4px}
+/* Quebra em duas linhas em vez de rolar: a 390 a fila de 4 dava 464px contra
+   445 de espaco, e 19px de sobra so serviam para desenhar uma barra de rolagem
+   no meio do bloco de prova. */
+.svc-prova__salto{display:grid;grid-template-columns:1fr 1fr;
+  gap:20px clamp(14px,3vw,30px);margin:26px 0 0;padding:0;list-style:none}
+.svc-prova__salto li{min-width:0}
+.svc-prova__salto b{white-space:nowrap}
+@media(min-width:1100px){.svc-prova__salto{grid-template-columns:repeat(4,1fr)}}
+/* 30px em celula de 101px cortava: R$ 100 mil pede 144px de texto. Medido
+   com scrollWidth contra clientWidth, nao a olho. Por isso o corpo encolheu e
+   as 4 colunas so entram acima de 1100, onde a celula tem 155px. */
+.svc-prova__salto b{display:block;font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(21px,2.2vw,28px);color:#C8A951;line-height:1.1}
+.svc-prova__salto small{display:block;margin-top:5px;font-size:11.5px;line-height:1.4;
+  color:rgba(232,226,213,.5)}
+.svc-prova blockquote{margin:26px 0 0;padding-left:20px;
+  border-left:2px solid rgba(200,169,81,.45);font-size:clamp(16px,1.7vw,19px);
+  line-height:1.62;color:#E8E2D5}
+.svc-prova__quem{margin-top:16px;font-size:13px;color:rgba(232,226,213,.5)}
+.svc-prova__aviso{margin-top:22px;font-size:12px;line-height:1.55;
+  color:rgba(232,226,213,.38);max-width:56ch}
+
+@media(prefers-reduced-motion:reduce){
+  .svc-sub__corpo{animation:none}
+  .svc-sub__seta{transition:none}
+}
+
 </style>
 <!-- GA4 (Tracking 8D) -->
 <script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('set',{site_marca:'medceo'});gtag('config','GT-PJWWKM65',{site_marca:'medceo'});</script>
@@ -1021,14 +1142,46 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <a class="svc-card__btn" href="/webnar">Entrar no grupo <span aria-hidden="true">&rarr;</span></a>
         </div>
         <details class="svc-detalhe">
-          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>Ver por dentro <span class="svc-detalhe__pista">1 aula por semana, materiais que já rodam numa clínica</span></summary>
           <div class="svc-detalhe__corpo">
+            <div class="svc-p__virada">
+              <div class="svc-p__lado">
+                <p class="svc-p__h">De onde você sai</p>
+                <p>Você lê sobre gestão de clínica em post de rede social, sem saber o que aplicar na segunda-feira.</p>
+              </div>
+              <div class="svc-p__seta" aria-hidden="true">&rarr;</div>
+              <div class="svc-p__lado svc-p__lado--depois">
+                <p class="svc-p__h">Onde você chega</p>
+                <p>Você entra na mesma aula que a turma paga está tendo, com o material da semana na mão.</p>
+              </div>
+            </div>
+
+            <p class="svc-p__h">O que está incluído</p>
             <ul class="svc-entregas">
             <li><b>Formato</b><span>Uma aula ao vivo por semana, aberta a quem está no grupo do WhatsApp</span></li>
             <li><b>O tema</b><span>O mesmo gargalo que a turma paga está tratando naquela semana</span></li>
             <li><b>Materiais</b><span>Planilhas, scripts e roteiros que já rodam numa clínica de verdade</span></li>
+            <li><b>Quem conduz</b><span>Dr. Luciano e os especialistas de cada pilar</span></li>
             <li><b>Entrada e saída</b><span>Quando quiser, sem compromisso</span></li>
             </ul>
+
+            <div class="svc-p__filtro">
+              <div>
+                <p class="svc-p__h">É para você se</p>
+                <ul class="svc-p__sim">
+              <li>Você quer ver o método antes de investir</li>
+              <li>Você tem clínica ou consultório próprio</li>
+              <li>Você consegue reservar uma hora por semana</li>
+                </ul>
+              </div>
+              <div>
+                <p class="svc-p__h">Não é para você se</p>
+                <ul class="svc-p__nao">
+              <li>Você espera um plano feito para a sua clínica: aqui a aula é aberta e o plano individual é dos programas pagos</li>
+              <li>Você ainda não atende, nem em sala sublocada</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </details>
       </article>
@@ -1049,15 +1202,47 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedManager." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
         <details class="svc-detalhe">
-          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>Ver por dentro <span class="svc-detalhe__pista">4 disciplinas, 1 projeto aplicado por disciplina</span></summary>
           <div class="svc-detalhe__corpo">
+            <div class="svc-p__virada">
+              <div class="svc-p__lado">
+                <p class="svc-p__h">De onde você sai</p>
+                <p>Você aprendeu medicina na faculdade e está aprendendo empresa no susto, decisão por decisão.</p>
+              </div>
+              <div class="svc-p__seta" aria-hidden="true">&rarr;</div>
+              <div class="svc-p__lado svc-p__lado--depois">
+                <p class="svc-p__h">Onde você chega</p>
+                <p>Você tem a competência executiva estruturada, com um projeto aplicado à sua clínica em cada uma das quatro frentes.</p>
+              </div>
+            </div>
+
+            <p class="svc-p__h">O que está incluído</p>
             <ul class="svc-entregas">
             <li><b>Formato</b><span>Autoinstrucional, com tutoria</span></li>
             <li><b>Profundidade</b><span>Competência executiva, disciplina por disciplina</span></li>
             <li><b>As disciplinas</b><span>Mentalidade CEO, Comercial, Marketing e Gestão</span></li>
+            <li><b>Cada disciplina traz</b><span>Aula-base, caso real, exercício e avaliação</span></li>
             <li><b>O que você leva</b><span>Um projeto aplicado por disciplina, feito sobre a sua própria clínica</span></li>
-            <li><b>Para quem</b><span>Quem quer o conhecimento estruturado antes de entrar numa turma ao vivo</span></li>
+            <li><b>Ritmo</b><span>O seu: começa quando quiser e avança na sua velocidade</span></li>
             </ul>
+
+            <div class="svc-p__filtro">
+              <div>
+                <p class="svc-p__h">É para você se</p>
+                <ul class="svc-p__sim">
+              <li>Você quer o conhecimento estruturado antes de entrar numa turma ao vivo</li>
+              <li>Você prefere estudar no seu ritmo, sem agenda fixa</li>
+              <li>Você quer levar o conteúdo para a sua equipe também</li>
+                </ul>
+              </div>
+              <div>
+                <p class="svc-p__h">Não é para você se</p>
+                <ul class="svc-p__nao">
+              <li>Você precisa de alguém olhando a sua clínica e cobrando: aqui não há encontro ao vivo nem cobrança</li>
+              <li>O seu problema é execução, não falta de conhecimento</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </details>
       </article>
@@ -1074,12 +1259,26 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
         <div class="svc-card__valorbox">
           <p class="svc-card__rotulo">Investimento</p>
           <p class="svc-card__valor">R$ 12.000</p>
+          <p class="svc-card__parcela">ou 12x R$ 1.100</p>
           <p class="svc-card__nota">24 semanas</p>
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedScale." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
         <details class="svc-detalhe">
-          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>Ver por dentro <span class="svc-detalhe__pista">24 semanas, 1 entregável por semana</span></summary>
           <div class="svc-detalhe__corpo">
+            <div class="svc-p__virada">
+              <div class="svc-p__lado">
+                <p class="svc-p__h">De onde você sai</p>
+                <p>Médico que vende a própria agenda. Ainda faz plantão, sala sublocada ou clínica inicial, sem método próprio e sem comercial montado.</p>
+              </div>
+              <div class="svc-p__seta" aria-hidden="true">&rarr;</div>
+              <div class="svc-p__lado svc-p__lado--depois">
+                <p class="svc-p__h">Onde você chega</p>
+                <p>Médico com método próprio, comercial estruturado e a máquina básica rodando: aquisição, conversão, margem e execução com número e responsável em cada etapa.</p>
+              </div>
+            </div>
+
+            <p class="svc-p__h">O que está incluído</p>
             <ul class="svc-entregas">
             <li><b>Encontros</b><span>Semanais, ao vivo, ao longo de 24 semanas</span></li>
             <li><b>Os quatro pilares</b><span>Um mês por pilar: Mentalidade CEO, Comercial, Marketing e Gestão</span></li>
@@ -1089,8 +1288,29 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
             <li><b>Perfil comportamental</b><span>DISC com devolutiva, não o relatório cru, conduzida pela formação do Dr. Luciano na Febracis</span></li>
             <li><b>Entrada</b><span>Contínua: você não espera formar turma, pega o fluxo já rodando</span></li>
             <li><b>O que você leva</b><span>Um entregável pronto por semana, de canvas de oferta a plano de 90 dias</span></li>
-            <li><b>A transformação</b><span>Sair de médico que vende a própria agenda para médico com método próprio e comercial estruturado</span></li>
             </ul>
+
+            <div class="svc-p__filtro">
+              <div>
+                <p class="svc-p__h">É para você se</p>
+                <ul class="svc-p__sim">
+              <li>Você está começando a empreender na medicina</li>
+              <li>Você atende bem e mesmo assim o mês seguinte é uma incógnita</li>
+              <li>Você quer sair da conta de quantos plantões faltam para fechar o mês</li>
+                </ul>
+              </div>
+              <div>
+                <p class="svc-p__h">Não é para você se</p>
+                <ul class="svc-p__nao">
+              <li>Você já tem clínica montada, equipe e agenda cheia: nesse caso o degrau é o MedCEO</li>
+              <li>Você não tem uma hora por semana para o encontro ao vivo</li>
+                </ul>
+              </div>
+            </div>
+
+            <details class="svc-sub">
+              <summary><b>As 24 semanas, uma por uma</b><span class="svc-sub__seta" aria-hidden="true">&#9654;</span></summary>
+              <div class="svc-sub__corpo">
           <div class="svc-semanas">
             <p class="svc-semanas__rot">As 24 semanas, uma por uma. Arraste para o lado.</p>
             <div class="svc-semanas__trilho">
@@ -1216,6 +1436,8 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
               </div>
             </div>
           </div>
+              </div>
+            </details>
           </div>
         </details>
       </article>
@@ -1231,23 +1453,55 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
         </div>
         <div class="svc-card__valorbox">
           <p class="svc-card__rotulo">Investimento</p>
-          <p class="svc-card__valor">R$ 32.000</p>
-          <p class="svc-card__nota">12 meses</p>
+          <p class="svc-card__valor">R$ 35.000</p>
+          <p class="svc-card__parcela">ou 12x R$ 3.200</p>
+          <p class="svc-card__nota">12 meses de mentoria</p>
           <a class="svc-card__btn svc-card__btn--forte" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedCEO." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
         <details class="svc-detalhe">
-          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>Ver por dentro <span class="svc-detalhe__pista">12 meses, e o acervo do MedScale para o seu time</span></summary>
           <div class="svc-detalhe__corpo">
+            <div class="svc-p__virada">
+              <div class="svc-p__lado">
+                <p class="svc-p__h">De onde você sai</p>
+                <p>Dono de clínica que decide tudo. Tem equipe, tem agenda cheia e mesmo assim nada anda quando você não está na sala.</p>
+              </div>
+              <div class="svc-p__seta" aria-hidden="true">&rarr;</div>
+              <div class="svc-p__lado svc-p__lado--depois">
+                <p class="svc-p__h">Onde você chega</p>
+                <p>Empresa médica com previsibilidade, margem lida todo mês e equipe que decide sem você. A clínica deixa de depender do fundador.</p>
+              </div>
+            </div>
+
+            <p class="svc-p__h">O que está incluído</p>
             <ul class="svc-entregas">
-            <li><b>Encontros</b><span>Quinzenais, de 10 a 12 meses, ao vivo</span></li>
+            <li><b>Encontros</b><span>Quinzenais, de 10 a 12 meses, no ritmo de quem já tem clínica para tocar</span></li>
             <li><b>Foco</b><span>Estratégia, previsibilidade, lucro, liderança e network</span></li>
-            <li><b>Proximidade</b><span>Presencial, visita técnica na sua clínica, imersões e acesso individual</span></li>
+            <li><b>Proximidade</b><span>Presencial, visita técnica, imersões e acesso individual</span></li>
             <li><b>Plantão Estratégico</b><span>Slot individual de 15 minutos a cada 15 dias, com o mentor do pilar da vez</span></li>
-            <li><b>Diagnóstico por pilar</b><span>O relatório é lido antes da aula, e a aula é direcionada ao panorama real da turma</span></li>
-            <li><b>Acervo do MedScale</b><span>Gravado, e não é para você assistir: é para a sua equipe. Gestão assiste gestão, comercial assiste comercial</span></li>
-            <li><b>Por que quinzenal</b><span>Quem já tem clínica precisa de tempo para recontratar, treinar e ajustar. Semanal nesse perfil vira sobrecarga</span></li>
-            <li><b>A transformação</b><span>Sair de dono que decide tudo para empresa médica com previsibilidade, margem lida e equipe que decide</span></li>
+            <li><b>Diagnóstico por pilar</b><span>O relatório é lido antes do encontro, e o encontro é direcionado ao panorama real da turma</span></li>
+            <li><b>Acervo do MedScale</b><span>Não para você assistir: para o seu time. Gestão assiste gestão, comercial assiste comercial</span></li>
+            <li><b>Por que quinzenal</b><span>Você precisa de tempo entre um encontro e outro para recontratar, treinar e ajustar. Semanal, nesse estágio, vira sobrecarga</span></li>
+            <li><b>A transformação</b><span>Sair de dono que decide tudo para empresa que decide sem você</span></li>
             </ul>
+
+            <div class="svc-p__filtro">
+              <div>
+                <p class="svc-p__h">É para você se</p>
+                <ul class="svc-p__sim">
+              <li>Você já tem clínica, equipe e agenda cheia</li>
+              <li>Você já tem método e produto, e o gargalo agora é lucro, liderança e escala</li>
+              <li>Você quer voltar a ter fim de semana sem o celular tocando</li>
+                </ul>
+              </div>
+              <div>
+                <p class="svc-p__h">Não é para você se</p>
+                <ul class="svc-p__nao">
+              <li>Você ainda não tem clínica própria nem equipe: comece pelo MedScale</li>
+              <li>Você quer acelerar em seis meses: o ritmo aqui é de um ano, de propósito</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </details>
       </article>
@@ -1268,13 +1522,46 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedLab." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
         <details class="svc-detalhe">
-          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>Ver por dentro <span class="svc-detalhe__pista">3 dias presenciais, a sua operação na mesa</span></summary>
           <div class="svc-detalhe__corpo">
+            <div class="svc-p__virada">
+              <div class="svc-p__lado">
+                <p class="svc-p__h">De onde você sai</p>
+                <p>As decisões grandes ficam para depois, porque nunca há um bloco de tempo com as pessoas certas na mesma sala.</p>
+              </div>
+              <div class="svc-p__seta" aria-hidden="true">&rarr;</div>
+              <div class="svc-p__lado svc-p__lado--depois">
+                <p class="svc-p__h">Onde você chega</p>
+                <p>Três dias depois, o que trava a clínica está nomeado e decidido, com plano fechado e responsável em cada frente.</p>
+              </div>
+            </div>
+
+            <p class="svc-p__h">O que está incluído</p>
             <ul class="svc-entregas">
             <li><b>Formato</b><span>Três dias presenciais, com a sua operação na mesa</span></li>
             <li><b>Profundidade</b><span>O formato mais concentrado do método</span></li>
+            <li><b>Quem está na sala</b><span>Você, o time do MedCEO e os pares que também comandam clínica</span></li>
+            <li><b>O que sai de lá</b><span>Decisão tomada e plano fechado, não uma lista de ideias</span></li>
             <li><b>Para quem</b><span>Quem precisa decidir rápido e sair com o plano fechado</span></li>
             </ul>
+
+            <div class="svc-p__filtro">
+              <div>
+                <p class="svc-p__h">É para você se</p>
+                <ul class="svc-p__sim">
+              <li>Você tem decisão grande represada há meses</li>
+              <li>Você rende mais em imersão do que em encontro semanal</li>
+              <li>Você quer o time do método olhando a sua operação de perto</li>
+                </ul>
+              </div>
+              <div>
+                <p class="svc-p__h">Não é para você se</p>
+                <ul class="svc-p__nao">
+              <li>Você não consegue tirar três dias da agenda clínica</li>
+              <li>Você quer diluir a decisão ao longo de meses: aqui o ponto é o oposto</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </details>
       </article>
@@ -1295,13 +1582,46 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+Mentoria+Individual." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
         <details class="svc-detalhe">
-          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>Ver por dentro <span class="svc-detalhe__pista">Condução direta do Dr. Luciano, agenda restrita</span></summary>
           <div class="svc-detalhe__corpo">
+            <div class="svc-p__virada">
+              <div class="svc-p__lado">
+                <p class="svc-p__h">De onde você sai</p>
+                <p>Você já fez mentoria em grupo e saiu com script genérico, porque a sua clínica não era o assunto de ninguém.</p>
+              </div>
+              <div class="svc-p__seta" aria-hidden="true">&rarr;</div>
+              <div class="svc-p__lado svc-p__lado--depois">
+                <p class="svc-p__h">Onde você chega</p>
+                <p>O método aplicado caso a caso na sua clínica, com uma tarefa e um objetivo definidos a cada quinze dias.</p>
+              </div>
+            </div>
+
+            <p class="svc-p__h">O que está incluído</p>
             <ul class="svc-entregas">
             <li><b>Formato</b><span>Condução direta do Dr. Luciano sobre a sua clínica, sem turma e sem intermediário</span></li>
+            <li><b>Ritmo</b><span>Uma tarefa e um objetivo por quinzena, acompanhados até sair do papel</span></li>
             <li><b>Agenda</b><span>Restrita: o número de médicos atendidos neste formato é limitado pela agenda dele</span></li>
+            <li><b>Horizonte</b><span>O plano é traçado em anos, não em meses</span></li>
             <li><b>Para quem</b><span>Quem quer o método aplicado caso a caso, sem dividir o tempo com uma turma</span></li>
             </ul>
+
+            <div class="svc-p__filtro">
+              <div>
+                <p class="svc-p__h">É para você se</p>
+                <ul class="svc-p__sim">
+              <li>Você quer o Dr. Luciano olhando a sua operação, e só a sua</li>
+              <li>Você já tentou grupo de WhatsApp e script pronto, e não funcionou</li>
+              <li>Você toma decisão rápido quando alguém aponta a direção</li>
+                </ul>
+              </div>
+              <div>
+                <p class="svc-p__h">Não é para você se</p>
+                <ul class="svc-p__nao">
+              <li>Você aprende melhor com turma e troca entre pares</li>
+              <li>Você quer o menor investimento possível: este é o formato mais caro do método</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </details>
       </article>
@@ -1322,17 +1642,77 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+Consultorias+dos+Pilares." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
         <details class="svc-detalhe">
-          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>Ver por dentro <span class="svc-detalhe__pista">4 a 6 semanas, 1 gargalo por vez</span></summary>
           <div class="svc-detalhe__corpo">
+            <div class="svc-p__virada">
+              <div class="svc-p__lado">
+                <p class="svc-p__h">De onde você sai</p>
+                <p>Você já sabe qual frente trava a clínica, e o diagnóstico vira PDF que ninguém executa.</p>
+              </div>
+              <div class="svc-p__seta" aria-hidden="true">&rarr;</div>
+              <div class="svc-p__lado svc-p__lado--depois">
+                <p class="svc-p__h">Onde você chega</p>
+                <p>O gargalo escolhido sai implantado e medido, com a mudança rodando dentro da clínica.</p>
+              </div>
+            </div>
+
+            <p class="svc-p__h">O que está incluído</p>
             <ul class="svc-entregas">
             <li><b>Formato</b><span>Intervenção específica, de 4 a 6 semanas</span></li>
             <li><b>Profundidade</b><span>Um gargalo prioritário por vez</span></li>
             <li><b>Os pilares</b><span>Comercial, Marketing, Gestão e Mentalidade CEO, contratados separadamente</span></li>
             <li><b>O que você leva</b><span>Implantação delimitada e medida, não recomendação em PDF</span></li>
+            <li><b>Como escolher</b><span>O diagnóstico aponta a frente, você contrata só ela</span></li>
             </ul>
+
+            <div class="svc-p__filtro">
+              <div>
+                <p class="svc-p__h">É para você se</p>
+                <ul class="svc-p__sim">
+              <li>Você já sabe qual pilar trava a clínica hoje</li>
+              <li>Você quer implantação, não relatório</li>
+              <li>Você prefere resolver uma frente por vez</li>
+                </ul>
+              </div>
+              <div>
+                <p class="svc-p__h">Não é para você se</p>
+                <ul class="svc-p__nao">
+              <li>O problema da clínica é difuso e você ainda não sabe nomear o gargalo: faça o diagnóstico antes</li>
+              <li>Você quer acompanhamento contínuo: aqui a intervenção tem começo e fim</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </details>
       </article>
+      </div>
+    </section>
+
+
+    <section class="sec" aria-labelledby="t-prova">
+      <div class="env">
+        <p class="eyebrow">Prova</p>
+        <h2 class="h2" id="t-prova" style="max-width:24ch">O que aconteceu com quem <em>entrou.</em></h2>
+        <div class="svc-prova" style="margin-top:clamp(34px,5vw,56px)">
+          <div class="svc-prova__quadro">
+            <button class="svc-prova__play" type="button" data-video="6e8f2654-57ab-4069-950e-eb9bfe5d1018" aria-label="Depoimento do Dr. Luiz Henrique">
+              <span aria-hidden="true">&#9654;</span>
+              Depoimento, 2 min
+            </button>
+          </div>
+          <div>
+            <ul class="svc-prova__salto">
+              <li><b>R$ 40 mil</b><small>faturamento no mês em que começou</small></li>
+              <li><b>R$ 80 mil</b><small>em 60 dias</small></li>
+              <li><b>R$ 100 mil</b><small>em 6 meses</small></li>
+              <li><b>R$ 180 mil</b><small>ao final da mentoria</small></li>
+            </ul>
+            <blockquote>“Já fiz outras mentorias e não tive esse aumento de faturamento. Era muito grupo de WhatsApp, passam como se fosse um script, não é nada personalizado. Com o Dr. Luciano, não. Cada 15 dias era uma tarefa, um objetivo, individual. Foi isso que fez a diferença.”</blockquote>
+            <blockquote>“Eu costumo dizer que o primeiro ano do meu filho eu perdi, eu só vivia dentro do hospital. Sábado e domingo hoje eu estou com a minha família, eu não abro mão. Hoje ela roda tranquilamente sem eu estar aqui.”</blockquote>
+            <p class="svc-prova__quem">Dr. Luiz Henrique, nutrologia e medicina esportiva, Londrina. Doze meses de mentoria individual com o Dr. Luciano.</p>
+            <p class="svc-prova__aviso">Resultado de um caso individual, gravado e cedido pelo próprio médico. Não é média, não é projeção e não é promessa de faturamento. O que cada clínica alcança depende da operação, do mercado e da execução de quem conduz.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1388,5 +1768,25 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
     </div>
   </footer>
 <script src="/site.js?v=21283f2cc4" defer></script><script src="/tracking.js" defer></script>
+<script>
+/* O iframe do Panda so nasce no clique: quem nao da play nao paga o custo
+   do video. Mesmo padrao do /webnar2. */
+(function () {
+  document.addEventListener("click", function (ev) {
+    var alvo = ev.target.closest("[data-video]");
+    if (!alvo) return;
+    var quadro = alvo.parentNode;
+    var f = document.createElement("iframe");
+    f.src = "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=" +
+            alvo.getAttribute("data-video") + "&autoplay=1";
+    f.title = alvo.getAttribute("aria-label") || "Vídeo";
+    f.allow = "accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture";
+    f.setAttribute("allowfullscreen", "");
+    f.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0";
+    quadro.appendChild(f);
+    alvo.remove();
+  });
+})();
+</script>
 </body>
 </html>
