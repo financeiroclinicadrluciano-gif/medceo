@@ -895,6 +895,67 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
   .svc-card__btn{width:100%;justify-content:center;min-height:52px}
 }
 
+
+/* ==========================================================================
+   ENTREGAVEIS POR PRODUTO
+   O card descrevia a embalagem, nao o produto. Aberto, mostra o que a pessoa
+   recebe: encontros, mecanismos, quem conduz e o que ela leva pronto.
+   <details> nativo de proposito: funciona sem JS, o teclado navega e a busca
+   do navegador encontra texto que esta fechado.
+   ========================================================================== */
+.svc-detalhe{grid-column:1/-1;margin-top:18px;border-top:1px solid rgba(200,169,81,.16)}
+.svc-detalhe > summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+  gap:12px;padding:16px 0 8px;min-height:44px;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#C8A951;
+  transition:color .3s ease}
+.svc-detalhe > summary::-webkit-details-marker{display:none}
+.svc-detalhe > summary:hover{color:#E7D28C}
+.svc-detalhe > summary:focus-visible{outline:2px solid #C8A951;outline-offset:4px}
+.svc-detalhe__mais{display:grid;place-items:center;width:22px;height:22px;flex:0 0 auto;
+  border:1px solid currentColor;border-radius:50%;font-size:13px;line-height:1;
+  transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.svc-detalhe[open] .svc-detalhe__mais{transform:rotate(45deg)}
+.svc-detalhe__corpo{padding:14px 0 6px;
+  animation:svcAbre .5s cubic-bezier(.16,1,.3,1) both}
+@keyframes svcAbre{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+.svc-entregas{display:grid;gap:0;margin:0;padding:0;list-style:none;
+  border-top:1px solid rgba(232,226,213,.09)}
+.svc-entregas li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);
+  gap:6px 20px;padding:12px 0;border-bottom:1px solid rgba(232,226,213,.09);
+  font-size:14px;line-height:1.6}
+.svc-entregas b{font-weight:500;color:#E8E2D5}
+.svc-entregas span{color:rgba(232,226,213,.66)}
+@media(max-width:640px){
+  .svc-entregas li{grid-template-columns:minmax(0,1fr);gap:2px}
+  .svc-entregas b{font-size:13.5px}
+  .svc-entregas span{font-size:13.5px}
+}
+
+/* Semana a semana: e a prova de que o metodo existe, nao a promessa de que
+   existe. Rola na horizontal para nao empurrar a pagina para baixo. */
+.svc-semanas{margin-top:22px}
+.svc-semanas__rot{font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(232,226,213,.42);
+  margin-bottom:12px}
+.svc-semanas__trilho{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(228px,1fr);
+  gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;
+  scrollbar-width:thin}
+.svc-semana{scroll-snap-align:start;padding:15px 16px;border-radius:10px;
+  border:1px solid rgba(200,169,81,.18);background:rgba(232,226,213,.03)}
+.svc-semana__n{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:#C8A951}
+.svc-semana__t{margin-top:6px;font-size:14px;font-weight:500;line-height:1.35;color:#E8E2D5}
+.svc-semana__e{margin-top:8px;padding-top:8px;border-top:1px solid rgba(232,226,213,.1);
+  font-size:12.5px;line-height:1.5;color:rgba(232,226,213,.6)}
+.svc-semana__e b{display:block;font-family:'JetBrains Mono',monospace;font-size:8.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(232,226,213,.4);
+  margin-bottom:3px;font-weight:400}
+
+@media(prefers-reduced-motion:reduce){
+  .svc-detalhe__corpo{animation:none}
+  .svc-detalhe__mais{transition:none}
+}
 </style>
 <!-- GA4 (Tracking 8D) -->
 <script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('set',{site_marca:'medceo'});gtag('config','GT-PJWWKM65',{site_marca:'medceo'});</script>
@@ -959,6 +1020,17 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <p class="svc-card__nota">entrada e saída quando quiser</p>
           <a class="svc-card__btn" href="/webnar">Entrar no grupo <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <details class="svc-detalhe">
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <div class="svc-detalhe__corpo">
+            <ul class="svc-entregas">
+            <li><b>Formato</b><span>Uma aula ao vivo por semana, aberta a quem está no grupo do WhatsApp</span></li>
+            <li><b>O tema</b><span>O mesmo gargalo que a turma paga está tratando naquela semana</span></li>
+            <li><b>Materiais</b><span>Planilhas, scripts e roteiros que já rodam numa clínica de verdade</span></li>
+            <li><b>Entrada e saída</b><span>Quando quiser, sem compromisso</span></li>
+            </ul>
+          </div>
+        </details>
       </article>
 
       <article class="svc-card" id="medmanager" data-reveal="">
@@ -976,6 +1048,18 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <p class="svc-card__nota">curso completo</p>
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedManager." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <details class="svc-detalhe">
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <div class="svc-detalhe__corpo">
+            <ul class="svc-entregas">
+            <li><b>Formato</b><span>Autoinstrucional, com tutoria</span></li>
+            <li><b>Profundidade</b><span>Competência executiva, disciplina por disciplina</span></li>
+            <li><b>As disciplinas</b><span>Mentalidade CEO, Comercial, Marketing e Gestão</span></li>
+            <li><b>O que você leva</b><span>Um projeto aplicado por disciplina, feito sobre a sua própria clínica</span></li>
+            <li><b>Para quem</b><span>Quem quer o conhecimento estruturado antes de entrar numa turma ao vivo</span></li>
+            </ul>
+          </div>
+        </details>
       </article>
 
       <article class="svc-card" id="medscale" data-reveal="">
@@ -993,6 +1077,147 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <p class="svc-card__nota">24 semanas</p>
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedScale." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <details class="svc-detalhe">
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <div class="svc-detalhe__corpo">
+            <ul class="svc-entregas">
+            <li><b>Encontros</b><span>Semanais, ao vivo, ao longo de 24 semanas</span></li>
+            <li><b>Os quatro pilares</b><span>Um mês por pilar: Mentalidade CEO, Comercial, Marketing e Gestão</span></li>
+            <li><b>Quem conduz</b><span>Dr. Luciano em Mentalidade e Comercial, Gustavo em Marketing, Alessandra em Comercial</span></li>
+            <li><b>Plantão Estratégico</b><span>Slot individual de 15 minutos a cada 15 dias, com o mentor do pilar da vez</span></li>
+            <li><b>Diagnóstico por pilar</b><span>O relatório é lido antes da aula, e a aula é direcionada ao panorama real da turma</span></li>
+            <li><b>Perfil comportamental</b><span>DISC com devolutiva, não o relatório cru, conduzida pela formação do Dr. Luciano na Febracis</span></li>
+            <li><b>Entrada</b><span>Contínua: você não espera formar turma, pega o fluxo já rodando</span></li>
+            <li><b>O que você leva</b><span>Um entregável pronto por semana, de canvas de oferta a plano de 90 dias</span></li>
+            <li><b>A transformação</b><span>Sair de médico que vende a própria agenda para médico com método próprio e comercial estruturado</span></li>
+            </ul>
+          <div class="svc-semanas">
+            <p class="svc-semanas__rot">As 24 semanas, uma por uma. Arraste para o lado.</p>
+            <div class="svc-semanas__trilho">
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 1 · Comercial</p>
+                <p class="svc-semana__t">Oferta inicial e paciente ideal</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Canvas de Oferta MedScale + lista de 10 validações</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 2 · Marketing</p>
+                <p class="svc-semana__t">Posicionamento simples que gera lembrança</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Mapa de Posicionamento de 1 Página</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 3 · Gestão</p>
+                <p class="svc-semana__t">Meta de 6 meses e painel mínimo</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Scorecard MedScale</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 4 · Mentalidade CEO</p>
+                <p class="svc-semana__t">Da identidade de médico executor à identidade de dono</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Mapa Executor-Dono + compromisso de 30 dias</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 5 · Comercial</p>
+                <p class="svc-semana__t">Jornada do paciente e funil de vendas</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Mapa do Funil MedScale</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 6 · Marketing</p>
+                <p class="svc-semana__t">Conteúdo que atrai o paciente certo</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Calendário Editorial de 30 Dias</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 7 · Gestão</p>
+                <p class="svc-semana__t">Agenda, prioridades e rotina operacional</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Ritual Operacional Básico</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 8 · Mentalidade CEO</p>
+                <p class="svc-semana__t">Foco, disciplina e execução sem ansiedade</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Plano de Foco de 30 Dias</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 9 · Comercial</p>
+                <p class="svc-semana__t">WhatsApp que acolhe, qualifica e converte</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Playbook de WhatsApp Essencial</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 10 · Marketing</p>
+                <p class="svc-semana__t">Campanha de geração de demanda</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Plano de Campanha de 14 Dias</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 11 · Gestão</p>
+                <p class="svc-semana__t">Financeiro essencial: caixa, margem e preço</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Painel Financeiro Essencial</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 12 · Mentalidade CEO</p>
+                <p class="svc-semana__t">Preço, valor e coragem comercial</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Política Pessoal de Valor</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 13 · Comercial</p>
+                <p class="svc-semana__t">Follow-up, confirmação e redução de no-show</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Régua de Follow-up e No-show</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 14 · Marketing</p>
+                <p class="svc-semana__t">Prova social, indicação e reputação</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Sistema de Prova e Indicação</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 15 · Gestão</p>
+                <p class="svc-semana__t">Papéis, processos e primeiros SOPs</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Matriz de Responsabilidades + 2 SOPs</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 16 · Mentalidade CEO</p>
+                <p class="svc-semana__t">Delegação e liderança inicial</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Contrato de Delegação</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 17 · Comercial</p>
+                <p class="svc-semana__t">CRM, metas e previsibilidade comercial</p>
+                <p class="svc-semana__e"><b>Você sai com</b>CRM MedScale Configurado</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 18 · Marketing</p>
+                <p class="svc-semana__t">Tráfego pago com controle</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Matriz de Testes de Aquisição</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 19 · Gestão</p>
+                <p class="svc-semana__t">Reuniões, indicadores e PDCA</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Roteiro de Reunião PDCA</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 20 · Mentalidade CEO</p>
+                <p class="svc-semana__t">Energia, tempo e vida sustentável</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Agenda CEO Sustentável</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 21 · Comercial</p>
+                <p class="svc-semana__t">Playbook comercial e plano de crescimento</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Playbook Comercial MedScale</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 22 · Marketing</p>
+                <p class="svc-semana__t">Máquina de marketing de 90 dias</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Plano de Marketing de 90 Dias</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 23 · Gestão</p>
+                <p class="svc-semana__t">Plano empresarial de 90 dias</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Plano 90 Dias MedScale</p>
+              </div>
+              <div class="svc-semana">
+                <p class="svc-semana__n">Semana 24 · Mentalidade CEO</p>
+                <p class="svc-semana__t">Identidade CEO e passagem para o próximo nível</p>
+                <p class="svc-semana__e"><b>Você sai com</b>Manifesto do Médico CEO</p>
+              </div>
+            </div>
+          </div>
+          </div>
+        </details>
       </article>
 
       <article class="svc-card svc-card--destaque" id="medceo" data-reveal="">
@@ -1002,7 +1227,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
         <div class="svc-card__texto">
           <p class="svc-card__linha"><span class="svc-card__selo svc-card__selo--forte">Mais procurado</span><span class="svc-card__chapeu">Mentoria de 12 meses, o produto principal</span></p>
           <h2 class="svc-card__nome">MedCEO</h2>
-          <p class="svc-card__desc">Encontros semanais com a equipe inteira por um ano. A clínica deixa de depender de você: sistemas no lugar de heroísmo, liderança no lugar de execução.</p>
+          <p class="svc-card__desc">Encontros quinzenais ao longo de um ano, no ritmo de quem já tem clínica para tocar. A clínica deixa de depender de você: sistemas no lugar de heroísmo, liderança no lugar de execução.</p>
         </div>
         <div class="svc-card__valorbox">
           <p class="svc-card__rotulo">Investimento</p>
@@ -1010,6 +1235,21 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <p class="svc-card__nota">12 meses</p>
           <a class="svc-card__btn svc-card__btn--forte" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedCEO." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <details class="svc-detalhe">
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <div class="svc-detalhe__corpo">
+            <ul class="svc-entregas">
+            <li><b>Encontros</b><span>Quinzenais, de 10 a 12 meses, ao vivo</span></li>
+            <li><b>Foco</b><span>Estratégia, previsibilidade, lucro, liderança e network</span></li>
+            <li><b>Proximidade</b><span>Presencial, visita técnica na sua clínica, imersões e acesso individual</span></li>
+            <li><b>Plantão Estratégico</b><span>Slot individual de 15 minutos a cada 15 dias, com o mentor do pilar da vez</span></li>
+            <li><b>Diagnóstico por pilar</b><span>O relatório é lido antes da aula, e a aula é direcionada ao panorama real da turma</span></li>
+            <li><b>Acervo do MedScale</b><span>Gravado, e não é para você assistir: é para a sua equipe. Gestão assiste gestão, comercial assiste comercial</span></li>
+            <li><b>Por que quinzenal</b><span>Quem já tem clínica precisa de tempo para recontratar, treinar e ajustar. Semanal nesse perfil vira sobrecarga</span></li>
+            <li><b>A transformação</b><span>Sair de dono que decide tudo para empresa médica com previsibilidade, margem lida e equipe que decide</span></li>
+            </ul>
+          </div>
+        </details>
       </article>
 
       <article class="svc-card" id="medlab" data-reveal="">
@@ -1027,6 +1267,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <p class="svc-card__nota">3 dias presenciais</p>
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+MedLab." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <details class="svc-detalhe">
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <div class="svc-detalhe__corpo">
+            <ul class="svc-entregas">
+            <li><b>Formato</b><span>Três dias presenciais, com a sua operação na mesa</span></li>
+            <li><b>Profundidade</b><span>O formato mais concentrado do método</span></li>
+            <li><b>Para quem</b><span>Quem precisa decidir rápido e sair com o plano fechado</span></li>
+            </ul>
+          </div>
+        </details>
       </article>
 
       <article class="svc-card" id="individual" data-reveal="">
@@ -1044,6 +1294,16 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <p class="svc-card__nota">acompanhamento individual</p>
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+Mentoria+Individual." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <details class="svc-detalhe">
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <div class="svc-detalhe__corpo">
+            <ul class="svc-entregas">
+            <li><b>Formato</b><span>Condução direta do Dr. Luciano sobre a sua clínica, sem turma e sem intermediário</span></li>
+            <li><b>Agenda</b><span>Restrita: o número de médicos atendidos neste formato é limitado pela agenda dele</span></li>
+            <li><b>Para quem</b><span>Quem quer o método aplicado caso a caso, sem dividir o tempo com uma turma</span></li>
+            </ul>
+          </div>
+        </details>
       </article>
 
       <article class="svc-card" id="consultorias" data-reveal="">
@@ -1061,6 +1321,17 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
           <p class="svc-card__nota">por consultoria, cada pilar</p>
           <a class="svc-card__btn" href="https://api.whatsapp.com/send/?phone=5541984875688&amp;text=Ol%C3%A1%21+Vim+da+p%C3%A1gina+de+servi%C3%A7os+do+MedCEO+e+quero+saber+mais+sobre+Consultorias+dos+Pilares." target="_blank" rel="noopener">Aplicar <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <details class="svc-detalhe">
+          <summary><span class="svc-detalhe__mais" aria-hidden="true">+</span>O que está incluído</summary>
+          <div class="svc-detalhe__corpo">
+            <ul class="svc-entregas">
+            <li><b>Formato</b><span>Intervenção específica, de 4 a 6 semanas</span></li>
+            <li><b>Profundidade</b><span>Um gargalo prioritário por vez</span></li>
+            <li><b>Os pilares</b><span>Comercial, Marketing, Gestão e Mentalidade CEO, contratados separadamente</span></li>
+            <li><b>O que você leva</b><span>Implantação delimitada e medida, não recomendação em PDF</span></li>
+            </ul>
+          </div>
+        </details>
       </article>
       </div>
     </section>
