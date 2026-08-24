@@ -964,7 +964,11 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
    porque quem se reconhece no filtro confia no resto da pagina.
    ========================================================================== */
 .svc-detalhe > summary{justify-content:flex-start;flex-wrap:wrap}
-.svc-detalhe__pista{font-family:'Inter',system-ui,sans-serif;font-size:12.5px;
+/* Poppins, que e a fonte de corpo do MedCEO. Antes estava 'Inter', que o
+   site nao carrega: caia em system-ui e criava uma QUARTA familia na pagina,
+   medida em 7 elementos. O playbook anti-IA do vault ja listava Inter como
+   tipografia generica, e mesmo assim ela entrou aqui. */
+.svc-detalhe__pista{font-family:'Poppins',sans-serif;font-size:12.5px;
   letter-spacing:normal;text-transform:none;font-weight:400;
   color:rgba(232,226,213,.42)}
 .svc-detalhe[open] .svc-detalhe__pista{opacity:0}
