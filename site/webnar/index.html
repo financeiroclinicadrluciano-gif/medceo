@@ -277,6 +277,62 @@
     </div>
   </section>
 
+  <!-- ================= 02 · CONVITE EM VIDEO =================
+       Video a esquerda, texto a direita, como o Gustavo corrigiu no meio do
+       pedido. O iframe do Panda so nasce no clique: quem nao da play nao paga
+       o custo do player. Mesmo padrao do /servicos e do /webnar2. -->
+  <section id="convite" style="position:relative;padding:clamp(72px,9vh,108px) 0;border-top:1px solid rgba(195,161,78,.14);background:linear-gradient(180deg,#05070A 0%,#070A0E 100%)">
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(58% 46% at 22% 40%, rgba(195,161,78,.09), transparent 66%)"></div>
+
+    <div style="position:relative;width:100%;max-width:1240px;margin-inline:auto;padding-inline:28px;display:grid;gap:clamp(30px,4.4vw,64px);align-items:center;grid-template-columns:minmax(0,1fr)">
+      <!-- As colunas vivem SO no bloco <style>. Se grid-template-columns ficar
+           tambem no atributo style do elemento, o inline vence a media query
+           sem !important e a dobra empilha no desktop: medido, o video caiu em
+           cima do texto em 1280, 1440 e 1920. E o aprendizado 032 do vault. -->
+      <style>
+        #convite .cv__grade{display:grid;gap:clamp(30px,4.4vw,64px);align-items:center;grid-template-columns:minmax(0,1fr)}
+        @media(min-width:900px){#convite .cv__grade{grid-template-columns:minmax(0,360px) minmax(0,1fr)}}
+      </style>
+      <div class="cv__grade">
+
+        <figure data-reveal="" style="margin:0;position:relative;width:100%;max-width:360px;justify-self:center;aspect-ratio:612/1080;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.3);background:#0B0B0C;box-shadow:0 30px 70px -34px rgba(0,0,0,.9)">
+          <!-- A imagem e irma do botao, nao filha. Como filha com z-index:-1 ela
+               ia para tras do proprio background do botao e o quadro ficava
+               preto, com naturalWidth 612x1080 e nada visivel. -->
+          <img src="/assets/medceo/convite-webnar-poster.webp" alt="" width="612" height="1080" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+          <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,10,.1) 0%,rgba(5,7,10,.06) 46%,rgba(5,7,10,.76) 100%)"></span>
+          <button type="button" data-video="479da14a-9a2d-4d38-9d55-1c2c53fd8a92" aria-label="Assistir ao convite do Dr. Luciano, 1 minuto e 18 segundos" style="position:absolute;inset:0;z-index:2;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;align-content:center;background:transparent;color:#F6F3EC">
+            <!-- O rotulo vai no TOPO. No centro ele batia na legenda queimada do
+                 proprio video ('Voce que e Medico') e as duas frases se
+                 sobrepunham. -->
+            <span style="position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;border:1px solid rgba(195,161,78,.5);background:rgba(5,7,10,.62);color:#E6D4A4;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;backdrop-filter:blur(6px)">O convite, 1min18</span>
+            <span aria-hidden="true" style="display:grid;place-items:center;width:72px;height:72px;border-radius:50%;border:1px solid rgba(195,161,78,.8);background:rgba(5,7,10,.52);color:#E6D4A4;font-size:19px;padding-left:5px;backdrop-filter:blur(4px);box-shadow:0 10px 34px rgba(0,0,0,.5)">&#9654;</span>
+          </button>
+        </figure>
+
+        <div data-reveal="" style="display:grid;gap:clamp(14px,1.8vh,20px);min-width:0">
+          <p style="display:inline-flex;align-items:center;gap:11px;width:fit-content;color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.24em;text-transform:uppercase"><span aria-hidden="true" style="flex:0 0 auto;width:5px;height:5px;background:#C3A14E;transform:rotate(45deg)"></span>Convite do Dr. Luciano</p>
+
+          <h2 style="max-width:20ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.85rem,3.4vw,2.75rem);font-weight:300;letter-spacing:-.035em;line-height:1.06;text-wrap:balance">Não é só a aula. É o que fica com você <em style="color:#D9BE7E;font-style:italic">depois dela.</em></h2>
+
+          <p style="max-width:44ch;color:rgba(234,226,207,.72);font-size:15.5px;font-weight:300;line-height:1.75;letter-spacing:.01em">Um minuto e dezoito, com ele mesmo explicando o que vai acontecer na sala nos próximos dias, e por que isso é um grupo fechado de médicos e não mais um canal aberto.</p>
+
+          <ul style="display:grid;gap:16px;max-width:46ch;margin:clamp(6px,1.2vh,12px) 0 0;padding:0;list-style:none">
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Materiais liberados sem custo.</strong> Planilhas, scripts e roteiros que já rodam dentro de uma clínica de verdade, não modelo genérico de internet.</span></li>
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Agentes de IA personalizados.</strong> Montados para a rotina de quem toca clínica, no comercial, na gestão e no marketing, com o contexto da sua operação.</span></li>
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Médicos na mesma fase que você.</strong> Mesmo gargalo e mesmo vocabulário, então ninguém precisa traduzir o problema antes de discutir a solução.</span></li>
+          </ul>
+
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:clamp(10px,1.8vh,20px)">
+            <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" target="_blank" rel="noopener noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px clamp(26px,3vw,38px);border:1px solid transparent;border-radius:999px;background:linear-gradient(180deg,#2FD46A,#17A94B);color:#07230F;box-shadow:0 16px 38px rgba(23,169,75,.34),0 2px 0 rgba(255,255,255,.3) inset;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease">Sou médico e quero entrar <span aria-hidden="true">↗</span></a>
+            <p style="color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Entrada gratuita</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ================= 02 · AULA ================= -->
   <section id="aula" style="position:relative;padding:112px 0;border-top:1px solid rgba(195,161,78,.14);background:radial-gradient(70% 55% at 50% 0%, rgba(195,161,78,.07), transparent 58%), #05070A">
     <div style="width:100%;max-width:1240px;margin-inline:auto;padding-inline:28px;display:grid;justify-items:center;gap:24px;text-align:center">
@@ -339,6 +395,31 @@
 
   confirmacao.addEventListener('change', atualizarAcesso);
   atualizarAcesso();
+})();
+</script>
+<script>
+/* O iframe do Panda so nasce no clique. Um listener so, para qualquer
+   [data-video] da pagina. Mesmo padrao do /servicos e do /webnar2. */
+(function () {
+  document.addEventListener("click", function (ev) {
+    var alvo = ev.target.closest("[data-video]");
+    if (!alvo) return;
+    var quadro = alvo.parentNode;
+    var f = document.createElement("iframe");
+    f.src = "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=" +
+            alvo.getAttribute("data-video") + "&autoplay=1";
+    f.title = alvo.getAttribute("aria-label") || "Vídeo";
+    f.allow = "accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen";
+    f.setAttribute("allowfullscreen", "");
+    f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+    f.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0";
+    quadro.appendChild(f);
+    alvo.remove();
+    if (window.dataLayer) window.dataLayer.push({
+      event: "video_interaction", video_id: alvo.getAttribute("data-video"),
+      video_action: "play", video_local: "webnar_convite"
+    });
+  });
 })();
 </script>
 <script src="/tracking.js" defer></script>
