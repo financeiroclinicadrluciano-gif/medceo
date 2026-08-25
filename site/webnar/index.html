@@ -262,6 +262,18 @@
         <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .74s both">faculdade</span> <em style="display:inline-block;color:#D9BE7E;font-style:italic;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .8s both">não&nbsp;ensinou.</em></span>
       </h1>
 
+      <!-- Video so no celular, entre o H1 e o paragrafo, como o Gustavo pediu.
+           No PC ele nao aparece aqui: fica na dobra do convite, a esquerda.
+           Sem capa, mesma decisao da outra dobra. -->
+      <div class="hero-video" style="margin-top:clamp(10px,1.6vh,18px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .72s both">
+        <figure style="margin:0;position:relative;width:min(196px,46vw);aspect-ratio:612/1080;border-radius:14px;overflow:hidden;border:1px solid rgba(195,161,78,.34);background:#0B0B0C;box-shadow:0 20px 48px -26px rgba(0,0,0,.9)">
+          <button type="button" data-video="479da14a-9a2d-4d38-9d55-1c2c53fd8a92" aria-label="Assistir ao convite do Dr. Luciano, 1 minuto e 18 segundos" style="position:absolute;inset:0;z-index:2;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;align-content:center;gap:12px;background:transparent;color:#F6F3EC">
+            <span aria-hidden="true" style="display:grid;place-items:center;width:54px;height:54px;border-radius:50%;border:1px solid rgba(195,161,78,.8);background:rgba(5,7,10,.5);color:#E6D4A4;font-size:15px;padding-left:4px">&#9654;</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:#E6D4A4">O convite, 1min18</span>
+          </button>
+        </figure>
+      </div>
+
       <p style="max-width:34rem;margin-top:clamp(8px,1.4vh,16px);color:rgba(234,226,207,.62);font-size:min(15px, 2.3vh);font-weight:300;line-height:1.7;letter-spacing:.02em;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .66s both">Margem, comercial, equipe e previsibilidade, explicados por quem toca uma clínica de verdade em Curitiba, não por quem só estuda o assunto.</p>
 
       <ul style="display:grid;gap:clamp(9px,1.4vh,15px);max-width:34rem;margin:clamp(12px,2vh,24px) 0 clamp(4px,1vh,12px);padding:0;list-style:none;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .76s both">
@@ -292,15 +304,23 @@
       <style>
         #convite .cv__grade{display:grid;gap:clamp(30px,4.4vw,64px);align-items:center;grid-template-columns:minmax(0,1fr)}
         @media(min-width:900px){#convite .cv__grade{grid-template-columns:minmax(0,360px) minmax(0,1fr)}}
+        /* No celular o video sobe para a primeira dobra e aqui entra a foto da
+           equipe. No PC e o contrario. Uma midia por vez, nunca as duas. */
+        #convite .cv__video{display:none}
+        #convite .cv__equipe{display:block}
+        @media(min-width:900px){
+          #convite .cv__video{display:block}
+          #convite .cv__equipe{display:none}
+        }
+        .hero-video{display:block}
+        @media(min-width:900px){.hero-video{display:none}}
       </style>
       <div class="cv__grade">
 
-        <figure data-reveal="" style="margin:0;position:relative;width:100%;max-width:360px;justify-self:center;aspect-ratio:612/1080;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.3);background:#0B0B0C;box-shadow:0 30px 70px -34px rgba(0,0,0,.9)">
-          <!-- A imagem e irma do botao, nao filha. Como filha com z-index:-1 ela
-               ia para tras do proprio background do botao e o quadro ficava
-               preto, com naturalWidth 612x1080 e nada visivel. -->
-          <img src="/assets/medceo/convite-webnar-poster.webp" alt="" width="612" height="1080" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
-          <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,10,.1) 0%,rgba(5,7,10,.06) 46%,rgba(5,7,10,.76) 100%)"></span>
+        <figure class="cv__video" data-reveal="" style="margin:0;position:relative;width:100%;max-width:360px;justify-self:center;aspect-ratio:612/1080;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.3);background:#0B0B0C;box-shadow:0 30px 70px -34px rgba(0,0,0,.9)">
+          <!-- Sem capa, por decisao do Gustavo em 25/08: "ela esta preta, deixe
+               sem capa mesmo". O quadro fica na cor do fundo do site, com o
+               play e o rotulo por cima. O poster continua no repo, sem uso. -->
           <button type="button" data-video="479da14a-9a2d-4d38-9d55-1c2c53fd8a92" aria-label="Assistir ao convite do Dr. Luciano, 1 minuto e 18 segundos" style="position:absolute;inset:0;z-index:2;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;align-content:center;background:transparent;color:#F6F3EC">
             <!-- O rotulo vai no TOPO. No centro ele batia na legenda queimada do
                  proprio video ('Voce que e Medico') e as duas frases se
@@ -310,16 +330,19 @@
           </button>
         </figure>
 
+        <figure class="cv__equipe" data-reveal="" style="margin:0;position:relative;width:100%;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.24);background:#0B0B0C">
+          <img src="/assets/medceo/webnar-hero.jpg" alt="Time do MedCEO, com o Dr. Luciano Alves Neves ao centro." width="1080" height="880" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;object-fit:cover" />
+          <span aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(180deg,transparent 0%,rgba(5,7,10,.62) 52%,#05070A 100%)"></span>
+        </figure>
+
         <div data-reveal="" style="display:grid;gap:clamp(14px,1.8vh,20px);min-width:0">
-          <p style="display:inline-flex;align-items:center;gap:11px;width:fit-content;color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.24em;text-transform:uppercase"><span aria-hidden="true" style="flex:0 0 auto;width:5px;height:5px;background:#C3A14E;transform:rotate(45deg)"></span>Convite do Dr. Luciano</p>
+          <h2 style="max-width:20ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.85rem,3.4vw,2.75rem);font-weight:300;letter-spacing:-.035em;line-height:1.06;text-wrap:balance">Participe do melhor ambiente de <em style="color:#D9BE7E;font-style:italic">desenvolvimento para médicos.</em></h2>
 
-          <h2 style="max-width:20ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.85rem,3.4vw,2.75rem);font-weight:300;letter-spacing:-.035em;line-height:1.06;text-wrap:balance">Não é só a aula. É o que fica com você <em style="color:#D9BE7E;font-style:italic">depois dela.</em></h2>
-
-          <p style="max-width:44ch;color:rgba(234,226,207,.72);font-size:15.5px;font-weight:300;line-height:1.75;letter-spacing:.01em">Um minuto e dezoito, com ele mesmo explicando o que vai acontecer na sala nos próximos dias, e por que isso é um grupo fechado de médicos e não mais um canal aberto.</p>
+          <p style="max-width:44ch;color:rgba(234,226,207,.72);font-size:15.5px;font-weight:300;line-height:1.75;letter-spacing:.01em">Uma sala fechada, só de médico que já tem clínica para tocar. A conversa começa no ponto em que a sua operação está hoje, e não no básico que você resolveu faz tempo.</p>
 
           <ul style="display:grid;gap:16px;max-width:46ch;margin:clamp(6px,1.2vh,12px) 0 0;padding:0;list-style:none">
-            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Materiais liberados sem custo.</strong> Planilhas, scripts e roteiros que já rodam dentro de uma clínica de verdade, não modelo genérico de internet.</span></li>
-            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Agentes de IA personalizados.</strong> Montados para a rotina de quem toca clínica, no comercial, na gestão e no marketing, com o contexto da sua operação.</span></li>
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">4 pilares para te guiar.</strong> Mentalidade CEO, Marketing, Comercial e Gestão, cada um conduzido por quem toca a frente de verdade.</span></li>
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Materiais e aulas liberados sem custo.</strong> Planilhas, scripts e roteiros que já rodam dentro de uma clínica de verdade, não modelo genérico de internet.</span></li>
             <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Médicos na mesma fase que você.</strong> Mesmo gargalo e mesmo vocabulário, então ninguém precisa traduzir o problema antes de discutir a solução.</span></li>
           </ul>
 
