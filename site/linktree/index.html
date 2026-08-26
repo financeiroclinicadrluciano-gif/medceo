@@ -100,21 +100,20 @@
   .assina svg{width:15px;height:15px;fill:none;stroke:var(--acento);stroke-width:1.8;
     stroke-linecap:round;stroke-linejoin:round}
 
-  /* ---- Blocos: superficie propria e filete estrutural a esquerda ----
+  /* ---- Blocos ----
      Sem foto e sem icone, quem carrega a hierarquia e o contraste de
-     superficie mais a escala do titulo. O filete e o eixo que amarra os seis
-     num sistema so, e ganha ouro cheio apenas no destaque. */
+     superficie mais a escala do titulo. Uma versao anterior usava filete
+     colorido de 3px na lateral, e o detector de slop nomeia exatamente isso
+     como a marca mais reconhecivel de interface gerada por IA. Saiu. */
   .blocos{display:grid;gap:10px}
   .bloco{position:relative;display:grid;
     grid-template-columns:minmax(0,1fr) 22px;align-items:center;column-gap:14px;
     padding:20px 18px 20px 22px;
     background:var(--sup-card);border:1px solid var(--linha);border-radius:8px;
-    box-shadow:inset 3px 0 0 rgba(195,161,78,.34);
     transition:background .35s ease,box-shadow .35s ease,border-color .35s ease,
                transform .35s cubic-bezier(.16,1,.3,1)}
   .bloco:hover{background:var(--sup-card-alta);border-color:var(--linha-forte);
-    box-shadow:inset 3px 0 0 var(--acento),0 10px 26px rgba(0,0,0,.5);
-    transform:translateY(-2px)}
+    box-shadow:0 10px 26px rgba(0,0,0,.5);transform:translateY(-2px)}
   .bloco:active{transform:translateY(0) scale(.995)}
   .bloco:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
 
@@ -136,9 +135,8 @@
   /* O destaque acumula grau do mesmo atributo, nunca um atributo novo:
      superficie um degrau acima, filete em ouro cheio, mais altura e titulo
      maior. Cor nova faria ele ler como outra coisa, e nao como a principal. */
-  .bloco--destaque{padding-top:26px;padding-bottom:26px;
-    background:var(--sup-card-alta);border-color:var(--linha-forte);
-    box-shadow:inset 3px 0 0 var(--acento)}
+  .bloco--destaque{padding-top:28px;padding-bottom:28px;
+    background:var(--sup-card-alta);border-color:var(--acento)}
   .bloco--destaque .bloco__txt > strong{font-size:clamp(22px,6.2vw,25px)}
   .bloco--destaque .bloco__txt > span{color:var(--texto-medio)}
 
