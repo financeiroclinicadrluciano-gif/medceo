@@ -923,6 +923,13 @@ if avisos:
 # --------------------------------------------------------------------------
 ASSETS_VERSIONADOS = [
     ("site.js", r'src="/site\.js(?:\?v=[^"]*)?"', 'src="/site.js?v={v}"'),
+    # tracking.js entrou nesta lista em 26/08. O blog ja carregava o arquivo,
+    # mas com URL fixa: as 20 paginas do blog serviam a versao de 117 linhas,
+    # de antes do Pixel da Meta, e o pixel nunca disparava ali. O comentario
+    # acima ja descrevia esta armadilha para o site.js; faltava o tracking.js
+    # estar coberto por ela.
+    ("tracking.js", r'src="/tracking\.js(?:\?v=[^"]*)?"',
+     'src="/tracking.js?v={v}"'),
     ("site-layout.css", r'href="/site-layout\.css(?:\?v=[^"]*)?"',
      'href="/site-layout.css?v={v}"'),
 ]
