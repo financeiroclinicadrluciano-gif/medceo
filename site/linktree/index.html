@@ -17,8 +17,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="image" href="/linktree/img/comunidade.webp" fetchpriority="high" />
-<!-- Duas familias, nao tres. O JetBrains Mono saiu junto com as etiquetas em
-     caixa alta: elas eram o "kicker" que o playbook anti-IA lista como slop. -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
@@ -32,20 +30,24 @@
 
 <style>
   /* Tokens do Nocturne, de
-     03-PROJETOS/03.2-MEDCEO/Design-System-Nocturne/tokens/colors.css.
-     As superficies sao translucidas de proposito: elas ficam sobre a foto do
-     gabinete, e o card precisa deixar o ambiente aparecer sem perder leitura. */
+     03-PROJETOS/03.2-MEDCEO/Design-System-Nocturne/tokens/colors.css. */
   :root{
     --night:#05070A;
-    --sup-card:rgba(21,29,39,.74);
-    --sup-card-alta:rgba(30,40,53,.86);
     --acento:#C3A14E; --acento-claro:#E7D3A3;
     --texto-forte:#F7F2E6; --texto-medio:rgba(234,226,207,.84);
-    --texto-fraco:rgba(234,226,207,.68);
-    --linha:rgba(234,226,207,.14);
+    --texto-fraco:rgba(234,226,207,.66);
+    /* Vidro: a superficie e quase toda transparencia, e quem desenha a caixa
+       e o desfoque mais a linha de luz no topo. Por isso o fundo da pagina
+       precisa ter fotografia, senao o vidro nao tem o que refratar. */
+    --vidro:rgba(255,255,255,.055);
+    --vidro-alta:rgba(255,255,255,.1);
+    --vidro-linha:rgba(255,255,255,.12);
+    --vidro-linha-alta:rgba(255,255,255,.22);
+    --luz-topo:inset 0 1px 0 rgba(255,255,255,.09);
+    --luz-topo-alta:inset 0 1px 0 rgba(255,255,255,.16);
     --serif:'Playfair Display',Georgia,serif;
     --sans:'Poppins',system-ui,sans-serif;
-    --raio:14px;
+    --raio:16px;
     --margem:20px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -54,19 +56,23 @@
     font-family:var(--sans);font-weight:300;line-height:1.5;
     -webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
-  /* `height:auto` obrigatorio: sem ele o atributo height="620" da tag vale como
-     altura fixa e o aspect-ratio do CSS e ignorado. Medido: o cartaz saiu com
-     620px de altura numa caixa de 333px de largura. */
+  /* `height:auto` obrigatorio: sem ele o atributo height da tag vale como
+     altura fixa e o aspect-ratio do CSS e ignorado. */
   img{max-width:100%;display:block;height:auto}
 
-  /* ---- Fundo ----
-     A queixa de 26/08 foi "sem imagem de fundo": a versao anterior era chapada.
-     A foto e o gabinete real do consultorio, a mesma hero-bg do site, fixa
-     atras de tudo e coberta por um veu que garante o contraste do texto.
-     Camada `fixed` em vez de background-attachment, que o Safari do iPhone
-     ignora e renderiza como rolagem normal. */
-  .palco{position:fixed;inset:0;z-index:-2;
+  /* O celular ficou aprovado em 26/08 com o cartaz grande e o cartao de
+     perfil na fila. O PC pediu outra composicao, entao as duas pecas do
+     webnar convivem no HTML e so uma aparece por vez. */
+  /* `.blocos > .so-pc` e nao `.so-pc`: com uma classe so, o `.bloco{display:grid}`
+     declarado depois vencia o empate e o card do PC aparecia no celular. */
+  .blocos > .so-pc{display:none}
+
+  /* ---- Fundo ---- */
+  .palco{position:fixed;inset:0;z-index:-3;
     background:#05070A url("/linktree/img/fundo.webp") center/cover no-repeat}
+  /* Retrato do Dr. Luciano encostado na borda esquerda, dissolvido no fundo
+     por mascara em vez de recortado por um card. So no PC. */
+  .retrato{display:none}
   .veu{position:fixed;inset:0;z-index:-1;
     background:
       radial-gradient(126% 82% at 50% 4%,rgba(5,7,10,.2) 0%,rgba(5,7,10,.68) 58%,#05070A 100%),
@@ -76,47 +82,50 @@
     padding:calc(26px + env(safe-area-inset-top)) var(--margem)
             calc(28px + env(safe-area-inset-bottom))}
 
-  /* ---- Marca ---- */
-  .marca{text-align:center}
+  /* ---- Identidade ---- */
+  .identidade{text-align:center}
   .marca__logo{width:min(262px,72%);height:auto;margin:0 auto}
   .marca__tagline{margin-top:12px;font-family:var(--serif);font-weight:400;
     font-size:clamp(17px,4.6vw,19px);line-height:1.35;color:var(--texto-forte)}
   .marca__publico{margin-top:6px;font-size:13px;color:var(--texto-fraco)}
 
-  /* ---- Sociais ---- */
   .sociais{display:flex;justify-content:center;gap:10px;margin-top:16px}
   .sociais a{display:grid;place-items:center;width:44px;height:44px;
-    border:1px solid var(--linha);border-radius:50%;
-    background:rgba(21,29,39,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-    color:var(--texto-medio);transition:border-color .3s ease,color .3s ease}
-  .sociais a:hover{border-color:rgba(234,226,207,.34);color:var(--texto-forte)}
+    border:1px solid var(--vidro-linha);border-radius:50%;
+    background:var(--vidro);
+    -webkit-backdrop-filter:blur(16px) saturate(150%);
+    backdrop-filter:blur(16px) saturate(150%);
+    box-shadow:var(--luz-topo);
+    color:var(--texto-medio);
+    transition:border-color .3s ease,color .3s ease,background .3s ease}
+  .sociais a:hover{border-color:var(--vidro-linha-alta);
+    background:var(--vidro-alta);color:var(--texto-forte)}
   .sociais svg{width:19px;height:19px;fill:none;stroke:currentColor;
     stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-  /* ---- Cartaz: o convite do webnar ----
-     Peca grafica de largura cheia, no modelo das referencias que o Gustavo
-     mandou em 26/08: a foto E o card, e o texto entra sobre o degrade dela.
-     Fica em primeiro lugar porque a comunidade gratuita e a porta de entrada. */
-  /* Foto, veu e texto ocupam a MESMA celula de grid, e nao caixas absolutas:
+  /* No PC a credencial substitui o cartao de perfil e assina a identidade. */
+  .credencial{display:none}
+
+  /* ---- Cartaz do webnar: a peca do celular ----
+     Foto, veu e texto na MESMA celula de grid, e nao em caixas absolutas:
      assim o card cresce quando o texto cresce, em vez de o texto subir por
-     cima do rosto. Medido na primeira montagem: com o texto absoluto ele
-     cobria os 208px inteiros da foto e colidia com o selo. */
-  .cartaz{position:relative;display:grid;margin-top:22px;
-    aspect-ratio:4/5;
+     cima do rosto. */
+  .cartaz{position:relative;display:grid;margin-top:22px;aspect-ratio:4/5;
     border-radius:18px;overflow:hidden;border:1px solid rgba(195,161,78,.4);
     background:#0B1119;box-shadow:0 18px 44px rgba(0,0,0,.55);
     transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease}
   .cartaz:hover{transform:translateY(-3px);box-shadow:0 22px 52px rgba(0,0,0,.62)}
   .cartaz > *{grid-area:1/1}
-  .cartaz__foto{width:100%;height:100%;object-fit:cover;
-    object-position:center 22%}
+  .cartaz__foto{width:100%;height:100%;object-fit:cover;object-position:center 22%}
   .cartaz__veu{background:linear-gradient(180deg,
       rgba(5,7,10,.06) 0%,rgba(5,7,10,.16) 34%,rgba(6,9,13,.62) 56%,
       rgba(7,10,15,.93) 74%,rgba(7,10,15,.99) 100%)}
   .cartaz__selo{justify-self:end;align-self:start;margin:14px;
     padding:6px 13px;border-radius:999px;
-    border:1px solid rgba(195,161,78,.55);background:rgba(5,7,10,.6);
-    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border:1px solid rgba(195,161,78,.55);background:rgba(5,7,10,.5);
+    -webkit-backdrop-filter:blur(12px) saturate(150%);
+    backdrop-filter:blur(12px) saturate(150%);
+    box-shadow:var(--luz-topo);
     font-size:12px;font-weight:400;letter-spacing:.04em;color:var(--acento-claro)}
   .cartaz__txt{align-self:end;padding:0 20px 20px;display:block}
   .cartaz__txt b{display:block;font-family:var(--serif);font-weight:400;
@@ -134,21 +143,24 @@
   .cartaz__cta svg{width:15px;height:15px;fill:none;stroke:currentColor;
     stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-  /* ---- Blocos: texto a esquerda, foto a direita ----
-     Cada bloco tem foto propria, escolhida pelo assunto. A versao de 26/08
-     repetia a mesma fotografia em tres cards e cortava a testa em outros tres,
-     entao o recorte de cada uma esta declarado em scratchpad/imgs.py e
-     conferido em folha de contato antes de publicar. */
+  /* ---- Cards de vidro ----
+     Cada bloco tem foto propria, escolhida pelo assunto; os recortes estao
+     declarados em scratchpad/imgs.py e conferidos em folha de contato antes
+     de publicar. */
   .blocos{display:grid;gap:12px;margin-top:14px}
-  .bloco{display:grid;grid-template-columns:minmax(0,1fr) 84px;
-    align-items:center;gap:16px;padding:16px 16px 16px 18px;
-    background:var(--sup-card);
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-    border:1px solid var(--linha);border-radius:var(--raio);
-    transition:background .3s ease,border-color .3s ease,
+  .bloco{position:relative;display:grid;
+    grid-template-columns:minmax(0,1fr) 86px;align-items:center;gap:16px;
+    padding:16px 16px 16px 18px;
+    background:var(--vidro);
+    -webkit-backdrop-filter:blur(20px) saturate(155%);
+    backdrop-filter:blur(20px) saturate(155%);
+    border:1px solid var(--vidro-linha);border-radius:var(--raio);
+    box-shadow:var(--luz-topo),0 10px 28px rgba(0,0,0,.36);
+    transition:background .3s ease,border-color .3s ease,box-shadow .3s ease,
                transform .4s cubic-bezier(.16,1,.3,1)}
-  .bloco:hover{background:var(--sup-card-alta);
-    border-color:rgba(234,226,207,.3);transform:translateY(-2px)}
+  .bloco:hover{background:var(--vidro-alta);border-color:var(--vidro-linha-alta);
+    transform:translateY(-2px);
+    box-shadow:var(--luz-topo-alta),0 14px 36px rgba(0,0,0,.44)}
   .bloco__txt{min-width:0}
   .bloco__txt strong{display:block;font-family:var(--serif);font-weight:400;
     font-size:clamp(18px,5vw,20px);line-height:1.22;letter-spacing:-.01em;
@@ -156,16 +168,32 @@
   .bloco__txt strong i{font-style:normal;color:var(--acento-claro)}
   .bloco__txt span{display:block;margin-top:5px;font-size:13.5px;
     line-height:1.45;color:var(--texto-fraco)}
-  .bloco__foto{width:84px;height:84px;border-radius:10px;object-fit:cover}
+  .bloco__foto{width:86px;height:86px;border-radius:11px;object-fit:cover}
 
-  /* ---- Assinatura ---- */
+  /* No PC o convite e o primeiro card da fila, no mesmo formato dos outros.
+     Ganha ouro na borda e o selo, e nada alem disso. */
+  .bloco--convite{border-color:rgba(195,161,78,.5);
+    background:rgba(195,161,78,.075)}
+  .bloco--convite:hover{border-color:var(--acento);background:rgba(195,161,78,.13)}
+  /* Seletor filho obrigatorio: `.bloco__txt span` tem especificidade (0,1,1) e
+     vencia `.bloco__selo` (0,1,0), virando o selo em display:block e esticando
+     a pilula ate a borda do card. */
+  .bloco__txt > .bloco__selo{display:inline-block;margin-bottom:7px;padding:3px 10px;
+    border-radius:999px;border:1px solid rgba(195,161,78,.5);
+    background:rgba(195,161,78,.1);
+    font-size:11.5px;font-weight:400;letter-spacing:.04em;color:var(--acento-claro)}
+
+  /* ---- Cartao de perfil: a peca do celular ---- */
   .assina{display:grid;grid-template-columns:52px minmax(0,1fr) 16px;
     align-items:center;gap:14px;margin-top:22px;padding:14px 16px;
-    background:rgba(21,29,39,.58);
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-    border:1px solid var(--linha);border-radius:var(--raio);
-    transition:background .3s ease,border-color .3s ease}
-  .assina:hover{background:var(--sup-card-alta);border-color:rgba(234,226,207,.3)}
+    background:var(--vidro);
+    -webkit-backdrop-filter:blur(20px) saturate(155%);
+    backdrop-filter:blur(20px) saturate(155%);
+    border:1px solid var(--vidro-linha);border-radius:var(--raio);
+    box-shadow:var(--luz-topo),0 10px 28px rgba(0,0,0,.36);
+    transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
+  .assina:hover{background:var(--vidro-alta);border-color:var(--vidro-linha-alta);
+    box-shadow:var(--luz-topo-alta),0 14px 36px rgba(0,0,0,.44)}
   .assina img{width:52px;height:52px;border-radius:50%;object-fit:cover;
     object-position:center 12%;border:1px solid rgba(234,226,207,.2)}
   .assina strong{display:block;font-size:15px;font-weight:400;
@@ -178,58 +206,70 @@
   /* ---- Rodape ---- */
   .rodape{margin-top:26px;text-align:center;font-size:12px;
     color:var(--texto-fraco);line-height:1.8}
-  .rodape a{border-bottom:1px solid var(--linha);padding-bottom:2px}
-  .rodape a:hover{border-color:rgba(234,226,207,.4);color:var(--texto-forte)}
+  .rodape a{border-bottom:1px solid var(--vidro-linha);padding-bottom:2px}
+  .rodape a:hover{border-color:var(--vidro-linha-alta);color:var(--texto-forte)}
 
-  /* ---- Identidade: so existe no bento ----
-     No celular a marca vive solta no topo. A partir de 960px ela vira um
-     cartao alto com a fotografia do Dr. Luciano, que e a coluna da esquerda
-     da composicao. */
-  .identidade{display:contents}
-  .identidade__foto,.identidade__veu{display:none}
-
+  /* ================= PC: duas colunas, identidade sem caixa =================
+     Pedido de 26/08: a coluna da esquerda deixa de ser um card e passa a ser
+     o proprio fundo da pagina; a direita fica so a fila de cards de vidro,
+     com o convite como primeiro item e sem o cartao de perfil no meio. */
   @media (min-width:960px){
-    .folha{max-width:1120px;padding-top:44px;padding-bottom:40px;
-      display:grid;gap:16px;align-items:stretch;
-      grid-template-columns:0.94fr 1.14fr 0.92fr;
-      grid-template-rows:auto 1fr auto;
-      grid-template-areas:
-        "id lista cartaz"
-        "id assina cartaz"
-        "rodape rodape rodape"}
+    .blocos > .so-pc{display:grid}
+    .cartaz,.assina{display:none}
 
-    .identidade{grid-area:id;display:flex;flex-direction:column;
-      justify-content:flex-end;position:relative;min-height:540px;
-      padding:28px 26px 26px;border-radius:18px;overflow:hidden;
-      border:1px solid var(--linha);background:#0B1119}
-    /* 76% e nao `center`: a caixa e mais estreita que a foto, entao o corte
-       acontece na horizontal, e `center` mostrava a parede em vez do rosto. */
-    .identidade__foto{display:block;position:absolute;inset:0;
-      width:100%;height:100%;object-fit:cover;object-position:76% 22%}
-    .identidade__veu{display:block;position:absolute;inset:0;
-      background:linear-gradient(180deg,rgba(5,7,10,.3) 0%,rgba(5,7,10,.16) 28%,
-        rgba(6,9,13,.86) 70%,rgba(6,9,13,.97) 100%)}
-    .marca,.sociais{position:relative}
-    .marca{text-align:left}
-    .marca__logo{margin:0;width:min(228px,86%)}
-    .marca__tagline{margin-top:14px;font-size:21px}
-    .marca__publico{margin-top:7px;font-size:13.5px}
-    .sociais{justify-content:flex-start;margin-top:20px}
+    .retrato{display:block;position:fixed;left:0;bottom:0;z-index:-2;
+      width:min(48vw,760px);height:100vh;
+      background:url("/linktree/img/identidade.webp") left bottom/cover no-repeat;
+      -webkit-mask-image:
+        linear-gradient(90deg,#000 0%,#000 40%,rgba(0,0,0,.3) 74%,transparent 100%),
+        linear-gradient(180deg,transparent 0%,#000 14%,#000 74%,transparent 99%);
+      mask-image:
+        linear-gradient(90deg,#000 0%,#000 40%,rgba(0,0,0,.3) 74%,transparent 100%),
+        linear-gradient(180deg,transparent 0%,#000 14%,#000 74%,transparent 99%);
+      -webkit-mask-composite:source-in;mask-composite:intersect;
+      opacity:.8}
 
-    .blocos{grid-area:lista;margin-top:0}
-    .bloco{grid-template-columns:minmax(0,1fr) 92px;padding:18px 18px 18px 20px}
-    .bloco__foto{width:92px;height:92px}
+    .folha{max-width:1140px;min-height:100vh;
+      padding-top:56px;padding-bottom:44px;
+      display:grid;gap:clamp(30px,4.6vw,74px);align-items:center;
+      grid-template-columns:0.88fr 1fr;
+      grid-template-areas:"id lista" "rodape rodape"}
 
-    .assina{grid-area:assina;margin-top:0;align-self:end}
+    .identidade{grid-area:id;text-align:left;align-self:center}
+    .marca__logo{margin:0;width:min(248px,84%)}
+    .marca__tagline{margin-top:18px;font-size:clamp(23px,2.2vw,28px);
+      line-height:1.26;max-width:17ch}
+    .marca__publico{margin-top:10px;font-size:14px}
+    .sociais{justify-content:flex-start;margin-top:26px}
 
-    .cartaz{grid-area:cartaz;margin-top:0;aspect-ratio:auto;min-height:540px}
-    .cartaz__foto{object-position:center 18%}
+    /* A credencial substitui o cartao de perfil: mesma informacao, mesmo
+       evento `assina-luciano`, sem ocupar uma linha da fila de cards. */
+    .credencial{display:inline-flex;align-items:center;gap:10px;margin-top:26px;
+      font-size:13px;color:var(--texto-fraco);
+      border-bottom:1px solid transparent;padding-bottom:4px;
+      transition:color .3s ease,border-color .3s ease}
+    .credencial:hover{color:var(--texto-forte);border-color:var(--vidro-linha-alta)}
+    .credencial img{width:32px;height:32px;border-radius:50%;object-fit:cover;
+      object-position:center 12%;border:1px solid rgba(234,226,207,.22)}
+    .credencial b{font-weight:400;color:var(--texto-medio)}
 
-    .rodape{grid-area:rodape;margin-top:22px}
+    /* `align-content:center` no proprio .blocos: sem ele a linha do grid
+       estica os seis cards, e cada um sai com 132px em vez dos 124 naturais,
+       somando 48px de altura que a pagina nao precisava rolar. */
+    .blocos{grid-area:lista;margin-top:0;gap:13px;align-content:center}
+    .bloco{grid-template-columns:minmax(0,1fr) 88px;padding:17px 18px 17px 20px}
+    .bloco__foto{width:88px;height:88px}
+
+    .rodape{grid-area:rodape;margin-top:32px;text-align:left}
+  }
+  /* Entre 960 e 1180 o retrato encosta na coluna de texto; recuar a mascara
+     mantem o rosto atras da marca, e nao atras da leitura. */
+  @media (min-width:960px) and (max-width:1180px){
+    .retrato{width:min(54vw,620px);opacity:.62}
   }
 
   @media (prefers-reduced-motion:reduce){
-    .bloco,.cartaz,.sociais a,.assina{transition:none}
+    .bloco,.cartaz,.sociais a,.assina,.credencial{transition:none}
     .bloco:hover,.cartaz:hover{transform:none}
   }
 </style>
@@ -237,19 +277,15 @@
 <body>
 
 <div class="palco" aria-hidden="true"></div>
+<div class="retrato" aria-hidden="true"></div>
 <div class="veu" aria-hidden="true"></div>
 
 <main class="folha">
 
-  <section class="identidade">
-    <img class="identidade__foto" src="/linktree/img/identidade.webp" alt="" aria-hidden="true" width="1000" height="1300" loading="lazy" decoding="async" />
-    <span class="identidade__veu" aria-hidden="true"></span>
-
-    <header class="marca">
-      <img class="marca__logo" src="/linktree/logo-medceo.png" alt="MedCEO" width="360" height="74" fetchpriority="high" />
-      <p class="marca__tagline">A mentoria que transforma médicos em CEOs</p>
-      <p class="marca__publico">Para médico que já tem clínica para tocar</p>
-    </header>
+  <header class="identidade">
+    <img class="marca__logo" src="/linktree/logo-medceo.png" alt="MedCEO" width="360" height="74" fetchpriority="high" />
+    <p class="marca__tagline">A mentoria que transforma médicos em CEOs</p>
+    <p class="marca__publico">Para médico que já tem clínica para tocar</p>
 
     <nav class="sociais" aria-label="Perfis e contato">
       <a href="https://www.instagram.com/medico_ceo/" data-bloco="social-instagram-medceo" data-etapa="topo" target="_blank" rel="noopener" aria-label="Instagram do MedCEO">
@@ -265,7 +301,12 @@
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3c2.5 2.4 3.8 5.4 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.4-3.8-9S9.5 5.4 12 3z"/></svg>
       </a>
     </nav>
-  </section>
+
+    <a class="credencial" href="https://www.instagram.com/dr.lucianoalvesneves/" data-bloco="assina-luciano" data-etapa="topo" target="_blank" rel="noopener">
+      <img src="/linktree/perfil-luciano.webp" alt="" aria-hidden="true" width="160" height="160" loading="lazy" decoding="async" />
+      <span><b>Dr. Luciano Alves Neves</b> · Médico e fundador · CRM/PR 45049</span>
+    </a>
+  </header>
 
   <a class="cartaz" href="https://medceo.online/webnar?de=bio_comunidade" data-bloco="comunidade" data-etapa="conversao">
     <img class="cartaz__foto" src="/linktree/img/comunidade.webp" alt="Dr. Luciano Alves Neves durante a aula semanal" width="860" height="1075" fetchpriority="high" />
@@ -281,6 +322,15 @@
   </a>
 
   <div class="blocos">
+
+    <a class="bloco bloco--convite so-pc" href="https://medceo.online/webnar?de=bio_comunidade" data-bloco="comunidade" data-etapa="conversao">
+      <span class="bloco__txt">
+        <span class="bloco__selo">Gratuito</span>
+        <strong>Comunidade <i>gratuita</i></strong>
+        <span>Uma aula por semana, ao vivo, em sala fechada</span>
+      </span>
+      <img class="bloco__foto" src="/linktree/img/comunidade-mini.webp" alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
+    </a>
 
     <a class="bloco" href="https://medceo.online/?de=bio_mentoria" data-bloco="mentoria" data-etapa="conversao">
       <span class="bloco__txt"><strong>Mentoria <i>MedCEO</i></strong><span>O método completo, do diagnóstico à execução</span></span>
@@ -355,6 +405,6 @@ document.addEventListener("click", function (ev) {
   window.dataLayer.push(Object.assign({ event: "linktree_clique" }, dados));
 });
 </script>
-<script src="/tracking.js?v=2658a06328" defer></script>
+<script src="/tracking.js?v=2658a063" defer></script>
 </body>
 </html>
