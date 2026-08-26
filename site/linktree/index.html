@@ -68,7 +68,7 @@
   .topo__marca{width:min(224px,60vw);height:auto}
   .topo__tagline{font-size:15px;font-weight:300;letter-spacing:.01em;
     color:var(--acento-claro);max-width:28ch}
-  .topo__publico{font-size:12.5px;font-weight:300;color:var(--texto-fraco)}
+  .topo__publico{font-size:15px;font-weight:300;color:var(--texto-fraco)}
 
   /* ---- Atalhos ---- */
   .sociais{display:flex;justify-content:center;gap:12px}
@@ -95,7 +95,7 @@
   .assina img{width:76px;height:76px;border-radius:50%;object-fit:cover;
     object-position:center 12%;border:1px solid rgba(234,226,207,.2)}
   .assina strong{display:block;font-weight:400;font-size:15px;color:var(--texto-forte)}
-  .assina em{display:block;margin-top:2px;font-style:normal;font-size:12px;
+  .assina em{display:block;margin-top:3px;font-style:normal;font-size:12px;
     font-weight:300;color:var(--texto-fraco)}
   .assina svg{width:15px;height:15px;fill:none;stroke:var(--acento);stroke-width:1.8;
     stroke-linecap:round;stroke-linejoin:round}
@@ -122,15 +122,16 @@
     font-size:clamp(18px,5vw,20px);line-height:1.2;letter-spacing:-.01em;
     color:var(--texto-forte)}
   .bloco__txt > strong i{font-style:normal;color:var(--acento-claro)}
-  .bloco__txt > span{display:block;margin-top:6px;font-size:12.5px;font-weight:300;
+  .bloco__txt > span{display:block;margin-top:7px;font-size:15px;font-weight:300;
     line-height:1.5;color:var(--texto-fraco)}
 
-  /* Piso de 11px e sem caixa alta: em 8px de mono era o texto mais ilegivel
-     da pagina, e a caixa alta o transformava em mais um kicker. */
+  /* Escala de quatro degraus, cada salto acima de 1,25: 12 miudo, 15 corpo,
+     20 titulo, 25 destaque. O detector reprovava 11 / 12,5 / 15 / 16 por
+     hierarquia plana. E o piso de 12px fica acima dos 11 do playbook. */
   .bloco__selo{display:inline-block;margin-left:8px;vertical-align:2px;
     padding:2px 9px;border-radius:999px;border:1px solid var(--linha-forte);
     background:rgba(195,161,78,.1);
-    font-size:11px;font-weight:400;letter-spacing:.02em;color:var(--acento-claro)}
+    font-size:12px;font-weight:400;letter-spacing:.02em;color:var(--acento-claro)}
 
   /* O destaque acumula grau do mesmo atributo, nunca um atributo novo:
      superficie um degrau acima, filete em ouro cheio, mais altura e titulo
@@ -149,7 +150,7 @@
   /* ---- Rodape ---- */
   .rodape{display:grid;justify-items:center;gap:4px;text-align:center;
     padding-top:clamp(8px,1.6vh,14px);
-    font-size:11px;font-weight:300;color:var(--texto-fraco);line-height:1.8}
+    font-size:12px;font-weight:300;color:var(--texto-fraco);line-height:1.8}
   .rodape a{display:inline-block;padding:12px 10px;color:var(--texto-fraco);
     border-bottom:1px solid rgba(234,226,207,.16)}
   .rodape a:hover{color:var(--acento-claro)}
