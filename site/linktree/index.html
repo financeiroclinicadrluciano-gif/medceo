@@ -128,10 +128,11 @@
   /* Escala de quatro degraus, cada salto acima de 1,25: 12 miudo, 15 corpo,
      20 titulo, 25 destaque. O detector reprovava 11 / 12,5 / 15 / 16 por
      hierarquia plana. E o piso de 12px fica acima dos 11 do playbook. */
-  .bloco__selo{display:inline-block;margin-left:8px;vertical-align:2px;
-    padding:2px 9px;border-radius:999px;border:1px solid var(--linha-forte);
-    background:rgba(195,161,78,.1);
-    font-size:12px;font-weight:400;letter-spacing:.02em;color:var(--acento-claro)}
+  /* Linha propria e nao pilula colada no titulo: no destaque o titulo tem
+     25px e a pilula quebrava para a segunda linha. */
+  .bloco__txt > .bloco__selo{display:block;margin-top:6px;
+    font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:none;
+    color:var(--acento-claro)}
 
   /* O destaque acumula grau do mesmo atributo, nunca um atributo novo:
      superficie um degrau acima, filete em ouro cheio, mais altura e titulo
@@ -139,7 +140,7 @@
   .bloco--destaque{padding-top:28px;padding-bottom:28px;
     background:var(--sup-card-alta);border-color:var(--acento)}
   .bloco--destaque .bloco__txt > strong{font-size:clamp(22px,6.2vw,25px)}
-  .bloco--destaque .bloco__txt > span{color:var(--texto-medio)}
+  .bloco--destaque .bloco__txt > span:not(.bloco__selo){color:var(--texto-medio)}
 
   .bloco__seta{justify-self:end;color:var(--acento);opacity:.7;
     transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s ease}
@@ -194,7 +195,12 @@
 
   <div class="blocos">
 
-    <a class="bloco bloco--destaque" href="https://medceo.online/?de=bio_mentoria" data-bloco="mentoria" data-etapa="conversao">
+    <a class="bloco bloco--destaque" href="https://medceo.online/webnar?de=bio_comunidade" data-bloco="comunidade" data-etapa="conversao">
+      <span class="bloco__txt"><strong>Comunidade <i>gratuita</i></strong><span class="bloco__selo">Uma aula por semana, ao vivo</span><span>Sala fechada de médicos, materiais liberados sem custo</span></span>
+      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+    </a>
+
+    <a class="bloco" href="https://medceo.online/?de=bio_mentoria" data-bloco="mentoria" data-etapa="conversao">
       <span class="bloco__txt"><strong>Mentoria <i>MedCEO</i></strong><span>O método completo, do diagnóstico à execução</span></span>
       <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
@@ -206,11 +212,6 @@
 
     <a class="bloco" href="https://medceo.online/?de=bio_pilares#time" data-bloco="pilares" data-etapa="meio">
       <span class="bloco__txt"><strong>Os 4 <i>Pilares</i></strong><span>Quem conduz cada frente do método</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
-
-    <a class="bloco" href="https://medceo.online/webnar?de=bio_comunidade" data-bloco="comunidade" data-etapa="conversao">
-      <span class="bloco__txt"><strong>Comunidade <i>gratuita</i><span class="bloco__selo">Aulas semanais</span></strong><span>Uma aula por semana, em sala fechada</span></span>
       <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
 
