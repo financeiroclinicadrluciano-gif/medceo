@@ -16,6 +16,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="image" href="/linktree/img/comunidade.webp" fetchpriority="high" />
 <!-- Duas familias, nao tres. O JetBrains Mono saiu junto com as etiquetas em
      caixa alta: elas eram o "kicker" que o playbook anti-IA lista como slop. -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -32,200 +33,287 @@
 <style>
   /* Tokens do Nocturne, de
      03-PROJETOS/03.2-MEDCEO/Design-System-Nocturne/tokens/colors.css.
-     --sup-card e --sup-card-alta sao surface-elevated e surface-raised de la:
-     o card precisa de superficie propria, porque #0A0E14 sobre #05070A mede
-     1,04:1 e so existia enquanto uma foto desenhava a caixa. */
+     As superficies sao translucidas de proposito: elas ficam sobre a foto do
+     gabinete, e o card precisa deixar o ambiente aparecer sem perder leitura. */
   :root{
     --night:#05070A;
-    --sup-card:#16202B;
-    --sup-card-alta:#1D2936;
+    --sup-card:rgba(21,29,39,.74);
+    --sup-card-alta:rgba(30,40,53,.86);
     --acento:#C3A14E; --acento-claro:#E7D3A3;
-    --texto-forte:#F7F2E6; --texto-medio:rgba(234,226,207,.82);
-    --texto-fraco:rgba(234,226,207,.66);
-    --linha:rgba(195,161,78,.22); --linha-forte:rgba(195,161,78,.46);
+    --texto-forte:#F7F2E6; --texto-medio:rgba(234,226,207,.84);
+    --texto-fraco:rgba(234,226,207,.68);
+    --linha:rgba(234,226,207,.14);
     --serif:'Playfair Display',Georgia,serif;
     --sans:'Poppins',system-ui,sans-serif;
+    --raio:14px;
     --margem:20px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  /* Fundo liso. A camada anterior tinha paineis em gradiente, filetes, duas
-     auras com blur e vinheta: o filete decorativo chegava a 50% de alfa em
-     ouro contra 22% na borda do card, ou seja, mais ouro na linha que ninguem
-     toca do que no contorno do que precisa ser tocado. */
   body{min-height:100dvh;background:var(--night);color:var(--texto-medio);
     font-family:var(--sans);font-weight:300;line-height:1.5;
     -webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
+  /* `height:auto` obrigatorio: sem ele o atributo height="620" da tag vale como
+     altura fixa e o aspect-ratio do CSS e ignorado. Medido: o cartaz saiu com
+     620px de altura numa caixa de 333px de largura. */
+  img{max-width:100%;display:block;height:auto}
 
-  .folha{width:min(100% - 2*var(--margem),460px);margin-inline:auto;
-    padding:clamp(34px,7vh,60px) 0 clamp(40px,7vh,64px);
-    display:grid;gap:clamp(22px,3.4vh,30px)}
+  /* ---- Fundo ----
+     A queixa de 26/08 foi "sem imagem de fundo": a versao anterior era chapada.
+     A foto e o gabinete real do consultorio, a mesma hero-bg do site, fixa
+     atras de tudo e coberta por um veu que garante o contraste do texto.
+     Camada `fixed` em vez de background-attachment, que o Safari do iPhone
+     ignora e renderiza como rolagem normal. */
+  .palco{position:fixed;inset:0;z-index:-2;
+    background:#05070A url("/linktree/img/fundo.webp") center/cover no-repeat}
+  .veu{position:fixed;inset:0;z-index:-1;
+    background:
+      radial-gradient(126% 82% at 50% 4%,rgba(5,7,10,.2) 0%,rgba(5,7,10,.68) 58%,#05070A 100%),
+      linear-gradient(180deg,rgba(5,7,10,.3) 0%,rgba(5,7,10,.62) 100%)}
 
-  /* ---- Cabecalho ---- */
-  .topo{display:grid;justify-items:center;gap:14px;text-align:center}
-  .topo__marca{width:min(224px,60vw);height:auto}
-  .topo__tagline{font-size:15px;font-weight:300;letter-spacing:.01em;
-    color:var(--acento-claro);max-width:28ch}
-  .topo__publico{font-size:15px;font-weight:300;color:var(--texto-fraco)}
+  .folha{width:100%;max-width:560px;margin:0 auto;
+    padding:calc(26px + env(safe-area-inset-top)) var(--margem)
+            calc(28px + env(safe-area-inset-bottom))}
 
-  /* ---- Atalhos ---- */
-  .sociais{display:flex;justify-content:center;gap:12px}
-  /* Sem ouro na borda. A critica mediu 14 contornos dourados competindo, e
-     enquanto todos forem ouro nenhum decide nada. O ouro fica nos cards. */
-  .sociais a{display:grid;place-items:center;width:46px;height:46px;
-    border:1px solid rgba(234,226,207,.16);border-radius:50%;background:var(--sup-card);
-    color:var(--acento-claro);
-    transition:border-color .35s ease,background .35s ease}
-  .sociais a:hover{border-color:rgba(234,226,207,.32);background:var(--sup-card-alta)}
-  .sociais a:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
-  .sociais svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.5;
-    stroke-linecap:round;stroke-linejoin:round}
+  /* ---- Marca ---- */
+  .marca{text-align:center}
+  .marca__logo{width:min(262px,72%);height:auto;margin:0 auto}
+  .marca__tagline{margin-top:12px;font-family:var(--serif);font-weight:400;
+    font-size:clamp(17px,4.6vw,19px);line-height:1.35;color:var(--texto-forte)}
+  .marca__publico{margin-top:6px;font-size:13px;color:var(--texto-fraco)}
 
-  /* ---- Quem assina ---- */
-  .assina{display:grid;grid-template-columns:76px minmax(0,1fr) 16px;align-items:center;
-    gap:16px;padding:16px;border:1px solid rgba(234,226,207,.12);border-radius:8px;
-    background:var(--sup-card);
-    transition:background .35s ease,border-color .35s ease}
-  .assina:hover{background:var(--sup-card-alta);border-color:rgba(234,226,207,.26)}
-  .assina:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
-  /* object-position no alto do enquadramento: em 22% a testa era cortada
-     dentro do circulo de 50px. */
-  .assina img{width:76px;height:76px;border-radius:50%;object-fit:cover;
-    object-position:center 12%;border:1px solid rgba(234,226,207,.2)}
-  .assina strong{display:block;font-weight:400;font-size:15px;color:var(--texto-forte)}
-  .assina em{display:block;margin-top:3px;font-style:normal;font-size:12px;
-    font-weight:300;color:var(--texto-fraco)}
-  .assina svg{width:15px;height:15px;fill:none;stroke:var(--acento);stroke-width:1.8;
-    stroke-linecap:round;stroke-linejoin:round}
+  /* ---- Sociais ---- */
+  .sociais{display:flex;justify-content:center;gap:10px;margin-top:16px}
+  .sociais a{display:grid;place-items:center;width:44px;height:44px;
+    border:1px solid var(--linha);border-radius:50%;
+    background:rgba(21,29,39,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    color:var(--texto-medio);transition:border-color .3s ease,color .3s ease}
+  .sociais a:hover{border-color:rgba(234,226,207,.34);color:var(--texto-forte)}
+  .sociais svg{width:19px;height:19px;fill:none;stroke:currentColor;
+    stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-  /* ---- Blocos ----
-     Sem foto e sem icone, quem carrega a hierarquia e o contraste de
-     superficie mais a escala do titulo. Uma versao anterior usava filete
-     colorido de 3px na lateral, e o detector de slop nomeia exatamente isso
-     como a marca mais reconhecivel de interface gerada por IA. Saiu. */
-  .blocos{display:grid;gap:10px}
-  .bloco{position:relative;display:grid;
-    grid-template-columns:minmax(0,1fr) 22px;align-items:center;column-gap:14px;
-    padding:20px 18px 20px 22px;
-    background:var(--sup-card);border:1px solid var(--linha);border-radius:8px;
-    transition:background .35s ease,box-shadow .35s ease,border-color .35s ease,
-               transform .35s cubic-bezier(.16,1,.3,1)}
-  .bloco:hover{background:var(--sup-card-alta);border-color:var(--linha-forte);
-    box-shadow:0 10px 26px rgba(0,0,0,.5);transform:translateY(-2px)}
-  .bloco:active{transform:translateY(0) scale(.995)}
-  .bloco:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
-
-  .bloco__txt{display:block;max-width:34ch}
-  .bloco__txt > strong{display:block;font-family:var(--serif);font-weight:400;
-    font-size:clamp(18px,5vw,20px);line-height:1.2;letter-spacing:-.01em;
+  /* ---- Cartaz: o convite do webnar ----
+     Peca grafica de largura cheia, no modelo das referencias que o Gustavo
+     mandou em 26/08: a foto E o card, e o texto entra sobre o degrade dela.
+     Fica em primeiro lugar porque a comunidade gratuita e a porta de entrada. */
+  /* Foto, veu e texto ocupam a MESMA celula de grid, e nao caixas absolutas:
+     assim o card cresce quando o texto cresce, em vez de o texto subir por
+     cima do rosto. Medido na primeira montagem: com o texto absoluto ele
+     cobria os 208px inteiros da foto e colidia com o selo. */
+  .cartaz{position:relative;display:grid;margin-top:22px;
+    aspect-ratio:4/5;
+    border-radius:18px;overflow:hidden;border:1px solid rgba(195,161,78,.4);
+    background:#0B1119;box-shadow:0 18px 44px rgba(0,0,0,.55);
+    transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease}
+  .cartaz:hover{transform:translateY(-3px);box-shadow:0 22px 52px rgba(0,0,0,.62)}
+  .cartaz > *{grid-area:1/1}
+  .cartaz__foto{width:100%;height:100%;object-fit:cover;
+    object-position:center 22%}
+  .cartaz__veu{background:linear-gradient(180deg,
+      rgba(5,7,10,.06) 0%,rgba(5,7,10,.16) 34%,rgba(6,9,13,.62) 56%,
+      rgba(7,10,15,.93) 74%,rgba(7,10,15,.99) 100%)}
+  .cartaz__selo{justify-self:end;align-self:start;margin:14px;
+    padding:6px 13px;border-radius:999px;
+    border:1px solid rgba(195,161,78,.55);background:rgba(5,7,10,.6);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    font-size:12px;font-weight:400;letter-spacing:.04em;color:var(--acento-claro)}
+  .cartaz__txt{align-self:end;padding:0 20px 20px;display:block}
+  .cartaz__txt b{display:block;font-family:var(--serif);font-weight:400;
+    font-size:clamp(26px,7.2vw,31px);line-height:1.14;letter-spacing:-.01em;
     color:var(--texto-forte)}
-  .bloco__txt > strong i{font-style:normal;color:var(--acento-claro)}
-  .bloco__txt > span{display:block;margin-top:7px;font-size:15px;font-weight:300;
-    line-height:1.5;color:var(--texto-fraco)}
+  .cartaz__txt b i{font-style:normal;color:var(--acento-claro)}
+  .cartaz__txt em{display:block;margin-top:8px;font-style:normal;font-size:15px;
+    line-height:1.5;color:var(--texto-medio);max-width:32ch}
+  .cartaz__cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+    padding:12px 20px;border-radius:999px;
+    background:var(--acento);color:#0A0C10;
+    font-size:15px;font-weight:500;letter-spacing:.01em;
+    transition:background .3s ease}
+  .cartaz:hover .cartaz__cta{background:var(--acento-claro)}
+  .cartaz__cta svg{width:15px;height:15px;fill:none;stroke:currentColor;
+    stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-  /* Escala de quatro degraus, cada salto acima de 1,25: 12 miudo, 15 corpo,
-     20 titulo, 25 destaque. O detector reprovava 11 / 12,5 / 15 / 16 por
-     hierarquia plana. E o piso de 12px fica acima dos 11 do playbook. */
-  /* Linha propria e nao pilula colada no titulo: no destaque o titulo tem
-     25px e a pilula quebrava para a segunda linha. */
-  .bloco__txt > .bloco__selo{display:block;margin-top:6px;
-    font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:none;
-    color:var(--acento-claro)}
+  /* ---- Blocos: texto a esquerda, foto a direita ----
+     Cada bloco tem foto propria, escolhida pelo assunto. A versao de 26/08
+     repetia a mesma fotografia em tres cards e cortava a testa em outros tres,
+     entao o recorte de cada uma esta declarado em scratchpad/imgs.py e
+     conferido em folha de contato antes de publicar. */
+  .blocos{display:grid;gap:12px;margin-top:14px}
+  .bloco{display:grid;grid-template-columns:minmax(0,1fr) 84px;
+    align-items:center;gap:16px;padding:16px 16px 16px 18px;
+    background:var(--sup-card);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    border:1px solid var(--linha);border-radius:var(--raio);
+    transition:background .3s ease,border-color .3s ease,
+               transform .4s cubic-bezier(.16,1,.3,1)}
+  .bloco:hover{background:var(--sup-card-alta);
+    border-color:rgba(234,226,207,.3);transform:translateY(-2px)}
+  .bloco__txt{min-width:0}
+  .bloco__txt strong{display:block;font-family:var(--serif);font-weight:400;
+    font-size:clamp(18px,5vw,20px);line-height:1.22;letter-spacing:-.01em;
+    color:var(--texto-forte)}
+  .bloco__txt strong i{font-style:normal;color:var(--acento-claro)}
+  .bloco__txt span{display:block;margin-top:5px;font-size:13.5px;
+    line-height:1.45;color:var(--texto-fraco)}
+  .bloco__foto{width:84px;height:84px;border-radius:10px;object-fit:cover}
 
-  /* O destaque acumula grau do mesmo atributo, nunca um atributo novo:
-     superficie um degrau acima, filete em ouro cheio, mais altura e titulo
-     maior. Cor nova faria ele ler como outra coisa, e nao como a principal. */
-  .bloco--destaque{padding-top:28px;padding-bottom:28px;
-    background:var(--sup-card-alta);border-color:var(--acento)}
-  .bloco--destaque .bloco__txt > strong{font-size:clamp(22px,6.2vw,25px)}
-  .bloco--destaque .bloco__txt > span:not(.bloco__selo){color:var(--texto-medio)}
-
-  .bloco__seta{justify-self:end;color:var(--acento);opacity:.7;
-    transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s ease}
-  .bloco:hover .bloco__seta{transform:translateX(3px);opacity:1}
-  .bloco__seta svg{width:15px;height:15px;fill:none;stroke:currentColor;
-    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  /* ---- Assinatura ---- */
+  .assina{display:grid;grid-template-columns:52px minmax(0,1fr) 16px;
+    align-items:center;gap:14px;margin-top:22px;padding:14px 16px;
+    background:rgba(21,29,39,.58);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    border:1px solid var(--linha);border-radius:var(--raio);
+    transition:background .3s ease,border-color .3s ease}
+  .assina:hover{background:var(--sup-card-alta);border-color:rgba(234,226,207,.3)}
+  .assina img{width:52px;height:52px;border-radius:50%;object-fit:cover;
+    object-position:center 12%;border:1px solid rgba(234,226,207,.2)}
+  .assina strong{display:block;font-size:15px;font-weight:400;
+    color:var(--texto-forte)}
+  .assina em{display:block;margin-top:2px;font-style:normal;font-size:12.5px;
+    color:var(--texto-fraco)}
+  .assina > svg{width:15px;height:15px;fill:none;stroke:var(--acento);
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
 
   /* ---- Rodape ---- */
-  .rodape{display:grid;justify-items:center;gap:4px;text-align:center;
-    padding-top:clamp(8px,1.6vh,14px);
-    font-size:12px;font-weight:300;color:var(--texto-fraco);line-height:1.8}
-  .rodape a{display:inline-block;padding:12px 10px;color:var(--texto-fraco);
-    border-bottom:1px solid rgba(234,226,207,.16)}
-  .rodape a:hover{color:var(--acento-claro)}
+  .rodape{margin-top:26px;text-align:center;font-size:12px;
+    color:var(--texto-fraco);line-height:1.8}
+  .rodape a{border-bottom:1px solid var(--linha);padding-bottom:2px}
+  .rodape a:hover{border-color:rgba(234,226,207,.4);color:var(--texto-forte)}
+
+  /* ---- Identidade: so existe no bento ----
+     No celular a marca vive solta no topo. A partir de 960px ela vira um
+     cartao alto com a fotografia do Dr. Luciano, que e a coluna da esquerda
+     da composicao. */
+  .identidade{display:contents}
+  .identidade__foto,.identidade__veu{display:none}
+
+  @media (min-width:960px){
+    .folha{max-width:1120px;padding-top:44px;padding-bottom:40px;
+      display:grid;gap:16px;align-items:stretch;
+      grid-template-columns:0.94fr 1.14fr 0.92fr;
+      grid-template-rows:auto 1fr auto;
+      grid-template-areas:
+        "id lista cartaz"
+        "id assina cartaz"
+        "rodape rodape rodape"}
+
+    .identidade{grid-area:id;display:flex;flex-direction:column;
+      justify-content:flex-end;position:relative;min-height:540px;
+      padding:28px 26px 26px;border-radius:18px;overflow:hidden;
+      border:1px solid var(--linha);background:#0B1119}
+    /* 76% e nao `center`: a caixa e mais estreita que a foto, entao o corte
+       acontece na horizontal, e `center` mostrava a parede em vez do rosto. */
+    .identidade__foto{display:block;position:absolute;inset:0;
+      width:100%;height:100%;object-fit:cover;object-position:76% 22%}
+    .identidade__veu{display:block;position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(5,7,10,.3) 0%,rgba(5,7,10,.16) 28%,
+        rgba(6,9,13,.86) 70%,rgba(6,9,13,.97) 100%)}
+    .marca,.sociais{position:relative}
+    .marca{text-align:left}
+    .marca__logo{margin:0;width:min(228px,86%)}
+    .marca__tagline{margin-top:14px;font-size:21px}
+    .marca__publico{margin-top:7px;font-size:13.5px}
+    .sociais{justify-content:flex-start;margin-top:20px}
+
+    .blocos{grid-area:lista;margin-top:0}
+    .bloco{grid-template-columns:minmax(0,1fr) 92px;padding:18px 18px 18px 20px}
+    .bloco__foto{width:92px;height:92px}
+
+    .assina{grid-area:assina;margin-top:0;align-self:end}
+
+    .cartaz{grid-area:cartaz;margin-top:0;aspect-ratio:auto;min-height:540px}
+    .cartaz__foto{object-position:center 18%}
+
+    .rodape{grid-area:rodape;margin-top:22px}
+  }
 
   @media (prefers-reduced-motion:reduce){
-    .bloco,.sociais a,.assina,.bloco__seta{transition:none}
-    .bloco:hover{transform:none}
+    .bloco,.cartaz,.sociais a,.assina{transition:none}
+    .bloco:hover,.cartaz:hover{transform:none}
   }
 </style>
 </head>
 <body>
 
+<div class="palco" aria-hidden="true"></div>
+<div class="veu" aria-hidden="true"></div>
+
 <main class="folha">
 
-  <header class="topo">
-    <img class="topo__marca" src="/linktree/logo-medceo.png" alt="MedCEO" width="360" height="74" fetchpriority="high" />
-    <p class="topo__tagline">A mentoria que transforma médicos em CEOs</p>
-    <p class="topo__publico">Para médico que já tem clínica para tocar</p>
-  </header>
+  <section class="identidade">
+    <img class="identidade__foto" src="/linktree/img/identidade.webp" alt="" aria-hidden="true" width="1000" height="1300" loading="lazy" decoding="async" />
+    <span class="identidade__veu" aria-hidden="true"></span>
 
-  <nav class="sociais" aria-label="Perfis e contato">
-    <a href="https://www.instagram.com/medico_ceo/" data-bloco="social-instagram-medceo" data-etapa="topo" target="_blank" rel="noopener" aria-label="Instagram do MedCEO">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
+    <header class="marca">
+      <img class="marca__logo" src="/linktree/logo-medceo.png" alt="MedCEO" width="360" height="74" fetchpriority="high" />
+      <p class="marca__tagline">A mentoria que transforma médicos em CEOs</p>
+      <p class="marca__publico">Para médico que já tem clínica para tocar</p>
+    </header>
+
+    <nav class="sociais" aria-label="Perfis e contato">
+      <a href="https://www.instagram.com/medico_ceo/" data-bloco="social-instagram-medceo" data-etapa="topo" target="_blank" rel="noopener" aria-label="Instagram do MedCEO">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.instagram.com/dr.lucianoalvesneves/" data-bloco="social-instagram-luciano" data-etapa="topo" target="_blank" rel="noopener" aria-label="Instagram do Dr. Luciano">
+        <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4.4"/></svg>
+      </a>
+      <a href="https://wa.me/5541984875688?text=Ol%C3%A1%2C%20vim%20pelo%20link%20da%20bio%20e%20quero%20falar%20sobre%20a%20mentoria%20MedCEO." data-bloco="social-whatsapp" data-etapa="conversao" target="_blank" rel="noopener" aria-label="Falar com o time no WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.3 7.4L3.5 20.5l1.6-4.6a8.4 8.4 0 1 1 15.4-4.3z"/></svg>
+      </a>
+      <a href="https://medceo.online/?de=bio_icone_site" data-bloco="social-site" data-etapa="topo" aria-label="Site do MedCEO">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3c2.5 2.4 3.8 5.4 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.4-3.8-9S9.5 5.4 12 3z"/></svg>
+      </a>
+    </nav>
+  </section>
+
+  <a class="cartaz" href="https://medceo.online/webnar?de=bio_comunidade" data-bloco="comunidade" data-etapa="conversao">
+    <img class="cartaz__foto" src="/linktree/img/comunidade.webp" alt="Dr. Luciano Alves Neves durante a aula semanal" width="860" height="1075" fetchpriority="high" />
+    <span class="cartaz__veu" aria-hidden="true"></span>
+    <span class="cartaz__selo">Gratuito</span>
+    <span class="cartaz__txt">
+      <b>Comunidade <i>gratuita</i></b>
+      <em>Uma aula por semana, ao vivo, em sala fechada de médicos. Materiais liberados sem custo.</em>
+      <span class="cartaz__cta">Quero participar
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+      </span>
+    </span>
+  </a>
+
+  <div class="blocos">
+
+    <a class="bloco" href="https://medceo.online/?de=bio_mentoria" data-bloco="mentoria" data-etapa="conversao">
+      <span class="bloco__txt"><strong>Mentoria <i>MedCEO</i></strong><span>O método completo, do diagnóstico à execução</span></span>
+      <img class="bloco__foto" src="/linktree/img/mentoria.webp" alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
     </a>
-    <a href="https://www.instagram.com/dr.lucianoalvesneves/" data-bloco="social-instagram-luciano" data-etapa="topo" target="_blank" rel="noopener" aria-label="Instagram do Dr. Luciano">
-      <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4.4"/></svg>
+
+    <a class="bloco" href="https://medceo.online/servicos?de=bio_servicos" data-bloco="servicos" data-etapa="meio">
+      <span class="bloco__txt"><strong>Nossos <i>serviços</i></strong><span>Sete caminhos, com entregáveis e valores</span></span>
+      <img class="bloco__foto" src="/linktree/img/servicos.webp" alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
     </a>
-    <a href="https://wa.me/5541984875688?text=Ol%C3%A1%2C%20vim%20pelo%20link%20da%20bio%20e%20quero%20falar%20sobre%20a%20mentoria%20MedCEO." data-bloco="social-whatsapp" data-etapa="conversao" target="_blank" rel="noopener" aria-label="Falar com o time no WhatsApp">
-      <svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.3 7.4L3.5 20.5l1.6-4.6a8.4 8.4 0 1 1 15.4-4.3z"/></svg>
+
+    <a class="bloco" href="https://medceo.online/?de=bio_pilares#time" data-bloco="pilares" data-etapa="meio">
+      <span class="bloco__txt"><strong>Os <i>Pilares</i></strong><span>Quem conduz cada frente do método</span></span>
+      <img class="bloco__foto" src="/linktree/img/pilares.webp" alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
     </a>
-    <a href="https://medceo.online/?de=bio_icone_site" data-bloco="social-site" data-etapa="topo" aria-label="Site do MedCEO">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3c2.5 2.4 3.8 5.4 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.4-3.8-9S9.5 5.4 12 3z"/></svg>
+
+    <a class="bloco" href="https://medceo.online/diagnostico?de=bio_diagnostico" data-bloco="diagnostico" data-etapa="meio">
+      <span class="bloco__txt"><strong>Diagnóstico da <i>sua clínica</i></strong><span>Em qual dos cinco níveis ela está hoje</span></span>
+      <img class="bloco__foto" src="/linktree/img/diagnostico.webp" alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
     </a>
-  </nav>
+
+    <a class="bloco" href="https://medceo.online/blog?de=bio_blog" data-bloco="blog" data-etapa="topo">
+      <span class="bloco__txt"><strong>Blog <i>MedCEO</i></strong><span>Gestão, comercial e margem, sem enrolação</span></span>
+      <img class="bloco__foto" src="/linktree/img/blog.webp" alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
+    </a>
+
+  </div>
 
   <a class="assina" href="https://www.instagram.com/dr.lucianoalvesneves/" data-bloco="assina-luciano" data-etapa="topo" target="_blank" rel="noopener">
     <img src="/linktree/perfil-luciano.webp" alt="Dr. Luciano Alves Neves" width="160" height="160" loading="lazy" decoding="async" />
     <span><strong>Dr. Luciano Alves Neves</strong><em>Médico e fundador · CRM/PR 45049</em></span>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
   </a>
-
-  <div class="blocos">
-
-    <a class="bloco bloco--destaque" href="https://medceo.online/webnar?de=bio_comunidade" data-bloco="comunidade" data-etapa="conversao">
-      <span class="bloco__txt"><strong>Comunidade <i>gratuita</i></strong><span class="bloco__selo">Uma aula por semana, ao vivo</span><span>Sala fechada de médicos, materiais liberados sem custo</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
-
-    <a class="bloco" href="https://medceo.online/?de=bio_mentoria" data-bloco="mentoria" data-etapa="conversao">
-      <span class="bloco__txt"><strong>Mentoria <i>MedCEO</i></strong><span>O método completo, do diagnóstico à execução</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
-
-    <a class="bloco" href="https://medceo.online/servicos?de=bio_servicos" data-bloco="servicos" data-etapa="meio">
-      <span class="bloco__txt"><strong>Nossos <i>serviços</i></strong><span>Sete caminhos, com entregáveis e valores</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
-
-    <a class="bloco" href="https://medceo.online/?de=bio_pilares#time" data-bloco="pilares" data-etapa="meio">
-      <span class="bloco__txt"><strong>Os 4 <i>Pilares</i></strong><span>Quem conduz cada frente do método</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
-
-    <a class="bloco" href="https://medceo.online/diagnostico?de=bio_diagnostico" data-bloco="diagnostico" data-etapa="meio">
-      <span class="bloco__txt"><strong>Diagnóstico da <i>sua clínica</i></strong><span>Em qual dos cinco níveis ela está hoje</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
-
-    <a class="bloco" href="https://medceo.online/blog?de=bio_blog" data-bloco="blog" data-etapa="topo">
-      <span class="bloco__txt"><strong>Blog <i>MedCEO</i></strong><span>Gestão, comercial e margem, sem enrolação</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
-
-  </div>
 
   <footer class="rodape">
     <p>Dr. Luciano Alves Neves · CRM/PR 45049</p>
