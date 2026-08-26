@@ -16,10 +16,10 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<!-- Duas familias, nao tres. O JetBrains Mono saiu junto com as etiquetas em
+     caixa alta: elas eram o "kicker" que o playbook anti-IA lista como slop. -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
 
-<!-- Mesma tag GT-PJWWKM65 dos outros sites, com site_marca=medceo, para o
-     linktree entrar no mesmo relatorio e nao virar uma ilha de dados. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -31,171 +31,145 @@
 
 <style>
   /* Tokens do Nocturne, de
-     03-PROJETOS/03.2-MEDCEO/Design-System-Nocturne/tokens/colors.css */
+     03-PROJETOS/03.2-MEDCEO/Design-System-Nocturne/tokens/colors.css.
+     --sup-card e --sup-card-alta sao surface-elevated e surface-raised de la:
+     o card precisa de superficie propria, porque #0A0E14 sobre #05070A mede
+     1,04:1 e so existia enquanto uma foto desenhava a caixa. */
   :root{
-    --night:#05070A; --navy:#0E151D; --navy-2:#16202B;
+    --night:#05070A;
+    --sup-card:#16202B;
+    --sup-card-alta:#1D2936;
     --acento:#C3A14E; --acento-claro:#E7D3A3;
-    --texto:#EAE2CF; --texto-forte:#F7F2E6; --texto-fraco:#9A927F;
-    --linha:rgba(195,161,78,.2); --linha-forte:rgba(195,161,78,.42);
-    --bloco:#0A0E14; --bloco-solido:#0A0E14; --bloco-meio:rgba(10,14,20,.72);
-    --bloco-destaque-solido:#101720;
-    --sombra:rgba(0,0,0,.6);
+    --texto-forte:#F7F2E6; --texto-medio:rgba(234,226,207,.82);
+    --texto-fraco:rgba(234,226,207,.66);
+    --linha:rgba(195,161,78,.22); --linha-forte:rgba(195,161,78,.46);
     --serif:'Playfair Display',Georgia,serif;
     --sans:'Poppins',system-ui,sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,monospace;
     --margem:20px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{min-height:100dvh;background:var(--night);color:var(--texto);
+  /* Fundo liso. A camada anterior tinha paineis em gradiente, filetes, duas
+     auras com blur e vinheta: o filete decorativo chegava a rgba(...,.5) de
+     ouro contra .22 na borda do card, ou seja, mais ouro na linha que ninguem
+     toca do que no contorno do que precisa ser tocado. */
+  body{min-height:100dvh;background:var(--night);color:var(--texto-medio);
     font-family:var(--sans);font-weight:300;line-height:1.5;
     -webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
 
-  /* ---- Fundo: paineis verticais com filete dourado, a assinatura visual da
-         marca, a mesma parede da foto oficial do time. ---- */
-  .fundo{position:fixed;inset:0;z-index:-3;background:var(--night);overflow:hidden}
-  .fundo__painel{position:absolute;top:0;bottom:0;
-    background:linear-gradient(180deg,#0B1017 0%,#070A0F 54%,#05070A 100%)}
-  .fundo__filete{position:absolute;top:0;bottom:0;width:1px;
-    background:linear-gradient(180deg,transparent,rgba(195,161,78,.34) 26%,rgba(195,161,78,.5) 50%,rgba(195,161,78,.28) 74%,transparent)}
-  .fundo__aura{position:absolute;border-radius:50%;filter:blur(110px)}
-  .fundo__aura--a{width:min(620px,88vw);aspect-ratio:1.3;left:-18%;top:2%;
-    background:radial-gradient(50% 50%,rgba(195,161,78,.16),transparent 70%)}
-  .fundo__aura--b{width:min(560px,84vw);aspect-ratio:1.2;right:-22%;top:52%;
-    background:radial-gradient(50% 50%,rgba(61,109,140,.12),transparent 70%)}
-  .fundo__vinheta{position:absolute;inset:0;
-    background:radial-gradient(120% 76% at 50% 30%,transparent 42%,rgba(3,4,5,.62) 86%,rgba(3,4,5,.9) 100%)}
-
-  .folha{width:min(100% - 2*var(--margem),480px);margin-inline:auto;
-    padding:clamp(30px,6vh,52px) 0 clamp(38px,7vh,64px);
-    display:grid;gap:clamp(20px,3.2vh,28px)}
+  .folha{width:min(100% - 2*var(--margem),460px);margin-inline:auto;
+    padding:clamp(34px,7vh,60px) 0 clamp(40px,7vh,64px);
+    display:grid;gap:clamp(22px,3.4vh,30px)}
 
   /* ---- Cabecalho ---- */
-  .topo{display:grid;justify-items:center;gap:16px;text-align:center}
-  .topo__marca{width:min(232px,62vw);height:auto;
-    filter:drop-shadow(0 8px 26px rgba(0,0,0,.7))}
-  .topo__tagline{font-size:14px;font-weight:300;letter-spacing:.02em;
-    color:var(--acento-claro);max-width:30ch}
-  .topo__selo{display:inline-flex;align-items:center;gap:10px;
-    padding:6px 15px;border:1px solid var(--linha-forte);border-radius:999px;
-    background:rgba(195,161,78,.08);
-    font-family:var(--mono);font-size:9.5px;font-weight:400;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--acento-claro)}
-  .topo__selo i{width:5px;height:5px;background:var(--acento);transform:rotate(45deg)}
+  .topo{display:grid;justify-items:center;gap:14px;text-align:center}
+  .topo__marca{width:min(224px,60vw);height:auto}
+  .topo__tagline{font-size:15px;font-weight:300;letter-spacing:.01em;
+    color:var(--acento-claro);max-width:28ch}
+  .topo__publico{font-size:12.5px;font-weight:300;color:var(--texto-fraco)}
 
-  /* ---- Atalhos sociais ---- */
-  .sociais{display:flex;justify-content:center;gap:11px}
+  /* ---- Atalhos ---- */
+  .sociais{display:flex;justify-content:center;gap:12px}
+  /* Sem ouro na borda. A critica mediu 14 contornos dourados competindo, e
+     enquanto todos forem ouro nenhum decide nada. O ouro fica nos cards. */
   .sociais a{display:grid;place-items:center;width:46px;height:46px;
-    border:1px solid var(--linha);border-radius:50%;background:rgba(10,14,20,.7);
+    border:1px solid rgba(234,226,207,.16);border-radius:50%;background:var(--sup-card);
     color:var(--acento-claro);
-    transition:border-color .4s ease,transform .4s cubic-bezier(.16,1,.3,1),background .4s ease}
-  .sociais a:hover{border-color:var(--linha-forte);transform:translateY(-2px);
-    background:rgba(195,161,78,.1)}
+    transition:border-color .35s ease,background .35s ease}
+  .sociais a:hover{border-color:rgba(234,226,207,.32);background:var(--sup-card-alta)}
+  .sociais a:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
   .sociais svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.5;
     stroke-linecap:round;stroke-linejoin:round}
 
-  /* ---- Faixa de quem assina ---- */
-  .assina{display:grid;grid-template-columns:52px minmax(0,1fr) 16px;align-items:center;
-    gap:15px;padding:13px 16px;border:1px solid var(--linha);border-radius:15px;
-    background:rgba(10,14,20,.66);
-    transition:border-color .45s ease,transform .45s cubic-bezier(.16,1,.3,1)}
-  .assina:hover{border-color:var(--linha-forte);transform:translateY(-2px)}
-  .assina img{width:52px;height:52px;border-radius:50%;object-fit:cover;
-    object-position:center 22%;border:1px solid var(--linha-forte)}
-  .assina strong{display:block;font-weight:400;font-size:14.5px;color:var(--texto-forte)}
-  .assina span{display:block;margin-top:3px;font-family:var(--mono);font-size:8.5px;
-    font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--texto-fraco);line-height:1.7}
-  .assina svg{width:15px;height:15px;fill:none;stroke:var(--acento);stroke-width:2;
+  /* ---- Quem assina ---- */
+  .assina{display:grid;grid-template-columns:76px minmax(0,1fr) 16px;align-items:center;
+    gap:16px;padding:16px;border:1px solid rgba(234,226,207,.12);border-radius:8px;
+    background:var(--sup-card);
+    transition:background .35s ease,border-color .35s ease}
+  .assina:hover{background:var(--sup-card-alta);border-color:rgba(234,226,207,.26)}
+  .assina:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+  /* object-position no alto do enquadramento: em 22% a testa era cortada
+     dentro do circulo de 50px. */
+  .assina img{width:76px;height:76px;border-radius:50%;object-fit:cover;
+    object-position:center 12%;border:1px solid rgba(234,226,207,.2)}
+  .assina strong{display:block;font-weight:400;font-size:15px;color:var(--texto-forte)}
+  .assina em{display:block;margin-top:2px;font-style:normal;font-size:12px;
+    font-weight:300;color:var(--texto-fraco)}
+  .assina svg{width:15px;height:15px;fill:none;stroke:var(--acento);stroke-width:1.8;
     stroke-linecap:round;stroke-linejoin:round}
 
-  /* ---- Blocos ---- */
-  .blocos{display:grid;gap:clamp(11px,1.8vh,15px)}
-  .bloco{position:relative;isolation:isolate;overflow:hidden;display:block;
-    min-height:112px;padding:17px 20px;border-radius:16px;
-    border:1px solid var(--linha);background:var(--bloco);text-align:left;
-    transition:border-color .45s ease,transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease}
-  .bloco:hover{border-color:var(--linha-forte);transform:translateY(-3px);
-    box-shadow:0 16px 40px var(--sombra)}
-  .bloco:active{transform:scale(.99)}
-  .bloco--destaque{border-color:var(--linha-forte);background:var(--bloco-destaque-solido)}
+  /* ---- Blocos: superficie propria e filete estrutural a esquerda ----
+     Sem foto e sem icone, quem carrega a hierarquia e o contraste de
+     superficie mais a escala do titulo. O filete e o eixo que amarra os seis
+     num sistema so, e ganha ouro cheio apenas no destaque. */
+  .blocos{display:grid;gap:10px}
+  .bloco{position:relative;display:grid;
+    grid-template-columns:minmax(0,1fr) 22px;align-items:center;column-gap:14px;
+    padding:20px 18px 20px 22px;
+    background:var(--sup-card);border:1px solid var(--linha);border-radius:8px;
+    box-shadow:inset 3px 0 0 rgba(195,161,78,.34);
+    transition:background .35s ease,box-shadow .35s ease,border-color .35s ease,
+               transform .35s cubic-bezier(.16,1,.3,1)}
+  .bloco:hover{background:var(--sup-card-alta);border-color:var(--linha-forte);
+    box-shadow:inset 3px 0 0 var(--acento),0 10px 26px rgba(0,0,0,.5);
+    transform:translateY(-2px)}
+  .bloco:active{transform:translateY(0) scale(.995)}
+  .bloco:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
 
-  /* A foto entra em 34%, antes do fim da parte solida da mascara em 46%: assim
-     a borda esquerda da imagem fica coberta e nao vira um risco vertical. */
-  .bloco__foto{position:absolute;z-index:-2;inset:0 0 0 34%;overflow:hidden}
-  .bloco__foto img{width:100%;height:100%;object-fit:cover;object-position:center 28%;
-    filter:brightness(.72) saturate(.92)}
-  /* A foto do blog e a mais clara das seis e dominava o card. Escurece so ela. */
-  .bloco[data-bloco="blog"] .bloco__foto img{filter:brightness(.5) saturate(.85)}
-  /* Solida ate 54% e nao 46%: com 46% a segunda linha da descricao chegava
-     na foto. Medido no print antes de mudar. */
-  .bloco__mascara{position:absolute;z-index:-1;inset:0;
-    background:linear-gradient(96deg,var(--bloco-solido) 0%,var(--bloco-solido) 60%,
-      var(--bloco-meio) 78%,rgba(5,7,10,.55) 100%)}
-  .bloco--destaque .bloco__mascara{background:linear-gradient(96deg,
-    var(--bloco-destaque-solido) 0%,var(--bloco-destaque-solido) 60%,
-    rgba(16,23,32,.86) 78%,rgba(5,7,10,.5) 100%)}
-
-  /* O icone e marca d'agua: o card nao depende da foto carregar. */
-  .bloco__icone{position:absolute;z-index:-1;right:6%;top:50%;transform:translateY(-50%);
-    color:var(--acento);opacity:.11;pointer-events:none}
-  .bloco__icone svg{width:58px;height:58px;fill:none;stroke:currentColor;stroke-width:1.4;
-    stroke-linecap:round;stroke-linejoin:round}
-
-  /* display:block obrigatorio: .bloco__txt e um <span>, e max-width nao
-     aplica em elemento inline. Sem isso a caixa ia de 41 a 334 num bloco
-     de 335px, ou seja, o limite de 54%% nao existia e a descricao passava
-     por cima da foto. Medido antes de corrigir. */
-  .bloco__txt{position:relative;display:block;max-width:54%}
+  .bloco__txt{display:block;max-width:34ch}
   .bloco__txt > strong{display:block;font-family:var(--serif);font-weight:400;
-    font-size:clamp(17.5px,4.8vw,21px);line-height:1.16;letter-spacing:-.01em;
+    font-size:clamp(18px,5vw,20px);line-height:1.2;letter-spacing:-.01em;
     color:var(--texto-forte)}
   .bloco__txt > strong i{font-style:normal;color:var(--acento-claro)}
-  .bloco__txt > span{display:block;margin-top:7px;font-size:12.5px;font-weight:300;
-    line-height:1.5;color:rgba(234,226,207,.7)}
-  .bloco__selo{display:inline-block;margin-left:9px;padding:3px 9px;border-radius:999px;
-    border:1px solid var(--linha-forte);background:rgba(195,161,78,.12);
-    font-family:var(--mono);font-size:8px;font-weight:400;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--acento-claro);vertical-align:middle}
-  .bloco__seta{position:absolute;right:17px;bottom:16px;color:var(--acento);opacity:.72;
-    transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .45s ease}
-  .bloco:hover .bloco__seta{transform:translate(3px,-3px);opacity:1}
-  .bloco__seta svg{fill:none;stroke:currentColor;stroke-width:2;
-    stroke-linecap:round;stroke-linejoin:round}
+  .bloco__txt > span{display:block;margin-top:6px;font-size:12.5px;font-weight:300;
+    line-height:1.5;color:var(--texto-fraco)}
+
+  /* Piso de 11px e sem caixa alta: em 8px de mono era o texto mais ilegivel
+     da pagina, e a caixa alta o transformava em mais um kicker. */
+  .bloco__selo{display:inline-block;margin-left:8px;vertical-align:2px;
+    padding:2px 9px;border-radius:999px;border:1px solid var(--linha-forte);
+    background:rgba(195,161,78,.1);
+    font-size:11px;font-weight:400;letter-spacing:.02em;color:var(--acento-claro)}
+
+  /* O destaque acumula grau do mesmo atributo, nunca um atributo novo:
+     superficie um degrau acima, filete em ouro cheio, mais altura e titulo
+     maior. Cor nova faria ele ler como outra coisa, e nao como a principal. */
+  .bloco--destaque{padding-top:26px;padding-bottom:26px;
+    background:var(--sup-card-alta);border-color:var(--linha-forte);
+    box-shadow:inset 3px 0 0 var(--acento)}
+  .bloco--destaque .bloco__txt > strong{font-size:clamp(22px,6.2vw,25px)}
+  .bloco--destaque .bloco__txt > span{color:var(--texto-medio)}
+
+  .bloco__seta{justify-self:end;color:var(--acento);opacity:.7;
+    transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s ease}
+  .bloco:hover .bloco__seta{transform:translateX(3px);opacity:1}
+  .bloco__seta svg{width:15px;height:15px;fill:none;stroke:currentColor;
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
   /* ---- Rodape ---- */
-  .rodape{display:grid;justify-items:center;gap:7px;text-align:center;
-    padding-top:clamp(10px,2vh,18px);
-    font-family:var(--mono);font-size:9px;font-weight:300;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--texto-fraco);line-height:1.9}
-  /* O link do rodape media 13px de alvo, abaixo do minimo de 44. O padding
-     cresce a area tocavel sem mudar o tamanho da letra. */
-  .rodape a{display:inline-block;padding:14px 10px;color:var(--texto-fraco);
-    border-bottom:1px solid var(--linha)}
+  .rodape{display:grid;justify-items:center;gap:4px;text-align:center;
+    padding-top:clamp(8px,1.6vh,14px);
+    font-size:11px;font-weight:300;color:var(--texto-fraco);line-height:1.8}
+  .rodape a{display:inline-block;padding:12px 10px;color:var(--texto-fraco);
+    border-bottom:1px solid rgba(234,226,207,.16)}
   .rodape a:hover{color:var(--acento-claro)}
 
   @media (prefers-reduced-motion:reduce){
     .bloco,.sociais a,.assina,.bloco__seta{transition:none}
-    .bloco:hover,.sociais a:hover,.assina:hover{transform:none}
+    .bloco:hover{transform:none}
   }
 </style>
 </head>
 <body>
-
-<div class="fundo" aria-hidden="true">
-  <div id="paineis"></div>
-  <div class="fundo__aura fundo__aura--a"></div>
-  <div class="fundo__aura fundo__aura--b"></div>
-  <div class="fundo__vinheta"></div>
-</div>
 
 <main class="folha">
 
   <header class="topo">
     <img class="topo__marca" src="/linktree/logo-medceo.png" alt="MedCEO" width="360" height="74" fetchpriority="high" />
     <p class="topo__tagline">A mentoria que transforma médicos em CEOs</p>
-    <p class="topo__selo"><i aria-hidden="true"></i>Para médico dono de clínica</p>
+    <p class="topo__publico">Para médico que já tem clínica para tocar</p>
   </header>
 
   <nav class="sociais" aria-label="Perfis e contato">
@@ -215,58 +189,45 @@
 
   <a class="assina" href="https://www.instagram.com/dr.lucianoalvesneves/" data-bloco="assina-luciano" data-etapa="topo" target="_blank" rel="noopener">
     <img src="/linktree/perfil-luciano.webp" alt="Dr. Luciano Alves Neves" width="160" height="160" loading="lazy" decoding="async" />
-    <span><strong>Dr. Luciano Alves Neves</strong><span>CRM/PR 45049 · Médico e fundador · Curitiba</span></span>
+    <span><strong>Dr. Luciano Alves Neves</strong><em>Médico e fundador · CRM/PR 45049</em></span>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
   </a>
 
   <div class="blocos">
 
     <a class="bloco bloco--destaque" href="https://medceo.online/?de=bio_mentoria" data-bloco="mentoria" data-etapa="conversao">
-      <span class="bloco__foto" aria-hidden="true"><img src="/linktree/card-mentoria.webp" alt="" loading="lazy" decoding="async" /></span><span class="bloco__mascara" aria-hidden="true"></span>
-      <span class="bloco__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20V9l9-6 9 6v11"/><path d="M9 20v-6h6v6"/></svg></span>
       <span class="bloco__txt"><strong>Mentoria <i>MedCEO</i></strong><span>O método completo, do diagnóstico à execução</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
 
     <a class="bloco" href="https://medceo.online/servicos?de=bio_servicos" data-bloco="servicos" data-etapa="meio">
-      <span class="bloco__foto" aria-hidden="true"><img src="/linktree/card-servicos.webp" alt="" loading="lazy" decoding="async" /></span><span class="bloco__mascara" aria-hidden="true"></span>
-      <span class="bloco__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 14h8M8 17h5"/></svg></span>
       <span class="bloco__txt"><strong>Nossos <i>serviços</i></strong><span>Sete caminhos, com entregáveis e valores</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
 
     <a class="bloco" href="https://medceo.online/?de=bio_pilares#time" data-bloco="pilares" data-etapa="meio">
-      <span class="bloco__foto" aria-hidden="true"><img src="/linktree/card-pilares.webp" alt="" loading="lazy" decoding="async" /></span><span class="bloco__mascara" aria-hidden="true"></span>
-      <span class="bloco__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M9.5 21v-5h5v5"/></svg></span>
       <span class="bloco__txt"><strong>Os 4 <i>Pilares</i></strong><span>Quem conduz cada frente do método</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
 
     <a class="bloco" href="https://medceo.online/webnar?de=bio_comunidade" data-bloco="comunidade" data-etapa="conversao">
-      <span class="bloco__foto" aria-hidden="true"><img src="/linktree/card-comunidade.webp" alt="" loading="lazy" decoding="async" /></span><span class="bloco__mascara" aria-hidden="true"></span>
-      <span class="bloco__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 20a5 5 0 0 0-10 0"/><circle cx="12" cy="8" r="3.6"/><path d="M21 19a4 4 0 0 0-3-3.7M3 19a4 4 0 0 1 3-3.7"/></svg></span>
       <span class="bloco__txt"><strong>Comunidade <i>gratuita</i><span class="bloco__selo">Aulas semanais</span></strong><span>Uma aula por semana, em sala fechada</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
 
     <a class="bloco" href="https://medceo.online/diagnostico?de=bio_diagnostico" data-bloco="diagnostico" data-etapa="meio">
-      <span class="bloco__foto" aria-hidden="true"><img src="/linktree/card-diagnostico.webp" alt="" loading="lazy" decoding="async" /></span><span class="bloco__mascara" aria-hidden="true"></span>
-      <span class="bloco__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V7M10 19V4M16 19v-8M22 19h-2"/><path d="M2 19h20"/></svg></span>
       <span class="bloco__txt"><strong>Diagnóstico da <i>sua clínica</i></strong><span>Em qual dos cinco níveis ela está hoje</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
 
     <a class="bloco" href="https://medceo.online/blog?de=bio_blog" data-bloco="blog" data-etapa="topo">
-      <span class="bloco__foto" aria-hidden="true"><img src="/linktree/card-blog.webp" alt="" loading="lazy" decoding="async" /></span><span class="bloco__mascara" aria-hidden="true"></span>
-      <span class="bloco__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M7 9h10M7 13h10M7 16h6"/></svg></span>
       <span class="bloco__txt"><strong>Blog <i>MedCEO</i></strong><span>Gestão, comercial e margem, sem enrolação</span></span>
-      <span class="bloco__seta" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      <span class="bloco__seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
     </a>
 
   </div>
 
   <footer class="rodape">
-    <p>MedCEO · Curitiba, Paraná</p>
     <p>Dr. Luciano Alves Neves · CRM/PR 45049</p>
     <p><a href="https://medceo.online/?de=bio_rodape">medceo.online</a></p>
   </footer>
@@ -274,40 +235,15 @@
 </main>
 
 <script>
-/* Paineis do fundo, com larguras irregulares de proposito: parede simetrica
-   demais denuncia gerador. Mesma logica do background animado da marca. */
-(function paineis(){
-  var alvo = document.getElementById("paineis");
-  if (!alvo) return;
-  var larguras = [17, 9, 21, 13, 8, 18, 14];
-  var x = -4;
-  larguras.forEach(function (w, i) {
-    var p = document.createElement("div");
-    p.className = "fundo__painel";
-    p.style.left = x + "%"; p.style.width = w + "%";
-    p.style.opacity = (0.5 + (i % 3) * 0.18).toFixed(2);
-    alvo.appendChild(p);
-    if (i % 2 === 0) {
-      var f = document.createElement("div");
-      f.className = "fundo__filete";
-      f.style.left = (x + w) + "%";
-      alvo.appendChild(f);
-    }
-    x += w;
-  });
-})();
-
-/* Guarda a origem da chegada e manda ao GA4 assim que o gtag existir, para
-   nao perder de onde a pessoa veio quando ela sai da pagina no primeiro toque. */
+/* Guarda a origem da chegada e devolve junto do clique, para nao perder de
+   onde a pessoa veio quando ela sai no primeiro toque. */
 (function origem(){
   try {
     var u = new URLSearchParams(location.search);
-    var campos = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
     var guardado = {};
-    campos.forEach(function (c) { if (u.get(c)) guardado[c] = u.get(c); });
-    if (Object.keys(guardado).length) {
-      sessionStorage.setItem("origem8d", JSON.stringify(guardado));
-    }
+    ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"]
+      .forEach(function (c) { if (u.get(c)) guardado[c] = u.get(c); });
+    if (Object.keys(guardado).length) sessionStorage.setItem("origem8d", JSON.stringify(guardado));
   } catch (e) {}
 })();
 
@@ -331,7 +267,5 @@ document.addEventListener("click", function (ev) {
   window.dataLayer.push(Object.assign({ event: "linktree_clique" }, dados));
 });
 </script>
-<script>window.SITE_MARCA="medceo";</script>
-<script src="/tracking.js" defer></script>
 </body>
 </html>
