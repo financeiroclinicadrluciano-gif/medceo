@@ -89,6 +89,46 @@
   var origem = resolverOrigem();
 
   /* ---------------------------------------------------------------------
+     7. Pixel da Meta.
+     O Pixel MedCEO (2914933312232977) foi criado em 13/08 e nunca disparou:
+     medido pela API em 26/08, last_fired_time volta como 1969-12-31, o valor
+     nulo. Sem ele a campanha de Vendas nao tem conversao para otimizar, e o
+     publico de remarketing do site nao existe.
+
+     Allowlist em vez de mandar tudo: rolagem e tempo disparam dezenas de
+     vezes por visita, e no pixel isso vira volume sem virar publico util,
+     alem de poluir o Gerenciador de Eventos.
+     ------------------------------------------------------------------ */
+  var PIXEL = "2914933312232977";
+  var NO_PIXEL = {
+    page_view_custom:   { evento: "ViewContent", etapa: "pagina",        valor: 1 },
+    clique_cta_interno: { evento: "Search",      etapa: "cta_interno",   valor: 2 },
+    clique_whatsapp:    { evento: "ViewContent", etapa: "whatsapp",      valor: 5 },
+    video_marco:        { evento: "Search",      etapa: "video",         valor: 3 },
+    secao_chave:        { evento: "Search",      etapa: "secao_chave",   valor: 1 }
+  };
+
+  /* Guarda de host: o pixel so inicializa no site publicado. Sem isto,
+     preview e maquina local entram no publico de remarketing e no custo por
+     resultado. Na Natua isso chegou a 41% dos eventos do pixel. */
+  var HOST = location.hostname.replace(/^www\./, "");
+  var HOST_REAL = (HOST === "medceo.online" || HOST === "medceo.com.br");
+
+  if (HOST_REAL && !window.fbq) {
+    (function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0";
+      n.queue = []; t = b.createElement(e); t.async = !0; t.src = v;
+      s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    window.fbq("init", PIXEL);
+    window.fbq("track", "PageView");
+  }
+
+
+  /* ---------------------------------------------------------------------
      2. Envio — GA4 (gtag) e/ou GTM (dataLayer). Nenhum dos dois? Não quebra.
      ------------------------------------------------------------------ */
   function enviar(nome, params) {
@@ -186,44 +226,6 @@
   }, true);
 
 
-  /* ---------------------------------------------------------------------
-     7. Pixel da Meta.
-     O Pixel MedCEO (2914933312232977) foi criado em 13/08 e nunca disparou:
-     medido pela API em 26/08, last_fired_time volta como 1969-12-31, o valor
-     nulo. Sem ele a campanha de Vendas nao tem conversao para otimizar, e o
-     publico de remarketing do site nao existe.
-
-     Allowlist em vez de mandar tudo: rolagem e tempo disparam dezenas de
-     vezes por visita, e no pixel isso vira volume sem virar publico util,
-     alem de poluir o Gerenciador de Eventos.
-     ------------------------------------------------------------------ */
-  var PIXEL = "2914933312232977";
-  var NO_PIXEL = {
-    page_view_custom:   { evento: "ViewContent", etapa: "pagina",        valor: 1 },
-    clique_cta_interno: { evento: "Search",      etapa: "cta_interno",   valor: 2 },
-    clique_whatsapp:    { evento: "ViewContent", etapa: "whatsapp",      valor: 5 },
-    video_marco:        { evento: "Search",      etapa: "video",         valor: 3 },
-    secao_chave:        { evento: "Search",      etapa: "secao_chave",   valor: 1 }
-  };
-
-  /* Guarda de host: o pixel so inicializa no site publicado. Sem isto,
-     preview e maquina local entram no publico de remarketing e no custo por
-     resultado. Na Natua isso chegou a 41% dos eventos do pixel. */
-  var HOST = location.hostname.replace(/^www\./, "");
-  var HOST_REAL = (HOST === "medceo.online" || HOST === "medceo.com.br");
-
-  if (HOST_REAL && !window.fbq) {
-    (function (f, b, e, v, n, t, s) {
-      if (f.fbq) return; n = f.fbq = function () {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0";
-      n.queue = []; t = b.createElement(e); t.async = !0; t.src = v;
-      s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-    window.fbq("init", PIXEL);
-    window.fbq("track", "PageView");
-  }
 
   function mandarAoPixel(nome, p) {
     if (!HOST_REAL || typeof window.fbq !== "function") return;
