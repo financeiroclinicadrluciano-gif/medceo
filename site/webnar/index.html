@@ -382,8 +382,10 @@
   </section>
 
   <!-- ================= 04 · PROVA =================
-       Ultima dobra, depois da aula. O iframe do Panda so nasce no clique, no
-       mesmo listener [data-video] que a dobra do convite ja usa. -->
+       Ultima dobra, depois da aula. O video roda sozinho, mudo e em loop, por
+       decisao do Gustavo em 27/08: "tire essa capa preta do depoimento do dr
+       luis". Mesma decisao do convite. O `muted=1` nao e estetica: navegador
+       bloqueia autoplay com som, e sem ele nada comeca. -->
   <section id="prova" style="position:relative;padding:clamp(72px,9vh,104px) 0 clamp(84px,10vh,116px);border-top:1px solid rgba(195,161,78,.14);background:#05070A">
     <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(62% 46% at 50% 8%, rgba(195,161,78,.07), transparent 62%)"></div>
 
@@ -394,10 +396,7 @@
       <h2 data-reveal="" style="max-width:22ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.75rem,3.2vw,2.6rem);font-weight:300;letter-spacing:-.035em;line-height:1.08;text-wrap:balance">Um médico que já passou por <em style="color:#D9BE7E;font-style:italic">essa virada.</em></h2>
 
       <figure data-reveal="" style="margin:0;position:relative;width:100%;max-width:320px;aspect-ratio:612/1080;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.3);background:#0B0B0C;box-shadow:0 30px 70px -34px rgba(0,0,0,.9)">
-        <button type="button" data-video="b21e92cd-8323-45f9-8d2b-be7d9208c84b" aria-label="Assistir ao depoimento do Dr. Luiz Henrique, 29 segundos" style="position:absolute;inset:0;z-index:2;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;align-content:center;background:transparent;color:#F6F3EC">
-          <span style="position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;border:1px solid rgba(195,161,78,.5);background:rgba(5,7,10,.62);color:#E6D4A4;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;backdrop-filter:blur(6px)">Depoimento, 29s</span>
-          <span aria-hidden="true" style="display:grid;place-items:center;width:72px;height:72px;border-radius:50%;border:1px solid rgba(195,161,78,.8);background:rgba(5,7,10,.52);color:#E6D4A4;font-size:19px;padding-left:5px;backdrop-filter:blur(4px);box-shadow:0 10px 34px rgba(0,0,0,.5)">&#9654;</span>
-        </button>
+        <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=b21e92cd-8323-45f9-8d2b-be7d9208c84b&amp;autoplay=1&amp;muted=1&amp;loop=1" title="Depoimento do Dr. Luiz Henrique" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
       </figure>
 
       <div data-reveal="" style="display:grid;gap:9px;justify-items:center">
@@ -441,31 +440,7 @@
   atualizarAcesso();
 })();
 </script>
-<script>
-/* O iframe do Panda so nasce no clique. Um listener so, para qualquer
-   [data-video] da pagina. Mesmo padrao do /servicos e do /webnar2. */
-(function () {
-  document.addEventListener("click", function (ev) {
-    var alvo = ev.target.closest("[data-video]");
-    if (!alvo) return;
-    var quadro = alvo.parentNode;
-    var f = document.createElement("iframe");
-    f.src = "https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=" +
-            alvo.getAttribute("data-video") + "&autoplay=1";
-    f.title = alvo.getAttribute("aria-label") || "Vídeo";
-    f.allow = "accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen";
-    f.setAttribute("allowfullscreen", "");
-    f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-    f.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0";
-    quadro.appendChild(f);
-    alvo.remove();
-    if (window.dataLayer) window.dataLayer.push({
-      event: "video_interaction", video_id: alvo.getAttribute("data-video"),
-      video_action: "play", video_local: "webnar_convite"
-    });
-  });
-})();
-</script>
+
 <script src="/tracking.js?v=2658a06328" defer></script>
 <script src="/qualifica.js?v=d5e586da24" defer></script>
 </body>
