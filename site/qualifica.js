@@ -73,10 +73,6 @@
 
   var TELAS = [
     {
-      titulo: "Para quem é este grupo",
-      texto:
-        "Sala fechada, só de médico. Precisamos do seu contato para " +
-        "liberar a entrada e avisar das aulas.",
       campos: [
         { id: "nome", rotulo: "Seu nome", tipo: "text", ph: "Nome e sobrenome", auto: "name" },
         { id: "email", rotulo: "Seu e-mail", tipo: "email", ph: "nome@email.com", auto: "email" },
@@ -176,6 +172,54 @@
   ];
 
   /* ----------------------------------------------------------------------
+     2b. As duas comunicacoes
+
+     O mesmo formulario atende dois destinos, e falar de "grupo" para quem
+     clicou em "falar com o time" e prometer a coisa errada. Medido em 27/08:
+     62 botoes levam a conversa do time e 4 levam ao grupo.
+
+     As perguntas nao mudam. Muda a moldura: selo, titulo, o que a arte
+     promete, o texto do botao final e a tela de encerramento.
+     ------------------------------------------------------------------- */
+
+  var CONTEXTO = {
+    grupo: {
+      rotuloDialogo: "Formulário de entrada no grupo do MedCEO",
+      selo: "Exclusivo para médicos",
+      arteH: 'Sala fechada, só de médico <i>dono de clínica</i>.',
+      arteP:
+        "Uma aula ao vivo por semana, materiais liberados e outros médicos " +
+        "na mesma fase. Sem custo.",
+      titulo: "Para quem é este grupo",
+      texto:
+        "Sala fechada, só de médico. Precisamos do seu contato para liberar " +
+        "a entrada e avisar das aulas.",
+      botaoFim: "Entrar no grupo",
+      fimH: "Tudo certo.",
+      fimP: "Estamos abrindo o grupo no WhatsApp para você.",
+    },
+    conversa: {
+      rotuloDialogo: "Formulário para falar com o time do MedCEO",
+      selo: "Atendimento direto",
+      arteH: 'Antes da conversa, <i>o retrato da sua clínica</i>.',
+      arteP:
+        "O time responde melhor sabendo o tamanho da sua operação e o que " +
+        "trava hoje. Assim ninguém perde tempo com pergunta básica.",
+      titulo: "Vamos falar da sua clínica",
+      texto:
+        "Três telas rápidas. É o que faz o time chegar na conversa já " +
+        "sabendo do que você precisa.",
+      botaoFim: "Falar com o time",
+      fimH: "Tudo certo.",
+      fimP: "Estamos abrindo o WhatsApp do time para você.",
+    },
+  };
+
+  function ctx() {
+    return CONTEXTO[estado && estado.tipo === "grupo" ? "grupo" : "conversa"];
+  }
+
+  /* ----------------------------------------------------------------------
      3. Estilo
 
      Escrito aqui e nao em arquivo separado para que o popup nao dependa de
@@ -185,8 +229,8 @@
 
   var CSS = [
     /* --- Vela sobre a pagina ------------------------------------------- */
-    ".mcq-fundo{position:fixed;inset:0;z-index:99998;background:rgba(3,6,10,.78);",
-    "backdrop-filter:blur(10px) saturate(120%);-webkit-backdrop-filter:blur(10px) saturate(120%);",
+    ".mcq-fundo{position:fixed;inset:0;z-index:99998;background:rgba(3,6,10,.62);",
+    "backdrop-filter:blur(18px) saturate(130%);-webkit-backdrop-filter:blur(18px) saturate(130%);",
     "opacity:0;transition:opacity .3s ease;overflow-y:auto;padding:20px;",
     "display:flex;align-items:center;justify-content:center}",
     ".mcq-fundo.mcq-on{opacity:1}",
@@ -195,18 +239,36 @@
        A linha de luz no topo (inset 0 1px 0) e o que faz a borda ler como
        vidro em vez de contorno desenhado. */
     ".mcq-caixa{position:relative;width:100%;max-width:980px;",
-    "background:rgba(12,19,27,.9);",
-    "backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%);",
-    "border:1px solid rgba(255,255,255,.11);border-radius:20px;overflow:hidden;",
+    "background:linear-gradient(158deg,rgba(22,32,44,.8) 0%,rgba(10,16,23,.74) 52%,",
+    "rgba(8,13,19,.8) 100%);",
+    "backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);",
+    "border:1px solid transparent;border-radius:22px;overflow:hidden;",
     "display:grid;grid-template-columns:1fr;",
     /* Teto de altura: sem ele a foto de 700x1500 estica a caixa para fora
        da tela e o texto da arte fica cortado. Medido a 1440x900. */
     "max-height:calc(100dvh - 40px);",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 40px 110px rgba(0,0,0,.72);",
+    "box-shadow:0 40px 120px rgba(0,0,0,.7),0 2px 10px rgba(0,0,0,.4);",
     "transform:translateY(16px) scale(.99);",
     "transition:transform .42s cubic-bezier(.16,1,.3,1);",
     "font-family:Poppins,system-ui,-apple-system,Segoe UI,sans-serif}",
     ".mcq-fundo.mcq-on .mcq-caixa{transform:translateY(0) scale(1)}",
+
+    /* A luz corre por uma aresta e apaga na outra. Sem isso a borda le
+       como contorno desenhado, e nao como quina de material. */
+    '.mcq-caixa::before{content:"";position:absolute;inset:0;z-index:6;',
+    "border-radius:inherit;padding:1px;pointer-events:none;",
+    "background:linear-gradient(150deg,rgba(255,255,255,.34) 0%,",
+    "rgba(255,255,255,.06) 32%,rgba(255,255,255,0) 58%,",
+    "rgba(195,161,78,.22) 100%);",
+    "-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);",
+    "mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);",
+    "-webkit-mask-composite:xor;mask-composite:exclude}",
+
+    /* Especular: o reflexo da fonte de luz na superficie. */
+    '.mcq-caixa::after{content:"";position:absolute;left:0;right:0;top:0;',
+    "height:190px;z-index:1;pointer-events:none;border-radius:inherit;",
+    "background:radial-gradient(120% 100% at 76% -18%,",
+    "rgba(255,255,255,.11) 0%,rgba(255,255,255,.03) 42%,transparent 72%)}",
     "@media(min-width:900px){.mcq-caixa{grid-template-columns:352px minmax(0,1fr)}}",
 
     /* --- Coluna da arte: a foto E a coluna ----------------------------- */
@@ -228,8 +290,10 @@
     ".mcq-arte h3 i{font-style:normal;color:#E7D3A3}",
     ".mcq-arte p{font-size:13px;line-height:1.55;color:rgba(234,226,207,.72);margin:0}",
     ".mcq-selo{display:inline-block;margin:0 0 12px;padding:5px 12px;border-radius:999px;",
-    "border:1px solid rgba(195,161,78,.42);background:rgba(5,7,10,.45);",
-    "backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);",
+    "border:1px solid rgba(195,161,78,.42);background:rgba(5,7,10,.32);",
+    "backdrop-filter:blur(16px) saturate(160%);",
+    "-webkit-backdrop-filter:blur(16px) saturate(160%);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.12);",
     "font-size:11.5px;letter-spacing:.05em;color:#E7D3A3}",
 
     /* No celular a arte vira faixa. Ela usa outro recorte, horizontal, porque
@@ -245,8 +309,13 @@
     ".mcq-selo{margin:0}}",
 
     /* --- Coluna do formulario ------------------------------------------ */
-    ".mcq-corpo{padding:24px 22px 20px;display:flex;flex-direction:column;",
-    "min-height:0;overflow-y:auto}",
+    ".mcq-corpo{position:relative;z-index:2;padding:24px 22px 20px;",
+    "display:flex;flex-direction:column;min-height:0;overflow-y:auto}",
+    /* No PC uma aresta de luz separa a arte do formulario, no lugar de uma
+       linha solida: e a mesma logica da borda da caixa. */
+    "@media(min-width:900px){.mcq-corpo{",
+    "border-left:1px solid rgba(255,255,255,.07);",
+    "background:linear-gradient(90deg,rgba(255,255,255,.03),transparent 42%)}}",
     "@media(min-width:900px){.mcq-corpo{padding:34px 34px 26px}}",
 
     /* Progresso em tres tracos, no lugar do rotulo "1 DE 3" em caixa alta,
@@ -279,11 +348,12 @@
     ".mcq-campo label{display:block;font-size:12.5px;color:rgba(234,226,207,.6);",
     "margin-bottom:7px;letter-spacing:0}",
     ".mcq-campo input{width:100%;box-sizing:border-box;",
-    "background:rgba(255,255,255,.045);",
-    "backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);",
-    "border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 15px;",
+    "background:rgba(255,255,255,.035);",
+    "backdrop-filter:blur(22px) saturate(160%);",
+    "-webkit-backdrop-filter:blur(22px) saturate(160%);",
+    "border:1px solid rgba(255,255,255,.11);border-radius:13px;padding:14px 15px;",
     "color:#F7F0E4;font-size:15.5px;font-family:inherit;",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.07);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.2);",
     "transition:border-color .22s ease,box-shadow .22s ease,background .22s ease}",
     ".mcq-campo input::placeholder{color:rgba(234,226,207,.34)}",
     ".mcq-campo input:focus{outline:none;border-color:rgba(195,161,78,.75);",
@@ -304,17 +374,20 @@
     /* Opcao em vidro. O marcador e um circulo que preenche, no lugar do
        quadradinho de checkbox, que e o desenho padrao de formulario. */
     ".mcq-op{display:flex;align-items:flex-start;gap:13px;width:100%;box-sizing:border-box;",
-    "background:rgba(255,255,255,.04);",
-    "backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);",
-    "border:1px solid rgba(255,255,255,.1);border-radius:12px;",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.06);",
+    "background:rgba(255,255,255,.032);",
+    "backdrop-filter:blur(22px) saturate(160%);",
+    "-webkit-backdrop-filter:blur(22px) saturate(160%);",
+    "border:1px solid rgba(255,255,255,.09);border-radius:13px;",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.08);",
     "padding:13px 15px;margin-bottom:9px;cursor:pointer;text-align:left;",
     "font-family:inherit;",
     "transition:border-color .2s ease,background .2s ease,transform .3s cubic-bezier(.16,1,.3,1)}",
-    ".mcq-op:hover{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.07);",
+    ".mcq-op:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 6px 18px rgba(0,0,0,.24);",
     "transform:translateY(-1px)}",
-    ".mcq-op.mcq-sel{border-color:rgba(195,161,78,.8);background:rgba(195,161,78,.1);",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}",
+    ".mcq-op.mcq-sel{border-color:rgba(195,161,78,.72);",
+    "background:linear-gradient(140deg,rgba(195,161,78,.16),rgba(195,161,78,.06));",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 6px 22px rgba(195,161,78,.12)}",
     ".mcq-cx{flex:0 0 19px;width:19px;height:19px;margin-top:2px;border-radius:50%;",
     "border:1.5px solid rgba(234,226,207,.3);position:relative;",
     "transition:border-color .2s ease}",
@@ -346,8 +419,10 @@
 
     ".mcq-x{position:absolute;top:14px;right:14px;z-index:5;width:34px;height:34px;",
     "border-radius:50%;border:1px solid rgba(255,255,255,.14);",
-    "background:rgba(8,13,20,.55);",
-    "backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);",
+    "background:rgba(8,13,20,.4);",
+    "backdrop-filter:blur(20px) saturate(160%);",
+    "-webkit-backdrop-filter:blur(20px) saturate(160%);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.12);",
     "color:rgba(234,226,207,.66);font-size:17px;line-height:1;cursor:pointer;",
     "transition:color .2s,border-color .2s,background .2s}",
     ".mcq-x:hover{color:#F7F0E4;border-color:rgba(195,161,78,.6);background:rgba(8,13,20,.8)}",
@@ -532,8 +607,7 @@
       '" data-t="' +
       i +
       '">' +
-      (t.titulo ? '<h2 class="mcq-h">' + esc(t.titulo) + "</h2>" : "") +
-      (t.texto ? '<p class="mcq-sub">' + esc(t.texto) + "</p>" : "") +
+      (i === 0 ? '<h2 class="mcq-h"></h2><p class="mcq-sub"></p>' : "") +
       '<div class="mcq-rola">' +
       dentro +
       "</div>" +
@@ -567,10 +641,9 @@
       '<span class="mcq-veu" aria-hidden="true"></span>' +
       '<div class="mcq-texto">' +
       '<img class="mcq-logo" src="/assets/medceo/logo.png" alt="MedCEO" width="360" height="74">' +
-      '<span class="mcq-selo">Exclusivo para m\u00e9dicos</span>' +
-      "<h3>Sala fechada, s\u00f3 de m\u00e9dico <i>dono de cl\u00ednica</i>.</h3>" +
-      "<p>Uma aula ao vivo por semana, materiais liberados e outros " +
-      "m\u00e9dicos na mesma fase. Sem custo.</p>" +
+      '<span class="mcq-selo"></span>' +
+      "<h3></h3>" +
+      "<p></p>" +
       "</div>" +
       "</div>" +
       '<div class="mcq-corpo">' +
@@ -584,8 +657,8 @@
       '">' +
       '<div class="mcq-fim">' +
       '<div class="mcq-tick"></div>' +
-      '<h2 class="mcq-h">Tudo certo.</h2>' +
-      '<p class="mcq-sub">Estamos abrindo o WhatsApp para você.</p>' +
+      '<h2 class="mcq-h"></h2>' +
+      '<p class="mcq-sub"></p>' +
       "</div>" +
       "</div>" +
       '<div class="mcq-pe">' +
@@ -711,7 +784,7 @@
     });
     fundo.querySelector(".mcq-volta").hidden = i === 0;
     fundo.querySelector(".mcq-btn").textContent =
-      i === TELAS.length - 1 ? "Entrar no grupo" : "Continuar";
+      i === TELAS.length - 1 ? ctx().botaoFim : "Continuar";
     var r = elTela(i) && elTela(i).querySelector(".mcq-rola");
     if (r) r.scrollTop = 0;
     var p = elTela(i) && elTela(i).querySelector("input");
@@ -841,9 +914,30 @@
     if (!w) window.location.href = u;
   }
 
+  /* Escreve os textos do destino nos nos que telaHTML deixou vazios. Roda a
+     cada abertura, e nao uma vez na montagem, porque o mesmo popup atende os
+     dois destinos dentro da mesma visita: no /webnar existem botoes de grupo
+     e botoes de conversa na mesma pagina. */
+  function aplicarContexto() {
+    var c = ctx();
+    fundo.setAttribute("aria-label", c.rotuloDialogo);
+    fundo.querySelector(".mcq-selo").textContent = c.selo;
+    fundo.querySelector(".mcq-arte h3").innerHTML = c.arteH;
+    fundo.querySelector(".mcq-arte p:not(.mcq-selo)").textContent = c.arteP;
+
+    var t0 = elTela(0);
+    t0.querySelector(".mcq-h").textContent = c.titulo;
+    t0.querySelector(".mcq-sub").textContent = c.texto;
+
+    var tf = elTela(TELAS.length);
+    tf.querySelector(".mcq-h").textContent = c.fimH;
+    tf.querySelector(".mcq-sub").textContent = c.fimP;
+  }
+
   function abrir(href, tipo, rotulo) {
     montar();
     estado = { tela: 0, dados: {}, href: href, tipo: tipo, rotulo: rotulo || "" };
+    aplicarContexto();
 
     /* pre-preencher para quem ja passou por aqui antes */
     var ant = ler(CHAVE_LEAD);
