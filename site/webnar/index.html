@@ -264,13 +264,11 @@
 
       <!-- Video so no celular, entre o H1 e o paragrafo, como o Gustavo pediu.
            No PC ele nao aparece aqui: fica na dobra do convite, a esquerda.
+           Roda sozinho, mudo e em loop, mesma decisao da outra dobra.
            Sem capa, mesma decisao da outra dobra. -->
       <div class="hero-video" style="margin-top:clamp(10px,1.6vh,18px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .72s both">
         <figure style="margin:0;position:relative;width:min(196px,46vw);aspect-ratio:612/1080;border-radius:14px;overflow:hidden;border:1px solid rgba(195,161,78,.34);background:#0B0B0C;box-shadow:0 20px 48px -26px rgba(0,0,0,.9)">
-          <button type="button" data-video="479da14a-9a2d-4d38-9d55-1c2c53fd8a92" aria-label="Assistir ao convite do Dr. Luciano, 1 minuto e 18 segundos" style="position:absolute;inset:0;z-index:2;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;align-content:center;gap:12px;background:transparent;color:#F6F3EC">
-            <span aria-hidden="true" style="display:grid;place-items:center;width:54px;height:54px;border-radius:50%;border:1px solid rgba(195,161,78,.8);background:rgba(5,7,10,.5);color:#E6D4A4;font-size:15px;padding-left:4px">&#9654;</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:#E6D4A4">O convite, 1min18</span>
-          </button>
+          <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=479da14a-9a2d-4d38-9d55-1c2c53fd8a92&amp;autoplay=1&amp;muted=1&amp;loop=1" title="Convite do Dr. Luciano ao grupo de médicos" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
         </figure>
       </div>
 
@@ -318,16 +316,11 @@
       <div class="cv__grade">
 
         <figure class="cv__video" data-reveal="" style="margin:0;position:relative;width:100%;max-width:360px;justify-self:center;aspect-ratio:612/1080;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.3);background:#0B0B0C;box-shadow:0 30px 70px -34px rgba(0,0,0,.9)">
-          <!-- Sem capa, por decisao do Gustavo em 25/08: "ela esta preta, deixe
-               sem capa mesmo". O quadro fica na cor do fundo do site, com o
-               play e o rotulo por cima. O poster continua no repo, sem uso. -->
-          <button type="button" data-video="479da14a-9a2d-4d38-9d55-1c2c53fd8a92" aria-label="Assistir ao convite do Dr. Luciano, 1 minuto e 18 segundos" style="position:absolute;inset:0;z-index:2;width:100%;height:100%;padding:0;border:0;cursor:pointer;display:grid;place-items:center;align-content:center;background:transparent;color:#F6F3EC">
-            <!-- O rotulo vai no TOPO. No centro ele batia na legenda queimada do
-                 proprio video ('Voce que e Medico') e as duas frases se
-                 sobrepunham. -->
-            <span style="position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;border:1px solid rgba(195,161,78,.5);background:rgba(5,7,10,.62);color:#E6D4A4;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;backdrop-filter:blur(6px)">O convite, 1min18</span>
-            <span aria-hidden="true" style="display:grid;place-items:center;width:72px;height:72px;border-radius:50%;border:1px solid rgba(195,161,78,.8);background:rgba(5,7,10,.52);color:#E6D4A4;font-size:19px;padding-left:5px;backdrop-filter:blur(4px);box-shadow:0 10px 34px rgba(0,0,0,.5)">&#9654;</span>
-          </button>
+          <!-- O video roda sozinho, mudo e em loop, por decisao do Gustavo em
+               26/08: "nao pode ficar preto assim, nao e nem um pouco
+               chamativo". Sem fachada e sem play. O `muted=1` nao e estetica:
+               navegador bloqueia autoplay com som, e sem ele nada comeca. -->
+          <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=479da14a-9a2d-4d38-9d55-1c2c53fd8a92&amp;autoplay=1&amp;muted=1&amp;loop=1" title="Convite do Dr. Luciano ao grupo de médicos" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
         </figure>
 
         <figure class="cv__equipe" data-reveal="" style="margin:0;position:relative;width:100%;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.24);background:#0B0B0C">
@@ -474,5 +467,6 @@
 })();
 </script>
 <script src="/tracking.js?v=2658a06328" defer></script>
+<script src="/qualifica.js?v=4a90ac8889" defer></script>
 </body>
 </html>
