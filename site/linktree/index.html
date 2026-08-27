@@ -73,7 +73,7 @@
   /* Retrato do Dr. Luciano encostado na borda esquerda, dissolvido no fundo
      por mascara em vez de recortado por um card. So no PC. */
   .retrato{display:none}
-  .veu{position:fixed;inset:0;z-index:-1;
+  .veu{position:fixed;inset:0;z-index:-2;
     background:
       radial-gradient(126% 82% at 50% 4%,rgba(5,7,10,.2) 0%,rgba(5,7,10,.68) 58%,#05070A 100%),
       linear-gradient(180deg,rgba(5,7,10,.3) 0%,rgba(5,7,10,.62) 100%)}
@@ -145,7 +145,7 @@
 
   /* ---- Cards de vidro ----
      Cada bloco tem foto propria, escolhida pelo assunto; os recortes estao
-     declarados em scratchpad/imgs.py e conferidos em folha de contato antes
+     declarados em linktree/_geracao/gerar_miniaturas.py e conferidos em folha de contato antes
      de publicar. */
   .blocos{display:grid;gap:12px;margin-top:14px}
   .bloco{position:relative;display:grid;
@@ -217,17 +217,22 @@
     .blocos > .so-pc{display:grid}
     .cartaz,.assina{display:none}
 
-    .retrato{display:block;position:fixed;left:0;bottom:0;z-index:-2;
-      width:min(48vw,760px);height:100vh;
+    /* Ancorado em `left bottom`: a figura nasce do rodape da tela. A versao
+       anterior deixava a foto caber inteira em altura e a mascara apagava o
+       cabelo, entao sobrava um rosto solto no ar, sem corpo abaixo. O fade do
+       topo agora vive dentro do arquivo (linktree/_geracao/gerar_retrato.py), e a mascara
+       aqui so dissolve a lateral direita, onde o retrato encontra a leitura. */
+    .retrato{display:block;position:fixed;left:0;bottom:0;z-index:-1;
+      width:min(42vw,700px);height:100vh;
       background:url("/linktree/img/identidade.webp") left bottom/cover no-repeat;
       -webkit-mask-image:
-        linear-gradient(90deg,#000 0%,#000 40%,rgba(0,0,0,.3) 74%,transparent 100%),
-        linear-gradient(180deg,transparent 0%,#000 14%,#000 74%,transparent 99%);
+        linear-gradient(90deg,#000 0%,#000 58%,rgba(0,0,0,.3) 84%,transparent 100%),
+        linear-gradient(180deg,transparent 0%,#000 8%,#000 100%);
       mask-image:
-        linear-gradient(90deg,#000 0%,#000 40%,rgba(0,0,0,.3) 74%,transparent 100%),
-        linear-gradient(180deg,transparent 0%,#000 14%,#000 74%,transparent 99%);
+        linear-gradient(90deg,#000 0%,#000 58%,rgba(0,0,0,.3) 84%,transparent 100%),
+        linear-gradient(180deg,transparent 0%,#000 8%,#000 100%);
       -webkit-mask-composite:source-in;mask-composite:intersect;
-      opacity:.8}
+      opacity:.76}
 
     .folha{max-width:1140px;min-height:100vh;
       padding-top:56px;padding-bottom:44px;
@@ -264,8 +269,14 @@
   }
   /* Entre 960 e 1180 o retrato encosta na coluna de texto; recuar a mascara
      mantem o rosto atras da marca, e nao atras da leitura. */
-  @media (min-width:960px) and (max-width:1180px){
-    .retrato{width:min(54vw,620px);opacity:.62}
+  /* A folha tem 1140px e fica centrada, entao a margem livre a esquerda vale
+     (vw - 1140) / 2. O rosto cai a 28% da caixa do retrato, ~196px. Ele so tem
+     chao proprio quando essa margem passa de ~260px, o que acontece a partir
+     de 1660px. Abaixo disso a figura vira textura de fundo e cede a faixa para
+     a leitura, em vez de disputar com ela. */
+  @media (min-width:960px) and (max-width:1659px){
+    .retrato{width:min(40vw,520px);opacity:.2;
+      background-position:-70px bottom}
   }
 
   @media (prefers-reduced-motion:reduce){
