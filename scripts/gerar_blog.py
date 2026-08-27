@@ -600,6 +600,7 @@ def pagina(titulo, desc, corpo, canonical, ativo="", extra_head="", og_tipo="web
 {PROGRESSO if barra else ''}
 {MENU}
 <script src="/tracking.js" defer></script>
+<script src="/qualifica.js" defer></script>
 </body></html>"""
 
 
@@ -930,6 +931,8 @@ ASSETS_VERSIONADOS = [
     # estar coberto por ela.
     ("tracking.js", r'src="/tracking\.js(?:\?v=[^"]*)?"',
      'src="/tracking.js?v={v}"'),
+    ("qualifica.js", r'src="/qualifica\.js(?:\?v=[^"]*)?"',
+     'src="/qualifica.js?v={v}"'),
     ("site-layout.css", r'href="/site-layout\.css(?:\?v=[^"]*)?"',
      'href="/site-layout.css?v={v}"'),
 ]
