@@ -44,7 +44,8 @@
   /* URL do Web App do Apps Script. Enquanto estiver vazia o formulario
      funciona e libera o WhatsApp normalmente, mas a resposta so fica na fila
      local. Preencher depois de publicar o script como aplicativo da web. */
-  var ENDPOINT = window.MC_FORM_ENDPOINT ||
+  var ENDPOINT =
+    window.MC_FORM_ENDPOINT ||
     "https://script.google.com/macros/s/AKfycbzDRR-ZonKXZyDvWwiglT0c8EFkTFoaD1ZfAW6CLrAB5ySAt_wl5jpn2WzF-OGLotQy/exec";
 
   var CHAVE_LEAD = "medceo:lead";
@@ -363,7 +364,7 @@
     "@media(prefers-reduced-motion:reduce){.mcq-fundo,.mcq-caixa,.mcq-passos li::after,",
     ".mcq-cx::after,.mcq-op,.mcq-btn{transition:none}",
     ".mcq-op:hover,.mcq-btn:hover{transform:none}}",
-].join("");
+  ].join("");
 
   /* ----------------------------------------------------------------------
      4. Utilitarios
@@ -558,11 +559,11 @@
       '<div class="mcq-caixa">' +
       '<button type="button" class="mcq-x" aria-label="Fechar">&times;</button>' +
       '<div class="mcq-arte">' +
-      '<picture>' +
+      "<picture>" +
       '<source media="(max-width:899px)" srcset="/assets/medceo/form-arte-faixa.webp">' +
       '<img class="mcq-fundo-img" src="/assets/medceo/form-arte.webp" alt="" ' +
       'width="700" height="1500">' +
-      '</picture>' +
+      "</picture>" +
       '<span class="mcq-veu" aria-hidden="true"></span>' +
       '<div class="mcq-texto">' +
       '<img class="mcq-logo" src="/assets/medceo/logo.png" alt="MedCEO" width="360" height="74">' +
@@ -575,7 +576,7 @@
       '<div class="mcq-corpo">' +
       '<ul class="mcq-passos">' +
       '<li class="mcq-feito"></li><li></li><li></li>' +
-      '</ul>' +
+      "</ul>" +
       "<form novalidate>" +
       TELAS.map(telaHTML).join("") +
       '<div class="mcq-tela" data-t="' +
@@ -865,9 +866,14 @@
 
     irPara(0);
     document.body.style.overflow = "hidden";
-    requestAnimationFrame(function () {
-      fundo.classList.add("mcq-on");
-    });
+    (function () {
+      /* rAF e o caminho normal. O setTimeout e a rede: aba em segundo
+         plano e iframe fora da tela nao disparam rAF, e ali o modal
+         ficaria criado porem invisivel. */
+      var mostrar = function () { if (fundo) fundo.classList.add("mcq-on"); };
+      if (window.requestAnimationFrame) requestAnimationFrame(mostrar);
+      setTimeout(mostrar, 50);
+    })();
 
     if (window.MCTrack && typeof window.MCTrack.event === "function") {
       window.MCTrack.event("formulario_abriu", { destino: tipo, botao: rotulo || "" });
