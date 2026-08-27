@@ -44,7 +44,8 @@
   /* URL do Web App do Apps Script. Enquanto estiver vazia o formulario
      funciona e libera o WhatsApp normalmente, mas a resposta so fica na fila
      local. Preencher depois de publicar o script como aplicativo da web. */
-  var ENDPOINT = window.MC_FORM_ENDPOINT || "";
+  var ENDPOINT = window.MC_FORM_ENDPOINT ||
+    "https://script.google.com/macros/s/AKfycbzDRR-ZonKXZyDvWwiglT0c8EFkTFoaD1ZfAW6CLrAB5ySAt_wl5jpn2WzF-OGLotQy/exec";
 
   var CHAVE_LEAD = "medceo:lead";
   var CHAVE_FILA = "medceo:fila";

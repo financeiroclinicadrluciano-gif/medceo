@@ -6,7 +6,15 @@
   <atom:link href="https://medceo.online/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Fri, 21 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <lastBuildDate>Thu, 27 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <item>
+    <title>Quanto custa o paciente que não fecha, e por que ele não é gratuito</title>
+    <link>https://medceo.online/blog/paciente-que-nao-fecha-custo</link>
+    <guid isPermaLink="true">https://medceo.online/blog/paciente-que-nao-fecha-custo</guid>
+    <pubDate>Thu, 27 Aug 2026 09:00:00 -0300</pubDate>
+    <category>O dinheiro da clínica</category>
+    <description>A clínica mede quanto custa trazer um paciente. Quase nenhuma mede quanto custa atender quem não fecha, e esse número costuma ser maior do que o primeiro.</description>
+  </item>
   <item>
     <title>Lead que some no WhatsApp: os 4 pontos onde o paciente desiste</title>
     <link>https://medceo.online/blog/lead-que-some-clinica</link>
