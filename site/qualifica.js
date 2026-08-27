@@ -228,208 +228,215 @@
      ------------------------------------------------------------------- */
 
   var CSS = [
-    /* --- Vela sobre a pagina ------------------------------------------- */
-    ".mcq-fundo{position:fixed;inset:0;z-index:99998;background:rgba(3,6,10,.62);",
-    "backdrop-filter:blur(18px) saturate(130%);-webkit-backdrop-filter:blur(18px) saturate(130%);",
-    "opacity:0;transition:opacity .3s ease;overflow-y:auto;padding:20px;",
+    /* ------------------------------------------------------------------
+       Tokens copiados do /linktree, sem adaptacao. O vidro de la foi o que o
+       Gustavo aprovou em 26/08, e reinventar os valores aqui produziria outra
+       coisa parecida em vez da mesma coisa.
+       ------------------------------------------------------------------ */
+
+    ".mcq-fundo{position:fixed;inset:0;z-index:99998;background:rgba(3,6,10,.7);",
+    "backdrop-filter:blur(14px) saturate(120%);-webkit-backdrop-filter:blur(14px) saturate(120%);",
+    "opacity:0;transition:opacity .3s ease;overflow-y:auto;",
+    "padding:16px 14px calc(16px + env(safe-area-inset-bottom));",
     "display:flex;align-items:center;justify-content:center}",
     ".mcq-fundo.mcq-on{opacity:1}",
+    "@media(min-width:900px){.mcq-fundo{padding:24px}}",
 
-    /* --- A caixa: vidro, e nao superficie chapada ----------------------
-       A linha de luz no topo (inset 0 1px 0) e o que faz a borda ler como
-       vidro em vez de contorno desenhado. */
+    /* A caixa. Rola nada: quem rola e so a tela ativa, la embaixo. */
     ".mcq-caixa{position:relative;width:100%;max-width:980px;",
-    "background:linear-gradient(158deg,rgba(22,32,44,.8) 0%,rgba(10,16,23,.74) 52%,",
-    "rgba(8,13,19,.8) 100%);",
-    "backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);",
-    "border:1px solid transparent;border-radius:22px;overflow:hidden;",
-    "display:grid;grid-template-columns:1fr;",
-    /* Teto de altura: sem ele a foto de 700x1500 estica a caixa para fora
-       da tela e o texto da arte fica cortado. Medido a 1440x900. */
-    "max-height:calc(100dvh - 40px);",
-    "box-shadow:0 40px 120px rgba(0,0,0,.7),0 2px 10px rgba(0,0,0,.4);",
-    "transform:translateY(16px) scale(.99);",
+    "max-height:calc(100dvh - 32px);background:#05070A;",
+    "border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;",
+    "display:grid;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);",
+    "box-shadow:0 40px 120px rgba(0,0,0,.72);",
+    "transform:translateY(14px) scale(.99);",
     "transition:transform .42s cubic-bezier(.16,1,.3,1);",
     "font-family:Poppins,system-ui,-apple-system,Segoe UI,sans-serif}",
     ".mcq-fundo.mcq-on .mcq-caixa{transform:translateY(0) scale(1)}",
+    "@media(min-width:900px){.mcq-caixa{max-height:calc(100dvh - 48px);",
+    "grid-template-columns:340px minmax(0,1fr);grid-template-rows:minmax(0,1fr)}}",
 
-    /* A luz corre por uma aresta e apaga na outra. Sem isso a borda le
-       como contorno desenhado, e nao como quina de material. */
-    '.mcq-caixa::before{content:"";position:absolute;inset:0;z-index:6;',
+    /* ---- Cenario: a foto que o vidro precisa ter atras ----------------
+       Sem ela, desfocar um veu preto devolve preto, e os mesmos valores de
+       CSS que viram material no /linktree viram superficie chapada aqui. */
+    ".mcq-cenario{position:absolute;inset:0;z-index:0;width:100%;height:100%;",
+    "object-fit:cover;object-position:center}",
+    /* 46% a 78%, e nao 72% a 94%: vidro sobre quase-preto volta a parecer
+       chapado, que e a queixa que abriu esta rodada. */
+    ".mcq-cenario-veu{position:absolute;inset:0;z-index:1;background:",
+    "linear-gradient(158deg,rgba(5,7,10,.46) 0%,rgba(5,7,10,.66) 44%,",
+    "rgba(5,7,10,.78) 100%)}",
+
+    /* A borda de luz por cima de tudo, para a quina existir sobre a foto. */
+    '.mcq-caixa::after{content:"";position:absolute;inset:0;z-index:7;',
     "border-radius:inherit;padding:1px;pointer-events:none;",
-    "background:linear-gradient(150deg,rgba(255,255,255,.34) 0%,",
-    "rgba(255,255,255,.06) 32%,rgba(255,255,255,0) 58%,",
-    "rgba(195,161,78,.22) 100%);",
+    "background:linear-gradient(150deg,rgba(255,255,255,.28) 0%,",
+    "rgba(255,255,255,.05) 34%,rgba(255,255,255,0) 62%,rgba(195,161,78,.2) 100%);",
     "-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);",
     "mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);",
     "-webkit-mask-composite:xor;mask-composite:exclude}",
 
-    /* Especular: o reflexo da fonte de luz na superficie. */
-    '.mcq-caixa::after{content:"";position:absolute;left:0;right:0;top:0;',
-    "height:190px;z-index:1;pointer-events:none;border-radius:inherit;",
-    "background:radial-gradient(120% 100% at 76% -18%,",
-    "rgba(255,255,255,.11) 0%,rgba(255,255,255,.03) 42%,transparent 72%)}",
-    "@media(min-width:900px){.mcq-caixa{grid-template-columns:352px minmax(0,1fr)}}",
-
-    /* --- Coluna da arte: a foto E a coluna ----------------------------- */
-    ".mcq-arte{position:relative;background:#070D14;overflow:hidden;min-height:0;",
+    /* ---- Coluna da arte ---------------------------------------------- */
+    ".mcq-arte{position:relative;z-index:2;overflow:hidden;min-height:0;",
     "display:flex;flex-direction:column;justify-content:flex-end}",
-    /* absolutas de proposito: no fluxo, a foto de 700x1500 dimensionaria a
-       coluna e a caixa passaria da altura da tela */
     ".mcq-fundo-img{position:absolute;inset:0;width:100%;height:100%;",
     "object-fit:cover;object-position:50% 26%}",
     ".mcq-veu{position:absolute;inset:0;background:linear-gradient(180deg,",
-    "rgba(6,11,17,.28) 0%,rgba(6,11,17,.12) 26%,rgba(6,11,17,.72) 60%,",
-    "rgba(6,11,17,.97) 100%)}",
-    ".mcq-texto{position:relative;z-index:2;padding:24px 22px 24px}",
-    ".mcq-logo{height:26px;width:auto;margin:0 0 14px;display:block;",
-    "filter:drop-shadow(0 2px 10px rgba(0,0,0,.8))}",
-    '.mcq-arte h3{font-family:"Playfair Display",Georgia,serif;font-size:21px;',
-    "line-height:1.24;color:#F7F0E4;margin:0 0 8px;font-weight:400;",
-    "text-shadow:0 2px 14px rgba(0,0,0,.75)}",
+    "rgba(5,7,10,.22) 0%,rgba(5,7,10,.1) 26%,rgba(5,7,10,.7) 62%,",
+    "rgba(5,7,10,.97) 100%)}",
+    ".mcq-texto{position:relative;z-index:2;padding:22px 20px 22px}",
+    ".mcq-logo{height:25px;width:auto;margin:0 0 13px;display:block;",
+    "filter:drop-shadow(0 2px 10px rgba(0,0,0,.85))}",
+    '.mcq-arte h3{font-family:"Playfair Display",Georgia,serif;font-size:20px;',
+    "line-height:1.24;color:#F7F2E6;margin:0 0 8px;font-weight:400;",
+    "text-shadow:0 2px 14px rgba(0,0,0,.8)}",
     ".mcq-arte h3 i{font-style:normal;color:#E7D3A3}",
-    ".mcq-arte p{font-size:13px;line-height:1.55;color:rgba(234,226,207,.72);margin:0}",
-    ".mcq-selo{display:inline-block;margin:0 0 12px;padding:5px 12px;border-radius:999px;",
-    "border:1px solid rgba(195,161,78,.42);background:rgba(5,7,10,.32);",
-    "backdrop-filter:blur(16px) saturate(160%);",
-    "-webkit-backdrop-filter:blur(16px) saturate(160%);",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.12);",
-    "font-size:11.5px;letter-spacing:.05em;color:#E7D3A3}",
+    ".mcq-arte p{font-size:13px;line-height:1.55;color:rgba(234,226,207,.7);margin:0}",
+    ".mcq-selo{display:inline-block;margin:0 0 11px;padding:5px 12px;border-radius:999px;",
+    "border:1px solid rgba(195,161,78,.5);background:rgba(5,7,10,.4);",
+    "backdrop-filter:blur(14px) saturate(155%);",
+    "-webkit-backdrop-filter:blur(14px) saturate(155%);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.1);",
+    "font-size:11.5px;letter-spacing:.04em;color:#E7D3A3}",
 
-    /* No celular a arte vira faixa. Ela usa outro recorte, horizontal, porque
-       o vertical cortado em 150px de altura mostraria so os ombros. */
+    /* No celular a arte e uma faixa curta: cada pixel dela sai do formulario,
+       e o formulario e quem precisa caber na tela. */
     "@media(max-width:899px){",
-    ".mcq-arte{height:132px;min-height:132px}",
-    ".mcq-fundo-img{object-position:50% 22%}",
-    ".mcq-veu{background:linear-gradient(180deg,rgba(6,11,17,.2) 0%,",
-    "rgba(6,11,17,.66) 58%,rgba(6,11,17,.97) 100%)}",
-    ".mcq-texto{padding:0 18px 14px}",
-    ".mcq-logo{height:22px;margin:0 0 8px}",
+    ".mcq-arte{height:96px;min-height:96px}",
+    ".mcq-fundo-img{object-position:50% 20%}",
+    ".mcq-veu{background:linear-gradient(180deg,rgba(5,7,10,.16) 0%,",
+    "rgba(5,7,10,.6) 56%,rgba(5,7,10,.96) 100%)}",
+    ".mcq-texto{padding:0 18px 12px}",
+    ".mcq-logo{height:21px;margin:0 0 8px}",
     ".mcq-arte h3,.mcq-arte p{display:none}",
     ".mcq-selo{margin:0}}",
+    "@media(min-width:900px){.mcq-arte{height:auto}}",
 
-    /* --- Coluna do formulario ------------------------------------------ */
-    ".mcq-corpo{position:relative;z-index:2;padding:24px 22px 20px;",
-    "display:flex;flex-direction:column;min-height:0;overflow-y:auto}",
-    /* No PC uma aresta de luz separa a arte do formulario, no lugar de uma
-       linha solida: e a mesma logica da borda da caixa. */
-    "@media(min-width:900px){.mcq-corpo{",
-    "border-left:1px solid rgba(255,255,255,.07);",
-    "background:linear-gradient(90deg,rgba(255,255,255,.03),transparent 42%)}}",
-    "@media(min-width:900px){.mcq-corpo{padding:34px 34px 26px}}",
+    /* ---- Corpo: NAO rola. Rola so a tela ativa, e o pe fica preso. ---- */
+    ".mcq-corpo{position:relative;z-index:2;min-height:0;overflow:hidden;",
+    "display:grid;grid-template-rows:auto minmax(0,1fr);",
+    "padding:14px 16px calc(14px + env(safe-area-inset-bottom))}",
+    "@media(min-width:900px){.mcq-corpo{padding:28px 30px 24px;",
+    "border-left:1px solid rgba(255,255,255,.08)}}",
 
-    /* Progresso em tres tracos, no lugar do rotulo "1 DE 3" em caixa alta,
-       que o playbook anti-IA lista como kicker. */
-    ".mcq-passos{display:flex;gap:6px;margin:0 0 22px;padding:0;list-style:none}",
+    ".mcq-passos{display:flex;gap:6px;margin:0 0 14px;padding:0;list-style:none}",
     ".mcq-passos li{height:3px;flex:1;border-radius:3px;",
-    "background:rgba(255,255,255,.1);overflow:hidden;position:relative}",
+    "background:rgba(255,255,255,.11);overflow:hidden;position:relative}",
     '.mcq-passos li::after{content:"";position:absolute;inset:0;border-radius:3px;',
     "background:linear-gradient(90deg,#C3A14E,#E7D3A3);",
     "transform:scaleX(0);transform-origin:left;",
     "transition:transform .44s cubic-bezier(.16,1,.3,1)}",
     ".mcq-passos li.mcq-feito::after{transform:scaleX(1)}",
 
-    '.mcq-h{font-family:"Playfair Display",Georgia,serif;font-size:clamp(23px,2.4vw,28px);',
-    "line-height:1.2;letter-spacing:-.01em;color:#F7F0E4;margin:0 0 9px;font-weight:400}",
+    ".mcq-form{display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0}",
+
+    ".mcq-tela{display:none;min-height:0}",
+    /* flex, e nao grid: as telas tem numeros diferentes de filhos, entao
+       qualquer grid-template-rows fixo acerta uma e erra as outras.
+       Medido a 500x645: a linha do subtitulo saiu com 0px e o texto foi
+       parar por cima do campo "Seu nome". */
+    ".mcq-tela.mcq-vis{display:flex;flex-direction:column}",
+
+    '.mcq-h{font-family:"Playfair Display",Georgia,serif;font-size:clamp(22px,2.3vw,27px);',
+    "line-height:1.2;letter-spacing:-.01em;color:#F7F2E6;margin:0 0 8px;font-weight:400}",
     ".mcq-h i{font-style:normal;color:#E7D3A3}",
-    ".mcq-sub{font-size:14px;line-height:1.6;color:rgba(234,226,207,.66);margin:0 0 22px}",
+    ".mcq-sub{font-size:13.5px;line-height:1.58;color:rgba(234,226,207,.66);margin:0 0 14px}",
 
-    ".mcq-tela{display:none}.mcq-tela.mcq-vis{display:block}",
-    /* fade nas bordas em vez de corte seco: a opcao que continua abaixo
-       aparece desbotando, e nao cortada na metade */
-    ".mcq-rola{max-height:min(54vh,440px);overflow-y:auto;margin:0 -6px;padding:2px 6px 6px;",
-    "-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10px,#000 calc(100% - 16px),transparent 100%);",
-    "mask-image:linear-gradient(180deg,transparent 0,#000 10px,#000 calc(100% - 16px),transparent 100%)}",
-    ".mcq-rola::-webkit-scrollbar{width:4px}",
-    ".mcq-rola::-webkit-scrollbar-thumb{background:rgba(195,161,78,.3);border-radius:4px}",
+    /* A rolagem e daqui para dentro, e o fade avisa que continua. */
+    ".mcq-rola{flex:1 1 auto;min-height:0;overflow-y:auto;margin:0 -6px;",
+    "padding:2px 6px 8px;",
+    "-webkit-overflow-scrolling:touch;",
+    "-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10px,#000 calc(100% - 18px),transparent 100%);",
+    "mask-image:linear-gradient(180deg,transparent 0,#000 10px,#000 calc(100% - 18px),transparent 100%)}",
+    ".mcq-rola::-webkit-scrollbar{width:3px}",
+    ".mcq-rola::-webkit-scrollbar-thumb{background:rgba(234,226,207,.2);border-radius:3px}",
 
-    /* --- Campos de texto, em vidro ------------------------------------- */
-    ".mcq-campo{margin-bottom:15px}",
-    ".mcq-campo label{display:block;font-size:12.5px;color:rgba(234,226,207,.6);",
-    "margin-bottom:7px;letter-spacing:0}",
+    /* ---- Campos, com os tokens do /linktree -------------------------- */
+    ".mcq-campo{margin-bottom:11px}",
+    ".mcq-campo label{display:block;font-size:12.5px;color:rgba(234,226,207,.62);",
+    "margin-bottom:7px}",
     ".mcq-campo input{width:100%;box-sizing:border-box;",
-    "background:rgba(255,255,255,.035);",
-    "backdrop-filter:blur(22px) saturate(160%);",
-    "-webkit-backdrop-filter:blur(22px) saturate(160%);",
-    "border:1px solid rgba(255,255,255,.11);border-radius:13px;padding:14px 15px;",
-    "color:#F7F0E4;font-size:15.5px;font-family:inherit;",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.2);",
+    "background:rgba(255,255,255,.055);",
+    "backdrop-filter:blur(20px) saturate(155%);",
+    "-webkit-backdrop-filter:blur(20px) saturate(155%);",
+    "border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:13px 15px;",
+    "color:#F7F2E6;font-size:16px;font-family:inherit;",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.09);",
     "transition:border-color .22s ease,box-shadow .22s ease,background .22s ease}",
-    ".mcq-campo input::placeholder{color:rgba(234,226,207,.34)}",
-    ".mcq-campo input:focus{outline:none;border-color:rgba(195,161,78,.75);",
-    "background:rgba(255,255,255,.07);",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 0 3px rgba(195,161,78,.14)}",
+    ".mcq-campo input::placeholder{color:rgba(234,226,207,.36)}",
+    ".mcq-campo input:focus{outline:none;border-color:rgba(195,161,78,.7);",
+    "background:rgba(255,255,255,.1);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 3px rgba(195,161,78,.14)}",
     ".mcq-campo.mcq-ruim input{border-color:#C05B4D}",
     ".mcq-erro{display:none;font-size:12px;color:#E09A8E;margin-top:6px;font-style:normal}",
     ".mcq-campo.mcq-ruim .mcq-erro{display:block}",
 
-    /* --- Perguntas ------------------------------------------------------ */
-    ".mcq-grupo{margin-bottom:24px}",
-    ".mcq-grupo:last-child{margin-bottom:6px}",
-    '.mcq-grupo>h4{font-family:"Playfair Display",Georgia,serif;font-size:19px;',
-    "line-height:1.3;color:#F7F0E4;margin:0 0 5px;font-weight:400}",
-    ".mcq-ajuda{font-size:12.5px;line-height:1.5;color:rgba(234,226,207,.5);margin:0 0 12px}",
+    /* ---- Perguntas ---------------------------------------------------- */
+    ".mcq-grupo{margin-bottom:22px}",
+    ".mcq-grupo:last-child{margin-bottom:4px}",
+    '.mcq-grupo>h4{font-family:"Playfair Display",Georgia,serif;font-size:18px;',
+    "line-height:1.3;color:#F7F2E6;margin:0 0 5px;font-weight:400}",
+    ".mcq-ajuda{font-size:12.5px;line-height:1.5;color:rgba(234,226,207,.5);margin:0 0 11px}",
     ".mcq-grupo.mcq-ruim>h4{color:#E09A8E}",
 
-    /* Opcao em vidro. O marcador e um circulo que preenche, no lugar do
-       quadradinho de checkbox, que e o desenho padrao de formulario. */
+    /* Opcao: o card do /linktree, na mesma receita. */
     ".mcq-op{display:flex;align-items:flex-start;gap:13px;width:100%;box-sizing:border-box;",
-    "background:rgba(255,255,255,.032);",
-    "backdrop-filter:blur(22px) saturate(160%);",
-    "-webkit-backdrop-filter:blur(22px) saturate(160%);",
-    "border:1px solid rgba(255,255,255,.09);border-radius:13px;",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.08);",
-    "padding:13px 15px;margin-bottom:9px;cursor:pointer;text-align:left;",
+    "background:rgba(255,255,255,.055);",
+    "backdrop-filter:blur(20px) saturate(155%);",
+    "-webkit-backdrop-filter:blur(20px) saturate(155%);",
+    "border:1px solid rgba(255,255,255,.12);border-radius:16px;",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 10px 28px rgba(0,0,0,.3);",
+    "padding:14px 15px;margin-bottom:9px;cursor:pointer;text-align:left;",
     "font-family:inherit;",
-    "transition:border-color .2s ease,background .2s ease,transform .3s cubic-bezier(.16,1,.3,1)}",
-    ".mcq-op:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 6px 18px rgba(0,0,0,.24);",
-    "transform:translateY(-1px)}",
+    "transition:background .3s ease,border-color .3s ease,box-shadow .3s ease,",
+    "transform .4s cubic-bezier(.16,1,.3,1)}",
+    ".mcq-op:hover{background:rgba(255,255,255,.1);",
+    "border-color:rgba(255,255,255,.22);transform:translateY(-2px);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 14px 36px rgba(0,0,0,.4)}",
     ".mcq-op.mcq-sel{border-color:rgba(195,161,78,.72);",
-    "background:linear-gradient(140deg,rgba(195,161,78,.16),rgba(195,161,78,.06));",
-    "box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 6px 22px rgba(195,161,78,.12)}",
+    "background:rgba(195,161,78,.13);",
+    "box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 30px rgba(195,161,78,.12)}",
     ".mcq-cx{flex:0 0 19px;width:19px;height:19px;margin-top:2px;border-radius:50%;",
-    "border:1.5px solid rgba(234,226,207,.3);position:relative;",
+    "border:1.5px solid rgba(234,226,207,.32);position:relative;",
     "transition:border-color .2s ease}",
     ".mcq-op.mcq-sel .mcq-cx{border-color:#C3A14E}",
     '.mcq-cx::after{content:"";position:absolute;inset:3.5px;border-radius:50%;',
     "background:linear-gradient(135deg,#C3A14E,#E7D3A3);",
     "transform:scale(0);transition:transform .24s cubic-bezier(.16,1,.3,1)}",
     ".mcq-op.mcq-sel .mcq-cx::after{transform:scale(1)}",
-    ".mcq-op b{display:block;font-size:14.5px;font-weight:400;color:#F7F0E4;line-height:1.36}",
-    ".mcq-op span{display:block;font-size:12.5px;color:rgba(234,226,207,.5);",
+    ".mcq-op b{display:block;font-size:14.5px;font-weight:400;color:#F7F2E6;line-height:1.36}",
+    ".mcq-op span{display:block;font-size:12.5px;color:rgba(234,226,207,.52);",
     "margin-top:3px;line-height:1.45}",
 
-    /* --- Rodape do formulario ------------------------------------------- */
-    ".mcq-pe{display:flex;gap:12px;align-items:center;margin-top:20px}",
+    /* ---- Pe: preso no rodape, nunca rola --------------------------- */
+    ".mcq-pe{display:flex;gap:10px;align-items:center;padding-top:14px}",
     ".mcq-btn{flex:1;background:linear-gradient(135deg,#C3A14E,#E7D3A3);color:#0A0C10;",
-    "border:none;border-radius:999px;padding:15px 22px;font-size:15px;font-weight:500;",
-    "letter-spacing:.01em;font-family:inherit;cursor:pointer;",
-    "box-shadow:0 10px 30px rgba(195,161,78,.24);",
+    "border:none;border-radius:999px;padding:15px 20px;font-size:15px;font-weight:500;",
+    "font-family:inherit;cursor:pointer;",
+    "box-shadow:0 10px 30px rgba(195,161,78,.26);",
     "transition:box-shadow .26s ease,transform .3s cubic-bezier(.16,1,.3,1),filter .2s}",
-    ".mcq-btn:hover{filter:brightness(1.06);box-shadow:0 14px 38px rgba(195,161,78,.34);",
+    ".mcq-btn:hover{filter:brightness(1.06);box-shadow:0 14px 38px rgba(195,161,78,.36);",
     "transform:translateY(-1px)}",
     ".mcq-btn:disabled{opacity:.45;cursor:default;box-shadow:none;transform:none}",
     ".mcq-volta{background:none;border:none;color:rgba(234,226,207,.5);font-size:13.5px;",
     "font-family:inherit;cursor:pointer;padding:12px 8px;transition:color .2s}",
     ".mcq-volta:hover{color:#E7D3A3}",
 
-    ".mcq-nota{font-size:11.5px;line-height:1.5;color:rgba(234,226,207,.38);",
-    "margin:14px 0 0;text-align:center}",
+    ".mcq-nota{font-size:11px;line-height:1.5;color:rgba(234,226,207,.38);",
+    "margin:10px 0 0;text-align:center}",
 
-    ".mcq-x{position:absolute;top:14px;right:14px;z-index:5;width:34px;height:34px;",
+    ".mcq-x{position:absolute;top:12px;right:12px;z-index:8;width:34px;height:34px;",
     "border-radius:50%;border:1px solid rgba(255,255,255,.14);",
-    "background:rgba(8,13,20,.4);",
-    "backdrop-filter:blur(20px) saturate(160%);",
-    "-webkit-backdrop-filter:blur(20px) saturate(160%);",
+    "background:rgba(5,7,10,.42);",
+    "backdrop-filter:blur(18px) saturate(155%);",
+    "-webkit-backdrop-filter:blur(18px) saturate(155%);",
     "box-shadow:inset 0 1px 0 rgba(255,255,255,.12);",
-    "color:rgba(234,226,207,.66);font-size:17px;line-height:1;cursor:pointer;",
+    "color:rgba(234,226,207,.7);font-size:17px;line-height:1;cursor:pointer;",
     "transition:color .2s,border-color .2s,background .2s}",
-    ".mcq-x:hover{color:#F7F0E4;border-color:rgba(195,161,78,.6);background:rgba(8,13,20,.8)}",
+    ".mcq-x:hover{color:#F7F2E6;border-color:rgba(195,161,78,.6)}",
 
-    /* --- Tela final ------------------------------------------------------ */
-    ".mcq-fim{text-align:center;padding:26px 0 10px}",
-    ".mcq-tick{width:62px;height:62px;margin:0 auto 20px;border-radius:50%;",
+    /* ---- Tela final ---------------------------------------------------- */
+    ".mcq-fim{text-align:center;padding:22px 0 8px}",
+    ".mcq-tick{width:60px;height:60px;margin:0 auto 18px;border-radius:50%;",
     "border:1px solid rgba(195,161,78,.55);background:rgba(195,161,78,.08);",
     "box-shadow:0 0 0 8px rgba(195,161,78,.05);",
     "display:flex;align-items:center;justify-content:center}",
@@ -439,7 +446,7 @@
     "@media(prefers-reduced-motion:reduce){.mcq-fundo,.mcq-caixa,.mcq-passos li::after,",
     ".mcq-cx::after,.mcq-op,.mcq-btn{transition:none}",
     ".mcq-op:hover,.mcq-btn:hover{transform:none}}",
-  ].join("");
+].join("");
 
   /* ----------------------------------------------------------------------
      4. Utilitarios
@@ -631,6 +638,8 @@
 
     fundo.innerHTML =
       '<div class="mcq-caixa">' +
+      '<img class="mcq-cenario" src="/assets/medceo/hero-bg.jpg" alt="" aria-hidden="true">' +
+      '<span class="mcq-cenario-veu" aria-hidden="true"></span>' +
       '<button type="button" class="mcq-x" aria-label="Fechar">&times;</button>' +
       '<div class="mcq-arte">' +
       "<picture>" +
@@ -650,7 +659,7 @@
       '<ul class="mcq-passos">' +
       '<li class="mcq-feito"></li><li></li><li></li>' +
       "</ul>" +
-      "<form novalidate>" +
+      '<form class="mcq-form" novalidate>' +
       TELAS.map(telaHTML).join("") +
       '<div class="mcq-tela" data-t="' +
       TELAS.length +
