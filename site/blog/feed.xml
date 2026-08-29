@@ -6,7 +6,23 @@
   <atom:link href="https://medceo.online/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Thu, 27 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <lastBuildDate>Sat, 29 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <item>
+    <title>Doutor, posso dar 10% de desconto? A pergunta que revela o que não virou regra</title>
+    <link>https://medceo.online/blog/desconto-que-sobe-para-o-dono</link>
+    <guid isPermaLink="true">https://medceo.online/blog/desconto-que-sobe-para-o-dono</guid>
+    <pubDate>Sat, 29 Aug 2026 09:00:00 -0300</pubDate>
+    <category>Equipe e processos</category>
+    <description>A pergunta parece detalhe comercial. Ela é um teste de quantas decisões da clínica ainda dependem do dono para acontecer.</description>
+  </item>
+  <item>
+    <title>Recebe em 74 dias e paga em 48: o buraco de caixa que não aparece no lucro</title>
+    <link>https://medceo.online/blog/prazo-recebimento-clinica</link>
+    <guid isPermaLink="true">https://medceo.online/blog/prazo-recebimento-clinica</guid>
+    <pubDate>Fri, 28 Aug 2026 09:00:00 -0300</pubDate>
+    <category>O dinheiro da clínica</category>
+    <description>Lucro e caixa são duas coisas diferentes, e a clínica só descobre isso no mês em que precisa pagar fornecedor com dinheiro que ainda não entrou.</description>
+  </item>
   <item>
     <title>Quanto custa o paciente que não fecha, e por que ele não é gratuito</title>
     <link>https://medceo.online/blog/paciente-que-nao-fecha-custo</link>

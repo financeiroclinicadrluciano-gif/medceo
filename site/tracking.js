@@ -104,6 +104,12 @@
     page_view_custom:   { evento: "ViewContent", etapa: "pagina",        valor: 1 },
     clique_cta_interno: { evento: "Search",      etapa: "cta_interno",   valor: 2 },
     clique_whatsapp:    { evento: "ViewContent", etapa: "whatsapp",      valor: 5 },
+    /* O formulario de qualificacao, que entrou em 27/08. Sem estas duas
+       linhas o evento existia no GA4 e nao na Meta, e a campanha so
+       conseguia otimizar por quem ABRIU a caixa, nunca por quem completou. */
+    formulario_abriu:   { evento: "ViewContent", etapa: "form_abriu",     valor: 3 },
+    formulario_qualificacao:
+                        { evento: "ViewContent", etapa: "lead_qualificado", valor: 10 },
     video_marco:        { evento: "Search",      etapa: "video",         valor: 3 },
     secao_chave:        { evento: "Search",      etapa: "secao_chave",   valor: 1 }
   };
