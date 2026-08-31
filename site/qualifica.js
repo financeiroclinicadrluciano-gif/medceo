@@ -56,19 +56,28 @@
   /* ----------------------------------------------------------------------
      2. As perguntas
 
-     Quatro, em tres telas. Multi-etapa converte melhor que um formulario
+     Tres, em tres telas. Multi-etapa converte melhor que um formulario
      longo: cada tela respondida e um compromisso ja assumido, e os tres
      tracos no topo mostram que falta pouco.
+
+     Eram cinco ate 31/08. O Gustavo achou longo e cortou para tres, e o
+     criterio do corte foi quais respostas mudam alguma decisao:
+
+       atuacao  fica  separa MedScale de MedCEO, que e o criterio de entrada
+       fase     fica  os cinco niveis, o que decide de onde a conversa parte
+       gargalo  fica  a unica que o medico responde com vontade, e o que da
+                      assunto para o primeiro contato humano
+       equipe   sai   quase sempre deduzivel da fase
+       pilares  sai   interessante de saber, nao muda a oferta
 
      A pergunta de faturamento e a que mais faz gente desistir quando vem
      como sondagem comercial. Ela esta enquadrada como fase da clinica, que
      e a informacao que o MedCEO usa de verdade (os cinco niveis), da o mesmo
      dado e soa como diagnostico em vez de peneira de dinheiro.
 
-     A quarta pergunta, o gargalo, nao estava no pedido. Ela entra porque e
-     a unica que o medico responde com vontade, ja que fala da dor dele, e
-     porque e o que da assunto pro primeiro contato humano. Vale mais para
-     a abordagem que a faixa de faturamento sozinha.
+     As colunas de equipe e pilares continuam existindo na planilha, vazias.
+     Coluna nao se apaga do meio: toda linha antiga passaria a apontar para a
+     coluna errada. E se as perguntas voltarem, o dado volta no lugar certo.
      ------------------------------------------------------------------- */
 
   var TELAS = [
@@ -103,31 +112,6 @@
               d: "Pausa, transição ou só plantão",
             },
             { v: "estudante", r: "Estou na faculdade de medicina", d: "Ainda em formação" },
-          ],
-        },
-        {
-          id: "equipe",
-          titulo: "Quantas pessoas trabalham com você?",
-          unica: true,
-          opcoes: [
-            { v: "0", r: "Não tenho equipe" },
-            { v: "1a3", r: "1 a 3 pessoas" },
-            { v: "4a10", r: "4 a 10 pessoas" },
-            { v: "11a30", r: "11 a 30 pessoas" },
-            { v: "30+", r: "Mais de 30 pessoas" },
-          ],
-        },
-        {
-          id: "pilares",
-          titulo: "Quais frentes já existem na sua operação?",
-          ajuda: "Pode marcar mais de uma.",
-          opcoes: [
-            { v: "marketing", r: "Marketing", d: "Alguém cuidando de conteúdo ou anúncio" },
-            { v: "comercial", r: "Comercial", d: "Alguém que responde e agenda" },
-            { v: "gestao", r: "Gestão", d: "Alguém que olha número e processo" },
-            { v: "financeiro", r: "Financeiro", d: "Fluxo de caixa e precificação" },
-            { v: "recepcao", r: "Recepção e atendimento" },
-            { v: "nenhum", r: "Não tenho nenhuma dessas", exclusiva: true },
           ],
         },
       ],
