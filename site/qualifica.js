@@ -170,7 +170,7 @@
     grupo: {
       rotuloDialogo: "Formulário de entrada no grupo do MedCEO",
       selo: "Exclusivo para médicos",
-      arteH: 'Sala fechada, só de médico <i>dono de clínica</i>.',
+      arteH: "Sala fechada, só de médico <i>dono de clínica</i>.",
       arteP:
         "Uma aula ao vivo por semana, materiais liberados e outros médicos " +
         "na mesma fase. Sem custo.",
@@ -185,7 +185,7 @@
     conversa: {
       rotuloDialogo: "Formulário para falar com o time do MedCEO",
       selo: "Atendimento direto",
-      arteH: 'Antes da conversa, <i>o retrato da sua clínica</i>.',
+      arteH: "Antes da conversa, <i>o retrato da sua clínica</i>.",
       arteP:
         "O time responde melhor sabendo o tamanho da sua operação e o que " +
         "trava hoje. Assim ninguém perde tempo com pergunta básica.",
@@ -430,7 +430,7 @@
     "@media(prefers-reduced-motion:reduce){.mcq-fundo,.mcq-caixa,.mcq-passos li::after,",
     ".mcq-cx::after,.mcq-op,.mcq-btn{transition:none}",
     ".mcq-op:hover,.mcq-btn:hover{transform:none}}",
-].join("");
+  ].join("");
 
   /* ----------------------------------------------------------------------
      4. Utilitarios
@@ -957,7 +957,9 @@
       /* rAF e o caminho normal. O setTimeout e a rede: aba em segundo
          plano e iframe fora da tela nao disparam rAF, e ali o modal
          ficaria criado porem invisivel. */
-      var mostrar = function () { if (fundo) fundo.classList.add("mcq-on"); };
+      var mostrar = function () {
+        if (fundo) fundo.classList.add("mcq-on");
+      };
       if (window.requestAnimationFrame) requestAnimationFrame(mostrar);
       setTimeout(mostrar, 50);
     })();
@@ -990,7 +992,24 @@
      preenchimento a cada visita derrubaria a conversao de quem ja e nosso.
      ------------------------------------------------------------------- */
 
+  /* Conferencia da propria pagina. Com ?form=1 na URL o formulario abre mesmo
+     para quem ja preencheu neste navegador, e nada e apagado: o lead continua
+     salvo, so este carregamento ignora ele.
+
+     Existe porque em 31/08 o Gustavo abriu o /webnar depois de ter preenchido
+     o formulario as 09:32 e viu o botao ir direto ao WhatsApp, o que da
+     exatamente a impressao de que a pagina esta sem formulario. Quem trabalha
+     no site preenche uma vez e fica cego para ele desde entao, e a saida ate
+     agora era abrir o console e rodar MC_FORM_LIMPAR(), o que apaga o lead.
+
+     O parametro nao entra em nenhuma UTM de campanha, entao trafego real nunca
+     chega com ele. */
+  function conferindo() {
+    return /[?&]form=1(&|$)/.test(location.search);
+  }
+
   function jaPreencheu() {
+    if (conferindo()) return false;
     var l = ler(CHAVE_LEAD);
     return !!(l && l.email && l.fone);
   }
