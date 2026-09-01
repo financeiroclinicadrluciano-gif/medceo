@@ -6,7 +6,15 @@
   <atom:link href="https://medceo.online/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Mon, 31 Aug 2026 09:00:00 -0300</lastBuildDate>
+  <lastBuildDate>Tue, 01 Sep 2026 09:00:00 -0300</lastBuildDate>
+  <item>
+    <title>Três anos sem fim de semana: o preço real de uma especialização</title>
+    <link>https://medceo.online/blog/tres-anos-sem-fim-de-semana</link>
+    <guid isPermaLink="true">https://medceo.online/blog/tres-anos-sem-fim-de-semana</guid>
+    <pubDate>Tue, 01 Sep 2026 09:00:00 -0300</pubDate>
+    <category>O tempo do médico</category>
+    <description>Todo médico soma a mensalidade da especialização, a passagem e a hospedagem, e acha que somou o custo. A conta completa tem uma segunda moeda, e essa não é recomposta no ano seguinte.</description>
+  </item>
   <item>
     <title>Plantão banca a especialização e cria a dependência que vem depois</title>
     <link>https://medceo.online/blog/plantao-para-bancar-especializacao</link>
