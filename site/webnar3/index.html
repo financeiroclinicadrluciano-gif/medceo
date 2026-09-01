@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aulas semanais gratuitas para médicos donos de clínica | MedCEO</title>
+<link rel="canonical" href="https://medceo.online/webnar3">
+<meta name="robots" content="noindex, follow" />
+<meta property="og:title" content="Aulas semanais gratuitas para médicos donos de clínica | MedCEO">
+<meta property="og:description" content="Aulas semanais MedCEO, grupo de médicos donos de clínica. Toda semana uma aula ao vivo sobre margem, comercial, equipe e previsibilidade.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://medceo.online/webnar">
+<meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/medceo/logo-icone.png">
+<link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
+
+<meta name="description" content="Aulas semanais MedCEO, grupo de médicos donos de clínica. Toda semana uma aula ao vivo sobre margem, comercial, equipe e previsibilidade." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" />
+<!-- media=print + onload tira a folha do caminho critico de render; o body ja
+     declara Poppins/system-ui, entao o texto pinta na hora e troca no swap. -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" /></noscript>
+<style>
+  *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { margin: 0; background: #05070A; color: #EAE2CF; font-family: "Poppins", system-ui, sans-serif; font-size: 15px; font-weight: 300; line-height: 1.7; letter-spacing: .02em; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
+  h1, h2, h3, p, ul, figure, dl, dd { margin: 0; }
+  a { color: #D9BE7E; text-decoration: none; }
+  a:hover { color: #EFE0BB; }
+  img { display: block; max-width: 100%; }
+  :focus-visible { outline: 1px solid #C3A14E; outline-offset: 4px; }
+  ::selection { background: rgba(195,161,78,.28); color: #F6F3EC; }
+  @keyframes wbRise { from { opacity: 0; filter: blur(6px); transform: translateY(16px) } to { opacity: 1; filter: blur(0); transform: none } }
+  @keyframes wbWord { from { transform: translateY(112%); filter: blur(5px); opacity: .001 } to { transform: translateY(0); filter: blur(0); opacity: 1 } }
+  @keyframes wbKen { from { transform: scale(1.02) } to { transform: scale(1.09) } }
+  @keyframes wbAura { from { transform: translate3d(0,0,0) scale(1); opacity: .7 } to { transform: translate3d(3%,2%,0) scale(1.12); opacity: 1 } }
+  @keyframes wbLive { 0%,100% { opacity: 1 } 50% { opacity: .2 } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } *, *::before, *::after { animation: none !important; transition-duration: .001ms !important } }
+
+/* Hero do webnar no celular. No desktop o section e um flex de tela cheia com o
+   texto sobre a foto. No celular isso empurra o texto para cima da parte clara
+   da imagem e ele fica ilegivel. Aqui a foto vira um bloco proprio no topo, um
+   degrade fecha a metade de baixo dela, e o conteudo comeca onde esse degrade
+   ja escureceu.
+
+   O bloco abaixo desta versao mirava `.group-hero > [aria-hidden="true"]`, que
+   casa com CINCO filhos: a foto e quatro overlays decorativos. Os quatro saiam
+   de position:absolute, entravam no fluxo e viravam blocos vazios de 371,4px
+   cada. Medido a 390x844: 1433px de vao morto entre a foto e o texto, 1,70
+   tela, e o degrade pintado cinco vezes. A regra passa a mirar so o div marcado
+   com data-hero-foto. As demais regras vivem no bloco hero-mobile-webnar logo
+   abaixo, que e escrito por script. */
+@media(max-width:899px){
+  .group-hero > [data-hero-foto] img{object-position:center top}
+}
+/* >>> hero-mobile-webnar (gerado, nao editar a mao) */
+@media (max-width: 899px) {
+  /* Foto fora do hero no celular, decisao do Gustavo em 17/08 depois de tres
+     tentativas de enquadramento que ele reprovou no aparelho. So no celular:
+     no desktop o hero segue com a imagem, onde ela sempre funcionou porque o
+     texto ocupa a esquerda e o grupo sobra a direita.
+     Para trazer de volta, apagar o display:none abaixo. */
+  .group-hero > [data-hero-foto] {
+    display: none !important;
+  }
+  /* Tudo a esquerda e a dobra inteira cabendo na primeira tela, pedido do
+     Gustavo em 17/08. Sem a foto, o hero e so texto, e ele estava com 892px
+     (1,06 tela) enquanto a area util abaixo do header fixo e de 783px em
+     390x844: o botao ficava fora da primeira tela. O que come altura aqui e o
+     H1, que quebra em cinco linhas, e os vaos entre blocos. */
+  .group-hero {
+    display: block !important;
+    min-height: 0 !important;
+    padding: clamp(10px, 1.4vh, 16px) 0 clamp(12px, 1.8vh, 20px) !important;
+  }
+  .group-hero__content {
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+    padding-inline: 15px;
+    gap: clamp(6px, .9vh, 10px) !important;
+    text-align: left;
+    align-items: flex-start;
+  }
+  /* --- HIERARQUIA DE TAMANHO ---------------------------------------------
+     Erro de 17/08 desfeito aqui. O pedido era "diminuir um pouco o tamanho da
+     subdescricao, usar Poppins"; eu apliquei Poppins nos BULLETS e escondi a
+     subdescricao com display:none. Duas leituras erradas do mesmo pedido, e o
+     resultado foi um bloco de bullets pesando mais que o titulo.
+
+     A escala agora e explicita e medida, do maior para o menor:
+       H1            26px   Playfair
+       subdescricao  13px   Poppins
+       bullets     12,5px   Poppins
+
+     O H1 precisa dessa folga porque Playfair 300 e fino, serif e de x-height
+     baixa, enquanto Poppins e geometrica de x-height alta: com 25px contra
+     14px os bullets ainda pareciam maiores que o titulo na tela. Numero igual
+     nao e peso visual igual.
+
+     Os dois levam !important porque a subdescricao e cada <li> tem font-size
+     INLINE: `min(15px, 2.3vh)` e `min(14px, 2.1vh)`. Sem ele a regra e escrita,
+     publicada e ignorada, que foi exatamente como este defeito voltou tres
+     vezes nos pilares. Achado em segundos com porque_nao_aplicou.py. */
+  .group-hero__content > p:not(.eyebrow):not([class*=selo]) {
+    display: block;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(.78rem, 3.3vw, .85rem) !important;
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 42ch;
+    margin-block: clamp(2px, .5vh, 6px);
+  }
+  .group-hero__content > *,
+  .group-hero__content ul,
+  .group-hero__content li {
+    margin-inline: 0;
+    text-align: left;
+  }
+  /* O H1 vinha com max-width:16ch INLINE. As tres frases foram escritas para
+     ocupar tres linhas ("Uma aula por semana" / "sobre a parte que a" /
+     "faculdade nao ensinou."), mas 16ch e estreito demais para a primeira e a
+     terceira, que quebravam no meio e viravam CINCO linhas tortas. Cada bloco
+     e um <span display:block> proprio, entao o max-width age dentro de cada um.
+
+     O font-size tambem e inline (min(clamp(2.2rem,...), 7.4vh)) e vencia a
+     minha regra: eu pedia 28px e o computado saia 35,2px, largo demais para
+     "faculdade nao ensinou." caber em 360px. Dai o !important, mesma armadilha
+     do object-position dos pilares. */
+  .group-hero__content h1 {
+    max-width: 100% !important;
+    font-size: clamp(1.62rem, 6.9vw, 2rem) !important;
+    line-height: 1.08 !important;
+    margin-block: clamp(2px, .5vh, 6px);
+  }
+  .group-hero__content p {
+    margin-block: 0;
+  }
+  .group-hero__content li {
+    max-width: 40ch;
+    justify-content: flex-start;
+  }
+
+  /* --- BULLETS DESTACADOS ------------------------------------------------
+     O losango dourado sumiu na versao centralizada porque, com o texto no
+     meio, ele ficava orfao a esquerda. Com tudo alinhado a esquerda ele volta
+     a marcar a frase, e volta maior: cada item ganha uma faixa propria, com o
+     marcador em barra dourada na lateral, para os tres beneficios lerem como
+     lista de argumentos e nao como continuacao do paragrafo.
+
+     O <span aria-hidden> inline continua escondido: ele e um losango de 5px
+     desenhado com estilo inline, pequeno demais para o destaque pedido, e
+     substituido pela barra do ::before, que a regra controla. */
+  .group-hero__content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-block: clamp(4px, .8vh, 10px);
+    display: grid;
+    gap: clamp(6px, .9vh, 10px);
+  }
+  /* Poppins e corpo menor na subdescricao dos bullets: o texto vinha na fonte
+     do corpo em 16,5px e competia com o titulo. A familia ja e carregada pelo
+     site (Playfair para titulo, Poppins para texto, JetBrains Mono para
+     rotulo), entao nao ha download novo. */
+  .group-hero__content li {
+    position: relative;
+    padding: clamp(9px, 1.2vh, 13px) 12px clamp(9px, 1.2vh, 13px) 14px;
+    border-radius: 0 8px 8px 0;
+    background: linear-gradient(90deg, rgba(195,161,78,.10), rgba(195,161,78,0) 62%);
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(.75rem, 3.2vw, .82rem) !important;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: .005em;
+  }
+  .group-hero__content li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: clamp(8px, 1.1vh, 12px);
+    bottom: clamp(8px, 1.1vh, 12px);
+    width: 3px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #E4C87A, #C3A14E);
+  }
+  .group-hero__content li strong,
+  .group-hero__content li b {
+    color: #F2EAD6;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 500;
+  }
+  .group-hero__content p > span[aria-hidden="true"],
+  .group-hero__content li > span[aria-hidden="true"] {
+    display: none !important;
+  }
+}
+/* <<< hero-mobile-webnar */
+
+/* O selo de exclusividade nunca quebra em duas linhas. Medido: 343x57 em 500px
+   de largura antes desta regra, contra 291x33 no desktop. */
+.selo-med{white-space:nowrap}
+@media(max-width:600px){
+  .selo-med{font-size:9px !important;letter-spacing:.12em !important;
+    padding:7px 16px !important;gap:10px !important}
+}
+</style>
+
+<style>
+.dc-ee2f7a07:focus-visible { transform:translateY(0) }
+.dc-77e7c021:hover { border-color:#D9BE7E;background:linear-gradient(180deg, rgba(217,190,126,.22), rgba(195,161,78,.08));transform:translateY(-2px) }
+.dc-77e7c021[aria-disabled="true"] { opacity:.38;cursor:not-allowed;transform:none;pointer-events:none }
+.dc-d3146d72:hover { background:rgba(195,161,78,.08);border-color:rgba(195,161,78,.6);color:#EFE0BB }
+.dc-f2f3847f:hover { color:#EAE2CF }
+
+
+
+
+
+
+
+
+@media(min-width:900px) and (min-height:800px){
+  .group-hero{padding-block:54px!important}
+  .group-hero__content{gap:9px!important}
+  .group-hero__content>a:first-child{margin-bottom:8px!important}
+  
+  
+}
+</style>
+<!-- GA4 (Tracking 8D) -->
+<script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('set',{site_marca:'medceo'});gtag('config','GT-PJWWKM65',{site_marca:'medceo'});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
+</head>
+<body>
+<!-- =====================================================================
+     /webnar3 e uma copia do /webnar com UMA diferenca: o botao vai DIRETO
+     para o grupo do WhatsApp, sem passar pelo formulario de qualificacao.
+
+     Criado em 01/09 a pedido do Gustavo. O formulario instantaneo da Meta nao
+     aceita WhatsApp na tela final, so "Ir para o site", entao a tela final do
+     formulario manda para ca e aqui o clique nao pode cobrar pedagio de novo.
+
+     O mecanismo e o atributo data-sem-form nos links do grupo: o qualifica.js
+     checa ele em site/qualifica.js e devolve o clique ao navegador.
+
+     Qualquer mudanca de conteudo feita no /webnar precisa ser refeita aqui a
+     mao: nao existe geracao automatica entre os dois.
+     ================================================================== -->
+
+<div style="min-height:100dvh;background:#05070A;overflow-x:clip">
+
+  <a href="#aula" style="position:fixed;z-index:1000;top:12px;left:12px;padding:12px 18px;background:#EAE2CF;color:#05070A;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;transform:translateY(-240%)" class="dc-ee2f7a07">Pular para a aula</a>
+
+  <!-- ================= 01 · CONVITE ================= -->
+  <section class="group-hero" style="position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:100dvh;padding:clamp(88px,11vh,132px) 0 clamp(56px,8vh,96px)">
+    <div data-hero-foto aria-hidden="true" style="position:absolute;z-index:-5;inset:0;overflow:hidden"><img src="/assets/medceo/webnar-hero-wide.jpg" alt="" width="1920" height="1080" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:.82;filter:saturate(1.02) contrast(1.04);animation:wbKen 24s cubic-bezier(.4,0,.2,1) infinite alternate" /></div>
+    <div aria-hidden="true" style="position:absolute;z-index:-4;inset:0;background:linear-gradient(90deg, rgba(5,7,10,.98) 0%, rgba(5,7,10,.95) 34%, rgba(5,7,10,.62) 54%, rgba(5,7,10,.12) 78%, rgba(5,7,10,.3) 100%), linear-gradient(0deg, rgba(5,7,10,.94) 0%, rgba(5,7,10,.3) 34%, transparent 66%)"></div>
+    <div aria-hidden="true" style="position:absolute;z-index:-3;inset:0;background:radial-gradient(125% 100% at 52% 40%, transparent 54%, rgba(5,7,10,.3) 84%, rgba(5,7,10,.66) 100%)"></div>
+    <div aria-hidden="true" style="position:absolute;z-index:-2;top:16%;left:-6%;width:min(660px,72vw);aspect-ratio:1.7;background:radial-gradient(62% 55% at 44% 46%, rgba(195,161,78,.15), transparent 70%);filter:blur(46px);animation:wbAura 12s cubic-bezier(.4,0,.2,1) infinite alternate;pointer-events:none"></div>
+    <div aria-hidden="true" style="position:absolute;z-index:-1;inset:0;opacity:.3;mix-blend-mode:overlay;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='wg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23wg)' opacity='0.5'/%3E%3C/svg%3E&quot;)"></div>
+
+    <div class="group-hero__content" style="position:relative;z-index:2;width:min(100% - 2 * clamp(24px,5vw,64px), 44rem);margin-left:clamp(24px,5vw,64px);margin-right:auto;display:grid;align-content:center;gap:clamp(12px,1.8vh,22px)">
+
+      <a href="/" aria-label="MedCEO, ir para o site" style="display:inline-flex;align-items:center;gap:14px;width:fit-content;margin-bottom:clamp(10px,1.8vh,22px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .05s both">
+        <img src="/assets/medceo/logo.png" alt="MedCEO" width="124" height="27" style="height:clamp(24px,3vh,28px);width:auto;object-fit:contain;object-position:left" />
+        <span aria-hidden="true" style="width:1px;height:20px;background:rgba(195,161,78,.26)"></span>
+        <small style="color:rgba(217,190,126,.8);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;letter-spacing:.28em;line-height:1.5;text-transform:uppercase">Gabinete do<br />diagnóstico</small>
+      </a>
+
+      <p style="display:inline-flex;align-items:center;gap:12px;width:fit-content;padding:7px 20px 7px 16px;border:1px solid rgba(195,161,78,.55);border-radius:999px;background:rgba(195,161,78,.1);color:#E0C88E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .12s both" class="selo-med"><span aria-hidden="true" style="flex:0 0 auto;width:6px;height:6px;background:#C3A14E;transform:rotate(45deg)"></span>Grupo exclusivo para médicos</p>
+
+      <h1 style="max-width:16ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:min(clamp(2.2rem,1.3rem + 3vw,3.8rem), 7.4vh);font-weight:300;letter-spacing:-.04em;line-height:1.02;text-wrap:balance">
+        <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .2s both">Uma</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .26s both">aula</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .32s both">por</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .38s both">semana</span></span>
+        <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .44s both">sobre</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .5s both">a</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .56s both">parte</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .62s both">que</span> <span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .68s both">a</span></span>
+        <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .74s both">faculdade</span> <em style="display:inline-block;color:#D9BE7E;font-style:italic;animation:wbWord .85s cubic-bezier(.16,1,.3,1) .8s both">não&nbsp;ensinou.</em></span>
+      </h1>
+
+      <!-- Video so no celular, entre o H1 e o paragrafo, como o Gustavo pediu.
+           No PC ele nao aparece aqui: fica na dobra do convite, a esquerda.
+           Roda sozinho, mudo e em loop, mesma decisao da outra dobra.
+           Sem capa, mesma decisao da outra dobra. -->
+      <div class="hero-video" style="margin-top:clamp(10px,1.6vh,18px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .72s both">
+        <figure style="margin:0;position:relative;width:min(196px,46vw);aspect-ratio:612/1080;border-radius:14px;overflow:hidden;border:1px solid rgba(195,161,78,.34);background:#0B0B0C;box-shadow:0 20px 48px -26px rgba(0,0,0,.9)">
+          <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=479da14a-9a2d-4d38-9d55-1c2c53fd8a92&amp;autoplay=1&amp;muted=1&amp;loop=1" title="Convite do Dr. Luciano ao grupo de médicos" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+        </figure>
+      </div>
+
+      <p style="max-width:34rem;margin-top:clamp(8px,1.4vh,16px);color:rgba(234,226,207,.62);font-size:min(15px, 2.3vh);font-weight:300;line-height:1.7;letter-spacing:.02em;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .66s both">Margem, comercial, equipe e previsibilidade, explicados por quem toca uma clínica de verdade em Curitiba, não por quem só estuda o assunto.</p>
+
+      <ul style="display:grid;gap:clamp(9px,1.4vh,15px);max-width:34rem;margin:clamp(12px,2vh,24px) 0 clamp(4px,1vh,12px);padding:0;list-style:none;animation:wbRise .9s cubic-bezier(.16,1,.3,1) .76s both">
+        <li style="display:flex;gap:14px;color:rgba(234,226,207,.74);font-size:min(14px, 2.1vh);font-weight:300;line-height:1.6;letter-spacing:.015em"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.62em;width:5px;height:5px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:400">Uma aula ao vivo, gratuita, toda semana</strong>, com pauta única e aplicação prática.</span></li>
+        <li style="display:flex;gap:14px;color:rgba(234,226,207,.74);font-size:min(14px, 2.1vh);font-weight:300;line-height:1.6;letter-spacing:.015em"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.62em;width:5px;height:5px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:400">Materiais e modelos liberados no grupo</strong>, planilhas, scripts e roteiros que já rodam.</span></li>
+        <li style="display:flex;gap:14px;color:rgba(234,226,207,.74);font-size:min(14px, 2.1vh);font-weight:300;line-height:1.6;letter-spacing:.015em"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.62em;width:5px;height:5px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:400">Sala com outros médicos donos de clínica</strong>, mesma dor, mesmo vocabulário.</span></li>
+      </ul>
+
+      <div data-cta-hero style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:clamp(12px,2vh,24px);animation:wbRise .9s cubic-bezier(.16,1,.3,1) .88s both">
+        <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" data-sem-form target="_blank" rel="noopener noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px clamp(26px,3vw,38px);border:1px solid transparent;border-radius:999px;background:linear-gradient(180deg,#2FD46A,#17A94B);color:#07230F;font-weight:600;box-shadow:0 16px 38px rgba(23,169,75,.34),0 2px 0 rgba(255,255,255,.3) inset;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease" class="dc-77e7c021">Sou médico e quero entrar <span aria-hidden="true">↗</span></a>
+        <p style="color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Entrada gratuita</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 · CONVITE EM VIDEO =================
+       Video a esquerda, texto a direita, como o Gustavo corrigiu no meio do
+       pedido. O iframe do Panda so nasce no clique: quem nao da play nao paga
+       o custo do player. Mesmo padrao do /servicos e do /webnar2. -->
+  <section id="convite" style="position:relative;padding:clamp(72px,9vh,108px) 0;border-top:1px solid rgba(195,161,78,.14);background:linear-gradient(180deg,#05070A 0%,#070A0E 100%)">
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(58% 46% at 22% 40%, rgba(195,161,78,.09), transparent 66%)"></div>
+
+    <div style="position:relative;width:100%;max-width:1240px;margin-inline:auto;padding-inline:28px;display:grid;gap:clamp(30px,4.4vw,64px);align-items:center;grid-template-columns:minmax(0,1fr)">
+      <!-- As colunas vivem SO no bloco <style>. Se grid-template-columns ficar
+           tambem no atributo style do elemento, o inline vence a media query
+           sem !important e a dobra empilha no desktop: medido, o video caiu em
+           cima do texto em 1280, 1440 e 1920. E o aprendizado 032 do vault. -->
+      <style>
+        #convite .cv__grade{display:grid;gap:clamp(30px,4.4vw,64px);align-items:center;grid-template-columns:minmax(0,1fr)}
+        @media(min-width:900px){#convite .cv__grade{grid-template-columns:minmax(0,360px) minmax(0,1fr)}}
+        /* No celular o video sobe para a primeira dobra e aqui entra a foto da
+           equipe. No PC e o contrario. Uma midia por vez, nunca as duas. */
+        #convite .cv__video{display:none}
+        #convite .cv__equipe{display:block}
+        @media(min-width:900px){
+          #convite .cv__video{display:block}
+          #convite .cv__equipe{display:none}
+        }
+        .hero-video{display:block}
+        @media(min-width:900px){.hero-video{display:none}}
+
+        /* No celular o botao sobe para dentro da primeira tela, e a lista de
+           tres beneficios desce para depois dele.
+
+           Medido em 01/09 a 375x812, na versao anterior: o botao comecava aos
+           878px numa tela de 812, ou seja 1,08 telas abaixo do topo. Nos dias
+           31/08 e 01/09, 294 pessoas de trafego pago chegaram nesta pagina e
+           NENHUMA abriu o formulario. O pixel registrou 293 ViewContent contra
+           294 chegadas, entao o rastreamento estava sadio: o que faltava era o
+           botao aparecer.
+
+           A lista ocupa 196px. Tirando ela do caminho o botao vai de 878 para
+           ~650, e termina aos ~741, com 71px de folga na tela. O video fica
+           onde esta, por decisao do Gustavo em 26/08.
+
+           order so funciona porque os demais filhos ficam no padrao 0. */
+        @media(max-width:899px){
+          .group-hero__content > ul{order:2}
+          .group-hero__content > [data-cta-hero]{order:1}
+        }
+      </style>
+      <div class="cv__grade">
+
+        <figure class="cv__video" data-reveal="" style="margin:0;position:relative;width:100%;max-width:360px;justify-self:center;aspect-ratio:612/1080;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.3);background:#0B0B0C;box-shadow:0 30px 70px -34px rgba(0,0,0,.9)">
+          <!-- O video roda sozinho, mudo e em loop, por decisao do Gustavo em
+               26/08: "nao pode ficar preto assim, nao e nem um pouco
+               chamativo". Sem fachada e sem play. O `muted=1` nao e estetica:
+               navegador bloqueia autoplay com som, e sem ele nada comeca. -->
+          <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=479da14a-9a2d-4d38-9d55-1c2c53fd8a92&amp;autoplay=1&amp;muted=1&amp;loop=1" title="Convite do Dr. Luciano ao grupo de médicos" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+        </figure>
+
+        <figure class="cv__equipe" data-reveal="" style="margin:0;position:relative;width:100%;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.24);background:#0B0B0C">
+          <img src="/assets/medceo/webnar-hero.jpg" alt="Time do MedCEO, com o Dr. Luciano Alves Neves ao centro." width="1080" height="880" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;object-fit:cover" />
+          <span aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(180deg,transparent 0%,rgba(5,7,10,.62) 52%,#05070A 100%)"></span>
+        </figure>
+
+        <div data-reveal="" style="display:grid;gap:clamp(14px,1.8vh,20px);min-width:0">
+          <h2 style="max-width:20ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.85rem,3.4vw,2.75rem);font-weight:300;letter-spacing:-.035em;line-height:1.06;text-wrap:balance">Participe do melhor ambiente de <em style="color:#D9BE7E;font-style:italic">desenvolvimento para médicos.</em></h2>
+
+          <p style="max-width:44ch;color:rgba(234,226,207,.72);font-size:15.5px;font-weight:300;line-height:1.75;letter-spacing:.01em">Uma sala fechada, só de médico que já tem clínica para tocar. A conversa começa no ponto em que a sua operação está hoje, e não no básico que você resolveu faz tempo.</p>
+
+          <ul style="display:grid;gap:16px;max-width:46ch;margin:clamp(6px,1.2vh,12px) 0 0;padding:0;list-style:none">
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">4 pilares para te guiar.</strong> Mentalidade CEO, Marketing, Comercial e Gestão, cada um conduzido por quem toca a frente de verdade.</span></li>
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Materiais e aulas liberados sem custo.</strong> Planilhas, scripts e roteiros que já rodam dentro de uma clínica de verdade, não modelo genérico de internet.</span></li>
+            <li style="display:flex;gap:15px;color:rgba(234,226,207,.74);font-size:14.5px;font-weight:300;line-height:1.62"><span aria-hidden="true" style="flex:0 0 auto;margin-top:.6em;width:6px;height:6px;border:1px solid #C3A14E;transform:rotate(45deg)"></span><span><strong style="color:#EAE2CF;font-weight:500">Médicos na mesma fase que você.</strong> Mesmo gargalo e mesmo vocabulário, então ninguém precisa traduzir o problema antes de discutir a solução.</span></li>
+          </ul>
+
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:clamp(10px,1.8vh,20px)">
+            <a href="https://chat.whatsapp.com/BdkQ4E8gfna9a2JIXlHbAb?s=cl&amp;p=i&amp;ilr=0" data-sem-form target="_blank" rel="noopener noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px clamp(26px,3vw,38px);border:1px solid transparent;border-radius:999px;background:linear-gradient(180deg,#2FD46A,#17A94B);color:#07230F;box-shadow:0 16px 38px rgba(23,169,75,.34),0 2px 0 rgba(255,255,255,.3) inset;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease">Sou médico e quero entrar <span aria-hidden="true">↗</span></a>
+            <p style="color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Entrada gratuita</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 · AULA ================= -->
+  <section id="aula" style="position:relative;padding:112px 0;border-top:1px solid rgba(195,161,78,.14);background:radial-gradient(70% 55% at 50% 0%, rgba(195,161,78,.07), transparent 58%), #05070A">
+    <div style="width:100%;max-width:1240px;margin-inline:auto;padding-inline:28px;display:grid;justify-items:center;gap:24px;text-align:center">
+      <p data-reveal="" style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase"><span aria-hidden="true" style="width:28px;height:1px;background:linear-gradient(90deg, transparent, #C3A14E)"></span>Aula introdutória · acesso liberado<span aria-hidden="true" style="width:28px;height:1px;background:linear-gradient(270deg, transparent, #C3A14E)"></span></p>
+
+      <h2 data-reveal="" style="max-width:22ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:400;letter-spacing:-.03em;line-height:1.06;text-wrap:balance">Comece por aqui: o método que transforma o médico em dono de uma clínica lucrativa</h2>
+
+      <p data-reveal="" style="max-width:62ch;color:rgba(234,226,207,.6);font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em">Nesta aula você entende a lógica do MedCEO, diagnóstico, margem, comercial, operação e escala, e enxerga onde a sua clínica está deixando dinheiro na mesa hoje.</p>
+
+      <div data-reveal="" data-tilt="" style="position:relative;width:min(100%,980px);margin-top:20px;border:1px solid rgba(195,161,78,.18);border-radius:8px;background:rgba(14,26,36,.42);backdrop-filter:blur(20px) saturate(.9);-webkit-backdrop-filter:blur(20px) saturate(.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 18px 40px rgba(1,3,5,.4), 0 48px 100px rgba(1,3,5,.3);transform-style:preserve-3d;transition:transform .5s cubic-bezier(.16,1,.3,1)">
+        <div aria-hidden="true" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;min-height:44px;padding:8px 18px;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(234,226,207,.66);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.22em;text-transform:uppercase">
+          <span style="display:inline-flex;align-items:center;gap:8px"><i style="width:5px;height:5px;border-radius:50%;background:#E0483B;animation:wbLive 2.2s ease-in-out infinite"></i>Aula introdutória</span>
+          <span>MedCEO · DOC365</span>
+        </div>
+        <div style="position:relative;overflow:hidden;aspect-ratio:16/9;background:#000">
+          <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=85638f9a-6681-4a3d-bdab-83aed5805455" title="Aula introdutória MedCEO: a metodologia" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+        </div>
+      </div>
+
+      <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1px;width:min(100%,980px);margin-top:52px;border:1px solid rgba(195,161,78,.14);border-radius:8px;background:rgba(195,161,78,.14);overflow:hidden;text-align:left">
+        <div style="padding:28px 30px;background:#080B0F"><p style="color:#D9BE7E;font-family:'Playfair Display',serif;font-size:26px;font-weight:400;letter-spacing:-.035em;line-height:1">CRM/PR 45049</p><p style="margin-top:12px;color:rgba(234,226,207,.66);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.14em;line-height:1.65;text-transform:uppercase">Dr. Luciano Alves Neves · médico, CEO e fundador</p></div>
+        <div style="padding:28px 30px;background:#080B0F"><p style="color:#D9BE7E;font-family:'Playfair Display',serif;font-size:26px;font-weight:400;letter-spacing:-.035em;line-height:1">Natuá MedSpa</p><p style="margin-top:12px;color:rgba(234,226,207,.66);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.14em;line-height:1.65;text-transform:uppercase">Operação real em Curitiba, onde o método nasceu</p></div>
+        <div style="padding:28px 30px;background:#080B0F"><p style="color:#D9BE7E;font-family:'Playfair Display',serif;font-size:26px;font-weight:400;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums">2.500+</p><p style="margin-top:12px;color:rgba(234,226,207,.66);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.14em;line-height:1.65;text-transform:uppercase">pacientes atendidos informados pela Natuá</p></div>
+      </div>
+
+      <div data-reveal="" style="display:grid;justify-items:center;gap:20px;width:min(100%,980px);margin-top:64px;padding-top:56px;border-top:1px solid rgba(234,226,207,.08)">
+        <p style="max-width:34ch;color:#EAE2CF;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.2rem,2.4vw,1.7rem);font-weight:300;font-style:italic;letter-spacing:-.02em;line-height:1.3">Já assistiu? Então descubra em qual dos cinco níveis a sua clínica está hoje.</p>
+        <a href="/diagnostico" style="display:inline-flex;align-items:center;gap:14px;min-height:52px;padding:14px 28px;border:1px solid rgba(195,161,78,.36);border-radius:3px;color:rgba(234,226,207,.86);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:background .4s ease, border-color .4s ease, color .4s ease" class="dc-d3146d72">Fazer o diagnóstico <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 · PROVA =================
+       Ultima dobra, depois da aula. O video roda sozinho, mudo e em loop, por
+       decisao do Gustavo em 27/08: "tire essa capa preta do depoimento do dr
+       luis". Mesma decisao do convite. O `muted=1` nao e estetica: navegador
+       bloqueia autoplay com som, e sem ele nada comeca. -->
+  <section id="prova" style="position:relative;padding:clamp(72px,9vh,104px) 0 clamp(84px,10vh,116px);border-top:1px solid rgba(195,161,78,.14);background:#05070A">
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(62% 46% at 50% 8%, rgba(195,161,78,.07), transparent 62%)"></div>
+
+    <div style="position:relative;width:100%;max-width:1240px;margin-inline:auto;padding-inline:28px;display:grid;justify-items:center;text-align:center;gap:clamp(22px,3vh,34px)">
+
+      <p data-reveal="" style="display:inline-flex;align-items:center;gap:11px;color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.24em;text-transform:uppercase"><span aria-hidden="true" style="flex:0 0 auto;width:5px;height:5px;background:#C3A14E;transform:rotate(45deg)"></span>Prova</p>
+
+      <h2 data-reveal="" style="max-width:22ch;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.75rem,3.2vw,2.6rem);font-weight:300;letter-spacing:-.035em;line-height:1.08;text-wrap:balance">Um médico que já passou por <em style="color:#D9BE7E;font-style:italic">essa virada.</em></h2>
+
+      <figure data-reveal="" style="margin:0;position:relative;width:100%;max-width:320px;aspect-ratio:612/1080;border-radius:16px;overflow:hidden;border:1px solid rgba(195,161,78,.3);background:#0B0B0C;box-shadow:0 30px 70px -34px rgba(0,0,0,.9)">
+        <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=b21e92cd-8323-45f9-8d2b-be7d9208c84b&amp;autoplay=1&amp;muted=1&amp;loop=1" title="Depoimento do Dr. Luiz Henrique" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+      </figure>
+
+      <div data-reveal="" style="display:grid;gap:9px;justify-items:center">
+        <p style="color:#EAE2CF;font-size:15.5px;font-weight:400;letter-spacing:.01em">Dr. Luiz Henrique</p>
+        <p style="color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.16em;line-height:1.8;text-transform:uppercase">Nutrologia e medicina esportiva &middot; Londrina</p>
+        <p style="max-width:44ch;margin-top:8px;color:rgba(234,226,207,.44);font-size:12px;font-weight:300;line-height:1.6">Resultado de um caso individual, gravado e cedido pelo próprio médico. Não é média nem promessa de faturamento.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid rgba(195,161,78,.12);background:#080B0F;padding:40px 0 34px">
+    <div style="width:100%;max-width:1240px;margin-inline:auto;padding-inline:28px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;color:rgba(234,226,207,.58);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase">
+      <a href="/" style="color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;transition:color .3s ease" class="dc-f2f3847f">← Voltar ao site MedCEO</a>
+      <small>© 2026 MedCEO · CRM/PR 45049 · Curitiba, PR</small>
+    </div>
+  </footer>
+</div>
+<script>
+(() => {
+  const confirmacao = document.querySelector('[data-doctor-confirm]');
+  const acesso = document.querySelector('[data-group-access]');
+  const status = document.querySelector('[data-gate-status]');
+  if (!confirmacao || !acesso || !status) return;
+
+  const atualizarAcesso = () => {
+    if (confirmacao.checked) {
+      acesso.href = acesso.dataset.groupUrl;
+      acesso.setAttribute('aria-disabled', 'false');
+      acesso.tabIndex = 0;
+      status.textContent = 'Acesso liberado para continuar.';
+      return;
+    }
+    acesso.removeAttribute('href');
+    acesso.setAttribute('aria-disabled', 'true');
+    acesso.tabIndex = -1;
+    status.textContent = 'Confirme para liberar o acesso.';
+  };
+
+  confirmacao.addEventListener('change', atualizarAcesso);
+  atualizarAcesso();
+})();
+</script>
+
+<script src="/tracking.js?v=477b72b17d" defer></script>
+<script src="/qualifica.js?v=c22d08c5ba" defer></script>
+</body>
+</html>
