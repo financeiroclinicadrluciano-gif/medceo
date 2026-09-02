@@ -6,7 +6,15 @@
   <atom:link href="https://medceo.online/blog/feed.xml" rel="self" type="application/rss+xml" />
   <description>Textos sobre gestão, margem, comercial e escala para médicos donos de clínica.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Tue, 01 Sep 2026 09:00:00 -0300</lastBuildDate>
+  <lastBuildDate>Wed, 02 Sep 2026 09:00:00 -0300</lastBuildDate>
+  <item>
+    <title>Médico dorme no hospital, come no hospital e a clínica paga a conta</title>
+    <link>https://medceo.online/blog/dormir-e-comer-no-hospital</link>
+    <guid isPermaLink="true">https://medceo.online/blog/dormir-e-comer-no-hospital</guid>
+    <pubDate>Wed, 02 Sep 2026 09:00:00 -0300</pubDate>
+    <category>O tempo do médico</category>
+    <description>A rotina hospitalar cobra em dois lugares ao mesmo tempo, e só um deles aparece no espelho. O segundo chega de uma vez só, no dia em que o médico precisa faltar por cinco dias.</description>
+  </item>
   <item>
     <title>Três anos sem fim de semana: o preço real de uma especialização</title>
     <link>https://medceo.online/blog/tres-anos-sem-fim-de-semana</link>

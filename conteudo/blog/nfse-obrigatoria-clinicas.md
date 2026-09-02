@@ -8,7 +8,7 @@ silo: Equipe e processos
 keyword: nfs-e obrigatória clínicas
 meta_description: A Resolução CGSN 191/2026 torna obrigatória a NFS-e de padrão nacional para ME e EPP do Simples a partir de 1º de novembro de 2026, pelo Emissor Nacional.
 dek: O prazo já foi adiado uma vez, de setembro para novembro de 2026. Restam 43 dias corridos, e o risco real não é digitar a nota, é a nota que não sai.
-data: 2026-09-19
+data: 2026-09-05
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1700
 imagem_capa: IMG_0212.jpg

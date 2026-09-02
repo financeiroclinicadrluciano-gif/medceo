@@ -8,7 +8,7 @@ silo: Comercial da clínica
 keyword: vale a pena atender em outra cidade
 meta_description: Rodar 250 km para atender dois pacientes dá prejuízo em qualquer mês isolado. O que decide se a viagem vale é outro número, e ele é medido por trimestre.
 dek: A conta de uma viagem dessas fecha no vermelho todo mês, e mesmo assim ela pode ser a melhor decisão da clínica. A diferença está em qual métrica você acompanha.
-data: 2026-09-03
+data: 2026-09-15
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1600
 imagem_capa: IMG_7667.jpg

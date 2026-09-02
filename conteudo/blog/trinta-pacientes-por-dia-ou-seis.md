@@ -8,7 +8,7 @@ silo: O dinheiro da clínica
 keyword: quantos pacientes atender por dia
 meta_description: Duas clínicas com receita quase igual e sobra muito diferente. A conta linha a linha mostra que 90% da diferença não vem do ticket, vem do custo fixo.
 dek: Volume alto com ticket baixo e volume baixo com ticket alto podem faturar quase o mesmo no mês. O que separa a sobra dos dois é uma linha do balanço que quase ninguém abre.
-data: 2026-09-04
+data: 2026-09-17
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1800
 imagem_capa: DSC00197.jpg

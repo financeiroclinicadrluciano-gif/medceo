@@ -8,7 +8,7 @@ silo: Marketing e captação
 keyword: quem responde pelo Instagram da clínica
 meta_description: O art. 3º, II da Resolução CFM 2.336/2023 põe o diretor técnico médico como responsável pelo que a clínica publica. Contrato com agência não transfere isso.
 dek: A Resolução CFM 2.336/2023 nomeia um responsável único pelo conteúdo do estabelecimento. O contrato de social media distribui o trabalho e deixa o processo ético no mesmo CPF de sempre.
-data: 2026-09-05
+data: 2026-09-19
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1700
 imagem_capa: IMG_7115.jpg

@@ -8,7 +8,7 @@ silo: O dinheiro da clínica
 keyword: prazo simples nacional 30 de setembro
 meta_description: A janela de setembro de 2026 define como a clínica optante pelo Simples vai recolher IBS e CBS no primeiro semestre de 2027. Quem não se manifesta fica no DAS.
 dek: A Resolução CGSN 186/2026 abriu uma janela de 30 dias que quase nenhuma clínica sabe que existe. Quem não responder nada até o dia 30 continua com os dois tributos dentro do DAS.
-data: 2026-09-15
+data: 2026-09-03
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1600
 imagem_capa: IMG_0212.jpg

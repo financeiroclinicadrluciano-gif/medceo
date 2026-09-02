@@ -8,7 +8,7 @@ silo: Marketing e captação
 keyword: story de clínica médica regras CFM
 meta_description: O art. 6º, §1º da Resolução CFM 2.336/2023 submete conteúdo temporário às mesmas regras do feed. Veja o que muda na rotina de quem publica story todo dia.
 dek: O art. 6º, §1º da Resolução CFM 2.336/2023 resolve a dúvida em uma linha. O story concentra o maior volume de publicação da clínica e o menor volume de revisão.
-data: 2026-09-06
+data: 2026-09-16
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1700
 imagem_capa: DSC00202-2.jpg

@@ -8,7 +8,7 @@ silo: O dinheiro da clínica
 keyword: fator r anexo iii ou v
 meta_description: O Fator R divide folha por receita dos últimos 12 meses e o corte está em 28%. Acima disso a clínica vai para o Anexo III, abaixo cai no Anexo V e paga mais.
 dek: A diferença entre os dois anexos chega a R$ 72.540 por ano numa clínica que fatura R$ 100 mil por mês. Em uma faixa específica, porém, a regra se inverte.
-data: 2026-09-17
+data: 2026-09-04
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1800
 imagem_capa: IMG_0212.jpg

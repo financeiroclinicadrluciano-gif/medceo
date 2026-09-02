@@ -8,7 +8,7 @@ silo: O dinheiro da clínica
 keyword: irrf dividendos acima de 50 mil
 meta_description: A Lei 15.270/2025 criou retenção de 10% sobre lucros distribuídos acima de R$ 50 mil no mês. O corte é abrupto e a mesma retirada anual pode custar valores diferentes.
 dek: A regra vale desde janeiro de 2026 e pune a concentração, não o valor total retirado no ano. Duas clínicas que distribuem R$ 720 mil podem reter R$ 72 mil ou R$ 22 mil.
-data: 2026-09-16
+data: 2026-09-06
 autor: Dr. Luciano Alves Neves
 palavras_alvo: 1700
 imagem_capa: IMG_0212.jpg
