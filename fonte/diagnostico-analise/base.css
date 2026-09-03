@@ -1,0 +1,15 @@
+/* Só o que a prévia precisa para parecer a página real.
+   No site estas regras já existem em site/diagnostico/index.html. */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: #05070A; color: #EAE2CF;
+  font-family: "Poppins", system-ui, sans-serif; font-weight: 300;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+h1, h2, h3, p, ol, ul, blockquote { margin: 0; }
+a { color: #D9BE7E; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid #C3A14E; outline-offset: 4px; }
+.an-wrap { width: 100%; max-width: 720px; margin-inline: auto; padding: 44px 22px 72px; }
+@media (min-width: 720px) { .an-wrap { padding: 72px 32px 100px; } }
