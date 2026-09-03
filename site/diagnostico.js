@@ -1,278 +1,598 @@
-/* MedCEO — Diagnóstico de maturidade. Vanilla, sem dependencia externa.
-   Portado do runtime original (DCLogic): mesmas perguntas, mesma pontuacao,
-   mesmos cortes de nivel e mesma regra de gargalo. Nada e enviado. */
+/* MedCEO — Formulário de Diagnóstico (pré-sessão).
+   Vanilla, sem dependência. Reaproveita o padrão de envio de qualifica.js
+   (POST text/plain sem preflight, fila em localStorage, no-cors) e o padrão
+   visual de /diagnostico (tokens, glass, Playfair + Poppins + JetBrains Mono).
+
+   Diferença de propósito: qualifica.js é o portão rápido de 3 telas na
+   frente de QUALQUER botão de WhatsApp do site. Este formulário é destino
+   deliberado, mais profundo, para quem já decidiu que quer a sessão de
+   diagnóstico com o Dr. Luciano e os pilares. Os dois convivem, nenhum
+   substitui o outro. */
 (function () {
   "use strict";
-  var D = window.__MC_QUIZ__;
-  if (!D) return;
 
-  var QUESTIONS = D.QUESTIONS, LEVELS = D.LEVELS, BOTTLENECK = D.BOTTLENECK;
-  var PILLARS = {
-    diagnostico: { label: "Diagnóstico", short: "01" },
-    margem: { label: "Margem", short: "02" },
-    comercial: { label: "Comercial", short: "03" },
-    operacao: { label: "Operação", short: "04" },
-    escala: { label: "Escala", short: "05" }
-  };
-  var ORDER = ["diagnostico", "margem", "comercial", "operacao", "escala"];
-  var LETRAS = ["A", "B", "C"];
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ENDPOINT = window.MC_DIAG_ENDPOINT || "";
+  /* PENDENTE: preencher depois de publicar apps-script-painel.gs como app
+     da web e colar a URL /exec aqui, ou via window.MC_DIAG_ENDPOINT antes
+     deste script. Enquanto vazio, o formulário funciona e enfileira local,
+     sem perder a resposta, e ela sai assim que a URL existir. */
 
-  var estado = { stage: "intro", index: 0, answers: [] };
+  var CHAVE_FILA = "medceo:diag:fila";
+  var CHAVE_RASCUNHO = "medceo:diag:rascunho";
 
-  var telas = {
-    intro: document.querySelector("[data-stage=intro]"),
-    quiz: document.querySelector("[data-stage=quiz]"),
-    result: document.querySelector("[data-stage=result]")
-  };
+  /* ---------------------------------------------------------------------
+     1. Os passos e os campos.
 
-  function mostrar(stage) {
-    Object.keys(telas).forEach(function (k) {
-      if (telas[k]) telas[k].hidden = k !== stage;
+     Cada campo tem: id (a chave que chega na planilha), rotulo, tipo
+     (text/tel/email/textarea/radio), e para radio a lista de opções como
+     [valor, rótulo]. obrigatorio marca o que trava o avanço. quando(d) é a
+     lógica de campo condicional (Q7A só aparece se Q7 não for "sim").
+     ------------------------------------------------------------------- */
+  var PASSOS = [
+    {
+      titulo: "Identificação",
+      campos: [
+        {
+          id: "nome",
+          rotulo: "Como você gostaria de ser chamado(a) na nossa conversa?",
+          tipo: "text",
+          ph: "Nome completo, e Dr. ou Dra. se preferir",
+          auto: "name",
+          obrigatorio: true,
+        },
+        {
+          id: "telefone",
+          rotulo: "Seu WhatsApp",
+          tipo: "tel",
+          ph: "(41) 99999-9999",
+          auto: "tel",
+          obrigatorio: true,
+        },
+        {
+          id: "email",
+          rotulo: "Seu e-mail",
+          tipo: "email",
+          ph: "nome@email.com",
+          auto: "email",
+          obrigatorio: false,
+        },
+        {
+          id: "especialidade",
+          rotulo: "Qual é a sua especialidade médica?",
+          tipo: "text",
+          ph: "Ex: dermatologia",
+          obrigatorio: true,
+        },
+        {
+          id: "clinica",
+          rotulo: "Qual é o nome da sua clínica?",
+          tipo: "text",
+          ph: "Nome da clínica",
+          obrigatorio: true,
+        },
+        {
+          id: "cidade",
+          rotulo: "Em qual cidade ela está localizada?",
+          tipo: "text",
+          ph: "Cidade",
+          obrigatorio: true,
+        },
+      ],
+    },
+    {
+      titulo: "Como a operação roda hoje",
+      campos: [
+        {
+          id: "gargalos",
+          rotulo:
+            "Descreva em detalhes como a sua operação roda hoje: " +
+            "quais são os principais gargalos no dia a dia?",
+          tipo: "textarea",
+          ph: "Tempo, gestão de equipe, vendas, o que fizer sentido.",
+          obrigatorio: true,
+        },
+        {
+          id: "equipe",
+          rotulo: "Quantas pessoas trabalham na operação hoje?",
+          tipo: "radio",
+          obrigatorio: true,
+          opcoes: [
+            ["so_eu", "Somente eu"],
+            ["1a3", "1 a 3 pessoas"],
+            ["4a7", "4 a 7 pessoas"],
+            ["8a15", "8 a 15 pessoas"],
+            ["15mais", "Mais de 15 pessoas"],
+          ],
+        },
+        {
+          id: "decisor",
+          rotulo:
+            "Você é o único responsável pelas decisões estratégicas " + "e financeiras da clínica?",
+          tipo: "radio",
+          obrigatorio: true,
+          opcoes: [
+            ["sim", "Sim"],
+            ["socio", "Não, tenho sócio(a)"],
+            ["outro", "Existe outro decisor envolvido"],
+          ],
+        },
+        {
+          id: "socio_participa",
+          rotulo: "Essa pessoa deveria participar da sessão de " + "diagnóstico?",
+          tipo: "radio",
+          obrigatorio: false,
+          quando: function (r) {
+            return r.decisor && r.decisor !== "sim";
+          },
+          opcoes: [
+            ["sim", "Sim"],
+            ["nao", "Não"],
+          ],
+        },
+      ],
+    },
+    {
+      titulo: "Os números de hoje",
+      campos: [
+        {
+          id: "faturamento",
+          rotulo: "Qual foi a média de faturamento bruto mensal nos " + "últimos 3 meses?",
+          tipo: "radio",
+          obrigatorio: true,
+          opcoes: [
+            ["ate25", "Até R$ 25 mil/mês"],
+            ["25a50", "R$ 25 mil a R$ 50 mil/mês"],
+            ["50a80", "R$ 50 mil a R$ 80 mil/mês"],
+            ["80a150", "R$ 80 mil a R$ 150 mil/mês"],
+            ["150a300", "R$ 150 mil a R$ 300 mil/mês"],
+            ["300mais", "Acima de R$ 300 mil/mês"],
+            ["prefiro_nao", "Prefiro informar durante a reunião"],
+          ],
+        },
+        {
+          id: "margem",
+          rotulo: "Hoje você acompanha a margem líquida da clínica?",
+          tipo: "radio",
+          obrigatorio: true,
+          opcoes: [
+            ["sim", "Sim, acompanho regularmente"],
+            ["estimativa", "Tenho uma estimativa"],
+            ["financeiro", "O financeiro acompanha, eu não domino o número"],
+            ["nao", "Não acompanho"],
+          ],
+        },
+        {
+          id: "conversao",
+          rotulo: "De cada 10 pessoas que pedem orçamento ou avaliação, " + "quantas hoje fecham?",
+          tipo: "radio",
+          obrigatorio: true,
+          opcoes: [
+            ["0a2", "0 a 2"],
+            ["3a4", "3 a 4"],
+            ["5a6", "5 a 6"],
+            ["7a8", "7 a 8"],
+            ["9a10", "9 a 10"],
+            ["nao_sei", "Não sei dizer"],
+          ],
+        },
+        {
+          id: "queda_ferias",
+          rotulo:
+            "Se você tirasse uma semana inteira de férias, o " +
+            "faturamento da clínica cairia quanto?",
+          tipo: "radio",
+          obrigatorio: true,
+          opcoes: [
+            ["ate10", "Até 10%"],
+            ["10a25", "10% a 25%"],
+            ["25a40", "25% a 40%"],
+            ["40a60", "40% a 60%"],
+            ["60mais", "Mais de 60%"],
+            ["nao_sei", "Não sei estimar"],
+          ],
+        },
+      ],
+    },
+    {
+      titulo: "Onde você quer chegar",
+      campos: [
+        {
+          id: "desejo",
+          rotulo:
+            "O que você gostaria de ter construído ou mudado nos " +
+            "últimos 6 meses e ainda não conseguiu tirar do papel? Por qual motivo?",
+          tipo: "textarea",
+          obrigatorio: true,
+        },
+        {
+          id: "prioridade_agora",
+          rotulo: "Por que esse problema virou uma prioridade agora?",
+          tipo: "textarea",
+          obrigatorio: true,
+        },
+      ],
+    },
+    {
+      titulo: "A sessão de diagnóstico",
+      campos: [
+        {
+          id: "clareza_desejada",
+          rotulo:
+            "Qual é a principal questão que você gostaria de " +
+            "sair da sessão de diagnóstico tendo clareza?",
+          tipo: "textarea",
+          obrigatorio: true,
+        },
+        {
+          id: "horario_preferido",
+          rotulo:
+            "Qual horário, independente do dia, você fica " +
+            "mais propenso a realizar a reunião conosco?",
+          tipo: "radio",
+          obrigatorio: true,
+          opcoes: [
+            ["manha", "Manhã, 8h às 12h"],
+            ["tarde", "Tarde, 12h às 18h"],
+            ["noite", "Início da noite, 18h às 21h"],
+          ],
+        },
+        {
+          id: "info_extra",
+          rotulo:
+            "Existe alguma informação sobre sua clínica, equipe ou " +
+            "momento atual que considera importante sabermos antes da reunião?",
+          tipo: "textarea",
+          obrigatorio: false,
+        },
+      ],
+    },
+  ];
+
+  var TOTAL = PASSOS.length;
+
+  /* ---------------------------------------------------------------------
+     2. Estado, fila e envio — mesmo mecanismo de qualifica.js.
+     ------------------------------------------------------------------- */
+  var estado = { passo: 0, respostas: {} };
+
+  function ler(chave) {
+    try {
+      return JSON.parse(localStorage.getItem(chave) || "null");
+    } catch (e) {
+      return null;
+    }
+  }
+  function gravar(chave, valor) {
+    try {
+      localStorage.setItem(chave, JSON.stringify(valor));
+    } catch (e) {}
+  }
+  function enfileirar(dados) {
+    var f = ler(CHAVE_FILA) || [];
+    f.push(dados);
+    gravar(CHAVE_FILA, f.slice(-20));
+  }
+  function postar(dados) {
+    if (!ENDPOINT) {
+      enfileirar(dados);
+      return Promise.resolve(false);
+    }
+    return fetch(ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(dados),
+    })
+      .then(function () {
+        return true;
+      })
+      .catch(function () {
+        enfileirar(dados);
+        return false;
+      });
+  }
+  function escoarFila() {
+    var f = ler(CHAVE_FILA);
+    if (!ENDPOINT || !f || !f.length) return;
+    gravar(CHAVE_FILA, []);
+    f.forEach(function (d) {
+      postar(d);
     });
   }
 
-  function totaisPorPilar() {
-    var t = {};
-    ORDER.forEach(function (k) { t[k] = 0; });
-    QUESTIONS.forEach(function (q, i) { t[q.p] += estado.answers[i] || 0; });
-    return t;
+  function mascaraFone(v) {
+    var d = String(v).replace(/\D/g, "").slice(0, 11);
+    if (d.length <= 2) return d.length ? "(" + d : "";
+    if (d.length <= 6) return "(" + d.slice(0, 2) + ") " + d.slice(2);
+    if (d.length <= 10) return "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6);
+    return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+  }
+  function foneValido(v) {
+    var d = String(v).replace(/\D/g, "");
+    return d.length === 10 || d.length === 11;
+  }
+  function emailValido(v) {
+    return v === "" || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim());
   }
 
-  /* ---------------- Perguntas ---------------- */
-  function pintarPergunta() {
-    var i = estado.index;
-    var q = QUESTIONS[Math.min(i, QUESTIONS.length - 1)];
-    var meta = PILLARS[q.p];
+  /* ---------------------------------------------------------------------
+     3. Render. Um passo por vez, um campo por linha, radio como cartão.
+     ------------------------------------------------------------------- */
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
 
-    var seg = document.querySelector("[data-segments]");
-    if (seg) {
-      seg.innerHTML = "";
-      ORDER.forEach(function (chave, ci) {
-        var g = document.createElement("div");
-        g.setAttribute("style", "display:grid;grid-template-columns:repeat(4,1fr);gap:3px");
-        for (var t = 0; t < 4; t++) {
-          var qi = ci * 4 + t;
-          var cor = qi < estado.answers.length ? "#C3A14E"
-            : qi === i ? "rgba(217,190,126,.5)" : "rgba(234,226,207,.1)";
-          var s = document.createElement("span");
-          s.setAttribute("style", "height:2px;background:" + cor + ";transition:background .45s ease");
-          g.appendChild(s);
-        }
-        seg.appendChild(g);
-      });
+  function campoVisivel(campo) {
+    return !campo.quando || campo.quando(estado.respostas);
+  }
+
+  function renderCampo(campo) {
+    var v = estado.respostas[campo.id] || "";
+    var wrap = document.createElement("div");
+    wrap.className = "ag-campo";
+    wrap.dataset.id = campo.id;
+    if (!campoVisivel(campo)) wrap.hidden = true;
+
+    var label = document.createElement("label");
+    label.className = "ag-rotulo";
+    label.textContent = campo.rotulo;
+    wrap.appendChild(label);
+
+    if (campo.ph_apoio) {
+      var apoio = document.createElement("small");
+      apoio.className = "ag-apoio";
+      apoio.textContent = campo.ph_apoio;
+      wrap.appendChild(apoio);
     }
 
-    var restam = QUESTIONS.length - i;
-    var mins = Math.max(1, Math.round((restam * 15) / 60));
-    var txt = function (sel, v) { var e = document.querySelector(sel); if (e) e.textContent = v; };
-    txt("[data-pillar-short]", meta.short);
-    txt("[data-pillar-label]", meta.label);
-    txt("[data-qnum]", String(i + 1).padStart(2, "0"));
-    txt("[data-minutes]", restam <= 1 ? "última" : "~" + mins + " min restantes");
-    txt("[data-qtext]", q.q);
-
-    var caixa = document.querySelector("[data-options]");
-    if (caixa) {
-      caixa.innerHTML = "";
-      q.o.forEach(function (op, oi) {
+    if (campo.tipo === "textarea") {
+      var ta = document.createElement("textarea");
+      ta.className = "ag-input ag-textarea";
+      ta.placeholder = campo.ph || "";
+      ta.value = v;
+      ta.addEventListener("input", function () {
+        estado.respostas[campo.id] = ta.value;
+        limparErro(wrap);
+        salvarRascunho();
+      });
+      wrap.appendChild(ta);
+    } else if (campo.tipo === "radio") {
+      var grade = document.createElement("div");
+      grade.className = "ag-opcoes";
+      campo.opcoes.forEach(function (op) {
         var b = document.createElement("button");
         b.type = "button";
-        b.className = "mc-opt";
-        b.setAttribute("style",
-          "display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:start;width:100%;" +
-          "padding:24px 26px;border:1px solid rgba(234,226,207,.1);border-radius:8px;background:rgba(255,255,255,.018);" +
-          "text-align:left;cursor:pointer;transition:border-color .35s ease, background .35s ease, transform .35s cubic-bezier(.16,1,.3,1)");
-        var letra = document.createElement("span");
-        letra.setAttribute("aria-hidden", "true");
-        letra.setAttribute("style",
-          "display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(195,161,78,.32);" +
-          "border-radius:50%;color:rgba(195,161,78,.9);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400");
-        letra.textContent = LETRAS[oi];
-        var wrap = document.createElement("span");
-        wrap.setAttribute("style", "display:grid;gap:8px;min-width:0");
-        var forte = document.createElement("strong");
-        forte.setAttribute("style",
-          "color:rgba(234,226,207,.94);font-size:15.5px;font-weight:400;letter-spacing:.01em;line-height:1.35");
-        forte.textContent = op[0];
-        var desc = document.createElement("span");
-        desc.setAttribute("style",
-          "color:rgba(234,226,207,.68);font-size:14px;font-weight:300;line-height:1.64;letter-spacing:.015em");
-        desc.textContent = op[2];
-        wrap.appendChild(forte); wrap.appendChild(desc);
-        b.appendChild(letra); b.appendChild(wrap);
-        var escolhida = estado.answers[i] === op[1];
-        b.setAttribute("aria-pressed", escolhida ? "true" : "false");
-        function marcar() {
-          b.setAttribute("aria-pressed", "true");
-          b.style.borderColor = "rgba(195,161,78,.62)";
-          b.style.background = "rgba(195,161,78,.08)";
-          letra.style.borderColor = "#C3A14E";
-          letra.style.background = "rgba(195,161,78,.16)";
-          letra.style.color = "#EFE0BB";
-        }
-        if (escolhida) marcar();
+        b.className = "ag-opt" + (v === op[0] ? " ag-opt-on" : "");
+        b.textContent = op[1];
         b.addEventListener("click", function () {
-          // 1 frame de confirmacao antes de trocar a pergunta: sem isto o botao
-          // clicado some no mesmo tick e o clique nao devolve nada.
-          marcar();
-          setTimeout(function () { responder(op[1]); }, reduce ? 0 : 140);
+          estado.respostas[campo.id] = op[0];
+          grade.querySelectorAll(".ag-opt").forEach(function (x) {
+            x.classList.remove("ag-opt-on");
+          });
+          b.classList.add("ag-opt-on");
+          limparErro(wrap);
+          salvarRascunho();
+          atualizarCondicionais();
         });
-        caixa.appendChild(b);
+        grade.appendChild(b);
       });
-    }
-
-    // O botao que recebeu o clique acabou de ser removido pelo innerHTML="",
-    // entao o foco cairia no <body> e o teclado teria que percorrer a pagina
-    // inteira de novo, 20 vezes seguidas. Levar o foco para a primeira opcao.
-    var primeiro = document.querySelector("[data-options] button");
-    if (primeiro && estado.stage === "quiz") primeiro.focus();
-
-    var painel = document.querySelector("[data-qpanel]");
-    if (painel && !reduce) {
-      painel.style.animation = "none";
-      void painel.offsetWidth;
-      painel.style.animation = "dgRise .6s cubic-bezier(.16,1,.3,1) both";
-    }
-  }
-
-  function responder(score) {
-    var prox = estado.answers.slice(0, estado.index).concat(score);
-    if (estado.index + 1 >= QUESTIONS.length) {
-      estado.answers = prox; estado.stage = "result";
-      mostrar("result"); pintarResultado();
-      window.scrollTo({ top: 0, behavior: "auto" });
+      wrap.appendChild(grade);
     } else {
-      estado.answers = prox; estado.index += 1;
-      pintarPergunta();
-    }
-  }
-
-  /* ---------------- Resultado ---------------- */
-  function pintarResultado() {
-    var t = totaisPorPilar();
-    var total = ORDER.reduce(function (s, k) { return s + t[k]; }, 0);
-    var li = total <= 36 ? 0 : total <= 55 ? 1 : total <= 72 ? 2 : total <= 88 ? 3 : 4;
-    var r = LEVELS[li];
-
-    var menor = Math.min.apply(null, ORDER.map(function (k) { return t[k]; }));
-    var gargalos = ORDER.filter(function (k) { return t[k] === menor; });
-
-    var txt = function (sel, v) { var e = document.querySelector(sel); if (e) e.textContent = v; };
-    txt("[data-res-level]", String(r.level));
-    txt("[data-res-title]", r.title);
-    txt("[data-res-subtitle]", r.subtitle);
-    txt("[data-res-description]", r.description);
-    txt("[data-res-score]", String(total));
-    txt("[data-bottleneck]", gargalos.length >= 4
-      ? "Nenhum pilar se destaca: os cinco estão no mesmo patamar. Comece por Margem — é o único que dá base numérica para decidir os outros quatro."
-      : gargalos.slice(0, 2).map(function (k) { return BOTTLENECK[k]; }).join(" "));
-
-    var ol = document.querySelector("[data-actions]");
-    if (ol) {
-      ol.innerHTML = "";
-      r.actions.forEach(function (a, i) {
-        var li2 = document.createElement("li");
-        li2.setAttribute("style",
-          "display:grid;grid-template-columns:32px minmax(0,1fr);gap:16px;align-items:baseline;" +
-          "padding:18px 0;border-bottom:1px solid rgba(234,226,207,.09)");
-        var n = document.createElement("span");
-        n.setAttribute("style",
-          "color:rgba(195,161,78,.62);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em");
-        n.textContent = String(i + 1).padStart(2, "0");
-        var s2 = document.createElement("span");
-        s2.setAttribute("style",
-          "color:rgba(234,226,207,.76);font-size:14.5px;font-weight:300;line-height:1.66;letter-spacing:.015em");
-        s2.textContent = a;
-        li2.appendChild(n); li2.appendChild(s2); ol.appendChild(li2);
-      });
-    }
-
-    var dl = document.querySelector("[data-readings]");
-    if (dl) {
-      dl.innerHTML = "";
-      ORDER.forEach(function (k) {
-        var pct = Math.round((t[k] / 20) * 100) + "%";
-        var ehGargalo = t[k] === menor;
-        var box = document.createElement("div");
-        box.setAttribute("style", "display:grid;gap:10px;padding:15px 0;border-bottom:1px solid rgba(234,226,207,.09)");
-        var linha = document.createElement("div");
-        linha.setAttribute("style", "display:flex;align-items:baseline;justify-content:space-between;gap:12px");
-        var dt = document.createElement("dt");
-        dt.setAttribute("style",
-          "display:flex;align-items:baseline;gap:10px;min-width:0;color:rgba(234,226,207,.56);" +
-          "font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.18em;text-transform:uppercase");
-        dt.textContent = PILLARS[k].label;
-        if (ehGargalo) {
-          var em = document.createElement("em");
-          em.setAttribute("style",
-            "color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:8.5px;font-style:normal;letter-spacing:.16em;white-space:nowrap");
-          em.textContent = "← gargalo";
-          dt.appendChild(em);
+      var inp = document.createElement("input");
+      inp.className = "ag-input";
+      inp.type = campo.tipo;
+      inp.placeholder = campo.ph || "";
+      inp.autocomplete = campo.auto || "on";
+      inp.value = v;
+      inp.addEventListener("input", function () {
+        var val = inp.value;
+        if (campo.tipo === "tel") {
+          val = mascaraFone(val);
+          inp.value = val;
         }
-        var dd = document.createElement("dd");
-        dd.setAttribute("style",
-          "flex:0 0 auto;margin:0;color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.06em");
-        dd.textContent = pct;
-        linha.appendChild(dt); linha.appendChild(dd);
-        var trilho = document.createElement("div");
-        trilho.setAttribute("aria-hidden", "true");
-        trilho.setAttribute("style", "height:2px;background:rgba(234,226,207,.1)");
-        var barra = document.createElement("span");
-        barra.setAttribute("style",
-          "display:block;height:100%;width:" + pct + ";transition:width 1.1s cubic-bezier(.16,1,.3,1);background:" +
-          (ehGargalo ? "linear-gradient(90deg,#B08F3C,#EFE0BB)" : "rgba(195,161,78,.42)"));
-        trilho.appendChild(barra);
-        box.appendChild(linha); box.appendChild(trilho); dl.appendChild(box);
+        estado.respostas[campo.id] = val;
+        limparErro(wrap);
+        salvarRascunho();
       });
+      wrap.appendChild(inp);
     }
+
+    var erro = document.createElement("em");
+    erro.className = "ag-erro";
+    wrap.appendChild(erro);
+    return wrap;
   }
 
-  /* ---------------- Navegacao ---------------- */
-  function comecar() {
-    estado = { stage: "quiz", index: 0, answers: [] };
-    mostrar("quiz"); pintarPergunta();
-  }
-  function voltar() {
-    if (estado.index === 0) { estado.stage = "intro"; mostrar("intro"); return; }
-    estado.index -= 1;
-    // A resposta NAO e descartada: quem volta precisa ver o que respondeu.
-    // responder() sobrescreve a posicao atual de qualquer jeito (slice + concat).
-    pintarPergunta();
-  }
-  function refazer() {
-    estado = { stage: "intro", index: 0, answers: [] };
-    mostrar("intro");
-    window.scrollTo({ top: 0, behavior: "auto" });
+  function limparErro(wrap) {
+    wrap.classList.remove("ag-ruim");
   }
 
-  var bStart = document.querySelector("[data-start]");
-  var bBack = document.querySelector("[data-back]");
-  var bRestart = document.querySelector("[data-restart]");
-  if (bStart) bStart.addEventListener("click", comecar);
-  if (bBack) bBack.addEventListener("click", voltar);
-  if (bRestart) bRestart.addEventListener("click", refazer);
+  function atualizarCondicionais() {
+    document.querySelectorAll(".ag-campo").forEach(function (el) {
+      var campo = campoPorId(el.dataset.id);
+      if (!campo) return;
+      el.hidden = !campoVisivel(campo);
+    });
+  }
 
-  mostrar("intro");
+  function campoPorId(id) {
+    for (var p = 0; p < PASSOS.length; p++) {
+      for (var c = 0; c < PASSOS[p].campos.length; c++) {
+        if (PASSOS[p].campos[c].id === id) return PASSOS[p].campos[c];
+      }
+    }
+    return null;
+  }
 
-  /* ---------------- Sheen ---------------- */
-  if (!reduce) {
-    document.querySelectorAll("[data-sheen]").forEach(function (btn) {
-      var gleam = document.createElement("span");
-      gleam.setAttribute("aria-hidden", "true");
-      gleam.style.cssText =
-        "position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 38%," +
-        "rgba(239,224,187,.34) 50%,transparent 62%);background-size:220% 100%;background-position:-140% 0;" +
-        "transition:background-position .9s cubic-bezier(.16,1,.3,1)";
-      btn.appendChild(gleam);
-      btn.addEventListener("pointerenter", function () { gleam.style.backgroundPosition = "140% 0"; });
-      btn.addEventListener("pointerleave", function () {
-        gleam.style.transition = "none";
-        gleam.style.backgroundPosition = "-140% 0";
-        requestAnimationFrame(function () {
-          gleam.style.transition = "background-position .9s cubic-bezier(.16,1,.3,1)";
-        });
+  function renderPasso() {
+    var passo = PASSOS[estado.passo];
+    var corpo = document.querySelector("[data-ag-corpo]");
+    corpo.innerHTML = "";
+
+    var h = document.createElement("h2");
+    h.className = "ag-titulo-passo";
+    h.textContent = passo.titulo;
+    corpo.appendChild(h);
+
+    passo.campos.forEach(function (campo) {
+      corpo.appendChild(renderCampo(campo));
+    });
+
+    var seg = document.querySelector("[data-ag-segmentos]");
+    if (seg) {
+      seg.innerHTML = "";
+      for (var i = 0; i < TOTAL; i++) {
+        var s = document.createElement("span");
+        s.className =
+          "ag-seg" +
+          (i < estado.passo ? " ag-seg-feito" : i === estado.passo ? " ag-seg-atual" : "");
+        seg.appendChild(s);
+      }
+    }
+    var num = document.querySelector("[data-ag-num]");
+    if (num) num.textContent = estado.passo + 1 + " / " + TOTAL;
+
+    var voltar = document.querySelector("[data-ag-voltar]");
+    if (voltar) voltar.hidden = estado.passo === 0;
+
+    var avancar = document.querySelector("[data-ag-avancar]");
+    if (avancar)
+      avancar.textContent = estado.passo === TOTAL - 1 ? "Enviar diagnóstico" : "Continuar";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function validarPasso() {
+    var passo = PASSOS[estado.passo];
+    var ok = true;
+    passo.campos.forEach(function (campo) {
+      if (!campoVisivel(campo) || !campo.obrigatorio) return;
+      var v = (estado.respostas[campo.id] || "").trim();
+      var el = document.querySelector('.ag-campo[data-id="' + campo.id + '"]');
+      var mau = !v;
+      if (campo.id === "telefone" && v && !foneValido(v)) mau = true;
+      if (campo.id === "email" && v && !emailValido(v)) mau = true;
+      if (mau) {
+        ok = false;
+        if (el) {
+          el.classList.add("ag-ruim");
+          var erro = el.querySelector(".ag-erro");
+          if (erro)
+            erro.textContent =
+              campo.id === "telefone"
+                ? "WhatsApp incompleto"
+                : campo.id === "email"
+                  ? "E-mail inválido"
+                  : "Campo obrigatório";
+        }
+      }
+    });
+    if (!ok) {
+      var primeiro = document.querySelector(".ag-campo.ag-ruim");
+      if (primeiro) primeiro.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    return ok;
+  }
+
+  function salvarRascunho() {
+    gravar(CHAVE_RASCUNHO, { passo: estado.passo, respostas: estado.respostas });
+  }
+
+  function montarPayload() {
+    var d = {};
+    PASSOS.forEach(function (p) {
+      p.campos.forEach(function (c) {
+        d[c.id] = estado.respostas[c.id] || "";
       });
     });
+    d.enviado_em = new Date().toISOString();
+    d.telefone_digitos = String(d.telefone).replace(/\D/g, "");
+    d.pagina = location.pathname;
+    var params = new URLSearchParams(location.search);
+    ["utm_source", "utm_medium", "utm_campaign"].forEach(function (k) {
+      d[k] = params.get(k) || "";
+    });
+    return d;
+  }
+
+  function irPara(stage) {
+    document.querySelectorAll("[data-ag-stage]").forEach(function (el) {
+      el.hidden = el.getAttribute("data-ag-stage") !== stage;
+    });
+  }
+
+  function enviar() {
+    var payload = montarPayload();
+    var botao = document.querySelector("[data-ag-avancar]");
+    if (botao) {
+      botao.disabled = true;
+      botao.textContent = "Enviando...";
+    }
+    postar(payload).then(function () {
+      try {
+        localStorage.removeItem(CHAVE_RASCUNHO);
+      } catch (e) {}
+      var wa = document.querySelector("[data-ag-whats]");
+      if (wa) {
+        var msg =
+          "Olá! Terminei de preencher o diagnóstico e gostaria de agendar " + "a data da reunião.";
+        wa.href = "https://wa.me/5541984875688?text=" + encodeURIComponent(msg);
+      }
+      irPara("sucesso");
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     4. Ligação dos botões e partida.
+     ------------------------------------------------------------------- */
+  function iniciar() {
+    escoarFila();
+
+    var rasc = ler(CHAVE_RASCUNHO);
+    if (rasc && rasc.respostas) {
+      estado.respostas = rasc.respostas;
+      estado.passo = Math.min(rasc.passo || 0, TOTAL - 1);
+    }
+
+    var comecar = document.querySelector("[data-ag-comecar]");
+    if (comecar)
+      comecar.addEventListener("click", function () {
+        irPara("form");
+        renderPasso();
+      });
+
+    var avancar = document.querySelector("[data-ag-avancar]");
+    if (avancar)
+      avancar.addEventListener("click", function () {
+        if (!validarPasso()) return;
+        if (estado.passo < TOTAL - 1) {
+          estado.passo++;
+          salvarRascunho();
+          renderPasso();
+        } else {
+          enviar();
+        }
+      });
+
+    var voltar = document.querySelector("[data-ag-voltar]");
+    if (voltar)
+      voltar.addEventListener("click", function () {
+        if (estado.passo > 0) {
+          estado.passo--;
+          renderPasso();
+        }
+      });
+
+    irPara("intro");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciar);
+  } else {
+    iniciar();
   }
 })();

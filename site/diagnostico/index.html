@@ -3,23 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diagnóstico de maturidade da sua clínica | MedCEO</title>
+<title>Diagnóstico da sua clínica | MedCEO</title>
 <link rel="canonical" href="https://medceo.online/diagnostico">
-<meta property="og:title" content="Diagnóstico de maturidade da sua clínica | MedCEO">
-<meta property="og:description" content="Diagnóstico de maturidade empresarial MedCEO: 20 perguntas, 5 minutos. Nível da operação, gargalo prioritário e três próximos passos.">
+<meta property="og:title" content="Diagnóstico da sua clínica | MedCEO">
+<meta property="og:description" content="O retrato da sua clínica antes da sessão de diagnóstico com o Dr. Luciano e os pilares. Cinco passos, sem compromisso.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://medceo.online/diagnostico">
 <meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="256x256" href="/assets/medceo/logo-icone.png">
 <link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
-
-<meta name="description" content="Diagnóstico de maturidade empresarial MedCEO: 20 perguntas, 5 minutos. Nível da operação, gargalo prioritário e três próximos passos." />
+<meta name="description" content="Diagnóstico MedCEO: o retrato da sua clínica antes da sessão com o Dr. Luciano e os pilares. Cinco passos, sem compromisso." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" />
-<!-- media=print + onload tira a folha do caminho critico de render; o body ja
-     declara Poppins/system-ui, entao o texto pinta na hora e troca no swap. -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" /></noscript>
 <style>
@@ -32,198 +29,143 @@
   button { font: inherit; color: inherit; }
   :focus-visible { outline: 2px solid #C3A14E; outline-offset: 4px; }
   ::selection { background: rgba(195,161,78,.28); color: #F6F3EC; }
-  @keyframes dgRise { from { opacity: 0; filter: blur(6px); transform: translateY(16px) } to { opacity: 1; filter: blur(0); transform: none } }
-  @keyframes dgWord { from { transform: translateY(112%); filter: blur(5px); opacity: .001 } to { transform: translateY(0); filter: blur(0); opacity: 1 } }
-  @keyframes dgAura { from { transform: translate3d(0,0,0) scale(1); opacity: .6 } to { transform: translate3d(3%,2%,0) scale(1.12); opacity: .95 } }
+  [hidden] { display: none !important; }
+  @keyframes agRise { from { opacity: 0; filter: blur(6px); transform: translateY(16px) } to { opacity: 1; filter: blur(0); transform: none } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .001ms !important } }
 
-.mc-opt:hover { border-color: rgba(195,161,78,.44); background: rgba(195,161,78,.05); transform: translateY(-2px); }
-.mc-opt:active { transform: translateY(0) scale(.995); }
-[hidden] { display: none !important; }
+  [data-ag-stage] { animation: agRise .6s cubic-bezier(.16,1,.3,1) both; }
 
-  /* Em tela pequena a terceira opcao de resposta ficava fora da dobra — 0px
-     renderizados em 360x640 e no in-app do Instagram (375x553) — e ela e sempre a
-     de maior pontuacao. O quiz enviesava o resultado para baixo, 20 vezes seguidas.
-     Idem o CTA da intro, que terminava 36px abaixo da dobra em 375x553.
-     `!important` e obrigatorio: o JS escreve os estilos das opcoes via
-     setAttribute("style", ...) e inline vence folha. Fonte fica em 14px; o que
-     encolhe e espaco, nao texto. */
+  /* ---- botão principal, mesmo componente visual das outras páginas ---- */
+  .ag-btn { position: relative; display: inline-flex; overflow: hidden; align-items: center;
+    justify-content: center; gap: 14px; min-height: 58px; padding: 16px 34px;
+    border: 1px solid rgba(217,190,126,.5); border-radius: 3px;
+    background: linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));
+    color: #EFE0BB; font-family: "JetBrains Mono", monospace; font-size: 11px;
+    font-weight: 400; letter-spacing: .22em; text-transform: uppercase; cursor: pointer;
+    transition: border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1); }
+  .ag-btn:hover { border-color: #D9BE7E; background: linear-gradient(180deg, rgba(217,190,126,.22), rgba(195,161,78,.08)); transform: translateY(-2px); }
+  .ag-btn:disabled { opacity: .5; cursor: default; transform: none; }
+  .ag-btn-fraco { border-color: rgba(234,226,207,.14); background: transparent; color: rgba(234,226,207,.66); }
+  .ag-btn-fraco:hover { border-color: rgba(234,226,207,.3); background: transparent; color: #EAE2CF; }
+
+  /* ---- os passos do formulário ---- */
+  .ag-titulo-passo { font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.6rem,1.1rem + 1.6vw,2.3rem);
+    font-weight: 400; letter-spacing: -.03em; line-height: 1.1; margin-bottom: clamp(26px,3.6vh,42px); }
+
+  .ag-campo { margin-bottom: 26px; }
+  .ag-rotulo { display: block; margin-bottom: 10px; color: rgba(234,226,207,.86);
+    font-size: 15.5px; font-weight: 400; line-height: 1.45; }
+  .ag-apoio { display: block; margin: -6px 0 10px; color: rgba(234,226,207,.5);
+    font-size: 12.5px; font-weight: 300; }
+  .ag-input { width: 100%; box-sizing: border-box; padding: 15px 16px; border: 1px solid rgba(234,226,207,.16);
+    border-radius: 6px; background: rgba(255,255,255,.03); color: #EAE2CF; font-family: inherit;
+    font-size: 15px; font-weight: 300; transition: border-color .3s ease, background .3s ease; }
+  .ag-input::placeholder { color: rgba(234,226,207,.32); }
+  .ag-input:focus { outline: none; border-color: rgba(195,161,78,.7); background: rgba(195,161,78,.05); }
+  .ag-textarea { min-height: 108px; resize: vertical; line-height: 1.6; }
+  .ag-erro { display: none; margin-top: 8px; color: #C05B4D; font-size: 12.5px; font-style: normal; }
+  .ag-ruim .ag-input { border-color: #C05B4D; }
+  .ag-ruim .ag-erro { display: block; }
+
+  .ag-opcoes { display: grid; gap: 10px; }
+  .ag-opt { display: block; width: 100%; padding: 15px 18px; border: 1px solid rgba(234,226,207,.14);
+    border-radius: 8px; background: rgba(255,255,255,.02); color: rgba(234,226,207,.86);
+    font-family: inherit; font-size: 14.5px; font-weight: 300; text-align: left; cursor: pointer;
+    transition: border-color .3s ease, background .3s ease, transform .3s cubic-bezier(.16,1,.3,1); }
+  .ag-opt:hover { border-color: rgba(195,161,78,.44); background: rgba(195,161,78,.05); transform: translateY(-1px); }
+  .ag-opt-on { border-color: #C3A14E; background: rgba(195,161,78,.12); color: #F6F3EC; }
+
+  .ag-segmentos { display: grid; grid-auto-flow: column; gap: 6px; margin-bottom: 10px; }
+  .ag-seg { height: 2px; background: rgba(234,226,207,.1); border-radius: 2px; transition: background .4s ease; }
+  .ag-seg-feito { background: #C3A14E; }
+  .ag-seg-atual { background: rgba(217,190,126,.5); }
+
   @media (max-width: 640px) {
-    [data-stage="quiz"] .mc-opt { padding: 16px 18px !important; gap: 14px !important; }
-    [data-stage="quiz"] .mc-opt > span:last-child { gap: 5px !important; }
-    [data-stage="quiz"] .mc-opt > span:last-child > span { line-height: 1.5 !important; }
-    [data-stage="quiz"] [data-options] { gap: 10px !important; margin-top: 20px !important; }
-    [data-stage="quiz"] [data-qpanel] h2 { font-size: 1.55rem !important; }
-    [data-stage="quiz"] { padding-top: 16px !important; padding-bottom: 28px !important; }
-    [data-stage="quiz"] [data-segments] { margin-bottom: 12px !important; }
-    [data-stage="quiz"] [data-segments] + div { margin-bottom: 18px !important; }
-
-    [data-stage="intro"] { padding-top: 28px !important; padding-bottom: 40px !important; }
-    [data-stage="intro"] h1 { font-size: 2rem !important; margin-top: 16px !important; }
-    [data-stage="intro"] h1 + p { margin-top: 16px !important; }
-    [data-stage="intro"] h1 + p + div { margin-top: 24px !important; }
-    [data-stage="intro"] > div > div:last-child { padding: 22px !important; }
+    [data-ag-stage="intro"] { padding-top: 28px !important; padding-bottom: 40px !important; }
+    [data-ag-stage="intro"] h1 { font-size: 2rem !important; margin-top: 16px !important; }
+    [data-ag-stage="form"] { padding-top: 20px !important; padding-bottom: 32px !important; }
+    .ag-titulo-passo { font-size: 1.5rem !important; }
+    .ag-opt { padding: 14px 16px !important; }
   }
-
 </style>
-
-<style>
-.dc-77e7c021:hover { border-color:#D9BE7E;background:linear-gradient(180deg, rgba(217,190,126,.22), rgba(195,161,78,.08));transform:translateY(-2px) }
-.dc-85c5c904:hover { border-color:rgba(195,161,78,.44);background:rgba(195,161,78,.05);transform:translateY(-2px) }
-.dc-85c5c904:active { transform:translateY(0) scale(.995) }
-.dc-a127d864:hover { color:#D9BE7E }
-.dc-95c6b72b:hover { border-color:rgba(234,226,207,.58);color:#EAE2CF }
-.dc-f2f3847f:hover { color:#EAE2CF }
-</style>
-<!-- GA4 (Tracking 8D) -->
-<script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('set',{site_marca:'medceo'});gtag('config','GT-PJWWKM65',{site_marca:'medceo'});</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
 </head>
 <body>
 <div style="position:relative;isolation:isolate;min-height:100dvh;display:flex;flex-direction:column;background:#05070A">
 
   <div aria-hidden="true" style="position:absolute;z-index:-3;inset:0;background:radial-gradient(70% 50% at 14% -6%, rgba(195,161,78,.1), transparent 58%), radial-gradient(60% 46% at 92% 4%, rgba(29,41,54,.7), transparent 60%)"></div>
   <div aria-hidden="true" style="position:absolute;z-index:-2;inset:0;opacity:.4;background-image:radial-gradient(rgba(195,161,78,.16) 1px, transparent 1px);background-size:28px 28px;-webkit-mask-image:radial-gradient(62% 52% at 50% 34%, #000, transparent);mask-image:radial-gradient(62% 52% at 50% 34%, #000, transparent);pointer-events:none"></div>
-  <div aria-hidden="true" style="position:absolute;z-index:-1;inset:0;opacity:.24;mix-blend-mode:overlay;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='dg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23dg)' opacity='0.5'/%3E%3C/svg%3E&quot;)"></div>
 
   <header style="position:sticky;z-index:40;top:0;border-bottom:1px solid rgba(195,161,78,.14);background:rgba(5,7,10,.8);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2)">
-    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;width:100%;max-width:1120px;margin-inline:auto;padding:14px 28px">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;width:100%;max-width:900px;margin-inline:auto;padding:14px 28px">
       <a href="/" aria-label="MedCEO, voltar ao site" style="display:inline-flex;align-items:center;gap:14px">
         <img src="/assets/medceo/logo.png" alt="MedCEO" width="112" height="24" style="height:24px;width:auto;object-fit:contain;object-position:left" />
         <span aria-hidden="true" style="width:1px;height:18px;background:rgba(195,161,78,.26)"></span>
-        <small style="color:rgba(217,190,126,.78);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;letter-spacing:.28em;line-height:1.5;text-transform:uppercase">Gabinete do<br />diagnóstico</small>
+        <small style="color:rgba(217,190,126,.78);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:400;letter-spacing:.28em;line-height:1.5;text-transform:uppercase">Diagnóstico<br />da sua clínica</small>
       </a>
-      <p style="color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.24em;text-transform:uppercase">Confidencial · nada é enviado</p>
+      <p style="color:rgba(234,226,207,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.24em;text-transform:uppercase">Confidencial</p>
     </div>
   </header>
 
   <main style="flex:1 1 auto;display:flex;flex-direction:column">
 
     <!-- ================= ETAPA 1 · ABERTURA ================= -->
-    <section data-stage="intro" style="flex:1;display:flex;align-items:center;padding:clamp(56px,9vh,104px) 0">
-        <div style="width:100%;max-width:1120px;margin-inline:auto;padding-inline:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:clamp(36px,5vw,76px);align-items:center">
-          <div style="min-width:0">
-            <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;animation:dgRise .9s cubic-bezier(.16,1,.3,1) .05s both"><span aria-hidden="true" style="flex:0 0 auto;width:32px;height:1px;background:rgba(195,161,78,.7)"></span>20 perguntas · 5 minutos · sem cadastro</p>
+    <section data-ag-stage="intro" style="flex:1;display:flex;align-items:center;padding:clamp(56px,9vh,104px) 0">
+      <div style="width:100%;max-width:760px;margin-inline:auto;padding-inline:28px">
+        <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase"><span aria-hidden="true" style="flex:0 0 auto;width:32px;height:1px;background:rgba(195,161,78,.7)"></span>5 passos · sem compromisso</p>
 
-            <h1 style="max-width:15ch;margin-top:24px;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.3rem,1.3rem + 3vw,3.9rem);font-weight:300;letter-spacing:-.04em;line-height:1.02;text-wrap:balance">
-              <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .18s both">Em</span> <span style="display:inline-block;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .24s both">qual</span> <span style="display:inline-block;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .3s both">dos</span></span>
-              <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><em style="display:inline-block;color:#D9BE7E;font-style:italic;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .36s both">cinco&nbsp;níveis</em></span>
-              <span style="display:block;overflow:hidden;padding-block:.12em;margin-block:-.12em"><span style="display:inline-block;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .42s both">a</span> <span style="display:inline-block;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .48s both">sua</span> <span style="display:inline-block;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .54s both">clínica</span> <span style="display:inline-block;animation:dgWord .85s cubic-bezier(.16,1,.3,1) .6s both">está?</span></span>
-            </h1>
+        <h1 style="max-width:22ch;margin-top:24px;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.1rem,1.3rem + 2.6vw,3.4rem);font-weight:300;letter-spacing:-.04em;line-height:1.08;text-wrap:balance">Antes da sessão, <em style="font-style:italic;color:#D9BE7E">o retrato da sua clínica</em>.</h1>
 
-            <p style="max-width:48ch;margin-top:26px;color:rgba(234,226,207,.6);font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em;animation:dgRise .9s cubic-bezier(.16,1,.3,1) .52s both">Responda com honestidade, o resultado só vale se as respostas valerem. No fim você recebe o nível de maturidade, o pilar que está segurando os outros quatro e três próximos passos coerentes com o seu estágio.</p>
+        <p style="max-width:52ch;margin-top:22px;color:rgba(234,226,207,.64);font-size:15.5px;font-weight:300;line-height:1.75">O Dr. Luciano e os pilares chegam na sua sessão de diagnóstico já sabendo por onde começar. Não é uma triagem comercial: é o que faz a hora inteira virar plano de ação, e não apresentação.</p>
 
-            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-top:38px;animation:dgRise .9s cubic-bezier(.16,1,.3,1) .64s both">
-              <button type="button" data-start data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;justify-content:center;gap:14px;min-height:58px;padding:16px 34px;border:1px solid rgba(217,190,126,.5);border-radius:3px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)" class="dc-77e7c021">Começar o diagnóstico <span aria-hidden="true">→</span></button>
-              <p style="max-width:190px;color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.14em;line-height:1.8;text-transform:uppercase">Nada é enviado. O resultado aparece nesta tela.</p>
-            </div>
-          </div>
-
-          <div style="min-width:0;padding:36px;border:1px solid rgba(195,161,78,.2);border-radius:8px;background:linear-gradient(180deg, rgba(29,41,54,.78), rgba(10,14,19,.92));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 18px 44px rgba(1,3,5,.42);animation:dgRise 1s cubic-bezier(.16,1,.3,1) .4s both">
-            <p style="margin-bottom:6px;color:rgba(195,161,78,.8);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;letter-spacing:.26em;text-transform:uppercase">O que é medido</p>
-            <ol style="display:grid;gap:0;margin:0;padding:0;list-style:none">
-              <li style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(234,226,207,.08)"><span style="color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em">01</span><span><strong style="display:block;color:rgba(234,226,207,.88);font-size:14.5px;font-weight:400">Diagnóstico</strong><small style="display:block;margin-top:3px;color:rgba(234,226,207,.64);font-size:13px;font-weight:300;line-height:1.6">dependência do dono e clareza de decisão</small></span></li>
-              <li style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(234,226,207,.08)"><span style="color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em">02</span><span><strong style="display:block;color:rgba(234,226,207,.88);font-size:14.5px;font-weight:400">Margem</strong><small style="display:block;margin-top:3px;color:rgba(234,226,207,.64);font-size:13px;font-weight:300;line-height:1.6">lucratividade, separação de contas e CAC</small></span></li>
-              <li style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(234,226,207,.08)"><span style="color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em">03</span><span><strong style="display:block;color:rgba(234,226,207,.88);font-size:14.5px;font-weight:400">Comercial</strong><small style="display:block;margin-top:3px;color:rgba(234,226,207,.64);font-size:13px;font-weight:300;line-height:1.6">funil de WhatsApp, conversão e follow-up</small></span></li>
-              <li style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:16px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(234,226,207,.08)"><span style="color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em">04</span><span><strong style="display:block;color:rgba(234,226,207,.88);font-size:14.5px;font-weight:400">Operação</strong><small style="display:block;margin-top:3px;color:rgba(234,226,207,.64);font-size:13px;font-weight:300;line-height:1.6">jornada do paciente, autonomia e gestão</small></span></li>
-              <li style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:16px;align-items:baseline;padding:18px 0"><span style="color:rgba(195,161,78,.6);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.16em">05</span><span><strong style="display:block;color:rgba(234,226,207,.88);font-size:14.5px;font-weight:400">Escala</strong><small style="display:block;margin-top:3px;color:rgba(234,226,207,.64);font-size:13px;font-weight:300;line-height:1.6">prontidão para expansão e plano de 12 meses</small></span></li>
-            </ol>
-          </div>
+        <div style="margin-top:32px;padding:26px 28px;border:1px solid rgba(195,161,78,.2);border-radius:8px;background:linear-gradient(180deg, rgba(29,41,54,.5), rgba(10,14,19,.7))">
+          <p style="color:rgba(195,161,78,.8);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;margin-bottom:10px">O que vem pela frente</p>
+          <p style="color:rgba(234,226,207,.7);font-size:14.5px;line-height:1.7">Identificação · Como a operação roda hoje · Os números de hoje · Onde você quer chegar · A sessão de diagnóstico. Leva cerca de 6 minutos.</p>
         </div>
-      </section>
 
-    <!-- ================= ETAPA 2 · PERGUNTAS ================= -->
-    <section data-stage="quiz" style="flex:1;display:flex;flex-direction:column;padding:clamp(28px,5vh,52px) 0 clamp(40px,7vh,76px)">
-        <div style="width:100%;max-width:900px;margin-inline:auto;padding-inline:28px">
-
-          <div data-segments role="progressbar" aria-label="Progresso do diagnóstico" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px"></div>
-
-          <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:clamp(30px,5vh,58px);color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.22em;text-transform:uppercase">
-            <span style="color:#C3A14E">Pilar <span data-pillar-short></span> · <span data-pillar-label></span></span>
-            <span><span data-qnum></span> / 20 · <span data-minutes></span></span>
-          </div>
-
-          <div data-qpanel aria-live="polite" aria-atomic="true" style="animation:dgRise .6s cubic-bezier(.16,1,.3,1) both">
-            <h2 style="max-width:22ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,1.2rem + 2.1vw,2.9rem);font-weight:400;letter-spacing:-.035em;line-height:1.08;text-wrap:balance"><span data-qtext id="dg-qtext"></span></h2>
-
-            <div data-options role="group" aria-labelledby="dg-qtext" style="display:grid;gap:12px;margin-top:clamp(30px,4.5vh,46px)">
-              
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:clamp(28px,4vh,42px);padding-top:22px;border-top:1px solid rgba(234,226,207,.08)">
-            <button type="button" data-back style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 2px;border:0;background:transparent;color:rgba(234,226,207,.64);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .3s ease" class="dc-a127d864"><span aria-hidden="true">←</span> Voltar</button>
-            <span style="color:rgba(234,226,207,.26);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.18em;text-transform:uppercase">Nenhuma resposta é enviada</span>
-          </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-top:34px">
+          <button type="button" class="ag-btn" data-ag-comecar>Começar <span aria-hidden="true">→</span></button>
+          <p style="max-width:220px;color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;line-height:1.8;text-transform:uppercase">Suas respostas ficam só com o time do MedCEO.</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-    <!-- ================= ETAPA 3 · RESULTADO ================= -->
-    <section data-stage="result" style="flex:1 1 auto;padding:clamp(44px,7vh,84px) 0 clamp(56px,9vh,104px);animation:dgRise .7s cubic-bezier(.16,1,.3,1) both">
-        <div style="width:100%;max-width:1120px;margin-inline:auto;padding-inline:28px">
+    <!-- ================= ETAPA 2 · FORMULÁRIO ================= -->
+    <section data-ag-stage="form" hidden style="flex:1;display:flex;flex-direction:column;padding:clamp(28px,5vh,52px) 0 clamp(40px,7vh,76px)">
+      <div style="width:100%;max-width:640px;margin-inline:auto;padding-inline:28px">
 
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(26px,4vw,56px);padding:clamp(30px,3.4vw,46px);border:1px solid rgba(195,161,78,.24);border-radius:8px;background:linear-gradient(180deg, rgba(29,41,54,.78), rgba(10,14,19,.92));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 26px 70px rgba(1,3,5,.5)">
-            <div style="flex:1 1 300px;min-width:0">
-              <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase"><span aria-hidden="true" style="flex:0 0 auto;width:32px;height:1px;background:#C3A14E"></span>Seu diagnóstico</p>
-              <h1 style="max-width:16ch;margin-top:20px;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,1.2rem + 2.4vw,3.2rem);font-weight:300;letter-spacing:-.04em;line-height:1.02;text-wrap:balance"><span data-res-title></span></h1>
-              <p style="max-width:42ch;margin-top:16px;color:#D9BE7E;font-family:'Playfair Display',serif;font-size:clamp(1.1rem,.95rem + .6vw,1.45rem);font-style:italic;font-weight:300;letter-spacing:-.015em;line-height:1.32"><span data-res-subtitle></span></p>
-            </div>
-            <div style="display:grid;flex:0 0 auto;justify-items:center;gap:12px;margin-inline:auto">
-              <span style="color:#C3A14E;font-family:'Playfair Display',serif;font-size:clamp(76px,9vw,120px);font-weight:300;letter-spacing:-.06em;line-height:.84;font-variant-numeric:tabular-nums"><span data-res-level></span></span>
-              <span style="color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.26em;text-transform:uppercase">de 5 níveis</span>
-              <span style="margin-top:4px;padding:6px 14px;border:1px solid rgba(195,161,78,.28);border-radius:999px;color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.14em;white-space:nowrap"><span data-res-score></span> / 100 pontos</span>
-            </div>
-          </div>
+        <div class="ag-segmentos" data-ag-segmentos></div>
+        <p style="margin-bottom:clamp(26px,3.6vh,40px);color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:300;letter-spacing:.2em;text-transform:uppercase" data-ag-num></p>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:clamp(26px,3vw,44px);margin-top:clamp(26px,3vw,40px);align-items:start">
-            <div style="display:grid;gap:clamp(26px,3vw,38px);min-width:0">
-              <p style="color:rgba(234,226,207,.7);font-size:15.5px;font-weight:300;line-height:1.75;letter-spacing:.02em"><span data-res-description></span></p>
+        <div data-ag-corpo></div>
 
-              <div>
-                <p style="margin-bottom:18px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;letter-spacing:.28em;text-transform:uppercase">Gargalo prioritário</p>
-                <p style="padding:24px 26px;border-left:1px solid #C3A14E;background:rgba(195,161,78,.05);color:rgba(234,226,207,.92);font-family:'Playfair Display',serif;font-size:clamp(1.1rem,1rem + .5vw,1.4rem);font-weight:300;letter-spacing:-.015em;line-height:1.42"><span data-bottleneck></span></p>
-              </div>
-
-              <div>
-                <p style="margin-bottom:18px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;letter-spacing:.28em;text-transform:uppercase">Três próximos passos</p>
-                <ol style="display:grid;gap:0;padding:0;list-style:none;border-top:1px solid rgba(234,226,207,.09)" data-actions>
-                  
-                </ol>
-              </div>
-            </div>
-
-            <aside style="display:grid;gap:16px;align-content:start;min-width:0">
-              <p style="color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;letter-spacing:.28em;text-transform:uppercase">Leitura por pilar</p>
-              <dl style="display:grid;gap:0;margin:0;border-top:1px solid rgba(234,226,207,.09)" data-readings>
-                
-              </dl>
-              <p style="margin-top:4px;color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;line-height:1.8;text-transform:uppercase">Cada pilar vale 20 pontos. O menor deles limita os outros quatro.</p>
-            </aside>
-          </div>
-
-          <div style="display:grid;gap:22px;justify-items:start;margin-top:clamp(40px,5vw,64px);padding:clamp(30px,3.4vw,46px);border:1px solid rgba(195,161,78,.2);border-radius:8px;background:radial-gradient(680px 320px at 18% 0%, rgba(195,161,78,.12), transparent 66%), rgba(255,255,255,.018)">
-            <p style="max-width:30ch;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,1.1rem + 1.3vw,2.2rem);font-weight:300;letter-spacing:-.035em;line-height:1.1">Quer que alguém leia esse resultado com você?</p>
-            <p style="max-width:52ch;color:rgba(234,226,207,.6);font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em">O time MedCEO interpreta o seu diagnóstico e diz, sem rodeio, se a mentoria faz sentido para o seu estágio. Sem cobrança e sem compromisso.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:4px">
-              <a href="https://wa.me/5541984875688?text=Ol%C3%A1%2C%20fiz%20o%20diagn%C3%B3stico%20no%20site%20e%20gostaria%20de%20conversar%20sobre%20o%20resultado%21" target="_blank" rel="noreferrer" data-sheen="" style="position:relative;display:inline-flex;overflow:hidden;align-items:center;gap:14px;min-height:56px;padding:14px 30px;border:1px solid rgba(217,190,126,.5);border-radius:3px;background:linear-gradient(180deg, rgba(217,190,126,.14), rgba(195,161,78,.05));color:#EFE0BB;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .5s ease, background .5s ease, transform .5s cubic-bezier(.16,1,.3,1)" class="dc-77e7c021">Falar com o time <span aria-hidden="true">↗</span></a>
-              <button type="button" data-restart style="display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:14px 24px;border:1px solid rgba(234,226,207,.14);border-radius:3px;background:transparent;color:rgba(234,226,207,.66);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:border-color .4s ease, color .4s ease" class="dc-95c6b72b">Refazer</button>
-            </div>
-            <small style="color:rgba(234,226,207,.3);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.1em;line-height:1.8;text-transform:uppercase">Nenhum resultado de faturamento é prometido. O diagnóstico é uma leitura da operação, não uma garantia.</small>
-          </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:clamp(30px,4vh,44px);padding-top:22px;border-top:1px solid rgba(234,226,207,.08)">
+          <button type="button" class="ag-btn ag-btn-fraco" data-ag-voltar style="min-height:48px;padding:0 20px"><span aria-hidden="true">←</span> Voltar</button>
+          <button type="button" class="ag-btn" data-ag-avancar>Continuar</button>
         </div>
-      </section>
+      </div>
+    </section>
+
+    <!-- ================= ETAPA 3 · SUCESSO ================= -->
+    <section data-ag-stage="sucesso" hidden style="flex:1;display:flex;align-items:center;padding:clamp(56px,9vh,104px) 0">
+      <div style="width:100%;max-width:640px;margin-inline:auto;padding-inline:28px;text-align:center">
+        <p style="display:inline-flex;align-items:center;gap:14px;color:#C3A14E;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;justify-content:center"><span aria-hidden="true" style="width:32px;height:1px;background:#C3A14E"></span>Recebido</p>
+        <h1 style="max-width:20ch;margin:20px auto 0;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.9rem,1.3rem + 2vw,2.8rem);font-weight:300;letter-spacing:-.035em;line-height:1.12">Diagnóstico recebido.</h1>
+        <p style="max-width:46ch;margin:18px auto 0;color:rgba(234,226,207,.66);font-size:15.5px;line-height:1.75">Em instantes a nossa equipe confirma a leitura com você. Se quiser agilizar, chame agora no WhatsApp.</p>
+        <div style="margin-top:32px">
+          <a href="#" target="_blank" rel="noreferrer" class="ag-btn" data-ag-whats>Chamar no WhatsApp <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer style="border-top:1px solid rgba(195,161,78,.12);background:rgba(8,11,15,.6);padding:30px 0">
-    <div style="width:100%;max-width:1120px;margin-inline:auto;padding-inline:28px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase">
-      <a href="/" style="color:rgba(234,226,207,.68);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;transition:color .3s ease" class="dc-f2f3847f">← Voltar ao site MedCEO</a>
+    <div style="width:100%;max-width:900px;margin-inline:auto;padding-inline:28px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase">
+      <a href="/">← Voltar ao site MedCEO</a>
       <small>© 2026 MedCEO · CRM/PR 45049 · Curitiba, PR</small>
     </div>
   </footer>
 </div>
-<script>window.__MC_QUIZ__={"QUESTIONS": [{"p": "diagnostico", "q": "Qual o nível de dependência que a sua clínica tem de você hoje?", "o": [["Dependência total", 1, "Se eu me afasto por uma semana, a clínica para de faturar e operar."], ["Dependência parcial", 3, "Outros profissionais atendem, mas todas as decisões passam por mim."], ["Autonomia operacional", 5, "A operação roda por até 30 dias sem minha presença direta."]]}, {"p": "diagnostico", "q": "Você sabe exatamente onde a clínica está travada hoje?", "o": [["Sinto que trava, mas não sei onde", 1, "Percebo cansaço e teto de faturamento, sem clareza do gargalo real."], ["Suspeito de um ou dois pontos", 3, "Tenho hipóteses (comercial, equipe, margem), mas nada mensurado."], ["Diagnóstico mapeado", 5, "Sei qual pilar é o gargalo dominante e por que ele trava o próximo nível."]]}, {"p": "diagnostico", "q": "Como você toma decisões estratégicas na clínica?", "o": [["Por instinto e urgência", 1, "Decido no impulso, pressionado por problemas do dia."], ["Com base em conversa e experiência", 3, "Consulto sócios e equipe, mas sem indicadores consolidados."], ["Com base em indicadores", 5, "Uso métricas de faturamento, margem, conversão e produtividade."]]}, {"p": "diagnostico", "q": "Quanto tempo você dedica hoje à gestão estratégica (não clínica)?", "o": [["Praticamente nenhum", 1, "Todo meu tempo é consumido em atendimento e apagar incêndios."], ["Algumas horas por semana", 3, "Consigo pensar em gestão, mas sem rotina fixa nem planejamento."], ["Rotina estratégica semanal", 5, "Tenho agenda protegida para planejamento, análise e liderança."]]}, {"p": "margem", "q": "Como funciona o controle financeiro e de lucratividade?", "o": [["Foco no faturamento", 1, "Sei quanto faturamos, mas não conheço a margem real de cada procedimento."], ["Acompanhamento mensal", 3, "Tenho fluxo de caixa e DRE simples, sem uso ativo para decisões."], ["Margem por serviço", 5, "Sei a margem de cada linha, lucro previsível e reinvestimento planejado."]]}, {"p": "margem", "q": "Contas pessoais e da clínica estão separadas?", "o": [["Ainda se misturam", 1, "Uso conta e cartão da clínica para despesas pessoais com frequência."], ["Em transição", 3, "Estamos separando, mas ainda há vazamentos e retiradas informais."], ["Totalmente separadas", 5, "Pró-labore definido, retiradas previsíveis, patrimônios distintos."]]}, {"p": "margem", "q": "Qual o nível de previsibilidade do seu lucro líquido?", "o": [["Baixa", 1, "O lucro varia muito de mês a mês; sobra depende do movimento."], ["Média", 3, "Sei estimar por trimestre, mas não confio em projeção anual."], ["Alta", 5, "Tenho projeção anual confiável baseada em margem e capacidade."]]}, {"p": "margem", "q": "Você conhece o CAC (custo de aquisição de paciente) por canal?", "o": [["Não meço", 1, "Investimos em marketing, mas não medimos o retorno por canal."], ["Estimo por conversa", 3, "Tenho ideia geral do retorno, sem dados formais."], ["Meço e comparo", 5, "Sei CAC, LTV e ROI por canal e ajusto investimento com base neles."]]}, {"p": "comercial", "q": "Como é estruturado o processo comercial da recepção à venda?", "o": [["Secretária apenas atende", 1, "Não temos vendas ativas, funil de WhatsApp ou metas comerciais."], ["Processo reativo", 3, "Respondemos leads, mas sem métricas nem script claro."], ["Comercial com método", 5, "CRM, script, metas diárias e time treinado em conversão."]]}, {"p": "comercial", "q": "O que acontece com os leads que chegam pelo WhatsApp?", "o": [["Muitos ficam sem resposta", 1, "Volume alto, resposta lenta e sem follow-up estruturado."], ["Respondemos, mas sem qualificar", 3, "Falamos com todos, mas não temos qualificação nem funil."], ["Funil qualificado", 5, "Todo lead passa por qualificação, agendamento e reengajamento."]]}, {"p": "comercial", "q": "Qual sua taxa de conversão de consulta para tratamento?", "o": [["Não medimos", 1, "Não temos indicador de fechamento por médico ou tratamento."], ["Medimos de forma geral", 3, "Sabemos a média da clínica, sem quebra por médico ou canal."], ["Medimos com granularidade", 5, "Sabemos conversão por médico, procedimento, canal e vendedor."]]}, {"p": "comercial", "q": "Como está o follow-up de pacientes que não fecharam?", "o": [["Praticamente inexistente", 1, "Se o paciente não fecha na hora, raramente volta a ser contatado."], ["Feito às vezes", 3, "Fazemos quando lembramos, sem cadência definida."], ["Cadência estruturada", 5, "Fluxo de reengajamento por dias/temas com métricas de retorno."]]}, {"p": "operacao", "q": "Como é a jornada do paciente e a padronização das entregas?", "o": [["Informal", 1, "A jornada depende de quem atende; não há protocolo escrito."], ["Protocolos básicos", 3, "Existem passos descritos, mas a execução varia bastante."], ["Jornada sistematizada", 5, "Cada ponto segue protocolo com auditoria de qualidade."]]}, {"p": "operacao", "q": "Sua equipe tem autonomia para resolver problemas do dia?", "o": [["Baixa", 1, "Tudo passa por mim, mesmo decisões pequenas do operacional."], ["Média", 3, "Resolvem parte, mas têm receio de agir sem confirmação."], ["Alta", 5, "Matriz de autonomia clara, com alçadas e responsabilidades definidas."]]}, {"p": "operacao", "q": "Como funciona a contratação e o treinamento da equipe?", "o": [["Contrato pela urgência", 1, "Contrato conhecidos ou indicações, sem processo estruturado."], ["Processo básico", 3, "Uso entrevistas e teste, mas onboarding é feito no dia a dia."], ["Processo estruturado", 5, "Perfil, entrevista, teste, treinamento e trilha de desenvolvimento."]]}, {"p": "operacao", "q": "Existe um gestor operacional (não médico) na sua clínica?", "o": [["Não, quem gerencia sou eu", 1, "Acumulo o papel de médico e gestor operacional."], ["Existe, mas de forma parcial", 3, "Alguém coordena, mas eu ainda decido rotina e conflitos."], ["Sim, com autonomia", 5, "Gestor executivo conduz a operação com autonomia e prestação de contas."]]}, {"p": "escala", "q": "Qual a prontidão atual da clínica para expansão ou replicação?", "o": [["Sem condições", 1, "Gargalos operacionais e falta de processos impedem qualquer expansão."], ["Preparação inicial", 3, "Estamos estruturando processos para receber sócios ou nova unidade."], ["Prontidão para escala", 5, "Estrutura pronta para nova unidade ou expansão de time médico."]]}, {"p": "escala", "q": "Se você ficasse 30 dias fora, o que aconteceria?", "o": [["A clínica entra em colapso", 1, "Faturamento cai e decisões param sem minha presença."], ["Segue com dificuldades", 3, "Roda, mas com queda de qualidade, receita e clima interno."], ["Segue estável", 5, "Operação, comercial e financeiro mantêm padrão sem mim."]]}, {"p": "escala", "q": "Existe um plano estratégico de 12 meses documentado?", "o": [["Não", 1, "Tocamos por metas mensais informais e reação ao mercado."], ["Existe em rascunho", 3, "Tenho ideias e metas anuais, mas sem plano executável."], ["Existe e é acompanhado", 5, "Plano com metas, indicadores e rituais de revisão trimestral."]]}, {"p": "escala", "q": "O que você quer da clínica nos próximos 12 meses?", "o": [["Sobreviver com menos desgaste", 1, "Preciso primeiro estabilizar o que já existe antes de crescer."], ["Crescer com estrutura", 3, "Quero crescer 30–60% com processos e equipe mais autônomos."], ["Escalar de forma previsível", 5, "Quero preparar nova unidade, novos médicos ou sociedade."]]}], "LEVELS": [{"level": 1, "title": "Nível 1 — Improviso", "subtitle": "O dono é o sistema. Nada roda sem ele.", "description": "A operação, o comercial e as finanças dependem da sua energia pessoal. Faturar mais agora significa cansar mais. Antes de escalar, é preciso tirar decisões da sua cabeça e criar as primeiras rotinas.", "actions": ["Documentar as 3 principais tarefas da recepção.", "Separar de forma definitiva contas pessoais e da clínica.", "Mapear onde seu tempo é consumido por burocracia."]}, {"level": 2, "title": "Nível 2 — Organização", "subtitle": "Existe rotina, mas a decisão ainda é toda do médico.", "description": "A clínica fatura e tem alguma organização, mas o dono ainda centraliza. A equipe hesita em agir sem autorização e o comercial perde leads no WhatsApp. Falta transferir decisão para papéis definidos.", "actions": ["Criar matriz de autonomia por cargo.", "Estipular orçamento operacional mensal por área.", "Treinar recepção com roteiro de conversão de WhatsApp."]}, {"level": 3, "title": "Nível 3 — Gestão", "subtitle": "Indicadores guiam decisão. Papéis definidos.", "description": "A clínica opera com indicadores básicos e papéis claros. O próximo desafio é aumentar previsibilidade de lucro e sistematizar a jornada do paciente para sustentar crescimento sem depender do dono.", "actions": ["Definir metas comerciais semanais com incentivos ao time.", "Desenhar o manual de atendimento do paciente ideal.", "Analisar CAC e LTV por canal de aquisição."]}, {"level": 4, "title": "Nível 4 — Previsibilidade", "subtitle": "Margem clara, comercial com método, entrega sistêmica.", "description": "A clínica funciona como empresa: metas, relatórios de lucratividade e comercial que não perde leads. Você já se ausenta por períodos curtos. Agora o foco é preparar a próxima unidade ou nova camada de liderança.", "actions": ["Criar plano de transição de liderança operacional.", "Padronizar protocolo clínico para médicos parceiros.", "Otimizar funil financeiro para retenção de caixa para expansão."]}, {"level": 5, "title": "Nível 5 — Escala", "subtitle": "A empresa opera sem o dono. Estrutura sustenta novas unidades.", "description": "Sua empresa médica tem alto valor de mercado. Liberdade de tempo, operação independente do seu atendimento clínico e estrutura pronta para expansão. Agora é hora de governança e replicação estratégica.", "actions": ["Avaliar oportunidades de M&A e novas linhas de receita.", "Estabelecer governança corporativa e conselho consultivo.", "Desenvolver playbook de replicação ou franquia."]}], "BOTTLENECK": {"diagnostico": "Diagnóstico — a clínica ainda decide no escuro. Sem clareza do próprio gargalo, todo investimento vira aposta.", "margem": "Margem — o dinheiro entra, mas ninguém sabe quanto sobra. Crescer sem margem só amplifica o vazamento.", "comercial": "Comercial — a demanda chega e morre no caminho. Antes de comprar mais tráfego, é preciso parar de perder o que já existe.", "operacao": "Operação — a entrega depende de pessoas específicas, não de processo. É o que impede você de sair de cena.", "escala": "Escala — falta o plano que transforma o hoje em próxima fase. Sem ele, a clínica cresce por acaso."}};</script>
 <script src="/diagnostico.js" defer></script>
-<script src="/tracking.js?v=477b72b17d" defer></script>
-<script src="/qualifica.js?v=c22d08c5ba" defer></script>
+<script src="/tracking.js" defer></script>
 </body>
 </html>
