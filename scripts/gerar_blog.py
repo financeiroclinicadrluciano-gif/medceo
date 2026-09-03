@@ -933,6 +933,14 @@ ASSETS_VERSIONADOS = [
      'src="/tracking.js?v={v}"'),
     ("qualifica.js", r'src="/qualifica\.js(?:\?v=[^"]*)?"',
      'src="/qualifica.js?v={v}"'),
+    # diagnostico.js entrou nesta lista em 03/09, pela terceira vez que a mesma
+    # armadilha pega um arquivo novo. Medido: a pagina pedia /diagnostico.js sem
+    # query e o cache de borda devolvia a versao anterior, com ENDPOINT vazio, e
+    # a resposta do formulario ia para a fila do localStorage em vez da planilha.
+    # A conferencia com ?cb=aleatorio dava verde porque media o servidor de
+    # origem, nunca a URL que a pagina realmente pede.
+    ("diagnostico.js", r'src="/diagnostico\.js(?:\?v=[^"]*)?"',
+     'src="/diagnostico.js?v={v}"'),
     ("site-layout.css", r'href="/site-layout\.css(?:\?v=[^"]*)?"',
      'href="/site-layout.css?v={v}"'),
 ]
