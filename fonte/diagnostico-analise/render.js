@@ -251,7 +251,7 @@ function pilares(mapa) {
     })
     .join("");
 
-  return secao("Os quatro pilares", '<div class="pils">' + linhas + "</div>", "s-pil");
+  return secao("Os quatro pilares", '<div class="pils">' + linhas + "</div>", "s-pil faixa faixa-carvao");
 }
 
 /* --------------------------------------------------------- 6. as contas
@@ -280,7 +280,7 @@ function contas(r) {
       "informar, e mostra a conta inteira. Se algum pressuposto não bater com a " +
       "sua realidade, o número muda, e é isso que a sessão acerta.</p>" +
       '<div class="nums">' + itens + "</div>",
-    "s-num"
+    "s-num faixa faixa-papel"
   );
 }
 

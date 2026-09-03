@@ -1706,7 +1706,7 @@
           "delas nesta semana muda o que você sabe, mesmo que a gente nunca " +
           "converse.</p>" +
           '<ul class="fers">' + linhas + "</ul>",
-        "s-fer"
+        "s-fer faixa faixa-carvao"
       );
     }
 
@@ -1973,7 +1973,7 @@
         })
         .join("");
 
-      return secao("Os quatro pilares", '<div class="pils">' + linhas + "</div>", "s-pil");
+      return secao("Os quatro pilares", '<div class="pils">' + linhas + "</div>", "s-pil faixa faixa-carvao");
     }
 
     /* --------------------------------------------------------- 6. as contas
@@ -2002,7 +2002,7 @@
           "informar, e mostra a conta inteira. Se algum pressuposto não bater com a " +
           "sua realidade, o número muda, e é isso que a sessão acerta.</p>" +
           '<div class="nums">' + itens + "</div>",
-        "s-num"
+        "s-num faixa faixa-papel"
       );
     }
 

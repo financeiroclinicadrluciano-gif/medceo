@@ -166,7 +166,7 @@ function ferramentas() {
       "delas nesta semana muda o que você sabe, mesmo que a gente nunca " +
       "converse.</p>" +
       '<ul class="fers">' + linhas + "</ul>",
-    "s-fer"
+    "s-fer faixa faixa-carvao"
   );
 }
 

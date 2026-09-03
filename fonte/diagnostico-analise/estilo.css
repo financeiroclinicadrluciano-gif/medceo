@@ -18,16 +18,16 @@
 .an {
   --tinta: #EAE2CF;
   --t-forte: #F6F3EC;
-  --t-medio: rgba(234, 226, 207, 0.82);
-  --t-fraco: rgba(234, 226, 207, 0.66);
+  --t-medio: rgba(234, 226, 207, 0.88);
+  --t-fraco: rgba(234, 226, 207, 0.74);
   --ouro: #D9BE7E;
   --ouro-med: #C3A14E;
   --regua: rgba(195, 161, 78, 0.16);
   --regua-fraca: rgba(234, 226, 207, 0.09);
 
   color: var(--t-medio);
-  font-size: 16px;
-  line-height: 1.72;
+  font-size: 17px;
+  line-height: 1.76;
 }
 
 .an h1, .an h2, .an h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 400; }
@@ -310,7 +310,7 @@
 
 /* ========================================================== DESKTOP */
 @media (min-width: 720px) {
-  .an { font-size: 16.5px; }
+  .an { font-size: 17.5px; }
   .acoes { flex-direction: row; }
   .bt { flex: 0 1 auto; padding: 16px 34px; }
   .s { margin-top: 68px; padding-top: 58px; }
@@ -651,4 +651,128 @@
     padding: 28px 0 0 !important;
   }
   .cta::before, .fim::before, .bt::after { display: none !important; }
+}
+
+
+/* As faixas de fundo, e o que elas resolvem.
+
+   A análise tem 12 páginas de leitura sobre um fundo único. Sem quebra visual,
+   a página inteira lê como um bloco só, e o olho perde onde está. As faixas dão
+   ritmo: o documento passa a ter respiração e o leitor sabe, sem contar
+   seções, que mudou de assunto.
+
+   Como funcionam: cada faixa REDEFINE os tokens de cor dentro dela. Como todo
+   o resto do CSS lê `var(--t-medio)`, `var(--ouro)` e companhia, a inversão
+   acontece sozinha, sem uma linha de override por elemento. É por isso que os
+   tokens existem.
+
+   A faixa de papel é a dobra forte: fundo creme e texto escuro, no meio de um
+   documento escuro. Ela cai exatamente na seção do dinheiro, que é o clímax da
+   leitura, e a inversão faz o leitor parar ali mesmo folheando rápido.
+*/
+
+/* Sangria de borda a borda a partir de um container centrado de 720px.
+   Não usa `100vw`: em desktop com barra de rolagem visível, 100vw inclui a
+   barra e a página ganha rolagem lateral. Com `calc(50% - 50vw)` a faixa se
+   estica até a borda do viewport sem passar dela. */
+.faixa {
+  margin-inline: calc(50% - 50vw);
+  padding-inline: calc(50vw - 50%);
+  padding-block: 54px;
+  border-top: 0;
+  margin-top: 56px;
+}
+
+/* `50vw` inclui a barra de rolagem, então a faixa passa alguns pixels de cada
+   borda e a página ganha rolagem lateral. Medido em desktop: innerWidth 326
+   contra clientWidth 311, faixa de -7 a 319. O clip na raiz apara essa sobra
+   sem criar contexto de rolagem novo e sem tocar na rolagem vertical. */
+html, body { overflow-x: clip; }
+@media (min-width: 720px) {
+  .faixa {
+    padding-inline: calc(50vw - 50%);
+    padding-block: 72px;
+    margin-top: 72px;
+  }
+}
+
+/* Faixas encostadas não mostram o fundo da página entre elas: a borda de uma
+   encosta na da outra, e a mudança de cor acontece numa linha só. */
+.faixa + .faixa { margin-top: 0; }
+
+/* ---- carvão: um degrau acima do fundo, para separar sem gritar ---- */
+.faixa-carvao {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.022), rgba(255, 250, 240, 0.008)),
+    #0D131A;
+  border-top: 1px solid rgba(195, 161, 78, 0.18);
+  border-bottom: 1px solid rgba(195, 161, 78, 0.18);
+}
+
+/* ---- papel: a dobra. Fundo claro e texto escuro, no meio do documento ---- */
+.faixa-papel {
+  --tinta: #1A1F26;
+  --t-forte: #0E1116;
+  --t-medio: #333B45;
+  --t-fraco: #5C6673;
+  --ouro: #8C6F2E;
+  --ouro-med: #A98639;
+  --regua: rgba(140, 111, 46, 0.26);
+  --regua-fraca: rgba(26, 31, 38, 0.14);
+
+  background: #F5F2EA;
+  color: var(--t-medio);
+  border-top: 1px solid rgba(140, 111, 46, 0.3);
+  border-bottom: 1px solid rgba(140, 111, 46, 0.3);
+}
+/* o papel tem uma textura de luz muito baixa, para não ficar chapado */
+.faixa-papel {
+  background-image:
+    radial-gradient(70% 50% at 82% 0%, rgba(217, 190, 126, 0.16), transparent 60%),
+    radial-gradient(60% 45% at 6% 100%, rgba(140, 111, 46, 0.08), transparent 62%);
+  background-color: #F5F2EA;
+}
+
+/* o número grande fica ainda mais forte contra o papel */
+.faixa-papel .num { color: #0E1116 !important; }
+.faixa-papel .num-2 { color: #8C6F2E !important; }
+.faixa-papel .cta-num h3 { color: #7A6636 !important; }
+.faixa-papel .s-tit { color: #0E1116 !important; }
+.faixa-papel .s-intro,
+.faixa-papel .num-ps { color: #5C6673 !important; }
+.faixa-papel .num-txt { color: #333B45 !important; }
+.faixa-papel .cta-num { border-top-color: rgba(26, 31, 38, 0.14) !important; }
+
+/* nas faixas escuras, os títulos ganham o ouro para marcar a mudança */
+.faixa-carvao .s-tit { color: #F1E7D0; }
+
+/* ------------------------------------------------------------- impressão
+   No papel não existe faixa: tudo vira branco, e a sangria de borda a borda
+   desaparece, senão a margem da página é comida pela cor de fundo. */
+@media print {
+  .faixa {
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+    padding-block: 0 !important;
+    margin-top: 44px !important;
+    background: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    border-top: 1px solid #D8D2C4 !important;
+  }
+  .faixa-papel {
+    --t-forte: #0F1216;
+    --t-medio: #2C333B;
+    --t-fraco: #5D6771;
+    --ouro: #8C6F2E;
+    --ouro-med: #8C6F2E;
+  }
+  .faixa-papel .num,
+  .faixa-papel .s-tit { color: #0F1216 !important; }
+  .faixa-papel .num-txt { color: #2C333B !important; }
+  .faixa-papel .s-intro,
+  .faixa-papel .num-ps { color: #5D6771 !important; }
+  .faixa-papel .cta-num h3,
+  .faixa-papel .num-2 { color: #8C6F2E !important; }
+  .faixa-carvao .s-tit { color: #0F1216 !important; }
 }
