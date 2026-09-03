@@ -57,10 +57,20 @@ história com o mesmo número.
 **O cenário é aritmética declarada, nunca previsão.** A publicidade médica veda
 promessa de resultado, e o texto diz isso com todas as letras.
 
-**A única meta de mercado usada é 30% de margem líquida**, que é meta escrita
-do `PROGRAMA-MEDCEO-12-MESES.md`. Não existe corte oficial de "conversão boa"
-ou "queda aceitável" em lugar nenhum do vault, então a tela não inventa um:
-usa valor marginal, que é matemática sobre os dados do próprio médico.
+**A única régua externa usada é a meta de margem líquida do programa**, que
+está escrita em `PROGRAMA-MEDCEO-12-MESES.md:161` como 30%. Ela é meta do
+programa, não média de mercado, e a tela diz isso com todas as letras. Na
+prática ela só vira número para quem respondeu que acompanha a margem: sobre a
+faixa de R$ 50 mil a R$ 80 mil, a tela toma o meio, R$ 65 mil, e mostra
+`65 × 0,30 = R$ 19,5 mil` por mês, arredondado para R$ 20 mil.
+
+**Nenhuma outra régua é usada, porque nenhuma outra existe.** Não há corte
+oficial de "conversão boa" ou "queda aceitável" em lugar nenhum do vault, e
+inventar um seria número sem fonte. No lugar disso a tela usa **valor
+marginal**: quanto vale UM ponto a mais, na clínica dele, com o volume que ele
+já tem. Se ele fecha 3,5 em 10 e fatura R$ 65 mil, então `65 ÷ 3,5 = R$ 18,6
+mil` é o que cada fechamento responde, e é o que um a mais vale. Matemática
+sobre os dados dele, sem comparação com clínica nenhuma.
 
 ## Armadilhas já pagas, para não repetir
 
