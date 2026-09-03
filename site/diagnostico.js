@@ -11,11 +11,14 @@
 (function () {
   "use strict";
 
-  var ENDPOINT = window.MC_DIAG_ENDPOINT || "";
-  /* PENDENTE: preencher depois de publicar apps-script-painel.gs como app
-     da web e colar a URL /exec aqui, ou via window.MC_DIAG_ENDPOINT antes
-     deste script. Enquanto vazio, o formulário funciona e enfileira local,
-     sem perder a resposta, e ela sai assim que a URL existir. */
+  var ENDPOINT = window.MC_DIAG_ENDPOINT ||
+    "https://script.google.com/macros/s/AKfycbwYdsPM6RGZ-9hP3stjWN-SDyf4ej7fqFgCGl_FRN8Z307Q9-quP1Jq0WNGlvhNaIn72Q/exec";
+  /* Web App do apps-script-painel.gs, publicado em 2026-09-03 e verificado
+     com POST real: a linha chega na aba PAINEL da planilha
+     1VlUUl-BfG5HaVbkKCanHIxp2OB95R2IPEFeWnXOwxCw.
+     Se a implantação for republicada, a URL /exec muda e esta linha também.
+     Enquanto a URL não responder, a resposta fica na fila do localStorage
+     e sai sozinha na próxima visita, sem se perder. */
 
   var CHAVE_FILA = "medceo:diag:fila";
   var CHAVE_RASCUNHO = "medceo:diag:rascunho";
