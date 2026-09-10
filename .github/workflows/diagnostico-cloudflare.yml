@@ -1,0 +1,54 @@
+# Diagnostico temporario do erro 10429 no deploy do Pages.
+#
+# Nao publica nada e nao altera nada: so faz GET no projeto e no proprio token,
+# e imprime o status HTTP mais os cabecalhos de limite. Existe para separar
+# duas causas que dao a mesma mensagem, limite de taxa real e token sem
+# permissao ou expirado. Apagar depois de responder isso.
+name: Diagnostico Cloudflare
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar o token
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          echo "=== token verify ==="
+          codigo=$(curl -sS -D /tmp/h1 -o /tmp/b1 -w '%{http_code}' \
+            -H "Authorization: Bearer $TOKEN" \
+            "https://api.cloudflare.com/client/v4/user/tokens/verify")
+          echo "http=$codigo"
+          grep -i "^x-ratelimit\|^retry-after\|^cf-ratelimit" /tmp/h1 || echo "(sem cabecalho de limite)"
+          jq -c '{success, status: .result.status, errors}' /tmp/b1
+
+      - name: Ler o projeto do Pages
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CONTA: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== pages get project ==="
+          codigo=$(curl -sS -D /tmp/h2 -o /tmp/b2 -w '%{http_code}' \
+            -H "Authorization: Bearer $TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CONTA/pages/projects/medceo")
+          echo "http=$codigo"
+          grep -i "^x-ratelimit\|^retry-after\|^cf-ratelimit" /tmp/h2 || echo "(sem cabecalho de limite)"
+          jq -c '{success, errors, nome: .result.name, ultimo: .result.latest_deployment.created_on}' /tmp/b2
+
+      - name: Listar deploys recentes
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CONTA: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== pages deployments ==="
+          codigo=$(curl -sS -o /tmp/b3 -w '%{http_code}' \
+            -H "Authorization: Bearer $TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CONTA/pages/projects/medceo/deployments?per_page=15")
+          echo "http=$codigo"
+          jq -r '.success as $s | "success=\($s) errors=\(.errors)", (.result // [] | .[:12][] | "\(.created_on) \(.environment) \(.latest_stage.status)")' /tmp/b3
