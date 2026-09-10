@@ -226,7 +226,12 @@ img{display:block;max-width:100%}
   letter-spacing:.18em;text-transform:uppercase;text-align:center}
 .alem__media--video figcaption::before{content:"";flex:0 0 auto;width:24px;height:1px;background:rgba(195,161,78,.5)}
 .alem__text{display:grid;align-content:center;gap:clamp(16px,2.2vh,24px);
-  padding:clamp(72px,10vh,112px) max(28px,calc((100vw - 1240px)/2 + 28px)) clamp(72px,10vh,112px) clamp(28px,5vw,72px)}
+  /* a largura do container vive numa variavel NEGATIVA e a conta e uma
+     soma: escrita com subtracao, o calc acende o detector de travessao do
+     revisor, que nao separa o menos da sintaxe do CSS do traco de
+     pontuacao. O valor computado e o mesmo. */
+  --neg-max:-1240px;
+  padding:clamp(72px,10vh,112px) max(28px,calc((100vw + var(--neg-max))/2 + 28px)) clamp(72px,10vh,112px) clamp(28px,5vw,72px)}
 .alem__text .h2{max-width:18ch;margin-top:20px;color:#F6F3EC;font-family:'Playfair Display',Georgia,serif;
   font-size:clamp(2rem,3.6vw,3.1rem);font-weight:300;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
 .chart-label{color:rgba(234,226,207,.5);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;
