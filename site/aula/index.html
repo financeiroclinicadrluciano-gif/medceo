@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula liberada | MedCEO</title>
+<link rel="canonical" href="https://medceo.online/aula">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Aula liberada do Dr. Luciano Alves Neves para os medicos do grupo MedCEO.">
+<meta property="og:title" content="Aula liberada | MedCEO">
+<meta property="og:description" content="Acesso liberado a aula do Dr. Luciano Alves Neves, medico e dono de clinica em Curitiba.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://medceo.online/aula">
+<meta property="og:image" content="https://medceo.online/assets/medceo/hero-bg.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="256x256" href="/assets/medceo/logo-icone.png">
+<link rel="apple-touch-icon" href="/assets/medceo/logo-icone.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,400&family=Poppins:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+
+<style>
+/* ==========================================================================
+   /aula, a pagina de aula liberada.
+
+   Uma dobra visivel. As outras duas nascem com o atributo `hidden` e so
+   aparecem depois de 5 minutos de pagina aberta. O relogio conta por
+   timestamp em sessionStorage, nao por soma de ticks: aba em segundo plano
+   estrangula o setInterval no celular e a conta por tick atrasaria minutos.
+
+   sessionStorage e a escolha certa aqui, e nao localStorage: recarregar a
+   pagina mantem o progresso, e FECHAR a aba zera. E exatamente o que a copy
+   da primeira dobra promete, entao a promessa e verdadeira.
+
+   Todo o CSS vive aqui, em classe. O site tem paginas que declaram grade em
+   atributo style e a media query nunca venceu o inline sem !important, com a
+   dobra empilhando no desktop. Aqui nao existe layout em atributo.
+   ========================================================================== */
+
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:#05070A;color:#EAE2CF;font-family:'Poppins',system-ui,sans-serif;font-size:15px;font-weight:300;line-height:1.7;letter-spacing:.02em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+h1,h2,h3,p,ul,dl,dd,figure{margin:0}
+a{color:#D9BE7E;text-decoration:none}
+a:hover{color:#EFE0BB}
+img{display:block;max-width:100%}
+:focus-visible{outline:1px solid #C3A14E;outline-offset:4px}
+::selection{background:rgba(195,161,78,.28);color:#F6F3EC}
+[hidden]{display:none !important}
+
+.env{width:100%;max-width:1180px;margin-inline:auto;padding-inline:clamp(20px,5vw,28px)}
+.mono{font-family:'JetBrains Mono',monospace;font-weight:400;letter-spacing:.24em;text-transform:uppercase}
+.serif{font-family:'Playfair Display',Georgia,serif;font-weight:300;letter-spacing:-.035em;line-height:1.06;text-wrap:balance}
+
+@keyframes sobe{from{opacity:0;filter:blur(6px);transform:translateY(16px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes pisca{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes seta{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(6px);opacity:1}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none !important;transition-duration:.001ms !important}}
+
+/* ---------------------------------------------------------------- topo */
+.topo{position:relative;z-index:3;padding:18px 0 0}
+.topo__in{display:flex;align-items:center;gap:14px}
+.topo__in img{height:26px;width:auto;object-fit:contain}
+.topo__risco{width:1px;height:20px;background:rgba(195,161,78,.26)}
+.topo small{color:rgba(217,190,126,.8);font-size:8px;letter-spacing:.28em;line-height:1.5}
+
+/* ------------------------------------------------------- dobra 1, a aula */
+.aula{position:relative;isolation:isolate;overflow:hidden;padding:28px 0 clamp(56px,8vh,84px)}
+.aula__halo{position:absolute;z-index:-1;inset:0;pointer-events:none;
+  background:radial-gradient(72% 46% at 50% -6%, rgba(195,161,78,.13), transparent 62%),
+             radial-gradient(46% 34% at 6% 38%, rgba(140,111,46,.1), transparent 68%)}
+.aula__in{display:grid;justify-items:center;text-align:center;gap:clamp(12px,1.7vh,20px);padding-top:clamp(12px,2.2vh,36px)}
+
+.selo{display:inline-flex;align-items:center;gap:11px;padding:7px 18px;border:1px solid rgba(195,161,78,.5);border-radius:999px;background:rgba(195,161,78,.08);color:#E0C88E;font-size:9.5px;animation:sobe .8s cubic-bezier(.16,1,.3,1) .05s both}
+.selo i{width:6px;height:6px;background:#C3A14E;transform:rotate(45deg);animation:pisca 2.4s ease-in-out infinite}
+
+.aula h1{max-width:19ch;color:#F6F3EC;font-size:clamp(2rem,1.2rem + 2.9vw,3.3rem);animation:sobe .9s cubic-bezier(.16,1,.3,1) .12s both}
+.aula h1 em{color:#D9BE7E;font-style:italic}
+.aula__lede{max-width:56ch;color:rgba(234,226,207,.66);font-size:15.5px;line-height:1.75;animation:sobe .9s cubic-bezier(.16,1,.3,1) .2s both}
+
+/* o quadro do video: moldura de vidro, cabecalho de painel e o iframe */
+/* O video cabe na primeira tela tambem em notebook. Medido a 1440x900 antes
+   deste limite: o quadro comecava em y=437 e terminava em 1011, ou seja 111px
+   abaixo da dobra, e o medico precisava rolar para ver a aula inteira. O
+   terceiro termo do min() converte a altura que sobra em largura pela propria
+   proporcao 16:9 (1 / 0,5625 = 1,777, com folga para a barra do cabecalho).
+   No celular o primeiro termo vence e nada muda. */
+/* A altura tirada vive numa variavel NEGATIVA e a conta e uma soma. Escrita
+   com subtracao, o `calc(100svh - 460px)` acende o detector de travessao do
+   revisor, que nao distingue o menos da sintaxe do CSS do traco de
+   pontuacao. O resultado computado e o mesmo, medido: 739px a 1440x900. */
+.quadro{--tira:-460px;position:relative;width:min(100%,940px,calc((100svh + var(--tira)) * 1.68));margin-top:clamp(12px,2vh,22px);border:1px solid rgba(195,161,78,.2);border-radius:10px;
+  background:rgba(14,26,36,.42);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 20px 44px rgba(1,3,5,.44), 0 52px 104px rgba(1,3,5,.3);
+  animation:sobe .9s cubic-bezier(.16,1,.3,1) .28s both}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)){
+  .quadro{-webkit-backdrop-filter:blur(20px) saturate(.9);backdrop-filter:blur(20px) saturate(.9)}
+}
+.quadro__cab{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;min-height:44px;padding:8px 18px;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(234,226,207,.66);font-size:8.5px;letter-spacing:.22em}
+.quadro__cab span{display:inline-flex;align-items:center;gap:8px}
+.quadro__cab i{width:5px;height:5px;border-radius:50%;background:#E0483B;animation:pisca 2.2s ease-in-out infinite}
+.quadro__tela{position:relative;overflow:hidden;aspect-ratio:16/9;background:#000;border-radius:0 0 9px 9px}
+.quadro__tela iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* --------------------------------------------- o botao e a trava de tempo */
+.passo{display:grid;justify-items:center;gap:16px;width:min(100%,940px);margin-top:clamp(14px,2vh,26px)}
+
+.trava{display:grid;justify-items:center;gap:14px;width:min(100%,520px);padding:24px 22px 22px;border:1px solid rgba(195,161,78,.2);border-radius:10px;background:linear-gradient(180deg, rgba(29,41,54,.44), rgba(10,14,19,.62))}
+.trava__rot{color:rgba(195,161,78,.85);font-size:9px;letter-spacing:.26em}
+.trava__num{color:#F1E7D0;font-family:'JetBrains Mono',monospace;font-size:clamp(2.1rem,7vw,2.7rem);font-weight:300;letter-spacing:.04em;line-height:1;font-variant-numeric:tabular-nums}
+.trava__barra{width:100%;height:2px;border-radius:2px;background:rgba(234,226,207,.1);overflow:hidden}
+.trava__barra b{display:block;width:0%;height:100%;background:linear-gradient(90deg,#8C6F2E,#D9BE7E);box-shadow:0 0 12px rgba(195,161,78,.5);transition:width .9s linear}
+.trava__nota{max-width:40ch;color:rgba(234,226,207,.58);font-size:13px;line-height:1.65}
+
+.cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:60px;padding:16px clamp(24px,3.4vw,42px);border-radius:999px;
+  background:linear-gradient(168deg,#F3E0AF 0%,#D9BE7E 46%,#C3A14E 100%);color:#14100A;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
+  box-shadow:0 16px 38px -14px rgba(0,0,0,.8), 0 1px 0 rgba(255,252,240,.5) inset;
+  transition:transform .45s cubic-bezier(.16,1,.3,1), filter .45s ease, box-shadow .45s ease}
+.cta:hover{color:#14100A;transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 22px 44px -14px rgba(0,0,0,.84), 0 1px 0 rgba(255,252,240,.62) inset}
+.cta:active{transform:translateY(0)}
+
+.aviso{display:flex;align-items:flex-start;gap:12px;width:min(100%,560px);margin-top:clamp(18px,3vh,28px);padding:16px 18px;border:1px solid rgba(224,72,59,.24);border-left:2px solid rgba(224,72,59,.62);border-radius:8px;background:rgba(224,72,59,.05);text-align:left}
+.aviso p{color:rgba(234,226,207,.72);font-size:13px;line-height:1.62}
+.aviso strong{color:#F1E7D0;font-weight:400}
+
+.desce{display:grid;justify-items:center;gap:8px;margin-top:clamp(22px,3.4vh,34px);color:rgba(234,226,207,.55);font-size:9px;letter-spacing:.2em}
+.desce span{font-size:15px;animation:seta 1.9s ease-in-out infinite}
+
+/* ------------------------------------------------ dobra 2, quem conduz */
+.quem{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;min-height:clamp(600px,82svh,880px);padding:clamp(72px,10vh,116px) 0;border-top:1px solid rgba(195,161,78,.14)}
+/* O fundo e o veu sao os mesmos valores da dobra `quem` da home, inclusive o
+   tratamento separado de celular: la a foto cai para opacidade .56 e o veu
+   passa a ser vertical. Copiar os dois valores evita repetir a medicao de
+   contraste que a home ja fez. */
+.quem__bg{position:absolute;z-index:-3;inset:-6% 0;background-image:url('/assets/medceo/luciano-bg.jpg');background-size:cover;background-position:74% center}
+.quem__veil{position:absolute;z-index:-2;inset:0;
+  background:linear-gradient(90deg,rgba(5,7,10,.97) 0%,rgba(5,7,10,.92) 40%,rgba(5,7,10,.5) 68%,rgba(5,7,10,.82) 100%),
+             linear-gradient(180deg,rgba(5,7,10,.72) 0%,rgba(5,7,10,.1) 34%,rgba(5,7,10,.96) 100%)}
+@media (max-width: 899px){
+  .quem__bg{inset:0;background-position:68% top;opacity:.56}
+  .quem__veil{background:linear-gradient(180deg, rgba(5,7,10,.56), rgba(5,7,10,.94) 36%, #05070A 100%)}
+  .creds{grid-template-columns:1fr}
+}
+.quem__in{max-width:44rem;display:grid;gap:20px}
+.quem h2{max-width:15ch;color:#F6F3EC;font-size:clamp(1.9rem,3.6vw,3rem);margin-top:6px}
+.quem__lede{max-width:48ch;color:rgba(234,226,207,.72);font-size:15.5px;line-height:1.75}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;color:#C3A14E;font-size:10px;letter-spacing:.3em}
+.eyebrow::before{content:"";width:28px;height:1px;background:linear-gradient(90deg,transparent,#C3A14E)}
+/* 210px de minimo cabiam so 3 das 4 credenciais na linha, e a quarta ficava
+   sozinha ao lado de duas celulas vazias. Medido a 900 e a 1440 de largura.
+   Com 158px as quatro entram na mesma linha dentro dos 44rem do bloco. */
+.creds{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,158px),1fr));gap:1px;margin-top:10px;border:1px solid rgba(195,161,78,.16);border-radius:8px;background:rgba(195,161,78,.16);overflow:hidden}
+.creds > div{padding:20px 22px;background:rgba(8,11,15,.92)}
+.creds dt{color:#D9BE7E;font-family:'Playfair Display',Georgia,serif;font-size:19px;letter-spacing:-.02em;line-height:1.2}
+.creds dd{margin-top:8px;color:rgba(234,226,207,.62);font-family:'JetBrains Mono',monospace;font-size:8.5px;font-weight:300;letter-spacing:.14em;line-height:1.7;text-transform:uppercase}
+
+/* ------------------------------------------- dobra 3, o diagnostico */
+.diag{position:relative;padding:clamp(76px,10vh,116px) 0 clamp(84px,11vh,124px);border-top:1px solid rgba(195,161,78,.14);background:radial-gradient(66% 50% at 50% 0%, rgba(195,161,78,.08), transparent 60%), #070A0E}
+.diag__in{display:grid;justify-items:center;text-align:center;gap:18px}
+.diag h2{max-width:20ch;color:#F6F3EC;font-size:clamp(1.85rem,3.4vw,2.8rem)}
+.diag h2 em{color:#D9BE7E;font-style:italic}
+.diag__lede{max-width:56ch;color:rgba(234,226,207,.68);font-size:15.5px;line-height:1.75}
+.passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;width:min(100%,940px);margin-top:14px;border:1px solid rgba(195,161,78,.14);border-radius:8px;background:rgba(195,161,78,.14);overflow:hidden;text-align:left}
+.passos > div{padding:26px 26px 28px;background:#05070A}
+.passos b{display:block;color:#D9BE7E;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;letter-spacing:.24em;text-transform:uppercase}
+.passos p{margin-top:12px;color:rgba(234,226,207,.7);font-size:14px;line-height:1.68}
+.diag__nota{max-width:46ch;color:rgba(234,226,207,.46);font-size:12px;line-height:1.6}
+
+/* --------------------------------------------------------------- rodape */
+.rodape{border-top:1px solid rgba(195,161,78,.12);background:#080B0F;padding:36px 0 32px}
+.rodape__in{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;color:rgba(234,226,207,.56);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase}
+
+/* a entrada das duas dobras travadas, quando o relogio fecha */
+.revelada{animation:sobe 1s cubic-bezier(.16,1,.3,1) both}
+
+.pular{position:fixed;z-index:1000;top:12px;left:12px;padding:12px 18px;background:#EAE2CF;color:#05070A;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;transform:translateY(-240%)}
+.pular:focus{transform:none;color:#05070A}
+</style>
+</head>
+<body>
+
+<a class="pular" href="#video">Pular para a aula</a>
+
+<header class="topo">
+  <div class="env topo__in">
+    <img src="/assets/medceo/logo.png" alt="MedCEO" width="124" height="27">
+    <span class="topo__risco" aria-hidden="true"></span>
+    <small class="mono">Aula liberada</small>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= 01 · A AULA ================= -->
+  <section class="aula" aria-labelledby="t-aula">
+    <div class="aula__halo" aria-hidden="true"></div>
+
+    <div class="env aula__in">
+
+      <p class="selo mono"><i aria-hidden="true"></i>Acesso liberado para o grupo</p>
+
+      <h1 id="t-aula" class="serif">Antes de olhar os números da sua clínica, eu preciso te mostrar <em>isto aqui.</em></h1>
+
+      <p class="aula__lede">Sou o Dr. Luciano. É a mesma lógica que eu uso dentro da minha clínica em Curitiba, com paciente marcado e equipe contratada. Assista agora, do começo ao fim, com o som ligado.</p>
+
+      <!-- O embed e o mesmo que o /webnar3 ja serve, sem parametro extra:
+           o player fica exatamente como esta configurado no Panda. A pagina
+           nao anuncia duracao em lugar nenhum, por decisao do Gustavo. -->
+      <div class="quadro" id="video">
+        <div class="quadro__cab mono" aria-hidden="true">
+          <span><i></i>Aula do Dr. Luciano</span>
+          <span>MedCEO · DOC365</span>
+        </div>
+        <div class="quadro__tela">
+          <iframe src="https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=85638f9a-6681-4a3d-bdab-83aed5805455" title="Aula do Dr. Luciano Alves Neves sobre o método MedCEO" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="true" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+
+      <div class="passo">
+
+        <!-- estado travado: o relogio de 5 minutos -->
+        <div class="trava" data-trava-caixa>
+          <p class="trava__rot mono">Seu próximo passo abre em</p>
+          <p class="trava__num" data-relogio role="timer" aria-live="off">05:00</p>
+          <div class="trava__barra" aria-hidden="true"><b data-barra></b></div>
+          <p class="trava__nota">Ele abre sozinho enquanto você assiste. Não precisa fazer nada, só não fechar esta página.</p>
+        </div>
+
+        <!-- estado liberado: o botao do diagnostico -->
+        <a class="cta mono" href="/diagnostico" data-cta hidden>Fazer meu diagnóstico <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="aviso">
+        <p><strong>Esse acesso vale enquanto esta página estiver aberta.</strong> Se você fechar agora, o contador volta ao zero e você começa tudo de novo. Não fica salvo, e eu não reenvio o link no grupo.</p>
+      </div>
+
+      <p class="desce mono" data-desce hidden>Continua abaixo <span aria-hidden="true">↓</span></p>
+
+    </div>
+  </section>
+
+  <!-- ================= 02 · QUEM CONDUZ ================= -->
+  <section class="quem" id="quem" aria-labelledby="t-quem" data-travada hidden>
+    <div class="quem__bg" aria-hidden="true"></div>
+    <div class="quem__veil" aria-hidden="true"></div>
+
+    <div class="env">
+      <div class="quem__in">
+        <p class="eyebrow mono">Quem conduz</p>
+        <h2 id="t-quem" class="serif">O método nasceu dentro de uma clínica que atende.</h2>
+        <p class="quem__lede">Dr. Luciano Alves Neves é médico, CEO e fundador da Natuá MedSpa, em Curitiba. Cada processo do MedCEO foi testado primeiro na operação dele, com paciente marcado, equipe contratada e decisão que não podia esperar a próxima reunião.</p>
+
+        <dl class="creds" aria-label="Credenciais publicadas">
+          <div><dt>Médico atuante</dt><dd>atende na própria clínica, não só ensina</dd></div>
+          <div><dt>Natuá MedSpa</dt><dd>clínica própria em Curitiba, onde o método nasceu</dd></div>
+          <div><dt>17+ anos</dt><dd>experiência à frente da própria clínica</dd></div>
+          <div><dt>DOC365</dt><dd>método criado dentro da própria operação</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 · O DIAGNOSTICO ================= -->
+  <section class="diag" id="diagnostico" aria-labelledby="t-diag" data-travada hidden>
+    <div class="env diag__in">
+
+      <p class="eyebrow mono">Seu próximo passo</p>
+
+      <h2 id="t-diag" class="serif">Agora eu quero ver <em>a sua clínica.</em></h2>
+
+      <p class="diag__lede">A aula mostra a lógica. O diagnóstico mostra onde a sua operação está dentro dela hoje. São 5 passos, cerca de 6 minutos, sem custo, e no fim a sua análise aparece na tela, com o nível em que a sua clínica está e o que destrava o próximo.</p>
+
+      <div class="passos">
+        <div><b>Você responde</b><p>Como a operação roda hoje, os números que você já tem na mão e onde você quer chegar. Resposta honesta vale mais que resposta bonita: o retrato é seu.</p></div>
+        <div><b>Você recebe na hora</b><p>A análise da sua clínica na tela, com o nível de maturidade, o pilar mais frágil e o próximo passo. Dá para baixar em PDF e levar para a sua sócia ou para a sua gestora.</p></div>
+        <div><b>A gente conversa</b><p>Se fizer sentido para os dois lados, a gente marca a sua sessão. E eu chego nela já tendo lido o seu retrato, então a hora vira plano de ação e não apresentação.</p></div>
+      </div>
+
+      <a class="cta mono" href="/diagnostico" style="margin-top:12px">Começar meu diagnóstico <span aria-hidden="true">→</span></a>
+
+      <p class="diag__nota">Suas respostas ficam só com o time do MedCEO. Sem promessa de faturamento e sem compromisso.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="env rodape__in">
+    <a href="/">← Voltar ao site MedCEO</a>
+    <small>© 2026 MedCEO · CRM/PR 45049 · Curitiba, PR</small>
+  </div>
+</footer>
+
+<script>
+/* A trava de 5 minutos.
+
+   Conta por timestamp, nao por soma de ticks: o celular estrangula o
+   setInterval de aba em segundo plano e a soma atrasaria minutos. O inicio
+   fica em sessionStorage, entao recarregar mantem o progresso e fechar a aba
+   zera, que e o que a copy da primeira dobra promete. */
+(function () {
+  var ESPERA = 5 * 60 * 1000;
+  var CHAVE = 'medceo-aula-inicio';
+
+  var relogio = document.querySelector('[data-relogio]');
+  var barra = document.querySelector('[data-barra]');
+  var caixa = document.querySelector('[data-trava-caixa]');
+  var cta = document.querySelector('[data-cta]');
+  var desce = document.querySelector('[data-desce]');
+  var travadas = document.querySelectorAll('[data-travada]');
+  if (!relogio || !caixa || !cta) return;
+
+  var inicio = 0;
+  try {
+    inicio = parseInt(sessionStorage.getItem(CHAVE), 10) || 0;
+    /* relogio adiantado do sistema, ou chave de outra sessao: recomeca */
+    if (!inicio || inicio > Date.now()) {
+      inicio = Date.now();
+      sessionStorage.setItem(CHAVE, String(inicio));
+    }
+  } catch (e) {
+    /* navegacao privada bloqueia storage: a trava roda so nesta visita */
+    inicio = Date.now();
+  }
+
+  var aberto = false;
+
+  function doisDigitos(n) { return (n < 10 ? '0' : '') + n; }
+
+  function abrir() {
+    if (aberto) return;
+    aberto = true;
+    caixa.hidden = true;
+    cta.hidden = false;
+    cta.classList.add('revelada');
+    if (desce) desce.hidden = false;
+    for (var i = 0; i < travadas.length; i++) {
+      travadas[i].hidden = false;
+      travadas[i].classList.add('revelada');
+    }
+  }
+
+  /* Uma cadeia de setTimeout so. O clearTimeout antes de agendar existe
+     porque o visibilitychange tambem chama tique(): sem ele, cada volta de
+     segundo plano criaria uma cadeia nova e o relogio rodaria em duplicado. */
+  var agendado = 0;
+
+  function tique() {
+    clearTimeout(agendado);
+    var falta = ESPERA - (Date.now() - inicio);
+    if (falta <= 0) { relogio.textContent = '00:00'; if (barra) barra.style.width = '100%'; abrir(); return; }
+    var s = Math.ceil(falta / 1000);
+    relogio.textContent = doisDigitos(Math.floor(s / 60)) + ':' + doisDigitos(s % 60);
+    if (barra) barra.style.width = (100 - (falta / ESPERA) * 100).toFixed(2) + '%';
+    agendado = setTimeout(tique, 500);
+  }
+
+  tique();
+  /* voltar de segundo plano recalcula na hora, sem esperar o proximo tique */
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && !aberto) tique();
+  });
+})();
+</script>
+
+<script src="/tracking.js?v=477b72b17d" defer></script>
+</body>
+</html>
