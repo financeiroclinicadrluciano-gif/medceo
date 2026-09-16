@@ -2114,6 +2114,11 @@
     document.querySelectorAll("[data-ag-stage]").forEach(function (el) {
       el.hidden = el.getAttribute("data-ag-stage") !== stage;
     });
+    /* 16/09: aula, depoimento, pilares e chamada so existem na abertura. No
+       formulario e no resultado elas sumiriam debaixo da pergunta. */
+    document.querySelectorAll("[data-ag-landing]").forEach(function (el) {
+      el.hidden = stage !== "intro";
+    });
   }
 
   function enviar() {
@@ -2157,12 +2162,15 @@
       estado.passo = Math.min(rasc.passo || 0, TOTAL - 1);
     }
 
-    var comecar = document.querySelector("[data-ag-comecar]");
-    if (comecar)
+    /* 16/09: sao dois botoes de comecar, o da abertura e o da faixa no fim da
+       pagina. O de baixo tambem precisa levar o medico de volta ao topo. */
+    document.querySelectorAll("[data-ag-comecar]").forEach(function (comecar) {
       comecar.addEventListener("click", function () {
         irPara("form");
         renderPasso();
+        window.scrollTo(0, 0);
       });
+    });
 
     var avancar = document.querySelector("[data-ag-avancar]");
     if (avancar)
