@@ -26,7 +26,7 @@
   window.gtag = gtag;
   var q=location.search;try{if(/[?&]interno=1/.test(q))localStorage.setItem('mc_interno','1');if(/[?&]interno=0/.test(q))localStorage.removeItem('mc_interno');if(localStorage.getItem('mc_interno')){window.MC_INTERNO=true;window['ga-disable-G-SXJGLYZ0W7']=true;window['ga-disable-AW-11035617427']=true;}}catch(e){}
   gtag('js', new Date());
-  gtag('config', 'GT-PJWWKM65', { site_marca: 'medceo', pagina_tipo: 'linktree' });
+  window.MC_INTERNO||gtag('config', 'GT-PJWWKM65', { site_marca: 'medceo', pagina_tipo: 'linktree' });
 </script>
 
 <style>
