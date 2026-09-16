@@ -9,6 +9,16 @@
 
   // Respeita quem pediu para não ser rastreado.
   if (navigator.doNotTrack === "1" || window.doNotTrack === "1") return;
+  /* 16/09: trafego interno (?interno=1 marca o navegador, ?interno=0 desmarca).
+     A trava do <head> ja desliga GA4 e Ads; aqui sai o Pixel e os eventos. */
+  try {
+    if (/[?&]interno=1/.test(location.search)) localStorage.setItem("mc_interno", "1");
+    if (/[?&]interno=0/.test(location.search)) localStorage.removeItem("mc_interno");
+    if (window.MC_INTERNO || localStorage.getItem("mc_interno")) {
+      window.MCTrack = { event: function () {} };
+      return;
+    }
+  } catch (e) {}
 
   var CHAVE = "mc_origem";
 

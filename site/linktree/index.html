@@ -24,6 +24,7 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   window.gtag = gtag;
+  var q=location.search;try{if(/[?&]interno=1/.test(q))localStorage.setItem('mc_interno','1');if(/[?&]interno=0/.test(q))localStorage.removeItem('mc_interno');if(localStorage.getItem('mc_interno')){window.MC_INTERNO=true;window['ga-disable-G-SXJGLYZ0W7']=true;window['ga-disable-AW-11035617427']=true;}}catch(e){}
   gtag('js', new Date());
   gtag('config', 'GT-PJWWKM65', { site_marca: 'medceo', pagina_tipo: 'linktree' });
 </script>
@@ -416,7 +417,7 @@ document.addEventListener("click", function (ev) {
   window.dataLayer.push(Object.assign({ event: "linktree_clique" }, dados));
 });
 </script>
-<script src="/tracking.js?v=477b72b17d" defer></script>
+<script src="/tracking.js?v=b6ad99a9bc" defer></script>
 <script src="/qualifica.js?v=c22d08c5ba" defer></script>
 </body>
 </html>
