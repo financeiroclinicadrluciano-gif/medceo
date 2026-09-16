@@ -2110,6 +2110,15 @@
     });
   }
 
+  /* 16/09: eventos do funil do diagnostico. Antes a pagina nao mandava nada e nao
+     dava para saber quantos medicos comecaram nem quantos enviaram. Sem dado
+     pessoal: so etapa, botao e passo. */
+  function medir(nome, params) {
+    try {
+      if (window.MCTrack && typeof window.MCTrack.event === "function") window.MCTrack.event(nome, params || {});
+    } catch (e) {}
+  }
+
   function irPara(stage) {
     document.querySelectorAll("[data-ag-stage]").forEach(function (el) {
       el.hidden = el.getAttribute("data-ag-stage") !== stage;
@@ -2129,6 +2138,7 @@
       botao.textContent = "Enviando...";
     }
     postar(payload).then(function () {
+      medir("diagnostico_enviado", { passos: TOTAL });
       try {
         localStorage.removeItem(CHAVE_RASCUNHO);
       } catch (e) {}
@@ -2166,6 +2176,9 @@
        pagina. O de baixo tambem precisa levar o medico de volta ao topo. */
     document.querySelectorAll("[data-ag-comecar]").forEach(function (comecar) {
       comecar.addEventListener("click", function () {
+        medir("diagnostico_iniciado", {
+          botao: comecar.closest("[data-ag-landing]") ? "faixa_final" : "abertura",
+        });
         irPara("form");
         renderPasso();
         window.scrollTo(0, 0);
@@ -2177,6 +2190,7 @@
       avancar.addEventListener("click", function () {
         if (!validarPasso()) return;
         if (estado.passo < TOTAL - 1) {
+          medir("diagnostico_passo", { passo: estado.passo + 1, de: TOTAL });
           estado.passo++;
           salvarRascunho();
           renderPasso();

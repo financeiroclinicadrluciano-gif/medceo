@@ -111,6 +111,12 @@
     formulario_qualificacao:
                         { evento: "ViewContent", etapa: "lead_qualificado", valor: 10 },
     video_marco:        { evento: "Search",      etapa: "video",         valor: 3 },
+    /* 16/09: o diagnostico e a conversao do funil e nao mandava nada. Mesmo
+       padrao do formulario de qualificacao: evento padrao com a etapa em
+       content_ids, porque nome customizado e evento de intencao sao barrados
+       em conta de saude. O passo a passo vai so para o GA4. */
+    diagnostico_iniciado: { evento: "ViewContent", etapa: "diag_iniciou",   valor: 3 },
+    diagnostico_enviado:  { evento: "ViewContent", etapa: "lead_diagnostico", valor: 10 },
     secao_chave:        { evento: "Search",      etapa: "secao_chave",   valor: 1 }
   };
 
@@ -358,29 +364,53 @@
       });
     });
 
-    /* Panda Video fala por postMessage. Os nomes de evento seguem o padrao
-       do player; se ele mudar, o listener simplesmente para de gravar, sem
-       quebrar nada em volta. */
-    var vistosPanda = {};
+    /* Panda Video fala por postMessage. Medido no site em 16/09:
+       - o id vem em "video" (nao em videoId), e a duracao so vem no
+         panda_allData, dentro de playerData;
+       - video em autoplay mudo e loop (os de fundo do webnar) tambem manda
+         panda_play sozinho, e o depoimento do diagnostico tambem, porque o
+         autoplay mudo esta ligado no proprio Panda e nao na URL. Por isso o que
+         decide e o estado do som que o player informa (isMutedIndicator e
+         playerData.muted): video mudo nao conta, conta quando o som esta ligado. */
+    var NOME_VIDEO = { "85638f9a": "aula_luciano", "6e8f2654": "depoimento_luiz", "479da14a": "convite_luciano" };
+    var vistosPanda = {}, duracao = {}, mudo = {};
+    function iframeDe(janela) {
+      var fs = document.querySelectorAll("iframe");
+      for (var i = 0; i < fs.length; i++) if (fs[i].contentWindow === janela) return fs[i];
+      return null;
+    }
+    function marcarPanda(id, marco) {
+      var k = id + "|" + marco;
+      if (vistosPanda[k]) return;
+      vistosPanda[k] = true;
+      marcar(NOME_VIDEO[id.slice(0, 8)] || id.slice(0, 8), marco, "panda");
+    }
     window.addEventListener("message", function (ev) {
-      if (!ev.data || typeof ev.data !== "object") return;
-      var m = ev.data.message || ev.data.event || "";
-      var id = ev.data.videoId || ev.data.video_id || "panda";
-      if (m === "panda_play" || m === "play") {
-        if (!vistosPanda[id + "play"]) { vistosPanda[id + "play"] = true; marcar(id, "play", "panda"); }
+      var d = ev.data;
+      if (!d || typeof d !== "object" || typeof d.message !== "string" || d.message.indexOf("panda_") !== 0) return;
+      var id = String(d.video || d.videoId || d.video_id || "panda");
+      var ifr = iframeDe(ev.source);
+      var decorativo = !!ifr && /autoplay=1/.test(ifr.src) && /muted=1/.test(ifr.src);
+      var atual = Number(d.currentTime || 0);
+      if (typeof d.isMutedIndicator === "boolean") mudo[id] = d.isMutedIndicator;
+
+      if (d.message === "panda_allData" && d.playerData) {
+        var pd = d.playerData;
+        if (typeof pd === "string") { try { pd = JSON.parse(pd); } catch (e) { pd = {}; } }
+        if (pd.duration) duracao[id] = Number(pd.duration);
+        if (pd.currentTime) atual = Number(pd.currentTime);
+        if (typeof pd.muted === "boolean") mudo[id] = pd.muted;
+        if (pd.paused) return;
       }
-      if (m === "panda_timeupdate" || m === "timeupdate") {
-        var d = Number(ev.data.duration || 0), c = Number(ev.data.currentTime || 0);
-        if (!d) return;
-        var pct = Math.floor((c / d) * 100);
-        [25, 50, 75, 100].forEach(function (mk) {
-          var k = id + mk;
-          if (pct >= mk && !vistosPanda[k]) { vistosPanda[k] = true; marcar(id, String(mk), "panda"); }
-        });
-      }
-      if (m === "panda_ended" || m === "ended") {
-        var ke = id + "100";
-        if (!vistosPanda[ke]) { vistosPanda[ke] = true; marcar(id, "100", "panda"); }
+      var ouvindo = mudo[id] === false || (mudo[id] === undefined && !decorativo);
+      if (!ouvindo) return;
+
+      if (/^panda_(play|allData|timeupdate)$/.test(d.message)) marcarPanda(id, "play");
+      if (d.message === "panda_ended") marcarPanda(id, "100");
+      var total = duracao[id] || Number(d.duration || 0);
+      if (total && atual) {
+        var pct = Math.floor((atual / total) * 100);
+        [25, 50, 75, 100].forEach(function (mk) { if (pct >= mk) marcarPanda(id, String(mk)); });
       }
     });
   })();
