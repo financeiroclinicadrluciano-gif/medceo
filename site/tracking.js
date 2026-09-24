@@ -171,6 +171,47 @@
     }
     if (window.MC_DEBUG) console.log("[track]", nome, p);
     mandarAoPixel(nome, p);
+    mandarAoColetor(nome, p);
+  }
+
+  /* ---------------------------------------------------------------------
+     2b. Coletor proprio (24/09): copia de cada evento para o worker
+     medceo-eventos, que o painel le sem depender do login do Google.
+     So sai do medceo.online publicado (localhost e preview ficam de fora,
+     e o navegador interno ja saiu no topo). O visitante e um id aleatorio
+     deste navegador, nunca telefone, nome ou e-mail.
+     ------------------------------------------------------------------ */
+  var COLETOR = "https://medceo-eventos.financeiroclinicadrluciano.workers.dev/e";
+  var visitanteMemo = "";
+  function visitanteId() {
+    if (visitanteMemo) return visitanteMemo;
+    try {
+      var v = localStorage.getItem("mc_visitante");
+      if (!v) {
+        v = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+          : Date.now().toString(36) + Math.random().toString(36).slice(2);
+        localStorage.setItem("mc_visitante", v);
+      }
+      return (visitanteMemo = v);
+    } catch (e) { return (visitanteMemo = "sem-storage-" + Math.random().toString(36).slice(2)); }
+  }
+  function mandarAoColetor(nome, p) {
+    if (HOST !== "medceo.online") return;
+    var detalhe = p.video ? p.video + ":" + p.marco : (p.marco != null ? String(p.marco) : (p.tipo || ""));
+    var corpo = JSON.stringify({
+      evento: nome,
+      pagina: location.pathname,
+      origem_tipo: origem.utm_source ? "utm" : (origem.canal === "direto" ? "direto" : "referrer"),
+      origem_fonte: origem.canal || "",
+      campanha: origem.utm_campaign || "",
+      anuncio: origem.utm_content || "",
+      visitante: visitanteId(),
+      extra: detalhe
+    });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(COLETOR, new Blob([corpo], { type: "text/plain" }))) return;
+      fetch(COLETOR, { method: "POST", body: corpo, keepalive: true, mode: "cors", headers: { "content-type": "text/plain" } });
+    } catch (e) {}
   }
 
   /* ---------------------------------------------------------------------
