@@ -81,6 +81,20 @@
           ph: "Cidade",
           obrigatorio: true,
         },
+        {
+          id: "instagram",
+          rotulo: "Qual é o Instagram da sua clínica?",
+          tipo: "text",
+          ph: "@suaclinica",
+          obrigatorio: true,
+        },
+        {
+          id: "site",
+          rotulo: "A clínica tem site? Se tiver, qual o endereço?",
+          tipo: "text",
+          ph: "www.suaclinica.com.br",
+          obrigatorio: false,
+        },
       ],
     },
     {
