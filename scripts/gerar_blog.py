@@ -8,6 +8,7 @@ Lê os markdown de `conteudo/blog/` e escreve:
   site/blog/capas/*             — as imagens
   site/blog/feed.xml            — RSS dos posts publicados
   site/sitemap.xml              — todas as rotas
+  site/robots.txt               — libera o site e aponta para o sitemap
 
 Regra de publicação (mesma do app): só entra `marca: medceo` e só aparece post
 com `data` <= hoje. Post agendado fica fora da listagem, do feed e do sitemap —
@@ -860,6 +861,12 @@ for u, mod in urls:
     sm += f"  <url><loc>{u}</loc>" + (f"<lastmod>{mod}</lastmod>" if mod else "") + "</url>\n"
 sm += "</urlset>\n"
 (BUILD / "sitemap.xml").write_text(sm, encoding="utf-8")
+
+# robots.txt: medido em 05/10, https://medceo.online/robots.txt respondia 404 e
+# o sitemap nao era declarado em lugar nenhum fora do Search Console. Escrito
+# aqui, ao lado do sitemap, para o endereco dos dois nao se desencontrar.
+(BUILD / "robots.txt").write_text(
+    f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
 
 print(f"posts encontrados: {len(posts)} | publicados: {len(publicados)} | agendados: {len(posts)-len(publicados)}")
 for p in publicados:
