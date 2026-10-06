@@ -568,9 +568,40 @@ addEventListener('scroll',p,{passive:true});addEventListener('resize',p,{passive
 </script>"""
 
 
+def origem_blog(slug=""):
+    """De qual pagina do blog o visitante saiu, no formato que o tracking.js
+    manda ao GA4 no parametro `veio_de`: "blog:<slug>" no post, "blog" na
+    listagem. Mesmo padrao da Natua, e `veio_de` ja e dimensao registrada na
+    mesma propriedade do GA4.
+
+    Nao e UTM de proposito: UTM em link entre duas paginas nossas abre sessao
+    nova no GA4 e apaga de onde a pessoa realmente veio (anuncio, busca).
+    """
+    if slug and not re.fullmatch(r"[a-z0-9-]{1,80}", slug):
+        raise SystemExit(f"slug fora do padrao, a origem do CTA quebraria: {slug!r}")
+    return f"blog:{slug}" if slug else "blog"
+
+
+def com_origem(pagina_html, slug=""):
+    """Todo link para /diagnostico numa pagina do blog leva a origem na query:
+    `?de=blog&post=<slug>`. Antes o botao ia para /diagnostico puro e nao dava
+    para saber qual post trouxe o lead (medido em 05/10: 52 posts, 0 com
+    origem). A troca e feita na pagina montada, e nao em cada botao, para que
+    botao novo ja nasca medido. Troca literal, de um texto exato por outro.
+    """
+    destino = "/diagnostico?de=blog" + (f"&amp;post={slug}" if slug else "")
+    return pagina_html.replace('href="/diagnostico"', f'href="{destino}"')
+
+
 def pagina(titulo, desc, corpo, canonical, ativo="", extra_head="", og_tipo="website",
-           og_imagem=None, barra=False, claro=False):
+           og_imagem=None, barra=False, claro=False, slug=""):
     imagem = og_imagem or f"{SITE}/assets/medceo/hero-bg.jpg"
+    return com_origem(_pagina(titulo, desc, corpo, canonical, ativo, extra_head, og_tipo,
+                              imagem, barra, claro, origem_blog(slug)), slug)
+
+
+def _pagina(titulo, desc, corpo, canonical, ativo, extra_head, og_tipo, imagem, barra,
+            claro, veio_de):
     return f"""<!doctype html><html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(titulo)}</title>
@@ -591,7 +622,7 @@ def pagina(titulo, desc, corpo, canonical, ativo="", extra_head="", og_tipo="web
 {FONTES}{extra_head}
 <style>{CSS}</style>
 <!-- GA4 --><script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}var q=location.search;try{{if(/[?&]interno=1/.test(q))localStorage.setItem('mc_interno','1');if(/[?&]interno=0/.test(q))localStorage.removeItem('mc_interno');if(localStorage.getItem('mc_interno')){{window.MC_INTERNO=true;window['ga-disable-G-SXJGLYZ0W7']=true;window['ga-disable-AW-11035617427']=true;}}}}catch(e){{}}gtag('js',new Date());gtag('set',{{site_marca:'medceo'}});window.MC_INTERNO||gtag('config','GT-PJWWKM65',{{site_marca:'medceo'}});</script><script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
-</head><body{' class="claro"' if claro else ''}>
+</head><body{' class="claro"' if claro else ''} data-veio-de="{veio_de}">
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 {'<div aria-hidden="true" data-progresso class="progresso"></div>' if barra else ''}
 {topo(ativo)}
@@ -749,7 +780,7 @@ for p in publicados:
     destino.mkdir(parents=True, exist_ok=True)
     (destino / "index.html").write_text(
         pagina(seo_titulo, desc, art, url, "blog", ld,
-               claro=True,
+               claro=True, slug=p["slug"],
                og_tipo="article", og_imagem=img_abs, barra=True), encoding="utf-8")
 
 # listagem
@@ -837,6 +868,20 @@ for p in posts:
     if not p["publicado"]:
         print(f"  [agendado] {p['data']}  {p['slug']}")
 print(f"sitemap: {len(urls)} urls | rss: {len(publicados)} itens")
+
+# Origem do CTA: nenhuma pagina do blog pode sair com link para /diagnostico
+# sem dizer de onde veio. Falha o build em vez de avisar, porque o defeito e
+# invisivel na tela: o botao funciona igual e o lead chega sem origem.
+_sem_origem = [str(a.relative_to(BUILD)) for a in sorted(blog.rglob("index.html"))
+               if 'href="/diagnostico"' in a.read_text(encoding="utf-8")]
+if _sem_origem:
+    raise SystemExit("link para /diagnostico sem origem em: " + ", ".join(_sem_origem))
+_faltam = [p["slug"] for p in publicados
+           if (blog / p["slug"] / "index.html").read_text(encoding="utf-8")
+           .count(f'href="/diagnostico?de=blog&amp;post={p["slug"]}"') < 2]
+if _faltam:
+    raise SystemExit("post sem os botoes de diagnostico com origem: " + ", ".join(_faltam))
+print(f"origem do CTA: {len(publicados)} posts com ?de=blog&post=<slug> em todo link de diagnostico")
 
 # --------------------------------------------------------------------------
 # dobra do blog na home

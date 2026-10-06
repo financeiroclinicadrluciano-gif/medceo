@@ -99,6 +99,51 @@
   var origem = resolverOrigem();
 
   /* ---------------------------------------------------------------------
+     1b. De qual pagina NOSSA a pessoa saiu (05/10).
+     O canal acima diz de que lugar FORA do site ela veio. Faltava a outra
+     metade: qual post do blog levou ao diagnostico ou ao WhatsApp. Medido em
+     05/10: 52 posts publicados e nenhum lead com o post de origem.
+
+     Duas fontes, e so duas:
+     - a pagina do blog declara a si mesma em <body data-veio-de="blog:<slug>">
+       (escrito pelo scripts/gerar_blog.py; a listagem declara "blog");
+     - o botao do post leva a /diagnostico?de=blog&post=<slug>, e a query vira
+       o mesmo texto "blog:<slug>", guardado na sessao porque o envio do
+       formulario acontece minutos depois.
+
+     Vai no parametro `veio_de`, o mesmo nome e o mesmo formato da Natua, que
+     ja e dimensao personalizada na propriedade do GA4. Nao e UTM de proposito:
+     UTM entre duas paginas nossas abre sessao nova e apaga o canal real.
+     So entra nos eventos de conversao da lista abaixo; em rolagem e tempo o
+     valor seria ruido. Limite de 100 caracteres e o do parametro no GA4.
+     ------------------------------------------------------------------ */
+  var CHAVE_DE = "mc_veio_de";
+  function soSlug(v) {
+    return String(v || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 80);
+  }
+  var VEIO_DE_SESSAO = (function () {
+    var v = "";
+    try {
+      var q = new URLSearchParams(location.search);
+      var de = soSlug(q.get("de"));
+      var post = soSlug(q.get("post"));
+      if (de) v = (post ? de + ":" + post : de).slice(0, 100);
+    } catch (e) {}
+    try {
+      if (v) sessionStorage.setItem(CHAVE_DE, v);
+      return v || sessionStorage.getItem(CHAVE_DE) || "";
+    } catch (e) { return v; }
+  })();
+  var VEIO_DE_PAGINA = (document.body && document.body.getAttribute("data-veio-de")) || "";
+  var LEVA_VEIO_DE = {
+    clique_whatsapp: 1, clique_cta_interno: 1,
+    formulario_abriu: 1, formulario_qualificacao: 1,
+    diagnostico_iniciado: 1, diagnostico_passo: 1, diagnostico_enviado: 1
+  };
+  /* No blog vale a propria pagina; fora dele, o post que trouxe a sessao. */
+  function veioDe() { return VEIO_DE_PAGINA || VEIO_DE_SESSAO; }
+
+  /* ---------------------------------------------------------------------
      7. Pixel da Meta.
      O Pixel MedCEO (2914933312232977) foi criado em 13/08 e nunca disparou:
      medido pela API em 26/08, last_fired_time volta como 1969-12-31, o valor
@@ -162,6 +207,7 @@
     p.utm_campaign = origem.utm_campaign;
     p.pagina = location.pathname;
     p.site_marca = window.SITE_MARCA || 'medceo';
+    if (LEVA_VEIO_DE[nome] && veioDe()) p.veio_de = veioDe();
 
     if (typeof window.gtag === "function") {
       try { window.gtag("event", nome, p); } catch (e) {}
@@ -473,6 +519,7 @@
   window.MCTrack = {
     event: enviar,
     origem: function () { return origem; },
+    veioDe: veioDe,
     secaoAtual: function () { return secaoVisivel; }
   };
 })();

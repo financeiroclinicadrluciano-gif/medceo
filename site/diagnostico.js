@@ -534,7 +534,37 @@
     ["utm_source", "utm_medium", "utm_campaign"].forEach(function (k) {
       d[k] = params.get(k) || "";
     });
+    /* 05/10: de qual post do blog o médico veio. O botão do post traz
+       ?de=blog&post=<slug>. Vai em dois lugares: no campo próprio `veio_de`
+       ("blog:<slug>"), para quando a planilha ganhar a coluna, e dentro de
+       `pagina`, porque o Apps Script publicado só repassa uma lista fixa de
+       campos e `pagina` (coluna "Página de origem") é o que já chega lá hoje. */
+    d.veio_de = veioDe();
+    if (d.veio_de) {
+      var partes = d.veio_de.split(":");
+      d.pagina += "?de=" + partes[0] + (partes[1] ? "&post=" + partes[1] : "");
+    }
     return d;
+  }
+
+  /* Mesma leitura e mesma chave de sessão do tracking.js. Fica repetida aqui
+     de propósito: o tracking.js não roda para quem pediu para não ser
+     rastreado, e a origem do formulário é dado do próprio envio, não rastreio. */
+  function veioDe() {
+    var limpa = function (v) {
+      return String(v || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 80);
+    };
+    var v = "";
+    try {
+      var q = new URLSearchParams(location.search);
+      var de = limpa(q.get("de"));
+      var post = limpa(q.get("post"));
+      if (de) v = (post ? de + ":" + post : de).slice(0, 100);
+    } catch (e) {}
+    try {
+      if (v) sessionStorage.setItem("mc_veio_de", v);
+      return v || sessionStorage.getItem("mc_veio_de") || "";
+    } catch (e) { return v; }
   }
 
   /* =====================================================================
