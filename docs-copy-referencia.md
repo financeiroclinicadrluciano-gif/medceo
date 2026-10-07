@@ -113,7 +113,7 @@ Transformar visibilidade em demanda que dá para medir, e demanda em receita que
 **03 · Marcos | Comercial** *(kicker: Pilar de desenvolvimento)*
 Tirar a venda do improviso: do primeiro "quanto custa?" no WhatsApp até o fechamento, com o mesmo padrão em qualquer pessoa da equipe.
 
-**04 · Alessandra | Gestão** *(kicker: Pilar de desenvolvimento)*
+**04 · Dr. Luciano e Gislaine | Gestão** *(kicker: Pilar de desenvolvimento)*
 Cultura, performance e gente boa que fica. Equipe com alçada para resolver sem passar tudo pela mesa do dono.
 
 **05 · Michele | Projetos** *(kicker: Pilar de desenvolvimento)*

@@ -627,8 +627,8 @@
       '<button type="button" class="mcq-x" aria-label="Fechar">&times;</button>' +
       '<div class="mcq-arte">' +
       "<picture>" +
-      '<source media="(max-width:899px)" srcset="/assets/medceo/form-arte-faixa.webp">' +
-      '<img class="mcq-fundo-img" src="/assets/medceo/form-arte.webp" alt="" ' +
+      '<source media="(max-width:899px)" srcset="/assets/medceo/form-arte-faixa-time.webp">' +
+      '<img class="mcq-fundo-img" src="/assets/medceo/form-arte-time.webp" alt="" ' +
       'width="700" height="1500">' +
       "</picture>" +
       '<span class="mcq-veu" aria-hidden="true"></span>' +
