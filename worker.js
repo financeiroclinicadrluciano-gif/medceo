@@ -30,7 +30,7 @@ const REDIRECIONAMENTOS = new Map([
 // sem refazer o modelo (ex.: aula da semana antes de a Estreia existir).
 // 302 sem cache, porque o destino troca no mesmo dia.
 const TEMPORARIOS = new Map([
-  ["/assistir", "/webnar"],
+  ["/assistir", "https://www.youtube.com/watch?v=kRrGC6lxmPE"],
 ]);
 
 // Os cabeçalhos de segurança e de cache moram em `site/_headers`: com Static
