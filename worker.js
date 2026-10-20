@@ -26,6 +26,13 @@ const REDIRECIONAMENTOS = new Map([
   ["/blog/custo-no-show-clinica", "/blog/clinica-roda-sem-o-dono"],
 ]);
 
+// Link fixo de modelo de WhatsApp: o botão aponta para cá e o destino muda
+// sem refazer o modelo (ex.: aula da semana antes de a Estreia existir).
+// 302 sem cache, porque o destino troca no mesmo dia.
+const TEMPORARIOS = new Map([
+  ["/assistir", "/webnar"],
+]);
+
 // Os cabeçalhos de segurança e de cache moram em `site/_headers`: com Static
 // Assets o binding responde antes deste script, então header definido aqui só
 // chegava nas respostas que passam pelo worker (404 e redirect).
@@ -38,6 +45,14 @@ export default {
     const destino = REDIRECIONAMENTOS.get(caminho);
     if (destino) {
       return Response.redirect(new URL(destino, url.origin).toString(), 301);
+    }
+
+    const temporario = TEMPORARIOS.get(caminho);
+    if (temporario) {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: new URL(temporario, url.origin).toString(), "Cache-Control": "no-store" },
+      });
     }
 
     return env.ASSETS.fetch(request);
