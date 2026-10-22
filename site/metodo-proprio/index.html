@@ -322,7 +322,8 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
       </a>
     </div>
 
-    <figure class="quadro" data-surge style="--d:2" data-video-pendente>
+    <!-- vídeo de posicionamento: pôr o id do Panda em data-panda (vazio = em edição, fica a foto) -->
+    <figure class="quadro" data-surge style="--d:2" data-video-pendente data-panda="">
       <img src="/assets/medceo/pilar-luciano.jpg" alt="Dr. Luciano Alves Neves" width="933" height="1166" fetchpriority="high">
       <figcaption class="quadro__pe"><b>Dr. Luciano Alves Neves</b><span>Médico e profissional de educação física, levou a periodização do treino para a jornada do paciente.</span></figcaption>
     </figure>
@@ -455,6 +456,16 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
       fixo.classList.toggle('on', visto.size === 0);
     }, { threshold: 0.05 });
     document.querySelectorAll('.heroi, .reuniao').forEach((el) => olho.observe(el));
+  }
+
+  const pos = document.querySelector('[data-panda]');
+  if (pos && pos.getAttribute('data-panda')) {
+    pos.removeAttribute('data-video-pendente');
+    pos.setAttribute('data-video-facade', 'https://player-vz-cc72507e-ecc.tv.pandavideo.com.br/embed/?v=' + pos.getAttribute('data-panda'));
+    pos.setAttribute('data-video-title', 'Vídeo de posicionamento do MedCEO, com o Dr. Luciano Alves Neves');
+    pos.setAttribute('role', 'button');
+    pos.tabIndex = 0;
+    pos.insertAdjacentHTML('beforeend', '<span class="play vidro" aria-hidden="true"></span>');
   }
 
   document.querySelectorAll('[data-video-facade]').forEach((btn) => {
