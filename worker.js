@@ -31,7 +31,10 @@ const REDIRECIONAMENTOS = new Map([
 // forçar um destino (ex.: o YouTube parar de mostrar a transmissão no /live).
 // 27/10 15h: o /live do canal devolvia o teste antigo kRrGC6lxmPE (agendado
 // em 20/10), então a aula de hoje vai fixa até a live acabar.
-const TEMPORARIOS = new Map([["/assistir", "https://www.youtube.com/watch?v=87h6Ao5CLdc"]]);
+// Cada destino fixo tem validade: vencido, o /assistir volta a `liveDoDia` sozinho,
+// para o link da semana passada nunca ficar preso no botão do WhatsApp.
+const TEMPORARIOS = new Map([["/assistir", { url: "https://www.youtube.com/watch?v=87h6Ao5CLdc", ate: "2026-10-28T03:00:00Z" }]]);
+const temporarioValido = (c) => { const t = TEMPORARIOS.get(c); return t && Date.now() < Date.parse(t.ate) ? t.url : null; };
 
 // 27/10: o botão "Assistir à aula" do modelo de WhatsApp e o convite semanal
 // apontam para medceo.online/assistir. O /live do canal mostra a transmissão
@@ -68,7 +71,7 @@ export default {
       return Response.redirect(new URL(destino, url.origin).toString(), 301);
     }
 
-    const temporario = TEMPORARIOS.get(caminho) || (caminho === "/assistir" ? await liveDoDia() : null);
+    const temporario = temporarioValido(caminho) || (caminho === "/assistir" ? await liveDoDia() : null);
     if (temporario) {
       return new Response(null, {
         status: 302,
