@@ -29,7 +29,9 @@ const REDIRECIONAMENTOS = new Map([
 // Link fixo com destino trocado à mão (302 sem cache). Vazio desde 27/10:
 // o /assistir resolve sozinho em `liveDoDia`. Pôr "/assistir" aqui só para
 // forçar um destino (ex.: o YouTube parar de mostrar a transmissão no /live).
-const TEMPORARIOS = new Map([]);
+// 27/10 15h: o /live do canal devolvia o teste antigo kRrGC6lxmPE (agendado
+// em 20/10), então a aula de hoje vai fixa até a live acabar.
+const TEMPORARIOS = new Map([["/assistir", "https://www.youtube.com/watch?v=87h6Ao5CLdc"]]);
 
 // 27/10: o botão "Assistir à aula" do modelo de WhatsApp e o convite semanal
 // apontam para medceo.online/assistir. O /live do canal mostra a transmissão
