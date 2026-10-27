@@ -26,12 +26,31 @@ const REDIRECIONAMENTOS = new Map([
   ["/blog/custo-no-show-clinica", "/blog/clinica-roda-sem-o-dono"],
 ]);
 
-// Link fixo de modelo de WhatsApp: o botão aponta para cá e o destino muda
-// sem refazer o modelo (ex.: aula da semana antes de a Estreia existir).
-// 302 sem cache, porque o destino troca no mesmo dia.
-const TEMPORARIOS = new Map([
-  ["/assistir", "https://www.youtube.com/watch?v=kRrGC6lxmPE"],
-]);
+// Link fixo com destino trocado à mão (302 sem cache). Vazio desde 27/10:
+// o /assistir resolve sozinho em `liveDoDia`. Pôr "/assistir" aqui só para
+// forçar um destino (ex.: o YouTube parar de mostrar a transmissão no /live).
+const TEMPORARIOS = new Map([]);
+
+// 27/10: o botão "Assistir à aula" do modelo de WhatsApp e o convite semanal
+// apontam para medceo.online/assistir. O /live do canal mostra a transmissão
+// agendada ou ao vivo; o canonical dela é o watch?v= da live da semana. Sem
+// transmissão agendada, cai na aba de lives do canal, nunca num vídeo velho.
+const CANAL = "UCl4QH2DnIt80TrVQF4Zt90g";
+const SEM_LIVE = `https://www.youtube.com/channel/${CANAL}/streams`;
+
+async function liveDoDia() {
+  try {
+    const r = await fetch(`https://www.youtube.com/channel/${CANAL}/live`, {
+      headers: { "User-Agent": "Mozilla/5.0", "Accept-Language": "pt-BR" },
+      signal: AbortSignal.timeout(4000),
+    });
+    const html = await r.text();
+    const id = html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/);
+    return id ? `https://www.youtube.com/watch?v=${id[1]}` : SEM_LIVE;
+  } catch {
+    return SEM_LIVE;
+  }
+}
 
 // Os cabeçalhos de segurança e de cache moram em `site/_headers`: com Static
 // Assets o binding responde antes deste script, então header definido aqui só
@@ -47,7 +66,7 @@ export default {
       return Response.redirect(new URL(destino, url.origin).toString(), 301);
     }
 
-    const temporario = TEMPORARIOS.get(caminho);
+    const temporario = TEMPORARIOS.get(caminho) || (caminho === "/assistir" ? await liveDoDia() : null);
     if (temporario) {
       return new Response(null, {
         status: 302,
