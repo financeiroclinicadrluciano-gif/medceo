@@ -112,6 +112,28 @@ button{font:inherit;color:inherit;cursor:pointer}
 .frase p{font-family:var(--serif);font-style:italic;font-size:clamp(21px,min(2.4vw,4.4vh),32px);line-height:1.2;color:var(--creme);text-align:center;text-wrap:balance}
 .frase p span{color:var(--ouro-claro)}
 
+/* dobra 2, versao 3 (28/10/2026): Dr. Luciano recortado a esquerda, com chao na base da secao, e a oferta a direita */
+.extrair{position:relative;isolation:isolate;overflow:hidden;min-height:100svh;display:flex;align-items:stretch;padding-top:clamp(24px,4vh,48px)}
+.extrair>.wrap{width:100%}
+.extrair__fundo{position:absolute;inset:0;z-index:-2}
+.extrair__fundo img{width:100%;height:100%;object-fit:cover;object-position:20% 50%;filter:brightness(1.15)}
+.extrair__fundo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,10,.62) 0%,rgba(5,7,10,.8) 45%,rgba(5,7,10,.94) 100%),linear-gradient(180deg,#05070A 0%,transparent 18%,transparent 82%,#05070A 100%)}
+.extrair__grade{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:end}
+.extrair__grade>*{min-width:0}
+.extrair__sujeito{margin:0;align-self:end;display:flex;justify-content:flex-end}
+.extrair__sujeito img{display:block;flex:none;width:auto;height:min(calc(100svh - 48px),900px);max-width:none}
+.extrair .ficha dl{margin-top:0}
+.extrair .ficha dl>div:first-child{border-top:0}
+.extrair__txt{align-self:center;padding:clamp(24px,4vh,48px) 0}
+.extrair .h2{font-size:clamp(28px,min(3.2vw,5.4vh),44px)}
+.extrair .ficha{max-width:640px}
+.extrair .ficha dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+.extrair .ficha dl>div{padding:clamp(8px,1.4vh,12px) 0;border-top:0;border-bottom:1px solid var(--fio)}
+.extrair .ficha dl>div:nth-last-child(-n+2){border-bottom:0}
+.extrair .h2{margin-top:12px}
+.extrair .lead{margin-top:clamp(12px,2vh,18px)}
+.extrair__acoes{margin-top:clamp(20px,3.4vh,30px)}
+.extrair__acoes .btn{min-height:60px;padding:0 34px;font-size:16.5px}
 /* dobra 2, versao 2: ficha do metodo e tres motivos */
 .porque{isolation:isolate;overflow:hidden}
 .porque__fundo{position:absolute;inset:0;z-index:-2}
@@ -209,6 +231,14 @@ button{font:inherit;color:inherit;cursor:pointer}
   .heroi{padding:92px 0 44px;min-height:0;display:block}
   .porque,.prova,.reuniao{min-height:0;display:block}
   .porque{padding:56px 0 36px}
+  .extrair{display:block;min-height:0;padding:40px 0 56px}
+  .extrair__grade{grid-template-columns:minmax(0,1fr);gap:8px}
+  .extrair__sujeito{margin:0 auto;width:min(82%,340px);display:block}
+  .extrair__sujeito img{width:100%;height:auto}
+  .extrair__txt{padding:0}
+  .extrair .ficha dl{grid-template-columns:minmax(0,1fr)}
+  .extrair .ficha dl>div:nth-last-child(2){border-bottom:1px solid var(--fio)}
+  .extrair__acoes .btn{width:100%;padding:0 20px;font-size:16px}
   .prova{padding:64px 0}
   .heroi__fundo::after{background:linear-gradient(180deg,rgba(5,7,10,.86) 0%,rgba(5,7,10,.8) 55%,#05070A 100%)}
   .heroi__grade,.porque__topo,.prova__grade,.aula__caixa{grid-template-columns:minmax(0,1fr)}
@@ -298,9 +328,10 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 
 /* /vsl: video em cima, resto da pagina travado ate 5 min assistidos */
 .vsl{position:relative;padding:clamp(96px,13vh,128px) 0 clamp(36px,6vh,64px);isolation:isolate;overflow:hidden}
-.vsl__topo{max-width:900px;margin:0 auto;text-align:center}
-.vsl__topo .h1{margin-top:14px}
-.vsl__video{position:relative;max-width:1040px;margin:clamp(22px,4vh,40px) auto 0;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#0b0f14;box-shadow:0 60px 120px -40px rgba(0,0,0,.95),0 0 0 10px rgba(255,255,255,.035)}
+.vsl__topo{max-width:1080px;margin:0 auto;text-align:center}
+.vsl__topo .h1{margin-top:14px;margin-left:auto;margin-right:auto;max-width:none}
+.vsl__lead{margin:clamp(10px,1.8vh,16px) auto 0;max-width:62ch}
+.vsl__video{position:relative;max-width:min(1040px,max(560px,calc((100svh - 400px)*16/9)));margin:clamp(22px,4vh,40px) auto 0;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#0b0f14;box-shadow:0 60px 120px -40px rgba(0,0,0,.95),0 0 0 10px rgba(255,255,255,.035)}
 .vsl__video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vsl__espera{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;padding:24px;text-align:center;background:radial-gradient(60% 70% at 50% 40%,rgba(195,161,78,.16),transparent 70%)}
 .vsl__espera p{max-width:40ch;font-size:15px;line-height:1.55;color:var(--texto)}
@@ -313,7 +344,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 .trancado.livre{display:block;animation:abre .9s cubic-bezier(.2,.7,.2,1) both}
 [data-trancado-btn].livre{display:inline-flex}
 @keyframes abre{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@media (max-width:899px){.vsl{padding-top:88px}.vsl__video{border-radius:16px;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}.fixo:not(.livre){display:none}}
+@media (max-width:899px){.vsl{padding-top:88px}.vsl__video{max-width:none;border-radius:16px;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}.fixo:not(.livre){display:none}}
 </style>
 <noscript><style>[data-surge]{opacity:1;transform:none;filter:none}.trancado,[data-trancado-btn],body .pe{display:revert!important}</style></noscript>
 </head>
@@ -335,9 +366,10 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
   <div class="wrap">
     <div class="vsl__topo">
       <p class="olho" data-surge>MedCEO · para médicos</p>
-      <h1 class="h1" data-surge style="--d:1">O método que faz você ganhar mais <em>trabalhando menos</em></h1>
+      <h1 class="h1" data-surge style="--d:1">Esse é o método que eu uso como médico para ganhar mais <em>trabalhando menos</em></h1>
+      <p class="lead vsl__lead" data-surge style="--d:2">Os próximos 10 minutos podem definir os seus próximos 10 anos. Eu vou te mostrar o passo a passo exato que eu aplico na minha clínica para faturar R$&nbsp;250&nbsp;mil todos os meses e ainda ter tempo de qualidade.</p>
     </div>
-    <div class="vsl__video" data-vsl data-panda="34bef84d-56a4-4155-8755-07ac38628f54" data-liberar="300" data-surge style="--d:2">
+    <div class="vsl__video" data-vsl data-panda="34bef84d-56a4-4155-8755-07ac38628f54" data-liberar="300" data-surge style="--d:3">
       <div class="vsl__espera">
         <span class="selo"><i></i>Vídeo em edição</span>
         <p>O Dr. Luciano está terminando este vídeo. Ele entra aqui assim que ficar pronto.</p>
@@ -352,32 +384,30 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 
 <div class="trancado" data-trancado>
 
-<!-- dobra 2: por que ter um método próprio -->
-<section class="porque" id="porque" aria-labelledby="t-porque">
-  <div class="porque__fundo" aria-hidden="true"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1920" height="1088" loading="lazy"><span class="grao"></span></div>
-  <div class="wrap">
-    <div class="porque__grade">
-      <div>
-        <p class="olho" data-surge>Depois da primeira consulta</p>
-        <h2 class="h2" id="t-porque" data-surge style="--d:1">A sua primeira consulta não é o produto, <em>é a porta</em></h2>
-        <p class="lead" data-surge style="--d:2">Na Natuá MedSpa (Clínica do Dr. Luciano), cerca de 80% do faturamento vem a partir da segunda consulta, da jornada que vem depois da porta.</p>
-        <div class="ficha vidro" data-surge style="--d:3">
-          <p class="olho">As 4 engrenagens, que só giram juntas</p>
-          <dl>
-            <div><dt>1</dt><dd><b>Acompanhamento</b> estruturado em cada fase.</dd></div>
-            <div><dt>2</dt><dd><b>Esteira</b> de produtos e serviços em cada fase.</dd></div>
-            <div><dt>3</dt><dd><b>Resultado</b> claro em cada fase.</dd></div>
-            <div><dt>4</dt><dd><b>Periodização</b>, que vem da educação física.</dd></div>
-          </dl>
-        </div>
+<!-- dobra 2: extrair o método único próprio (pedido do Gustavo, 28/10/2026) -->
+<section class="extrair" id="extrair" aria-labelledby="t-extrair">
+  <div class="extrair__fundo" aria-hidden="true"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1920" height="1088" loading="lazy"><span class="grao"></span></div>
+  <div class="wrap extrair__grade">
+    <figure class="extrair__sujeito" data-surge>
+      <img src="/assets/medceo/luciano-mao-recorte.webp" alt="Dr. Luciano com a mão estendida para quem assiste" width="1000" height="1250" loading="lazy">
+    </figure>
+    <div class="extrair__txt">
+      <p class="olho" data-surge>Reunião gratuita · online</p>
+      <h2 class="h2" id="t-extrair" data-surge style="--d:1">Te ajudo a extrair o seu <em>método único próprio</em>, para você se diferenciar da concorrência e escalar a sua clínica</h2>
+      <p class="lead" data-surge style="--d:2">Todo médico já tem um método. Basta saber extrair o seu diferencial e transformar esse diferencial em um passo a passo claro para apresentar ao seu paciente.</p>
+      <p class="lead" data-surge style="--d:3">Em uma reunião de 1 hora, eu e o meu time fazemos algumas perguntas para identificar qual pode ser o seu método único próprio. E você sai com o nosso passo a passo para:</p>
+      <div class="ficha vidro" data-surge style="--d:4">
+        <dl>
+          <div><dt>1</dt><dd>Aumentar o valor da sua hora.</dd></div>
+          <div><dt>2</dt><dd>Ser mais valorizado como profissional.</dd></div>
+          <div><dt>3</dt><dd>Escalar a sua clínica com os 4 pilares.</dd></div>
+          <div><dt>4</dt><dd>Ter mais tempo de qualidade no seu dia a dia.</dd></div>
+        </dl>
       </div>
-      <ol class="motivos">
-        <li class="motivo vidro" data-surge style="--d:1"><p class="olho">Dinheiro</p><div><h3>O paciente para de comparar preço</h3><p>Quem compra uma transformação completa não compara a sua consulta com a do colega.</p></div></li>
-        <li class="motivo vidro" data-surge style="--d:2"><p class="olho">Tempo</p><div><h3>Você trabalha menos</h3><p>Boa parte das entregas da jornada não é feita por você, e você para de correr atrás de paciente novo toda semana.</p></div></li>
-        <li class="motivo vidro" data-surge style="--d:3"><p class="olho">Paciente</p><div><h3>Ele fica e melhora mais</h3><p>A cada fase ele melhora, fica mais tempo e escolhe o caminho, sem ninguém empurrar pacote.</p></div></li>
-      </ol>
+      <div class="extrair__acoes" data-surge style="--d:5">
+        <a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o." target="_blank" rel="noopener">Agendar pelo WhatsApp <span class="seta" aria-hidden="true"></span></a>
+      </div>
     </div>
-    <div class="frase" data-surge><p>Se o paciente sai sabendo só a data do retorno, <span>você entregou uma consulta.</span></p></div>
   </div>
 </section>
 
@@ -414,8 +444,8 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
   <div class="wrap">
     <div class="reuniao__txt">
       <p class="olho" data-surge>Reunião gratuita · 1 hora · online</p>
-      <h2 class="h2" id="t-reuniao" data-surge style="--d:1">Em uma hora, você vê por dentro <em>as engrenagens girando</em> na clínica do Dr. Luciano</h2>
-      <p class="lead" data-surge style="--d:2">Uma conversa personalizada com o Dr. Luciano e um especialista do time, para você ver o que o paciente vive em cada fase da jornada na clínica dele e como isso aparece no resultado.</p>
+      <h2 class="h2" id="t-reuniao" data-surge style="--d:1">Descubra qual é o seu <em>método único próprio</em> para faturar mais sem se matar de trabalhar</h2>
+      <p class="lead" data-surge style="--d:2">Uma conversa personalizada com o Dr. Luciano e um especialista do time. Você vê por dentro o que o paciente vive em cada fase da jornada na clínica dele. E sai sabendo se esse caminho pode ser replicado na sua especialidade.</p>
     </div>
     <ol class="passos vidro">
       <li class="passo" data-surge><b>1</b><p>Você conta como atende hoje e quando o paciente some.</p></li>
