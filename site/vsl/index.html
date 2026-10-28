@@ -335,16 +335,13 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 .vsl__video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vsl__espera{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;padding:24px;text-align:center;background:radial-gradient(60% 70% at 50% 40%,rgba(195,161,78,.16),transparent 70%)}
 .vsl__espera p{max-width:40ch;font-size:15px;line-height:1.55;color:var(--texto)}
-.vsl__trava{max-width:640px;margin:clamp(18px,3vh,28px) auto 0;text-align:center}
-.vsl__trava p{font-size:14.5px;line-height:1.55;color:var(--texto)}
-.vsl__barra{height:3px;margin-bottom:14px;border-radius:3px;background:var(--fio);overflow:hidden}
-.vsl__barra i{display:block;height:100%;width:0;background:linear-gradient(90deg,#A98A3C,#E3CC92);transition:width 1s linear}
-.vsl.livre .vsl__trava{display:none}
 .trancado,[data-trancado-btn],body:not(.livre) .pe{display:none}
 .trancado.livre{display:block;animation:abre .9s cubic-bezier(.2,.7,.2,1) both}
 [data-trancado-btn].livre{display:inline-flex}
 @keyframes abre{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @media (max-width:899px){.vsl{padding-top:88px}.vsl__video{max-width:none;border-radius:16px;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}.fixo:not(.livre){display:none}}
+/* celular: titulo em 3 linhas e descricao em 4 (pedido do Gustavo, 28/10/2026) */
+@media (max-width:899px){.vsl__topo .h1{font-size:min(7.1vw,46px);letter-spacing:-.022em}.vsl__lead{font-size:min(3.35vw,16px);letter-spacing:0;max-width:none;line-height:1.55;text-wrap:wrap;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}}
 </style>
 <noscript><style>[data-surge]{opacity:1;transform:none;filter:none}.trancado,[data-trancado-btn],body .pe{display:revert!important}</style></noscript>
 </head>
@@ -374,10 +371,6 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
         <span class="selo"><i></i>Vídeo em edição</span>
         <p>O Dr. Luciano está terminando este vídeo. Ele entra aqui assim que ficar pronto.</p>
       </div>
-    </div>
-    <div class="vsl__trava" data-trava aria-live="polite">
-      <div class="vsl__barra" aria-hidden="true"><i data-barra></i></div>
-      <p data-trava-txt>Assista com som. O próximo passo aparece aqui embaixo depois dos primeiros 5 minutos do vídeo.</p>
     </div>
   </div>
 </section>
@@ -510,8 +503,6 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
   const id = caixa.getAttribute('data-panda');
   const alvo = Number(caixa.getAttribute('data-liberar')) || 300;
   const CHAVE = 'medceo_vsl_' + (id || 'pendente');
-  const barra = document.querySelector('[data-barra]');
-  const txt = document.querySelector('[data-trava-txt]');
   const fixo = document.querySelector('[data-fixo]');
   let visto = Number(localStorage.getItem(CHAVE + '_s')) || 0;
   let ultimo = null;
@@ -532,9 +523,6 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
     if (ultimo !== null) { const d = t - ultimo; if (d > 0 && d < 3) visto += d; }
     ultimo = t;
     localStorage.setItem(CHAVE + '_s', String(Math.round(visto)));
-    barra.style.width = Math.min(100, (visto / alvo) * 100) + '%';
-    const falta = Math.ceil((alvo - visto) / 60);
-    if (visto > 5) txt.textContent = falta > 1 ? 'Faltam ' + falta + ' minutos para o próximo passo aparecer.' : 'Falta menos de 1 minuto para o próximo passo aparecer.';
     if (visto >= alvo) liberar();
   };
 
