@@ -370,6 +370,8 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 <!-- GA4 (Tracking 8D) -->
 <script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}var q=location.search;try{if(/[?&]interno=1/.test(q))localStorage.setItem('mc_interno','1');if(/[?&]interno=0/.test(q))localStorage.removeItem('mc_interno');if(localStorage.getItem('mc_interno')){window.MC_INTERNO=true;window['ga-disable-G-SXJGLYZ0W7']=true;window['ga-disable-AW-11035617427']=true;}}catch(e){}gtag('js',new Date());gtag('set',{site_marca:'medceo'});window.MC_INTERNO||gtag('config','GT-PJWWKM65',{site_marca:'medceo'});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
+<!-- Clarity (mapa de calor e gravacoes da /vsl, projeto z5a6ddcjj4, 29/10/2026); navegador interno fica de fora -->
+<script>window.MC_INTERNO||(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z5a6ddcjj4");</script>
 </head>
 <body>
 
@@ -545,7 +547,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
     if (ultimo !== null) { const d = t - ultimo; if (d > 0 && d < 3) visto += d; }
     ultimo = t;
     localStorage.setItem(CHAVE + '_s', String(Math.round(visto)));
-    if (visto >= alvo) { liberar(); if (window.MCTrack) window.MCTrack.event("vsl_liberada", { segundos: alvo }); }
+    if (visto >= alvo) { liberar(); if (window.MCTrack) window.MCTrack.event("vsl_liberada", { segundos: alvo }); if (window.clarity) window.clarity("event", "vsl_liberada"); }
   };
 
   if (localStorage.getItem(CHAVE) === '1' || new URLSearchParams(location.search).has('previa')) liberar();
