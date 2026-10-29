@@ -342,8 +342,34 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 @media (max-width:899px){.vsl{padding-top:88px}.vsl__video{max-width:none;border-radius:16px;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}.fixo:not(.livre){display:none}}
 /* celular: titulo em 3 linhas e descricao em 4 (pedido do Gustavo, 28/10/2026) */
 @media (max-width:899px){.vsl__topo .h1{font-size:min(7.1vw,46px);letter-spacing:-.022em}.vsl__lead{font-size:min(3.35vw,16px);letter-spacing:0;max-width:none;line-height:1.55;text-wrap:wrap;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}}
+/* dobra da reuniao, versao 2 (29/10/2026): texto a esquerda, Dr. Luciano de bracos cruzados a direita, botao embaixo */
+.reuniao{align-items:stretch;padding:clamp(24px,4vh,48px) 0 0}
+.reuniao__fundo img{object-position:80% 50%;filter:brightness(1.15)}
+.reuniao__fundo::after{background:linear-gradient(90deg,rgba(5,7,10,.94) 0%,rgba(5,7,10,.8) 55%,rgba(5,7,10,.62) 100%),linear-gradient(180deg,#05070A 0%,transparent 18%,transparent 82%,#05070A 100%)}
+.reuniao__grade{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(24px,4vw,64px);align-items:end}
+.reuniao__grade>*{min-width:0}
+.reuniao__txt{align-self:center;max-width:680px;padding:clamp(24px,4vh,48px) 0}
+.reuniao__sub{margin-top:clamp(12px,2vh,18px);font-family:var(--serif);font-style:italic;font-size:clamp(19px,min(1.7vw,3vh),24px);line-height:1.3;color:var(--ouro-claro)}
+.reuniao .lead{margin-top:clamp(12px,2vh,18px)}
+.reuniao__sujeito{margin:0;align-self:end;display:flex;justify-content:flex-start}
+.reuniao__sujeito img{display:block;flex:none;width:auto;height:min(calc(100svh - 48px),900px);max-width:none}
+/* celular: foto em cima com o rosto no centro da tela (centro do rosto medido pelo Vision: 0,508 aqui e 0,382 na foto da dobra 2) */
+@media (max-width:899px){
+  .reuniao{padding:40px 0 56px}
+  .reuniao__fundo{inset:0;height:auto}
+  .reuniao__fundo::after{background:linear-gradient(180deg,#05070A 0%,rgba(5,7,10,.85) 40%,#05070A 100%)}
+  .reuniao__grade{grid-template-columns:minmax(0,1fr);gap:0}
+  .reuniao__sujeito{order:-1;margin:0 auto;width:min(82%,340px);display:block}
+  .reuniao__sujeito img{width:100%;height:auto;transform:translateX(-.8%)}
+  .reuniao__txt{padding:0}
+  .reuniao__sub{font-size:19px}
+  .extrair__sujeito img{transform:translateX(11.8%)}
+}
 </style>
 <noscript><style>[data-surge]{opacity:1;transform:none;filter:none}.trancado,[data-trancado-btn],body .pe{display:revert!important}</style></noscript>
+<!-- GA4 (Tracking 8D) -->
+<script>window.SITE_MARCA='medceo';window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}var q=location.search;try{if(/[?&]interno=1/.test(q))localStorage.setItem('mc_interno','1');if(/[?&]interno=0/.test(q))localStorage.removeItem('mc_interno');if(localStorage.getItem('mc_interno')){window.MC_INTERNO=true;window['ga-disable-G-SXJGLYZ0W7']=true;window['ga-disable-AW-11035617427']=true;}}catch(e){}gtag('js',new Date());gtag('set',{site_marca:'medceo'});window.MC_INTERNO||gtag('config','GT-PJWWKM65',{site_marca:'medceo'});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-PJWWKM65"></script>
 </head>
 <body>
 
@@ -382,7 +408,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
   <div class="extrair__fundo" aria-hidden="true"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1920" height="1088" loading="lazy"><span class="grao"></span></div>
   <div class="wrap extrair__grade">
     <figure class="extrair__sujeito" data-surge>
-      <img src="/assets/medceo/luciano-mao-recorte.webp" alt="Dr. Luciano com a mão estendida para quem assiste" width="1000" height="1250" loading="lazy">
+      <img src="/assets/medceo/luciano-oculos-recorte.webp" alt="Dr. Luciano Alves Neves ajustando os óculos" width="1000" height="1500" loading="lazy">
     </figure>
     <div class="extrair__txt">
       <p class="olho" data-surge>Reunião gratuita · online</p>
@@ -433,22 +459,18 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 
 <!-- dobra 5: reunião -->
 <section class="reuniao" id="reuniao" aria-labelledby="t-reuniao">
-  <div class="reuniao__fundo" aria-hidden="true"><img src="/assets/medceo/luciano-bg.jpg" alt="" width="1920" height="1080" loading="lazy"><span class="grao"></span></div>
-  <div class="wrap">
+  <div class="reuniao__fundo" aria-hidden="true"><img src="/assets/medceo/hero-bg.jpg" alt="" width="1920" height="1088" loading="lazy"><span class="grao"></span></div>
+  <div class="wrap reuniao__grade">
     <div class="reuniao__txt">
       <p class="olho" data-surge>Reunião gratuita · 1 hora · online</p>
       <h2 class="h2" id="t-reuniao" data-surge style="--d:1">Descubra qual é o seu <em>método único próprio</em> para faturar mais sem se matar de trabalhar</h2>
-      <p class="lead" data-surge style="--d:2">Uma conversa personalizada com o Dr. Luciano e um especialista do time. Você vê por dentro o que o paciente vive em cada fase da jornada na clínica dele. E sai sabendo se esse caminho pode ser replicado na sua especialidade.</p>
+      <p class="reuniao__sub" data-surge style="--d:2">Agende 1 hora de reunião comigo e com o meu time.</p>
+      <p class="lead" data-surge style="--d:3">Vamos identificar qual é o melhor caminho para escalar a sua clínica, como extrair seu método próprio e como aplicar os 4 pilares para escalar o seu faturamento com segurança e previsibilidade.</p>
+      <div class="reuniao__acoes" data-surge style="--d:4">
+        <a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o." target="_blank" rel="noopener">Agendar pelo WhatsApp <span class="seta" aria-hidden="true"></span></a>
+      </div>
     </div>
-    <ol class="passos vidro">
-      <li class="passo" data-surge><b>1</b><p>Você conta como atende hoje e quando o paciente some.</p></li>
-      <li class="passo" data-surge style="--d:1"><b>2</b><p>O Dr. Luciano abre as 4 engrenagens da clínica dele.</p></li>
-      <li class="passo" data-surge style="--d:2"><b>3</b><p>Se fizer sentido, ele explica a mentoria, e quem decide é você.</p></li>
-    </ol>
-    <div class="reuniao__acoes" data-surge>
-      <a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o." target="_blank" rel="noopener">Agendar pelo WhatsApp <span class="seta" aria-hidden="true"></span></a>
-      <small>A reunião é só com o médico. Ninguém monta o seu método nela: isso leva tempo e é feito na mentoria.</small>
-    </div>
+    <figure class="reuniao__sujeito" data-surge><img src="/assets/medceo/luciano-bracos-recorte.webp" alt="Dr. Luciano Alves Neves de braços cruzados" width="1000" height="1500" loading="lazy"></figure>
   </div>
 </section>
 
@@ -523,7 +545,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
     if (ultimo !== null) { const d = t - ultimo; if (d > 0 && d < 3) visto += d; }
     ultimo = t;
     localStorage.setItem(CHAVE + '_s', String(Math.round(visto)));
-    if (visto >= alvo) liberar();
+    if (visto >= alvo) { liberar(); if (window.MCTrack) window.MCTrack.event("vsl_liberada", { segundos: alvo }); }
   };
 
   if (localStorage.getItem(CHAVE) === '1' || new URLSearchParams(location.search).has('previa')) liberar();
