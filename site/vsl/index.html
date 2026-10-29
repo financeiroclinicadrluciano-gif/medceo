@@ -342,6 +342,50 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 @media (max-width:899px){.vsl{padding-top:88px}.vsl__video{max-width:none;border-radius:16px;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}.fixo:not(.livre){display:none}}
 /* celular: titulo em 3 linhas e descricao em 4 (pedido do Gustavo, 28/10/2026) */
 @media (max-width:899px){.vsl__topo .h1{font-size:min(7.1vw,46px);letter-spacing:-.022em}.vsl__lead{font-size:min(3.35vw,16px);letter-spacing:0;max-width:none;line-height:1.55;text-wrap:wrap;margin-left:calc(var(--lado)*-.5);margin-right:calc(var(--lado)*-.5)}}
+/* dobra 4: acompanhamentos (pedido do Gustavo, 29/10/2026): abas no computador, lista em escada no celular */
+.acomp{position:relative;isolation:isolate;padding:clamp(84px,12vh,140px) 0}
+.acomp__fundo{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.acomp__fundo img{width:100%;height:100%;object-fit:cover;filter:blur(18px) saturate(.8);transform:scale(1.1)}
+.acomp__fundo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#05070A 0%,rgba(5,7,10,.86) 18%,rgba(5,7,10,.9) 82%,#05070A 100%)}
+.ac-selo{display:inline-flex;align-items:center;min-height:30px;padding:0 13px;border-radius:999px;border:1px solid rgba(234,226,207,.26);font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--creme)}
+.ac-selo--ouro{background:var(--ouro);border-color:var(--ouro);color:#14100A}
+.ac-valor{display:flex;flex-direction:column;gap:3px}
+.ac-dur{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9C9686}
+.ac-preco{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.1;color:var(--creme)}
+.ac-parc{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ouro-claro)}
+.ac-linha{border:1px solid rgba(234,226,207,.32);color:var(--creme);background:rgba(255,255,255,.02)}
+.ac-pc{margin-top:clamp(40px,7vh,72px);display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+.ac-lista{display:flex;flex-direction:column;border-top:1px solid var(--fio)}
+.ac-aba{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 4px 22px 18px;background:transparent;border:0;border-bottom:1px solid var(--fio);position:relative;text-align:left;color:var(--texto);transition:color .3s}
+.ac-aba b{font-family:var(--serif);font-weight:400;font-size:22px;color:var(--creme);transition:color .3s}
+.ac-aba span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;white-space:nowrap}
+.ac-aba::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:2px;background:var(--ouro);transform:scaleY(0);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.ac-aba[aria-selected="true"],.ac-aba[aria-selected="true"] b{color:var(--ouro-claro)}
+.ac-aba[aria-selected="true"]::before{transform:none}
+@media (hover:hover){.ac-aba:hover b{color:var(--ouro-claro)}}
+.ac-painel{border-radius:28px;padding:28px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:center}
+.ac-painel[hidden]{display:none}
+.ac-painel:not([hidden]){animation:acEntra .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes acEntra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ac-painel img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:20px}
+.ac-painel h3{font-family:var(--serif);font-weight:400;font-size:44px;line-height:1.05;color:var(--creme);margin-top:16px}
+.ac-painel .ac-sub{margin-top:6px;color:var(--ouro-claro);font-family:var(--serif);font-style:italic;font-size:18px}
+.ac-painel .ac-desc{margin-top:14px;font-size:15px;line-height:1.6;color:var(--texto)}
+.ac-painel .ac-valor{margin-top:22px}.ac-painel .btn{margin-top:22px}
+.ac-cel{display:none}
+@media (max-width:899px){
+  .ac-pc{display:none}
+  .ac-cel{margin-top:32px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;position:relative;padding-left:22px}
+  .ac-cel::before{content:"";position:absolute;left:5px;top:10px;bottom:10px;width:1px;background:linear-gradient(var(--ouro),rgba(195,161,78,.15))}
+  .ac-item{border-radius:22px;padding:14px 14px 18px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px 14px;align-items:start}
+  .ac-item.ouro{border-color:rgba(227,204,146,.5)}
+  .ac-item img{grid-row:span 3;width:96px;height:96px;object-fit:cover;border-radius:14px}
+  .ac-item h3{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1;color:var(--creme)}
+  .ac-item p{font-size:13.5px;line-height:1.5;color:var(--texto)}
+  .ac-item .ac-valor,.ac-item .btn{grid-column:1/-1}
+  .ac-item .btn{width:100%;padding:0 12px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){.ac-painel:not([hidden]){animation:none}}
 /* dobra da reuniao, versao 2 (29/10/2026): texto a esquerda, Dr. Luciano de bracos cruzados a direita, botao embaixo */
 .reuniao{align-items:stretch;padding:clamp(24px,4vh,48px) 0 0}
 .reuniao__fundo img{object-position:80% 50%;filter:brightness(1.15)}
@@ -458,6 +502,34 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
     </div>
   </div>
 </section>
+
+<!-- dobra 4: acompanhamentos (pedido do Gustavo, 29/10/2026) -->
+<section class="acomp" id="acompanhamentos" aria-labelledby="t-acomp">
+  <div class="acomp__fundo" aria-hidden="true"><img src="/assets/medceo/office-web.webp" alt="" loading="lazy"><span class="grao"></span></div>
+  <div class="wrap">
+    <p class="olho" data-surge>Acompanhamentos MedCEO</p>
+    <h2 class="h2" id="t-acomp" data-surge style="--d:1">Conheça nossos acompanhamentos</h2>
+    <div class="ac-pc" data-surge style="--d:2"><div class="ac-lista" role="tablist" aria-label="Acompanhamentos"><button class="ac-aba" type="button" role="tab" id="ac-aba-0" aria-controls="ac-painel-0" aria-selected="false" tabindex="-1"><b>MedScale</b><span>R$ 12.000</span></button><button class="ac-aba" type="button" role="tab" id="ac-aba-1" aria-controls="ac-painel-1" aria-selected="false" tabindex="-1"><b>MedManager</b><span>R$ 20.000</span></button><button class="ac-aba" type="button" role="tab" id="ac-aba-2" aria-controls="ac-painel-2" aria-selected="true" tabindex="0"><b>MedCEO</b><span>R$ 35.000</span></button><button class="ac-aba" type="button" role="tab" id="ac-aba-3" aria-controls="ac-painel-3" aria-selected="false" tabindex="-1"><b>MedLab</b><span>R$ 72.000</span></button><button class="ac-aba" type="button" role="tab" id="ac-aba-4" aria-controls="ac-painel-4" aria-selected="false" tabindex="-1"><b>Mentoria Individual</b><span>R$ 120.000</span></button></div><div><div class="ac-painel vidro" role="tabpanel" id="ac-painel-0" aria-labelledby="ac-aba-0" hidden><img src="/assets/medceo/servicos/medscale-time.jpg" alt="MedScale" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">6 meses</span><h3>MedScale</h3><p class="ac-sub">O MedCEO conduzido em meio período</p><p class="ac-desc">A mesma condução do MedCEO em seis meses: aquisição, conversão, margem e execução, com número e responsável em cada etapa. Ao fim, a máquina básica está rodando.</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 12.000</b><span class="ac-parc">ou 12x R$ 1.100</span><span class="ac-dur">24 semanas</span></div><a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedScale." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></div></div><div class="ac-painel vidro" role="tabpanel" id="ac-painel-1" aria-labelledby="ac-aba-1" hidden><img src="/assets/medceo/servicos/medmanager.jpg" alt="MedManager" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">Formação</span><h3>MedManager</h3><p class="ac-sub">Curso completo com as aulas de todos os pilares</p><p class="ac-desc">A formação executiva do método, disciplina por disciplina: Mentalidade CEO, Marketing, Comercial e Gestão. Cada competência tem aula-base, caso, exercício e um projeto aplicado à sua clínica.</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 20.000</b><span class="ac-dur">curso completo</span></div><a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedManager." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></div></div><div class="ac-painel vidro" role="tabpanel" id="ac-painel-2" aria-labelledby="ac-aba-2"><img src="/assets/medceo/servicos/medceo-time.jpg" alt="MedCEO" width="1080" height="1080" loading="lazy"><div><span class="ac-selo ac-selo--ouro">Mais procurado</span><h3>MedCEO</h3><p class="ac-sub">Mentoria de 12 meses, o produto principal</p><p class="ac-desc">Encontros quinzenais ao longo de um ano, no ritmo de quem já tem clínica para tocar. A clínica deixa de depender de você: sistemas no lugar de heroísmo, liderança no lugar de execução.</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 35.000</b><span class="ac-parc">ou 12x R$ 3.200</span><span class="ac-dur">12 meses de mentoria</span></div><a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedCEO." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></div></div><div class="ac-painel vidro" role="tabpanel" id="ac-painel-3" aria-labelledby="ac-aba-3" hidden><img src="/assets/medceo/servicos/medlab.jpg" alt="MedLab" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">Presencial</span><h3>MedLab</h3><p class="ac-sub">Imersão presencial de três dias</p><p class="ac-desc">Três dias presenciais com a sua operação na mesa, o formato mais concentrado do método, para decidir o que trava a clínica com as pessoas certas na sala.</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 72.000</b><span class="ac-dur">3 dias presenciais</span></div><a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedLab." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></div></div><div class="ac-painel vidro" role="tabpanel" id="ac-painel-4" aria-labelledby="ac-aba-4" hidden><img src="/assets/medceo/servicos/mentoria-individual.jpg" alt="Mentoria Individual" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">Ultra premium</span><h3>Mentoria Individual</h3><p class="ac-sub">Acompanhamento individual com o Dr. Luciano</p><p class="ac-desc">Condução direta do Dr. Luciano sobre a sua clínica, sem turma e sem intermediário. Agenda restrita.</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 120.000</b><span class="ac-dur">acompanhamento individual</span></div><a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20Mentoria%20Individual." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></div></div></div></div>
+    <div class="ac-cel" data-surge style="--d:2"><article class="ac-item vidro"><img src="/assets/medceo/servicos/medscale-time.jpg" alt="MedScale" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">6 meses</span></div><h3>MedScale</h3><p>O MedCEO conduzido em meio período</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 12.000</b><span class="ac-parc">ou 12x R$ 1.100</span><span class="ac-dur">24 semanas</span></div><a class="btn ac-linha" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedScale." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></article><article class="ac-item vidro"><img src="/assets/medceo/servicos/medmanager.jpg" alt="MedManager" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">Formação</span></div><h3>MedManager</h3><p>Curso completo com as aulas de todos os pilares</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 20.000</b><span class="ac-dur">curso completo</span></div><a class="btn ac-linha" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedManager." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></article><article class="ac-item vidro ouro"><img src="/assets/medceo/servicos/medceo-time.jpg" alt="MedCEO" width="1080" height="1080" loading="lazy"><div><span class="ac-selo ac-selo--ouro">Mais procurado</span></div><h3>MedCEO</h3><p>Mentoria de 12 meses, o produto principal</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 35.000</b><span class="ac-parc">ou 12x R$ 3.200</span><span class="ac-dur">12 meses de mentoria</span></div><a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedCEO." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></article><article class="ac-item vidro"><img src="/assets/medceo/servicos/medlab.jpg" alt="MedLab" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">Presencial</span></div><h3>MedLab</h3><p>Imersão presencial de três dias</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 72.000</b><span class="ac-dur">3 dias presenciais</span></div><a class="btn ac-linha" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20MedLab." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></article><article class="ac-item vidro"><img src="/assets/medceo/servicos/mentoria-individual.jpg" alt="Mentoria Individual" width="1080" height="1080" loading="lazy"><div><span class="ac-selo">Ultra premium</span></div><h3>Mentoria Individual</h3><p>Acompanhamento individual com o Dr. Luciano</p><div class="ac-valor"><span class="ac-dur">Investimento</span><b class="ac-preco">R$ 120.000</b><span class="ac-dur">acompanhamento individual</span></div><a class="btn ac-linha" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o%20para%20conhecer%20o%20Mentoria%20Individual." target="_blank" rel="noopener">Agendar reunião <span class="seta" aria-hidden="true"></span></a></article></div>
+  </div>
+</section>
+<script>
+(() => {
+  const abas = [...document.querySelectorAll('.ac-aba')];
+  const abrir = (aba) => abas.forEach((a) => {
+    const on = a === aba; a.setAttribute('aria-selected', on); a.tabIndex = on ? 0 : -1;
+    document.getElementById(a.getAttribute('aria-controls')).hidden = !on;
+  });
+  abas.forEach((a, i) => {
+    a.addEventListener('click', () => abrir(a));
+    a.addEventListener('keydown', (e) => {
+      const passo = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (!passo) return; e.preventDefault();
+      const prox = abas[(i + passo + abas.length) % abas.length]; abrir(prox); prox.focus();
+    });
+  });
+})();
+</script>
 
 <!-- dobra 5: reunião -->
 <section class="reuniao" id="reuniao" aria-labelledby="t-reuniao">
