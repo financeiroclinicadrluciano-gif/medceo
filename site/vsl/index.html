@@ -417,7 +417,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 .reuniao .lead{margin-top:clamp(12px,2vh,18px)}
 .reuniao__sujeito{margin:0;align-self:end;display:flex;justify-content:flex-start}
 .reuniao__sujeito img{display:block;flex:none;width:auto;height:min(calc(var(--tela) - 48px),900px);max-width:none}
-/* celular: foto em cima com o rosto no centro da tela (centro do rosto medido pelo Vision: 0,508 aqui e 0,382 na foto da dobra 2) */
+/* celular: foto em cima. Reunião: rosto no centro da tela. Dobra 2: o corpo inteiro no centro (centro visual 0,473), porque centrar o rosto (0,382) empurrava a foto para a direita */
 @media (max-width:899px){
   .reuniao{padding:40px 0 56px}
   .reuniao__fundo{inset:0;height:auto}
@@ -427,7 +427,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
   .reuniao__sujeito img{width:100%;height:auto;transform:translateX(-.8%)}
   .reuniao__txt{padding:0}
   .reuniao__sub{font-size:19px}
-  .extrair__sujeito img{transform:translateX(11.8%)}
+  .extrair__sujeito img{transform:translateX(2.7%)}
 }
 </style>
 <noscript><style>[data-surge]{opacity:1;transform:none;filter:none}.trancado,[data-trancado-btn],body .pe{display:revert!important}</style></noscript>
@@ -615,7 +615,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
         <a class="btn btn--ouro" href="https://wa.me/5541984875688?text=Oi%2C%20assisti%20ao%20v%C3%ADdeo%20do%20m%C3%A9todo%20e%20quero%20agendar%20a%20minha%20reuni%C3%A3o." target="_blank" rel="noopener">Agendar pelo WhatsApp <span class="seta" aria-hidden="true"></span></a>
       </div>
     </div>
-    <figure class="reuniao__sujeito" data-surge><img src="/assets/medceo/luciano-bracos-recorte.webp" alt="Dr. Luciano Alves Neves de braços cruzados" width="1000" height="1500" loading="lazy"></figure>
+    <figure class="reuniao__sujeito" data-surge><img src="/assets/medceo/luciano-bracos-cor-recorte.webp" alt="Dr. Luciano Alves Neves de braços cruzados" width="1000" height="1500" loading="lazy"></figure>
   </div>
 </section>
 
