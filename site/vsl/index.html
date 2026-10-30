@@ -35,7 +35,12 @@ img{display:block;max-width:100%}
 button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:1px solid #C3A14E;outline-offset:4px}
 ::selection{background:rgba(195,161,78,.28);color:#F6F3EC}
-:root{--ouro:#C3A14E;--ouro-claro:#E3CC92;--creme:#F4EEDF;--texto:#C9C2B0;--fio:rgba(234,226,207,.14);--serif:"Playfair Display",Georgia,serif;--mono:"JetBrains Mono",ui-monospace,monospace;--lado:clamp(20px,5vw,72px);--max:1240px}
+:root{--ouro:#C3A14E;--ouro-claro:#E3CC92;--creme:#F4EEDF;--texto:#C9C2B0;--fio:rgba(234,226,207,.14);--serif:"Playfair Display",Georgia,serif;--mono:"JetBrains Mono",ui-monospace,monospace;--lado:clamp(20px,5vw,72px);--max:1240px;--faixa:38px;--tela:calc(100svh - var(--faixa))}
+html{scroll-padding-top:var(--faixa)}
+body{padding-top:var(--faixa)}
+/* faixa de escassez fixa no topo (pedido do Gustavo, 30/10/2026): as dobras medem a tela sem a faixa, por --tela */
+.aviso-topo{position:fixed;inset:0 0 auto 0;z-index:30;min-height:38px;display:flex;align-items:center;justify-content:center;padding:8px 16px;background:#B3141B;color:#fff;font-size:13.5px;font-weight:500;line-height:1.35;letter-spacing:.01em;text-align:center;text-wrap:balance}
+@media (max-width:640px){:root{--faixa:54px}.aviso-topo{min-height:54px}}
 .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--lado)}
 .olho{font-family:var(--mono);font-size:11.5px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--ouro-claro)}
 .h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,min(3.5vw,5.8vh),48px);line-height:1.08;letter-spacing:-.012em;color:var(--creme);text-wrap:balance}
@@ -55,13 +60,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}[data-surge]{opacity:1;transform:none;filter:none;transition:none}*{animation:none!important}}
 
 /* topo */
-.topo{position:absolute;inset:0 0 auto 0;z-index:5;padding:22px 0}
+.topo{position:absolute;inset:var(--faixa) 0 auto 0;z-index:5;padding:22px 0}
 .topo .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .topo img{height:34px;width:auto}
 .topo .btn{min-height:44px;padding:0 20px;font-size:13.5px}
 
 /* dobra 1 */
-.heroi{position:relative;min-height:100svh;display:flex;align-items:center;padding:96px 0 36px;isolation:isolate;overflow:hidden}
+.heroi{position:relative;min-height:var(--tela);display:flex;align-items:center;padding:96px 0 36px;isolation:isolate;overflow:hidden}
 .heroi__fundo{position:absolute;inset:0;z-index:-2}
 .heroi__fundo img{width:100%;height:100%;object-fit:cover;object-position:62% 50%;animation:ken 26s ease-out both}
 @keyframes ken{from{transform:scale(1.02)}to{transform:scale(1.1)}}
@@ -75,7 +80,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .heroi__prova img{width:58px;height:58px;border-radius:14px;object-fit:cover;object-position:50% 18%;flex:none}
 .heroi__prova p{font-size:13.5px;line-height:1.5;color:var(--texto)}
 .heroi__prova b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;color:var(--creme);letter-spacing:0}
-.quadro{position:relative;justify-self:end;height:min(620px,calc(100svh - 150px));aspect-ratio:9/15.4;max-width:100%;border-radius:28px;overflow:hidden;padding:0;border:1px solid rgba(255,255,255,.16);background:#0b0f14;box-shadow:0 60px 120px -40px rgba(0,0,0,.95),0 0 0 10px rgba(255,255,255,.035),inset 0 1px 0 rgba(255,255,255,.25)}
+.quadro{position:relative;justify-self:end;height:min(620px,calc(var(--tela) - 150px));aspect-ratio:9/15.4;max-width:100%;border-radius:28px;overflow:hidden;padding:0;border:1px solid rgba(255,255,255,.16);background:#0b0f14;box-shadow:0 60px 120px -40px rgba(0,0,0,.95),0 0 0 10px rgba(255,255,255,.035),inset 0 1px 0 rgba(255,255,255,.25)}
 .quadro>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
 .quadro:hover>img{transform:scale(1.04)}
 .quadro::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,10,.35) 0%,transparent 26%,transparent 52%,rgba(5,7,10,.92) 100%)}
@@ -91,11 +96,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 .quadro iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
 
 /* dobra 2 */
-.porque{position:relative;min-height:100svh;display:flex;align-items:center;padding:clamp(40px,7vh,72px) 0 clamp(28px,5vh,56px)}
+.porque{position:relative;min-height:var(--tela);display:flex;align-items:center;padding:clamp(40px,7vh,72px) 0 clamp(28px,5vh,56px)}
 .porque>.wrap{width:100%}
 .porque__topo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:clamp(20px,4vw,64px);align-items:end}
 .porque__topo .h2{margin-top:12px}
-.bento{margin-top:clamp(20px,3.6vh,36px);display:grid;grid-template-columns:minmax(0,1.42fr) minmax(0,1fr) minmax(0,1fr);gap:16px;height:clamp(380px,calc(100svh - 340px),560px)}
+.bento{margin-top:clamp(20px,3.6vh,36px);display:grid;grid-template-columns:minmax(0,1.42fr) minmax(0,1fr) minmax(0,1fr);gap:16px;height:clamp(380px,calc(var(--tela) - 340px),560px)}
 .cartao{position:relative;border-radius:24px;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end;min-height:0;border:1px solid rgba(255,255,255,.09)}
 .cartao>img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
 .cartao:hover>img{transform:scale(1.05)}
@@ -113,7 +118,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .frase p span{color:var(--ouro-claro)}
 
 /* dobra 2, versao 3 (28/10/2026): Dr. Luciano recortado a esquerda, com chao na base da secao, e a oferta a direita */
-.extrair{position:relative;isolation:isolate;overflow:hidden;min-height:100svh;display:flex;align-items:stretch;padding-top:clamp(24px,4vh,48px)}
+.extrair{position:relative;isolation:isolate;overflow:hidden;min-height:var(--tela);display:flex;align-items:stretch;padding-top:clamp(12px,2vh,48px)}
 .extrair>.wrap{width:100%}
 .extrair__fundo{position:absolute;inset:0;z-index:-2}
 .extrair__fundo img{width:100%;height:100%;object-fit:cover;object-position:20% 50%;filter:brightness(1.15)}
@@ -121,10 +126,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .extrair__grade{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:end}
 .extrair__grade>*{min-width:0}
 .extrair__sujeito{margin:0;align-self:end;display:flex;justify-content:flex-end}
-.extrair__sujeito img{display:block;flex:none;width:auto;height:min(calc(100svh - 48px),900px);max-width:none}
+.extrair__sujeito img{display:block;flex:none;width:auto;height:min(calc(var(--tela) - 48px),900px);max-width:none}
 .extrair .ficha dl{margin-top:0}
 .extrair .ficha dl>div:first-child{border-top:0}
-.extrair__txt{align-self:center;padding:clamp(24px,4vh,48px) 0}
+.extrair__txt{align-self:center;padding:clamp(8px,1.4vh,48px) 0}
 .extrair .h2{font-size:clamp(28px,min(3.2vw,4.4vh),44px)}
 .extrair .ficha{max-width:640px}
 .extrair .ficha dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
@@ -167,14 +172,14 @@ button{font:inherit;color:inherit;cursor:pointer}
 }
 
 /* dobra 3 */
-.prova{position:relative;min-height:100svh;display:flex;align-items:center;padding:clamp(48px,8vh,96px) 0;isolation:isolate;overflow:hidden}
+.prova{position:relative;min-height:var(--tela);display:flex;align-items:center;padding:clamp(48px,8vh,96px) 0;isolation:isolate;overflow:hidden}
 .prova__fundo{position:absolute;inset:0;z-index:-2}
 .prova__fundo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:blur(16px) saturate(.85);transform:scale(1.08)}
 .prova__fundo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,10,.5),rgba(5,7,10,.84) 54%),linear-gradient(180deg,#05070A 0%,transparent 24%,transparent 72%,#05070A 100%)}
 .prova__grade{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(28px,6vw,96px);align-items:center}
 .prova__grade>*{min-width:0}
 .prova>.wrap{width:100%}
-.prova .quadro{justify-self:start;height:min(600px,calc(100svh - 170px));aspect-ratio:612/1080}
+.prova .quadro{justify-self:start;height:min(600px,calc(var(--tela) - 170px));aspect-ratio:612/1080}
 .prova .h2{margin-top:16px}
 .prova .lead{margin-top:20px}
 .grafico{margin-top:clamp(18px,3.4vh,32px);padding:20px 24px 18px;border-radius:22px;max-width:620px}
@@ -208,7 +213,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .aula li::before{content:"";flex:none;width:18px;height:1px;margin-top:12px;background:var(--ouro)}
 
 /* dobra 5 */
-.reuniao{position:relative;min-height:100svh;display:flex;align-items:center;padding:clamp(56px,9vh,110px) 0 clamp(40px,7vh,80px);isolation:isolate;overflow:hidden}
+.reuniao{position:relative;min-height:var(--tela);display:flex;align-items:center;padding:clamp(56px,9vh,110px) 0 clamp(40px,7vh,80px);isolation:isolate;overflow:hidden}
 .reuniao__fundo{position:absolute;inset:0;z-index:-2}
 .reuniao__fundo img{width:100%;height:100%;object-fit:cover;object-position:78% 22%}
 .reuniao__fundo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,10,.96) 0%,rgba(5,7,10,.82) 44%,rgba(5,7,10,.2) 100%),linear-gradient(180deg,#05070A 0%,transparent 20%,transparent 78%,#05070A 100%)}
@@ -276,8 +281,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .h2{font-size:clamp(28px,min(3.1vw,5.2vh),42px)}
 .lead{text-wrap:pretty}
 :focus-visible{outline-width:2px}
-.quadro{aspect-ratio:9/16;height:min(700px,calc(100svh - 150px))}
-.prova .quadro{aspect-ratio:9/16;height:min(640px,calc(100svh - 170px))}
+.quadro{aspect-ratio:9/16;height:min(700px,calc(var(--tela) - 150px))}
+.prova .quadro{aspect-ratio:9/16;height:min(640px,calc(var(--tela) - 170px))}
 .play{background:rgba(5,7,10,.42);border:1px solid rgba(227,204,146,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:none}
 .quadro .play{top:66%;width:72px;height:72px;margin:-36px 0 0 -36px}
 .quadro .play::before{border-left-width:18px;border-top-width:11px;border-bottom-width:11px;margin-left:5px}
@@ -333,7 +338,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 .vsl__lead{margin:clamp(10px,1.8vh,16px) auto 0;max-width:62ch}
 @media (min-width:900px){.vsl__lead{max-width:80ch}}
 .vsl__topo .h1{font-variant-numeric:lining-nums}
-.vsl__video{position:relative;max-width:min(1040px,max(560px,calc((100svh - 400px)*16/9)));margin:clamp(22px,4vh,40px) auto 0;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#0b0f14;box-shadow:0 60px 120px -40px rgba(0,0,0,.95),0 0 0 10px rgba(255,255,255,.035)}
+.vsl__video{position:relative;max-width:min(1040px,max(480px,calc((var(--tela) - max(390px,50vh))*16/9)));margin:clamp(22px,4vh,40px) auto 0;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#0b0f14;box-shadow:0 60px 120px -40px rgba(0,0,0,.95),0 0 0 10px rgba(255,255,255,.035)}
 .vsl__video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vsl__espera{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;padding:24px;text-align:center;background:radial-gradient(60% 70% at 50% 40%,rgba(195,161,78,.16),transparent 70%)}
 .vsl__espera p{max-width:40ch;font-size:15px;line-height:1.55;color:var(--texto)}
@@ -389,14 +394,14 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 }
 /* dobra 4 presa a rolagem (pedido do Gustavo, 29 e 30/10/2026): cada acompanhamento aparece conforme a posicao da rolagem; o estado escondido so existe com o script rodando */
 .acomp.ac-fixa{height:300svh;padding:0}
-.ac-fixa .ac-palco{position:sticky;top:0;height:100svh;padding-top:max(18px,calc((100svh - 580px)/2))}
+.ac-fixa .ac-palco{position:sticky;top:var(--faixa);height:var(--tela);padding-top:max(18px,calc((var(--tela) - 580px)/2))}
 .ac-fixa .ac-pc{margin-top:clamp(14px,3vh,32px)}
 .ac-fixa .ac-paineis{display:grid}
 .ac-fixa .ac-painel{grid-area:1/1}
 .ac-fixa .ac-painel[hidden]{display:grid;visibility:hidden}
 .ac-fixa .ac-aba{padding-block:clamp(10px,2.1vh,22px)}
 .ac-fixa .ac-painel{padding:clamp(14px,2.4vh,28px)}
-.ac-fixa .ac-painel img{max-height:calc(100svh - 190px);object-position:50% 20%}
+.ac-fixa .ac-painel img{max-height:calc(var(--tela) - 190px);object-position:50% 20%}
 .ac-fixa .ac-painel h3{font-size:clamp(30px,5.4vh,44px);margin-top:clamp(8px,1.4vh,16px)}
 .ac-fixa .ac-painel .ac-desc{margin-top:clamp(8px,1.4vh,14px)}
 .ac-fixa .ac-painel .ac-valor,.ac-fixa .ac-painel .btn{margin-top:clamp(10px,2vh,22px)}
@@ -411,7 +416,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 .reuniao__sub{margin-top:clamp(12px,2vh,18px);font-family:var(--serif);font-style:italic;font-size:clamp(19px,min(1.7vw,3vh),24px);line-height:1.3;color:var(--ouro-claro)}
 .reuniao .lead{margin-top:clamp(12px,2vh,18px)}
 .reuniao__sujeito{margin:0;align-self:end;display:flex;justify-content:flex-start}
-.reuniao__sujeito img{display:block;flex:none;width:auto;height:min(calc(100svh - 48px),900px);max-width:none}
+.reuniao__sujeito img{display:block;flex:none;width:auto;height:min(calc(var(--tela) - 48px),900px);max-width:none}
 /* celular: foto em cima com o rosto no centro da tela (centro do rosto medido pelo Vision: 0,508 aqui e 0,382 na foto da dobra 2) */
 @media (max-width:899px){
   .reuniao{padding:40px 0 56px}
@@ -433,6 +438,9 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 <script>window.MC_INTERNO||(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z5a6ddcjj4");</script>
 </head>
 <body>
+
+<div class="aviso-topo" id="aviso-topo" role="note">Atenção: se você sair desta página, não vai achar esse vídeo em outro lugar.</div>
+<script>new ResizeObserver(function(e){document.documentElement.style.setProperty('--faixa',Math.ceil(e[0].target.offsetHeight)+'px')}).observe(document.getElementById('aviso-topo'));</script>
 
 <header class="topo">
   <div class="wrap">
@@ -543,7 +551,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
   });
   // opacidade e deslocamento saem da posicao da rolagem, nunca do tempo: volta ao subir e acerta depois de rolagem rapida
   const semMovimento = matchMedia('(prefers-reduced-motion:reduce)');
-  const telaPc = matchMedia('(min-width:1024px) and (min-height:600px),(min-width:900px) and (min-height:720px)');
+  const telaPc = matchMedia('(min-width:1024px) and (min-height:640px),(min-width:900px) and (min-height:760px)');
   const telaCel = matchMedia('(max-width:899px)');
   const faixa = (v, de, ate) => Math.min(1, Math.max(0, (v - de) / (ate - de)));
   const pinta = (el, p) => {
