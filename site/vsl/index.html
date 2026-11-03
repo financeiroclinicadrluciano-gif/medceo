@@ -341,7 +341,10 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
 .vsl__video{position:relative;max-width:min(1040px,max(480px,calc((var(--tela) - max(390px,50vh))*16/9)));margin:clamp(22px,4vh,40px) auto 0;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#0b0f14;box-shadow:0 60px 120px -40px rgba(0,0,0,.95),0 0 0 10px rgba(255,255,255,.035)}
 .vsl__video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vsl__espera{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;padding:24px;text-align:center;background:radial-gradient(60% 70% at 50% 40%,rgba(195,161,78,.16),transparent 70%)}
-.vsl__conta{margin:10px auto 0;text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:#9C9686;opacity:.55;font-variant-numeric:tabular-nums}
+.vsl__conta{display:flex;flex-direction:column;align-items:center;gap:9px;margin:24px auto 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--texto);opacity:.8;font-variant-numeric:tabular-nums}
+.vsl__conta b{font-weight:500;color:var(--ouro-claro)}
+.vsl__conta-barra{display:block;width:150px;height:2px;border-radius:2px;background:var(--fio);overflow:hidden}
+.vsl__conta-barra i{display:block;height:100%;width:0;background:var(--ouro);transition:width 1s linear}
 .vsl.livre .vsl__conta{display:none}
 .vsl__espera p{max-width:40ch;font-size:15px;line-height:1.55;color:var(--texto)}
 .trancado,[data-trancado-btn],body:not(.livre) .pe{display:none}
@@ -468,7 +471,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
         <p>O Dr. Luciano está terminando este vídeo. Ele entra aqui assim que ficar pronto.</p>
       </div>
     </div>
-    <p class="vsl__conta" data-conta>O restante libera em 5:00</p>
+    <p class="vsl__conta"><span>O restante libera em <b data-conta>5:00</b></span><span class="vsl__conta-barra"><i data-conta-barra></i></span></p>
   </div>
 </section>
 
@@ -676,6 +679,7 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
   const alvo = Number(caixa.getAttribute('data-liberar')) || 300;
   const fixo = document.querySelector('[data-fixo]');
   const conta = document.querySelector('[data-conta]');
+  const barra = document.querySelector('[data-conta-barra]');
   let visto = 0;
   let ultimo = null;
   let livre = false;
@@ -694,7 +698,8 @@ a.heroi__prova:hover{border-color:rgba(227,204,146,.45);transform:translateY(-2p
     if (ultimo !== null) { const d = t - ultimo; if (d > 0 && d < 3) visto += d; }
     ultimo = t;
     const falta = Math.max(0, Math.ceil(alvo - visto));
-    if (conta) conta.textContent = `O restante libera em ${Math.floor(falta / 60)}:${String(falta % 60).padStart(2, '0')}`;
+    if (conta) conta.textContent = `${Math.floor(falta / 60)}:${String(falta % 60).padStart(2, '0')}`;
+    if (barra) barra.style.width = `${Math.min(100, (visto / alvo) * 100)}%`;
     if (visto >= alvo) { liberar(); if (window.MCTrack) window.MCTrack.event("vsl_liberada", { segundos: alvo }); if (window.clarity) window.clarity("event", "vsl_liberada"); }
   };
 
