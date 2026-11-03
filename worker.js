@@ -33,7 +33,8 @@ const REDIRECIONAMENTOS = new Map([
 // em 20/10), então a aula de hoje vai fixa até a live acabar.
 // Cada destino fixo tem validade: vencido, o /assistir volta a `liveDoDia` sozinho,
 // para o link da semana passada nunca ficar preso no botão do WhatsApp.
-const TEMPORARIOS = new Map([["/assistir", { url: "https://www.youtube.com/watch?v=W2zenVQWmqA", ate: "2026-11-03T20:00:00Z" }]]);
+// 03/11 14h45: a reprise da aula 6 vai ao vivo hoje às 20h (bMlYpyuPFZw); fixa até 0h de 04/11.
+const TEMPORARIOS = new Map([["/assistir", { url: "https://www.youtube.com/watch?v=bMlYpyuPFZw", ate: "2026-11-04T03:00:00Z" }]]);
 const temporarioValido = (c) => { const t = TEMPORARIOS.get(c); return t && Date.now() < Date.parse(t.ate) ? t.url : null; };
 
 // 27/10: o botão "Assistir à aula" do modelo de WhatsApp e o convite semanal
