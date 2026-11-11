@@ -116,15 +116,12 @@ Tirar a venda do improviso: do primeiro "quanto custa?" no WhatsApp até o fecha
 **04 · Dr. Luciano e Gislaine | Gestão** *(kicker: Pilar de desenvolvimento)*
 Cultura, performance e gente boa que fica. Equipe com alçada para resolver sem passar tudo pela mesa do dono.
 
-**05 · Michele | Projetos** *(kicker: Pilar de desenvolvimento)*
-Tirar a IA do discurso e colocar em execução: projeto com dono, prazo e critério de pronto.
-
-**06 · Amanda | Filmmaker** *(kicker: Pilar de desenvolvimento)*
+**05 · Amanda | Filmmaker** *(kicker: Pilar de desenvolvimento)*
 Transformar conhecimento clínico em conteúdo que prende atenção e sustenta posicionamento, gravado dentro da rotina que já existe.
 
 **CTA:** (sem CTA na dobra, mantém)
 
-**Por que mudou:** a headline tinha 16 palavras e terminava em jargão ("capacidade empresarial"). A nova diz em 6 a promessa real da dobra: seis especialistas existem para o médico não ter que ser seis pessoas.
+**Por que mudou:** a headline tinha 16 palavras e terminava em jargão ("capacidade empresarial"). A nova diz em 6 a promessa real da dobra: cinco especialistas existem para o médico não ter que ser cinco pessoas.
 
 ---
 

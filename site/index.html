@@ -354,7 +354,7 @@ details[open] summary .faq__plus{transform:rotate(45deg)}
    rolagem troca o profissional. A altura vem do numero de passos, nao de um
    valor magico — mudar a quantidade de pilares nao exige mexer no CSS. */
 .atlas__seq{position:relative}
-html.js .atlas__seq{height:calc(var(--fold-height,100svh) + (var(--pro-passos,6) - 1) * var(--pro-passo,80svh))}
+html.js .atlas__seq{height:calc(var(--fold-height,100svh) + (var(--pro-passos,5) - 1) * var(--pro-passo,80svh))}
 .atlas__sticky{position:relative}
 html.js .atlas__sticky{position:sticky;top:var(--nav-height,71px);display:flex;align-items:center;
   height:calc(100svh - var(--nav-height,71px));overflow:hidden}
@@ -403,7 +403,7 @@ html:not(.js) .atlas__slides{gap:clamp(48px,7vh,88px);padding-block:clamp(36px,5
   transition:width .5s var(--ease)}
 .pillrail{display:grid;gap:2px;margin:0;padding:0;list-style:none;grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(min-width:640px){.pillrail{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(min-width:1000px){.pillrail{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(min-width:1000px){.pillrail{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .pillrail button{display:grid;gap:6px;width:100%;min-height:62px;padding:14px 12px 14px 14px;border:0;
   border-left:1px solid transparent;background:transparent;text-align:left;cursor:pointer;
   transition:background .35s ease,border-color .35s ease}
@@ -449,8 +449,8 @@ html:not(.js) .atlas__slides{gap:clamp(48px,7vh,88px);padding-block:clamp(36px,5
   .pro__topics li{grid-template-columns:24px minmax(0,1fr);gap:10px;padding:7px 0;
     font-size:12.5px;line-height:1.4}
   .pillrail-wrap{margin-top:14px}
-  /* Vira uma regua de seis toques: o nome do pilar ja esta no titulo do slide. */
-  .pillrail{grid-template-columns:repeat(6,minmax(0,1fr))}
+  /* Vira uma regua de cinco toques: o nome do pilar ja esta no titulo do slide. */
+  .pillrail{grid-template-columns:repeat(5,minmax(0,1fr))}
   .pillrail button{min-height:40px;padding:10px 4px;justify-items:center}
   .pillrail button strong{display:none}
   .pillrail button small{font-size:9.5px;letter-spacing:.14em}
@@ -1034,14 +1034,14 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
       <div class="env atlas__abre">
         <div class="atlas__head" data-reveal="">
           <span aria-hidden="true">Arquitetura do método</span>
-          <span>06 inteligências integradas</span>
+          <span>05 inteligências integradas</span>
         </div>
 
         <div class="atlas__intro" data-reveal="" style="--d:1">
-          <h2 id="t-atlas">Você não precisa virar <em>seis profissionais.</em></h2>
+          <h2 id="t-atlas">Você não precisa virar <em>cinco profissionais.</em></h2>
           <div class="bloco">
             <strong>Mentalidade CEO é a base.</strong>
-            <p>Os outros cinco pilares transformam direção em visibilidade, venda, cultura, execução e conteúdo. Cada frente tem um responsável que faz aquilo todo dia dentro de uma clínica de verdade. Você aprende a dirigir as seis, não a executar as seis.</p>
+            <p>Os outros quatro pilares transformam direção em visibilidade, venda, cultura e conteúdo. Cada frente tem um responsável que faz aquilo todo dia dentro de uma clínica de verdade. Você aprende a dirigir as cinco, não a executar as cinco.</p>
           </div>
         </div>
       </div>
@@ -1121,32 +1121,15 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
           <article class="pro" data-pro="4" aria-labelledby="pro-t-4">
             <figure class="pro__media">
               <div class="pro__moldura">
-                <img src="/assets/medceo/pilar-michele.jpg" alt="Michele, responsável pelo pilar de Projetos do MedCEO, em retrato de estúdio com fundo escuro." width="1200" height="1600" loading="lazy" decoding="async" style="object-position:center 17%" />
-                <span aria-hidden="true" class="pro__vinheta"></span>
-                <span aria-hidden="true" class="pro__num">05</span>
-              </div>
-              <figcaption>Com Michele</figcaption>
-            </figure>
-            <div class="pro__info">
-              <p class="pro__kicker">Pilar de desenvolvimento</p>
-              <h3 class="pro__role" id="pro-t-4">Projetos</h3>
-              <p class="pro__thesis">Fazer a IA sair do discurso e virar execução: projetos com dono, prazo e critério de sucesso.</p>
-              <p class="pro__desenv">O que você desenvolve</p>
-              <ul class="pro__topics"><li><span aria-hidden="true">01</span>IA para clínicas</li><li><span aria-hidden="true">02</span>IA aplicada à gestão e análise</li><li><span aria-hidden="true">03</span>Gestão de projetos</li></ul>
-            </div>
-          </article>
-          <article class="pro" data-pro="5" aria-labelledby="pro-t-5">
-            <figure class="pro__media">
-              <div class="pro__moldura">
                 <img src="/assets/medceo/pilar-amanda.jpg" alt="Amanda, responsável pelo pilar de conteúdo e filmmaking do MedCEO, em retrato de estúdio com fundo escuro." width="1200" height="1600" loading="lazy" decoding="async" style="object-position:center 14%" />
                 <span aria-hidden="true" class="pro__vinheta"></span>
-                <span aria-hidden="true" class="pro__num">06</span>
+                <span aria-hidden="true" class="pro__num">05</span>
               </div>
               <figcaption>Com Amanda</figcaption>
             </figure>
             <div class="pro__info">
               <p class="pro__kicker">Pilar de desenvolvimento</p>
-              <h3 class="pro__role" id="pro-t-5">Filmmaker</h3>
+              <h3 class="pro__role" id="pro-t-4">Filmmaker</h3>
               <p class="pro__thesis">Transformar conhecimento médico em conteúdo que prende atenção e sustenta posicionamento.</p>
               <p class="pro__desenv">O que você desenvolve</p>
               <ul class="pro__topics"><li><span aria-hidden="true">01</span>Gravação: equipamentos e técnicas</li><li><span aria-hidden="true">02</span>Criação de roteiros</li><li><span aria-hidden="true">03</span>Edição de vídeo</li></ul>
@@ -1156,7 +1139,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
 
             <nav class="pillrail-wrap" aria-label="Navegar pelos pilares do método">
               <div aria-hidden="true" class="pillrail-progress"><span data-pill-progress=""></span></div>
-              <ol class="pillrail"><li><button type="button" data-pillar-btn="0" aria-current="true"><small>01</small><strong>Mentalidade CEO</strong></button></li><li><button type="button" data-pillar-btn="1" aria-current="false"><small>02</small><strong>Marketing</strong></button></li><li><button type="button" data-pillar-btn="2" aria-current="false"><small>03</small><strong>Comercial</strong></button></li><li><button type="button" data-pillar-btn="3" aria-current="false"><small>04</small><strong>Gestão</strong></button></li><li><button type="button" data-pillar-btn="4" aria-current="false"><small>05</small><strong>Projetos</strong></button></li><li><button type="button" data-pillar-btn="5" aria-current="false"><small>06</small><strong>Filmmaker</strong></button></li></ol>
+              <ol class="pillrail"><li><button type="button" data-pillar-btn="0" aria-current="true"><small>01</small><strong>Mentalidade CEO</strong></button></li><li><button type="button" data-pillar-btn="1" aria-current="false"><small>02</small><strong>Marketing</strong></button></li><li><button type="button" data-pillar-btn="2" aria-current="false"><small>03</small><strong>Comercial</strong></button></li><li><button type="button" data-pillar-btn="3" aria-current="false"><small>04</small><strong>Gestão</strong></button></li><li><button type="button" data-pillar-btn="4" aria-current="false"><small>05</small><strong>Filmmaker</strong></button></li></ol>
             </nav>
 
             <p aria-live="polite" aria-atomic="true" class="atlas__live"><span data-pill="live"></span></p>
@@ -1396,7 +1379,7 @@ html.js .fcard.dentro li:nth-child(4){transition-delay:.40s}
         <div class="faq" data-reveal="" style="--d:1">
           <details><summary>O diagnóstico é gratuito?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Sim. São cinco passos, cerca de seis minutos, e a partir deles o Dr. Luciano e os pilares chegam na sua sessão já sabendo por onde começar.</p></details>
           <details><summary>Preciso já ter uma clínica funcionando?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Sim. O diagnóstico precisa de matéria-prima: pacientes, equipe, faturamento e decisões que já podem ser observadas. Quem ainda não abriu a operação não tem o que diagnosticar.</p></details>
-          <details><summary>Isso é mais um curso de marketing médico?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Não. Marketing é apenas uma das seis frentes. Antes dela vêm mentalidade de CEO, margem, comercial, gestão de pessoas e projetos, porque mais pacientes em uma operação desorganizada só amplifica o gargalo.</p></details>
+          <details><summary>Isso é mais um curso de marketing médico?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Não. Marketing é apenas uma das cinco frentes. Antes dela vêm mentalidade de CEO, margem, comercial e gestão de pessoas, porque mais pacientes em uma operação desorganizada só amplifica o gargalo.</p></details>
           <details><summary>Quanto tempo preciso dedicar por semana?<span class="faq__plus" aria-hidden="true">+</span></summary><p>O diagnóstico leva cerca de cinco minutos. A mentoria é desenhada para caber na agenda de quem atende: encontros com pauta objetiva e execução acompanhada, não maratona de aulas.</p></details>
           <details><summary>Vocês prometem determinado faturamento?<span class="faq__plus" aria-hidden="true">+</span></summary><p>Não. Nenhum resultado é garantido: ele depende da sua operação, do seu mercado e da sua execução. O que entregamos é diagnóstico, direção e acompanhamento.</p></details>
           <details><summary>Atende clínicas de qualquer especialidade?<span class="faq__plus" aria-hidden="true">+</span></summary><p>O método é de gestão, então se aplica a clínicas de diferentes especialidades. O que define o encaixe é o estágio da operação, não a área médica.</p></details>
