@@ -33,8 +33,9 @@ const REDIRECIONAMENTOS = new Map([
 // em 20/10), então a aula de hoje vai fixa até a live acabar.
 // Cada destino fixo tem validade: vencido, o /assistir volta a `liveDoDia` sozinho,
 // para o link da semana passada nunca ficar preso no botão do WhatsApp.
-// 10/11 14h55: aula 7 "Arquétipo de Marca" ao vivo hoje às 20h (rRK-VeLnsIw); fixa até 0h de 11/11.
-const TEMPORARIOS = new Map([["/assistir", { url: "https://www.youtube.com/watch?v=rRK-VeLnsIw", ate: "2026-11-11T03:00:00Z" }]]);
+// 25/11 15h25: aula 10 "Nome e Proposta de Valor" ao vivo hoje (quarta) às 20h (x_57a2_cAyY); fixa até 0h de 26/11,
+// porque a transmissão de teste não listada das 17h pode tomar o /live do canal.
+const TEMPORARIOS = new Map([["/assistir", { url: "https://www.youtube.com/watch?v=x_57a2_cAyY", ate: "2026-11-26T03:00:00Z" }]]);
 const temporarioValido = (c) => { const t = TEMPORARIOS.get(c); return t && Date.now() < Date.parse(t.ate) ? t.url : null; };
 
 // 27/10: o botão "Assistir à aula" do modelo de WhatsApp e o convite semanal
